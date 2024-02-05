@@ -84,6 +84,7 @@
                        'ECPL',
                        'Mech File Format',
                        'Internal Document',
-                       '0002W - mech files.txt -> Specification'],
+                       '0002W - mech files.txt -> Specification',
+                       '[direct]'],
          'name': 'Documents',
          'parts': ['EC-0000W', 'EC-0001W', 'EC-0002W']}}

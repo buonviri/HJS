@@ -87,20 +87,19 @@ def GenerateHTML(filename, title):
         for part in parts:  # iterate over each part in the current category
             partinfo = info[cat_letter][part]  # list of strings for each part
             partinfo = partinfo + ['', '', '', '',]  # add four blank strings just in case not enough are provided
-            if part == prefix + anchor + cat_letter:  # look for anchors
-                print('Found anchor: ' + part)
-            else:  # non-anchors get added to HTML
-                mainhtml = mainhtml + '    ' + partinfo[1] + ' ' + partinfo[2] + '<br>' + partinfo[3] + '<br>\n'
-                mainhtml = mainhtml + '    <A HREF="./' + partinfo[0].replace('\\','/') + '/' + part + '.html' + '">' + part + '</A><br><br>\n'
             parthtml = BodyHTML + StyleHTML
             parthtml = parthtml + '    ' + partinfo[1] + ' ' + partinfo[2] + '<br>' + partinfo[3] + '<br>\n'  # add mfg info
             parthtml = parthtml + '    ' + part + '<br><br>\n'  # add mpl info
+            link_to_part = part + '.html'  # defaults to the html file, but may get replaced with [direct] link
             for rawline in partinfo[4:]:  # if there are more than four lines, the rest are links
                 line = rawline.strip()  # remove spaces
                 if len(line) < 2:  # lines with only one character aren't valid, replace with blank
                     line = ''  # won't generate standard link below
                 elif line[1] in r'\/':  # if second char is slash (uses raw string as list)
                     line = up + line[0] + '/' + line[2:]  # replace path with proper one
+                if line.lower() == '[direct]':  # check if line contains the direct tag, case-insensitive
+                    line = ''  # won't generate standard link below
+                    link_to_part = lastlink
                 if ' -> ' in line:
                     linkandtext = line.split(' -> ')
                     link = linkandtext[0]
@@ -110,9 +109,16 @@ def GenerateHTML(filename, title):
                     text = line.split('.')[-1]  # last item in list is extension, which is displayed text by default
                 if link is not '':  # don't add a link if it's blank
                     parthtml = parthtml + '    <A HREF="' + link + '">' + text + '</a><br>\n'  # write link and text as anchor
+                lastlink = link
+                lasttext = text
             parthtml = parthtml + EndHTML
             with open (os.path.join(partinfo[0], part + '.html'), 'w') as f:
                 f.write(parthtml)
+            if part == prefix + anchor + cat_letter:  # look for anchors
+                print('Found anchor: ' + part)
+            else:  # non-anchors get added to HTML
+                mainhtml = mainhtml + '    ' + partinfo[1] + ' ' + partinfo[2] + '<br>' + partinfo[3] + '<br>\n'
+                mainhtml = mainhtml + '    <A HREF="./' + partinfo[0].replace('\\','/') + '/' + link_to_part + '">' + part + '</A><br><br>\n'
     mainhtml = mainhtml + EndHTML
     with open (filename, 'w') as f:
         f.write(mainhtml)
