@@ -43,10 +43,12 @@ def AddNext(cat, part, filename):
             os.mkdir(partpath)
         except:
             print('  Path exists: ' + partpath)  # print instead of log, don't need permanent record
-    with open (os.path.join(partpath, filename), 'w') as f:
+    newfile = os.path.join(partpath, filename)
+    with open (newfile, 'w') as f:
         f.write('manufacturer\npartnumber\ndescription\ndatasheet\n')
     log('Wrote \'' + filename + '\'')
     print()  # blank line at end, excluded from log
+    return newfile
 # EOFN
 
 
@@ -72,7 +74,7 @@ last = parts[-1][:-1]  # last part in list with category letter (last letter) re
 next = int(last) + 1  # add one to int version of number to get next available
 nextstr = fmt % (next)  # format to match filename
 nextfile = prefix + nextstr + cwd + suffix  # assemble filename of next part
-AddNext(cwd, nextstr, nextfile)  # add the file and any necessary folders
+newfile = AddNext(cwd, nextstr, nextfile)  # add the file and any necessary folders
 
 # update log file
 with open ('new.log', 'a') as f:
@@ -80,3 +82,8 @@ with open ('new.log', 'a') as f:
 
 # pause for user input
 os.system("PAUSE")
+
+# launch in editor after unpausing
+os.startfile(newfile)
+
+# EOF
