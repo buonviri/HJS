@@ -63,11 +63,11 @@ def AddCategory(letter, name):
     log('Added file: ' + anchor_filename)
 
 
-# get info
-def GetInfo(fullfilename):
-    with open (fullfilename, 'r') as f:
+# get info from file
+def GetInfo(dirname, filename):
+    with open (os.path.join(dirname,filename), 'r') as f:
         lines = [line.strip() for line in f]  # generates a list of the lines without whitespace
-    return lines
+    return [dirname,] + lines
 
 
 # iterate over all the categories
@@ -85,7 +85,7 @@ for c in categories:
                 # check if length and extension are correct
                 if len(filename) == name_length and filename[-len(extension):] in [extension, alt_extension]:
                     part = filename[0:-len(extension)]  # remove extension
-                    info[cat_letter][part] = GetInfo(os.path.join(dirname,filename))  # add info from file to dict
+                    info[cat_letter][part] = GetInfo(dirname, filename)  # add info from file to dict
                     parts.append(part)  # add part to temporary list
     allparts = allparts + sorted(parts)
 
