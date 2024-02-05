@@ -1,1 +1,8 @@
+# ignore whole folder
 i/
+
+# ignore test files
+*.pdf
+*.PDF
+*.step
+*.STEP
