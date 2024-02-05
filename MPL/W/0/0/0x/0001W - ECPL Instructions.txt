@@ -1,5 +1,5 @@
 To create a new Entry:
-  1) Browse to the category folder and run 'new.py'
+  1) Browse to the category folder and run 'new.bat' which calls 'new.py' and launches the new text file in the default editor
   2) Add documents and datasheets to the containing folder
   8) Add content to the text file:
      - template contains requirements for the first four lines
