@@ -16,4 +16,4 @@ Tolerances may also be defined with tags
    [Z] [z] [zmax]
 Custom tags will be interpreted as additional keys
 Minimizing custom tags is preferred
-Use [MFG] to indicate the manufacturer's package name, for example
+Always use [MFG] to indicate the manufacturer's package name, for example

@@ -1,8 +1,6 @@
 import os
 import pprint
 
-# todo: direct method
-
 # project name, pick whatever you want, do not ever change it!
 project = 'ECPL'
 
@@ -100,7 +98,7 @@ def GenerateHTML(filename, title):
             for rawline in partinfo[4:]:  # if there are more than four lines, the rest are links
                 line = rawline.strip()  # remove spaces
                 if len(line) < 2:  # lines with only one character aren't valid, replace with blank
-                    line = ''
+                    line = ''  # won't generate standard link below
                 elif line[1] in r'\/':  # if second char is slash (uses raw string as list)
                     line = up + line[0] + '/' + line[2:]  # replace path with proper one
                 if ' -> ' in line:
