@@ -97,9 +97,13 @@ def GenerateHTML(filename, title):
                     line = ''  # won't generate standard link below
                 elif line[1] in r'\/':  # if second char is slash (uses raw string as list)
                     line = up + line[0] + '/' + line[2:]  # replace path with proper one
-                if line.lower() == '[direct]':  # check if line contains the direct tag, case-insensitive
+                if line.lower().startswith('[direct]'):  # check if line starts with the direct tag, case-insensitive
+                    page = ''  # default to not having a page ref
+                    directpage = line.split(' ')
+                    if len(directpage) == 2:  # direct tag plus a page number
+                        page = '#page=' + directpage[1]  # add the page indicator plus the page number
+                    link_to_part = lastlink + page
                     line = ''  # won't generate standard link below
-                    link_to_part = lastlink
                 if ' -> ' in line:
                     linkandtext = line.split(' -> ')
                     link = linkandtext[0]

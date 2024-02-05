@@ -1,0 +1,5 @@
+ADI
+MAX77542
+Quad Phase Buck Converter
+max77542.pdf
+[direct] 8
