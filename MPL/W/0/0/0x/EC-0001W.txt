@@ -2,3 +2,4 @@ ECPL
 Instructions
 Internal Document
 0001W - ECPL Instructions.txt -> ECPL Instructions
+[DIRECT]
