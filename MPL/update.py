@@ -1,6 +1,8 @@
 import os
 import pprint
 
+# todo: direct method
+
 # project name, pick whatever you want, do not ever change it!
 project = 'ECPL'
 
@@ -70,27 +72,16 @@ def GetInfo(dirname, filename):
     return [dirname,] + lines
 
 
-def BodyHTML(s):
-    return s + """<BODY BGCOLOR="#222222" TEXT="#DDDDDD" LINK="#0000FF" VLINK="0099FF" ALINK="#FF0000">\n\n"""
-
-
-def StyleHTML(s):
-    return s + """  <p style="margin-left: 25px; margin-top: 25px;">\n"""
-
-
-def TitleHTML(s, t):
-    return s + """    <H2>""" + t + """<H2>\n"""
-
-
-def EndHTML(s):
-    return s + '  </p>\n\n</BODY>\n'
+# HTML strings
+BodyHTML = """<BODY BGCOLOR="#222222" TEXT="#DDDDDD" LINK="#0000FF" VLINK="0099FF" ALINK="#FF0000">\n\n"""
+StyleHTML = """  <p style="margin-left: 25px; margin-top: 25px;">\n"""
+TitleStartHTML = """    <H2>"""
+TitleEndHTML = """<H2>\n"""
+EndHTML = """  </p>\n\n</BODY>\n"""
 
 
 def GenerateHTML(filename, title):
-    mainhtml = ''  # blank string for html - add body, style, title
-    mainhtml = BodyHTML(mainhtml)
-    mainhtml = StyleHTML(mainhtml)
-    mainhtml = TitleHTML(mainhtml, title)
+    mainhtml = BodyHTML + StyleHTML + TitleStartHTML + title + TitleEndHTML
     for c in categories:  # iterate over categories for both main and part HTML files 
         cat_letter = c[0]  # zeroth string in tuple is the letter
         mainhtml = mainhtml + '    <br><H2>' + info[cat_letter]['name'] + ' (' + cat_letter + ')</H2>\n'
@@ -103,9 +94,7 @@ def GenerateHTML(filename, title):
             else:  # non-anchors get added to HTML
                 mainhtml = mainhtml + '    ' + partinfo[1] + ' ' + partinfo[2] + '<br>' + partinfo[3] + '<br>\n'
                 mainhtml = mainhtml + '    <A HREF="./' + partinfo[0].replace('\\','/') + '/' + part + '.html' + '">' + part + '</A><br><br>\n'
-            parthtml = ''  # blank string for html - add body, style, but no title
-            parthtml = BodyHTML(parthtml)
-            parthtml = StyleHTML(parthtml)
+            parthtml = BodyHTML + StyleHTML
             parthtml = parthtml + '    ' + partinfo[1] + ' ' + partinfo[2] + '<br>' + partinfo[3] + '<br>\n'  # add mfg info
             parthtml = parthtml + '    ' + part + '<br><br>\n'  # add mpl info
             for rawline in partinfo[4:]:  # if there are more than four lines, the rest are links
@@ -123,10 +112,10 @@ def GenerateHTML(filename, title):
                     text = line.split('.')[-1]  # last item in list is extension, which is displayed text by default
                 if link is not '':  # don't add a link if it's blank
                     parthtml = parthtml + '    <A HREF="' + link + '">' + text + '</a><br>\n'  # write link and text as anchor
-            parthtml = EndHTML(parthtml)
+            parthtml = parthtml + EndHTML
             with open (os.path.join(partinfo[0], part + '.html'), 'w') as f:
                 f.write(parthtml)
-    mainhtml = EndHTML(mainhtml)
+    mainhtml = mainhtml + EndHTML
     with open (filename, 'w') as f:
         f.write(mainhtml)
     

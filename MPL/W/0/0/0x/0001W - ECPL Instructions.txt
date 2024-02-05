@@ -1,0 +1,9 @@
+To create a new Entry:
+  1) Browse to the category folder and run 'new.py'
+  2) Add documents and datasheets to the containing folder
+  8) Add content to the text file:
+     - template contains requirements for the first four lines
+     - additional lines are other files to be made into links
+     - lines with x\yz or x/yz need ../../x/yz conversion
+     - the -> separator allows custom text instead of defaulting to extension for links
+  5) Run 'update.py' to generate new HTML files

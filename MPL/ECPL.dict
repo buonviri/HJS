@@ -75,5 +75,15 @@
                        'ECPL',
                        'Documents',
                        'EC-0000W.txt is reserved as the category anchor'],
+         'EC-0001W': [ 'W\\0\\0\\0x',
+                       'ECPL',
+                       'Instructions',
+                       'Internal Document',
+                       '0001W - ECPL Instructions.txt -> ECPL Instructions'],
+         'EC-0002W': [ 'W\\0\\0\\0x',
+                       'ECPL',
+                       'Mech File Format',
+                       'Internal Document',
+                       '0002W - mech files.txt -> Specification'],
          'name': 'Documents',
-         'parts': ['EC-0000W']}}
+         'parts': ['EC-0000W', 'EC-0001W', 'EC-0002W']}}

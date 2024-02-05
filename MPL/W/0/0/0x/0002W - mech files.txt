@@ -1,0 +1,19 @@
+Specification for *.mech files
+
+All values are floating point
+First three lines contain nominal X, nominal Y, maximum Z
+Tags are optional for these lines: [X], [Y], [Z]
+All tags are case-insensitive: [x] == [X]
+Tolerances may also be defined with tags
+   [xmin]
+   [X] [x] [xnom]
+   [xmax]
+   [ymin]
+   [Y] [y] [ynom]
+   [ymax]
+   [zmin]
+   [znom]
+   [Z] [z] [zmax]
+Custom tags will be interpreted as additional keys
+Minimizing custom tags is preferred
+Use [MFG] to indicate the manufacturer's package name, for example
