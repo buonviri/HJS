@@ -79,7 +79,7 @@
                        'manufacturer',
                        'partnumber',
                        'description',
-                       'datasheet'],
+                       'datasheet.pdf#page=8'],
          'EC-0003U': [ 'U\\0\\0\\0x',
                        'manufacturer',
                        'partnumber',

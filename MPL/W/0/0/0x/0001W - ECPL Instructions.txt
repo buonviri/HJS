@@ -7,4 +7,7 @@ To create a new Entry:
      - lines with x\yz or x/yz need ../../x/yz conversion
      - the -> separator allows custom text instead of defaulting to extension for links
      - adding the tag [direct] after a line containing a link will cause the main html to link directly to that file
+     - an optional integer value after the tag may be used to indicate the initial page number, e.g. [direct] 12 will open the doc to page 12
+     - any datasheet may include a page number at the end as well, using the html technique:
+     - datasheet.pdf#page=12 -> Datasheet Page 12
   5) Run 'update.py' to generate new HTML files

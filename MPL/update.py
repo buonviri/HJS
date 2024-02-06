@@ -109,12 +109,14 @@ def GenerateHTML(filename, title):
                     link = linkandtext[0]
                     text = linkandtext[1]
                 else:
-                    link = line  # whole line is also link
+                    link = line  # whole line is also link, may include page number
                     text = line.split('.')[-1]  # last item in list is extension, which is displayed text by default
+                    if '#' in text:  # if there's a # in the extension, the link includes a page number or other html feature
+                        text = text.split('#')[0]  # split on # and take the first token only, e.g. 'pdf#page=8' becomes 'pdf' again
                 if link is not '':  # don't add a link if it's blank
                     parthtml = parthtml + '    <A HREF="' + link + '">' + text + '</a><br>\n'  # write link and text as anchor
                 lastlink = link
-                lasttext = text
+                lasttext = text  # currently unused
             parthtml = parthtml + EndHTML
             with open (os.path.join(partinfo[0], part + '.html'), 'w') as f:
                 f.write(parthtml)
