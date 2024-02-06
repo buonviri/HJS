@@ -99,13 +99,13 @@ def GenerateHTML(filename, title):
                     line = up + line[0] + '/' + line[2:]  # replace path with proper one
                 if line.lower().startswith('[direct]'):  # check if line starts with the direct tag, case-insensitive
                     page = ''  # default to not having a page ref
-                    directpage = line.split(' ')
-                    if len(directpage) == 2:  # direct tag plus a page number
+                    directpage = line.split(' ')  # space separates tag and page number
+                    if len(directpage) == 2:  # direct tag plus a page number equals two list items
                         page = '#page=' + directpage[1]  # add the page indicator plus the page number
-                    link_to_part = lastlink + page
+                    link_to_part = lastlink + page  # append page, might be empty string
                     line = ''  # won't generate standard link below
-                if ' -> ' in line:
-                    linkandtext = line.split(' -> ')
+                if ' -> ' in line:  # look for arrow to indicate alternate text
+                    linkandtext = line.split(' -> ')  # split into link and text
                     link = linkandtext[0]
                     text = linkandtext[1]
                 else:
