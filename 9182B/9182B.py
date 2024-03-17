@@ -146,6 +146,7 @@ while True:
         time.sleep(0.49)
     except KeyboardInterrupt:  # hitting CTRl-C will exit the script cleanly
         print('\n  CTRL-C Detected')
+        os.system('timeout /t 10')
         break
 
 #EOF
