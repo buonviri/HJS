@@ -4,6 +4,7 @@
 # Rev 1.01: added graph
 # Rev 1.02: added simulation mode
 # Rev 1.03: fake random numbers
+# Rev 1.04: added timeout after CTRL-C
 
 import serial  # requires pip install pyserial
 import time    # need time.time, time.sleep
@@ -144,9 +145,9 @@ while True:
         log(','.join([hex(int(t))[2:],p,i,v]))  # join with commas: timestamp, power, current, voltage
     try:  # normal operation
         time.sleep(0.49)
-    except KeyboardInterrupt:  # hitting CTRl-C will exit the script cleanly
+    except KeyboardInterrupt:  # hitting CTRL-C will exit the script cleanly
         print('\n  CTRL-C Detected')
-        os.system('timeout /t 10')
+        os.system('timeout /t 10')  # keep window open for up to ten seconds
         break
 
 #EOF
