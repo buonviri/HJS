@@ -5,6 +5,7 @@
 # Rev 1.02: added simulation mode
 # Rev 1.03: fake random numbers
 # Rev 1.04: added timeout after CTRL-C
+# Rev 1.05: updated comments, ready for release
 
 import serial  # requires pip install pyserial
 import time    # need time.time, time.sleep
