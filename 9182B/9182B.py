@@ -102,7 +102,7 @@ def rand():
 if os.name == 'nt':
     colsandrows = str(cols) + ',' + str(rows)
     os.system('mode ' + colsandrows)  # set window size in cols,rows
-    print('Attempting to set Cols,Rows to ' + colsandrows)
+    print('Attempting to set Cols,Rows to ' + colsandrows)  # works on win10, and maybe on win11 if conhost.exe is used?
 
 logfile = hex(int(time.time()))[2:] + '.csv'  # epoch time in hex (minus the 0x prefix) with csv extension
 print ('Logging to: ' + logfile + ' in ' + os.path.join(os.getcwd(), 'log'))
