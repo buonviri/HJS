@@ -6,12 +6,13 @@
 # Rev 1.03: fake random numbers
 # Rev 1.04: added timeout after CTRL-C
 # Rev 1.05: updated comments, ready for release
+# Rev 1.06: added nt vs posix options
 
 import serial  # requires pip install pyserial
 import time    # need time.time, time.sleep
 import os      # need os.system, os.mkdir
 
-# set columns and rows
+# set columns and rows in Windows
 cols = 180
 rows = 45
 
@@ -85,7 +86,7 @@ def off(dev):
 
 
 def log(info):
-    with open('.\\log\\' + logfile, 'a') as f:  # assumes 'log' folder exists
+    with open(os.path.join('log', logfile), 'a') as f:  # assumes 'log' folder exists
         f.write(info + '\n')
 # End
 
@@ -98,12 +99,13 @@ def rand():
 
 
 # start of script
-colsandrows = str(cols) + ',' + str(rows)
-os.system('mode ' + colsandrows)  # set window size in cols,rows
-print('Cols, Rows set to ' + colsandrows)
+if os.name == 'nt':
+    colsandrows = str(cols) + ',' + str(rows)
+    os.system('mode ' + colsandrows)  # set window size in cols,rows
+    print('Cols, Rows set to ' + colsandrows)
 
 logfile = hex(int(time.time()))[2:] + '.csv'  # epoch time in hex (minus the 0x prefix) with csv extension
-print ('Logging to: ' + logfile)
+print ('Logging to: ' + logfile + ' in ' + os.path.join(os.getcwd(), 'log'))
 try:
     os.mkdir('log')  # just in case it doesn't exist
 except:
@@ -111,7 +113,10 @@ except:
 
 # configure serial port and open connection
 bk = serial.Serial()
-bk.port = 'COM91'  # this value must be set permanently in Windows
+if os.name == 'posix':  # check for linux
+    bk.port = '/dev/ttyUSB91'  # could use grep to find the CP210x device maybe?
+else:  # os.name is most likely 'nt' but no point in checking
+    bk.port = 'COM91'  # note that this value must be set in Windows Device Manager
 bk.baudrate = 57600
 bk.bytesize = 8
 bk.parity = 'N'
@@ -148,7 +153,10 @@ while True:
         time.sleep(0.49)  # loop should happen twice per second
     except KeyboardInterrupt:  # hitting CTRL-C will exit the script cleanly
         print('\n  CTRL-C Detected')
-        os.system('timeout /t 10')  # keep window open for up to ten seconds, keystroke ends it instantly
+        if os.name == 'nt':
+            os.system('timeout /t 10')  # keep window open for up to ten seconds, keystroke ends it instantly
+        elif os.name == 'posix':
+            os.system('sleep 3')  # pause for three seconds
         break
 
 #EOF
