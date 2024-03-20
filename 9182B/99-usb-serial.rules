@@ -1,1 +1,2 @@
-SUBSYSTEM=="tty", DRIVERS=="cp210x", SYMLINK+="9182B"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", SYMLINK+="ttyUSB91"
+EOT
