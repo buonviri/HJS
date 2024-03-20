@@ -12,6 +12,10 @@ import serial  # requires pip install pyserial
 import time    # need time.time, time.sleep
 import os      # need os.system, os.mkdir
 
+# pseudo #defines
+WINDOWS = os.name == 'nt'
+LINUX = os.name == 'posix'
+
 # set columns and rows in Windows
 cols = 180
 rows = 45
@@ -99,10 +103,13 @@ def rand():
 
 
 # start of script
-if os.name == 'nt':
+if WINDOWS:
     colsandrows = str(cols) + ',' + str(rows)
-    os.system('mode ' + colsandrows)  # set window size in cols,rows
+    os.system('mode ' + colsandrows)  # set window size in cols,rows maybe...
+    print('\nDetected Windows OS\n')
     print('Attempting to set Cols,Rows to ' + colsandrows)  # works on win10, and maybe on win11 if conhost.exe is used?
+else:
+    print('\nDetected linux OS\n')
 
 logfile = hex(int(time.time()))[2:] + '.csv'  # epoch time in hex (minus the 0x prefix) with csv extension
 print ('Logging to: ' + logfile + ' in ' + os.path.join(os.getcwd(), 'log'))
@@ -113,8 +120,8 @@ except:
 
 # configure serial port and open connection
 bk = serial.Serial()
-if os.name == 'posix':  # check for linux
-    bk.port = '/dev/ttyUSB91'  # could use grep to find the CP210x device maybe?
+if LINUX:  # check for linux
+    bk.port = '/dev/ttyUSB91'  # expects serial port to be set to 91
 else:  # os.name is most likely 'nt' but no point in checking
     bk.port = 'COM91'  # note that this value must be set in Windows Device Manager
 bk.baudrate = 57600
@@ -153,10 +160,19 @@ while True:
         time.sleep(0.49)  # loop should happen twice per second
     except KeyboardInterrupt:  # hitting CTRL-C will exit the script cleanly
         print('\n  CTRL-C Detected')
-        if os.name == 'nt':
+        if WINDOWS:
             os.system('timeout /t 10')  # keep window open for up to ten seconds, keystroke ends it instantly
-        elif os.name == 'posix':
+        elif LINUX:
             os.system('sleep 3')  # pause for three seconds
         break
 
 #EOF
+
+# linux instructions for permanent port numbers
+# create a file: 99-usb-serial.rules
+# in folder: /etc/udev/rules.d/
+# containing two lines:
+# SUBSYSTEM=="tty", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", SYMLINK+="ttyUSB91"
+# EOT
+# then do: udevadm control --reload-rules
+# and then: reboot
