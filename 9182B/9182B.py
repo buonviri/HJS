@@ -122,6 +122,8 @@ except:
 bk = serial.Serial()
 if LINUX:  # check for linux
     bk.port = '/dev/ttyUSB91'  # expects serial port to be set to 91
+    # to permanently set ttyUSB91, copy 99-usb-serial.rules to /etc/udev/rules.d/
+    # run udevadm control --reload-rules then reboot
 else:  # os.name is most likely 'nt' but no point in checking
     bk.port = 'COM91'  # note that this value must be set in Windows Device Manager
 bk.baudrate = 57600
