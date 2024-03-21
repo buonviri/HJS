@@ -22,12 +22,9 @@ lastlog = 0
 
 
 def stat(dev):
-    # print('Sending stat...')
     dev.write(b'stat\n')
     val = dev.read(9999)
-    # print(val)
-    # print()
-    return val.decode("utf-8").strip()
+    return val.decode('utf-8').strip()
 # End
 
 
@@ -84,21 +81,18 @@ def getinfo(stat):
     s = s.replace(',  ', ',')
     s = s.replace(', ', ',')
     s = s.replace(':','=') 
-    print(s)
-    print('END')
+    # print(s)
+    # print('END')
     slist = s.split()
     for token in slist:
         if token.startswith('-') and token.endswith('-'):  # bunch of dashes
             pass
         elif token in keys:
             key = token
-            # print(key)
         elif token == '=':
             found_equals = True
-            # print(found_equals)
         elif token in ['V','A','W','C']:
             units = token
-            # print(key + ' ' + value + ' ' +units)
             info[key] = [value, units]
             # unset for next line
             key = ''
@@ -107,14 +101,17 @@ def getinfo(stat):
             units = ''
         elif found_equals:
             value = token
-            # print(value)
-        elif token in ['NOW', 'MAX', 'AVG']:
+        elif token in ['NOW', 'MAX', 'AVG']:  # discard column headers
             discard.append(token)
-        elif token.startswith('(') and token.endswith(')'):
+        elif token.startswith('(') and token.endswith(')'):  # discard counter
             discard.append(token)
         else:
             info['todo'].append(token)
     print('Discarding: ' + ' '.join(discard))
+    if len(info['todo']) > 0:
+        print('Todo: ' + '\n'.join(info['todo']))
+    else:
+        del info['todo']
     return info
 # End
 
@@ -164,10 +161,15 @@ while True:
     t = int(time.time())  # floating point epoch time
     s = stat(ec)
     info = getinfo(s)
-    pprint.pprint(info)
+    # pprint.pprint(info)
+    csv = []
+    for k in info:
+        row = k + ',' + info[k][0] + ',' + info[k][1]
+        csv.append(row)
+        print(row)
     if t - lastlog >= logdelay:  # wait at least logdelay seconds to write to log again
         lastlog = t  # record for subsequent checks
-        log(','.join([ hex(t)[2:], str(info) ]))  # join with commas [timestamp, info]
+        log(','.join([ hex(t)[2:], ','.join(csv) ]))  # join with commas [timestamp, info]
     try:  # normal operation
         time.sleep(3)  # pause between reads
     except KeyboardInterrupt:  # hitting CTRL-C will exit the script cleanly
