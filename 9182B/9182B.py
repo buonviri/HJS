@@ -148,7 +148,7 @@ except:
     print('\n  Simulation mode\n')
 
 while True:
-    t = time.time()  # floating point epoch time
+    t = int(time.time())  # floating point epoch time
     v = fn[0](bk)    # voltage, function #0, depends on simulation mode
     i = fn[1](bk)    # current, function #1, depends on simulation mode
     p = power(i,v)   # power, multiplies current and voltage
@@ -157,7 +157,7 @@ while True:
     print('  ' + v + ' V' + ' x ' + i + ' A' + ' = ' + p.rjust(7) + ' W  ' + rect*rects)  # rjust accounts for 100+ watts
     if t - lastlog >= logdelay:  # wait at least logdelay seconds to write to log again
         lastlog = t  # record for subsequent checks
-        log(','.join([hex(int(t))[2:],p,i,v]))  # join with commas [timestamp, power, current, voltage]
+        log(','.join([hex(t)[2:],p,i,v]))  # join with commas [timestamp, power, current, voltage]
     try:  # normal operation
         time.sleep(0.49)  # loop should happen twice per second
     except KeyboardInterrupt:  # hitting CTRL-C will exit the script cleanly

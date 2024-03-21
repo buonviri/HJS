@@ -4,6 +4,8 @@ import serial  # requires pip install pyserial
 import time    # need time.time, time.sleep
 import os      # need os.system, os.mkdir
 
+import pprint  # temp
+
 # pseudo #defines
 WINDOWS = os.name == 'nt'
 LINUX = os.name == 'posix'
@@ -20,9 +22,100 @@ lastlog = 0
 
 
 def stat(dev):
+    # print('Sending stat...')
     dev.write(b'stat\n')
-    val = dev.readline()
+    val = dev.read(9999)
+    # print(val)
+    # print()
     return val.decode("utf-8").strip()
+# End
+
+
+def OLDgetinfo(stat):
+    s = stat.replace('---------------------------------------',' ') + ' '  # remove dashes and add trailing space
+    lines = s.split('\n')
+    s = ' '.join(lines)  # gets rid of CRLF
+    # print('Oneline: '+ s)
+    s = s.replace(' V ','|')
+    s = s.replace(' A ','|')
+    s = s.replace(' W ','|')
+    s = s.replace(' C ','|')
+    # print('Pipes: ' + s)
+    slist = s.split('|')
+    info = {}
+    for x in slist:
+        if '=' in x:
+            kv = x.split('=')
+            info[kv[0].strip()] = kv[1].strip()
+        elif ':' in x:
+            kv = x.split(':')
+            info[kv[0].strip()] = kv[1].strip()
+        elif len(x.strip()) > 0:
+            print('Todo: ' + x.strip())
+    print(info)
+    return info
+# End
+
+
+def getinfo(stat):
+    discard = []
+    info = {'todo': [],}
+    keys = ['V_0P55V', 'I_0P55V',
+            'V_0P75V', 'I_0P75V',
+            'V_1P10V', 'I_1P10V',
+            'V_0P60V',
+            'V_0P80V', 'I_0P80V',
+            'V_12P0V', 'I_12P0V',
+            'V_1P20V',
+            'V_1P80V',
+                       'I_3P30V',
+            'SakuraPower',
+            'InputPower',
+            'TMP1075',
+            'LTC7291',
+            ]
+    s = stat
+    s = s.replace('SAK Pwr', 'SakuraPower')
+    s = s.replace('Inp Pwr', 'InputPower')
+    s = s.replace('Now =', '')
+    s = s.replace('Max =', '')
+    s = s.replace(',    ', ',')
+    s = s.replace(',   ', ',')
+    s = s.replace(',  ', ',')
+    s = s.replace(', ', ',')
+    s = s.replace(':','=') 
+    print(s)
+    print('END')
+    slist = s.split()
+    for token in slist:
+        if token.startswith('-') and token.endswith('-'):  # bunch of dashes
+            pass
+        elif token in keys:
+            key = token
+            # print(key)
+        elif token == '=':
+            found_equals = True
+            # print(found_equals)
+        elif token in ['V','A','W','C']:
+            units = token
+            # print(key + ' ' + value + ' ' +units)
+            info[key] = [value, units]
+            # unset for next line
+            key = ''
+            found_equals = False
+            value = ''
+            units = ''
+        elif found_equals:
+            value = token
+            # print(value)
+        elif token in ['NOW', 'MAX', 'AVG']:
+            discard.append(token)
+        elif token.startswith('(') and token.endswith(')'):
+            discard.append(token)
+        else:
+            info['todo'].append(token)
+    print('Discarding: ' + ' '.join(discard))
+    return info
 # End
 
 
@@ -65,9 +158,26 @@ ec.timeout = 1  # wait up to one second to read
 try:
     ec.open()  # may succeed even if device is off
 except:
-    print('\n  Simulation mode\n')
+    print('\n  Simulation mode\n')  # not actually implemented
 
-print(stat(ec))
+while True:
+    t = int(time.time())  # floating point epoch time
+    s = stat(ec)
+    info = getinfo(s)
+    pprint.pprint(info)
+    if t - lastlog >= logdelay:  # wait at least logdelay seconds to write to log again
+        lastlog = t  # record for subsequent checks
+        log(','.join([ hex(t)[2:], str(info) ]))  # join with commas [timestamp, info]
+    try:  # normal operation
+        time.sleep(3)  # pause between reads
+    except KeyboardInterrupt:  # hitting CTRL-C will exit the script cleanly
+        print('\n  CTRL-C Detected')
+        if WINDOWS:
+            os.system('timeout /t 10')  # keep window open for up to ten seconds, keystroke ends it instantly
+        elif LINUX:
+            os.system('sleep 3')  # pause for three seconds
+        break
+    print('-------------------------------')
 
 #EOF
 
