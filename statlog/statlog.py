@@ -57,20 +57,20 @@ def OLDgetinfo(stat):
 def getinfo(stat):
     discard = []
     info = {'todo': [],}
-    keys = ['V_0P55V', 'I_0P55V',
-            'V_0P75V', 'I_0P75V',
-            'V_1P10V', 'I_1P10V',
-            'V_0P60V',
-            'V_0P80V', 'I_0P80V',
-            'V_12P0V', 'I_12P0V',
-            'V_1P20V',
-            'V_1P80V',
-                       'I_3P30V',
-            'SakuraPower',
-            'InputPower',
-            'TMP1075',
-            'LTC7291',
-            ]
+    keys = {'V_0P55V': '0.55(V)', 'I_0P55V': '0.55(A)',
+            'V_0P75V': '0.75(V)', 'I_0P75V': '0.75(A)',
+            'V_1P10V': '1.15(V)', 'I_1P10V': '1.10(A)',
+            'V_0P60V': '0.60(V)',
+            'V_0P80V': '0.80(V)', 'I_0P80V': '0.80(A)',
+            'V_12P0V': '12.0(V)', 'I_12P0V': '12.0(A)',
+            'V_1P20V': '1.20(V)',
+            'V_1P80V': '1.80(V)',
+                                  'I_3P30V': '3.30(A)',
+            'SakuraPower': 'Sakura',
+            'InputPower':  'Input',
+            'TMP1075':     'TI',
+            'LTC7291':     'LTC',
+            }
     s = stat
     s = s.replace('SAK Pwr', 'SakuraPower')
     s = s.replace('Inp Pwr', 'InputPower')
@@ -93,7 +93,7 @@ def getinfo(stat):
             found_equals = True
         elif token in ['V','A','W','C']:
             units = token
-            info[key] = [value, units]
+            info[keys[key]] = [value, units]
             # unset for next line
             key = ''
             found_equals = False
