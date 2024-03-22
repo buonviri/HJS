@@ -5,6 +5,7 @@
 topology = {3: 'left', 72: 'right'}
 
 import os
+import pyperclip
 
 outfile = 'merged.csv'
 filelist = []  # blank out existing list or initialize
@@ -49,11 +50,17 @@ for ts in csv:
 timestamps.sort()  # sort list
 # print(timestamps)
 
+out = ''
 with open(outfile, 'w') as f:
     for tsval in timestamps:
         ts = hex(tsval)[2:]  # convert to hex and remove the 0x portion
-        f.write(ts + ',' + csv[ts][0] + ',' + csv[ts][1] + '\n')
+        out = out + ts + ',' + csv[ts][0] + ',' + csv[ts][1] + '\n'
+    f.write(out)
 
 # print(csv)
+pyperclip.copy(out.replace(',', '\t'))
+
+print()
+os.system('PAUSE')
 
 # EOF

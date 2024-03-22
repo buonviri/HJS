@@ -21,7 +21,7 @@ cols = 180
 rows = 45
 
 # set delay between log entries (in seconds)
-logdelay = 3
+logdelay = 1
 
 # initialize log timer to 1970
 lastlog = 0
@@ -142,10 +142,13 @@ try:
         print('\n  Device = ' + id + '\n')
         # display Voltage Setting
         vmax = voltagemax(bk)
-        print('  Vset = ' + vmax + ' V')
+        print('  Vset = ' + vmax + ' V\n')
         fn = [voltage,current]  # override simulation mode with real functions
 except:
     print('\n  Simulation mode\n')
+
+input("Press <Enter> to enable power and initiate logging...")
+on(bk)  # enable power
 
 while True:
     t = int(time.time())  # floating point epoch time
@@ -159,7 +162,7 @@ while True:
         lastlog = t  # record for subsequent checks
         log(','.join([hex(t)[2:],p,i,v]))  # join with commas [timestamp, power, current, voltage]
     try:  # normal operation
-        time.sleep(0.49)  # loop should happen twice per second
+        time.sleep(0.3)  # loop should happen twice per second
     except KeyboardInterrupt:  # hitting CTRL-C will exit the script cleanly
         print('\n  CTRL-C Detected')
         if WINDOWS:
