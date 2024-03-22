@@ -107,7 +107,7 @@ def getinfo(stat):
             discard.append(token)
         else:
             info['todo'].append(token)
-    print('Discarding: ' + ' '.join(discard))
+    print('Discarding tokens: ' + ' '.join(discard))
     if len(info['todo']) > 0:
         print('Todo: ' + '\n'.join(info['todo']))
     else:
