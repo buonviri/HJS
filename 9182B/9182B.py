@@ -7,6 +7,7 @@
 # Rev 1.04: added timeout after CTRL-C
 # Rev 1.05: updated comments, ready for release
 # Rev 1.06: added nt vs posix options
+# Rev 1.10: first integrated release
 
 import serial  # requires pip install pyserial
 import time    # need time.time, time.sleep

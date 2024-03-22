@@ -1,3 +1,5 @@
+# Rev 1.00: first integrated release
+
 # this script combines two or more timestamped csv files into one, sorted by time
 
 # put all csv files in a folder with this script (or a batch file pointing to the script)
@@ -8,18 +10,18 @@ import os
 import pyperclip
 
 outfile = 'merged.csv'
-filelist = []  # blank out existing list or initialize
+filelist = []  # blank list
 for filename in os.listdir():
     if filename.endswith('.csv') and filename != outfile:
         filelist.append(filename)
 
-blanks = {}
+blanks = {}  # will be filled with commas
 for n in topology:
     minusone = n - 1
     blanks[topology[n]] = ','*minusone  # blank comma strings, one less than data length
 
-csv = {}
-index = {'left': 0, 'right': 1}
+csv = {}  # empty dict
+index = {'left': 0, 'right': 1}  # the left half is index 0, right half is index 1
 for filename in filelist:
     with open (filename, 'r') as f:
         lines = f.readlines()
@@ -58,7 +60,7 @@ with open(outfile, 'w') as f:
     f.write(out)
 
 # print(csv)
-pyperclip.copy(out.replace(',', '\t'))
+pyperclip.copy(out.replace(',', '\t'))  # replace comma with tab for clipboard
 
 print()
 os.system('PAUSE')

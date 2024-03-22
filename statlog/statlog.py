@@ -1,4 +1,5 @@
 # Rev 0.00: started from 9182B.py
+# Rev 1.00: first integrated release
 
 import serial  # requires pip install pyserial
 import time    # need time.time, time.sleep
