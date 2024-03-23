@@ -28,8 +28,9 @@ logdelay = 1
 # initialize log timer to 1970
 lastlog = 0
 
-# default ports
-serialports = {'linux': '/dev/ttyUSB91', 'windows': 'COM91'}
+# default ports and ID
+serialports = {'posix': '/dev/ttyUSB91', 'nt': 'COM91'}
+bkid = '10C4:EA60'
 
 # choose graphing character:
 # 0x2587 is 7/8 height rectangle, didn't exist in font used in Win10 command prompt
@@ -86,6 +87,9 @@ def power(i,v):
 
 def on(dev):
     dev.write(b'OUT:ALL 1\n')
+# alt function:
+def simon(dev):
+    print('Enabling Power')
 # End
 
 
@@ -104,6 +108,27 @@ def rand():
     random = str(time.time())  # get current time as string with lots of decimal places
     srandom = random[-4:-1]  # skip the last char, use the next three (-4 -3 -2)
     return float(srandom) / 1000  # divide by 1000 to get a value between 0 and 1
+# End
+
+
+def GetBestPort(port, id):
+    goodports= []  # list of ports that meet criteria
+    for portnum, portdesc, portdetails in serial.tools.list_ports.comports():
+        if id in portdetails:
+            goodports.append(portnum)
+            print('  Found: ' + portnum)
+            print('  Desc = ' + portdesc)
+            print('  Details = ' + portdetails)
+        # else:  # debug
+        #     print('  A: ' + portnum)
+        #     print('  B = ' + portdesc)
+        #     print('  C = ' + portdetails)
+    if port in goodports:
+        return port
+    elif len(goodports) > 0:  # at least one port matched target ID
+        return goodports[0]
+    else:
+        return 'NONE'  # no ports found
 # End
 
 
@@ -127,41 +152,33 @@ except:
 
 # configure serial port and open connection
 bk = serial.Serial()
-if LINUX:  # check for linux
-    bk.port = serialports['linux']
-else:  # os.name is most likely 'nt' but no point in checking
-    bk.port = serialports['windows']
+bk.port = serialports[os.name]  # this will raise an exception if os.name isn't recognized
 print('  Default port is: ' + bk.port)
-# try to determine port name automatically
-for portnum, portdesc, portdetails in serial.tools.list_ports.comports():
-    if 'CP210x' in portdesc:  # could also check for 10C4:EA60 in details
-        bk.port = portnum
-        print('  Found: ' + portnum)
-        print('  Desc = ' + portdesc)
-        print('  Details = ' + portdetails)
+bk.port = GetBestPort(bk.port, bkid)  # bk.port and bkid for operation, 'COM5' and COM0COM for simularion
 bk.baudrate = 57600
 bk.bytesize = 8
 bk.parity = 'N'
 bk.stopbits = 1
 bk.timeout = 1  # wait up to one second to read
 # could add more flow control settings but they seem to default to off
-fn = [simvoltage,simcurrent]  # default to simulation mode
+fn = [simvoltage,simcurrent,simon]  # default to simulation mode
+print('  Opening ' + bk.port + ' (' + str(bk.baudrate) + ',' + str(bk.bytesize) + bk.parity + str(bk.stopbits) + ')')
 try:
     bk.open()  # may succeed even if device is off
     id = identify(bk)  # get ID
     if id == '':  # timeout (device off or not connected) results in empty string
-        print('\n  Device not found\n')
+        print('Device not found\n')
     else:
-        print('\n  Device = ' + id + '\n')
+        print('Device = ' + id + '\n')
         # display Voltage Setting
         vmax = voltagemax(bk)
-        print('  Vset = ' + vmax + ' V\n')
-        fn = [voltage,current]  # override simulation mode with real functions
+        print('Vset = ' + vmax + ' V\n')
+        fn = [voltage,current,on]  # override simulation mode with real functions
 except:
-    print('\n  Simulation mode\n')
+    print('Simulation mode\n')
 
 input("Press <Enter> to enable power and initiate logging...")
-on(bk)  # enable power
+fn[2](bk)  # enable power
 
 while True:
     t = int(time.time())  # floating point epoch time
