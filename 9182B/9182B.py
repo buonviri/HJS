@@ -10,6 +10,7 @@
 # Rev 1.10: first integrated release
 
 import serial  # requires pip install pyserial
+import serial.tools.list_ports
 import time    # need time.time, time.sleep
 import os      # need os.system, os.mkdir
 
@@ -26,6 +27,9 @@ logdelay = 1
 
 # initialize log timer to 1970
 lastlog = 0
+
+# default ports
+serialports = {'linux': '/dev/ttyUSB91', 'windows': 'COM91'}
 
 # choose graphing character:
 # 0x2587 is 7/8 height rectangle, didn't exist in font used in Win10 command prompt
@@ -109,8 +113,10 @@ if WINDOWS:
     os.system('mode ' + colsandrows)  # set window size in cols,rows maybe...
     print('\nDetected Windows OS\n')
     print('Attempting to set Cols,Rows to ' + colsandrows)  # works on win10, and maybe on win11 if conhost.exe is used?
-else:
+elif LINUX:
     print('\nDetected linux OS\n')
+else:
+    print('\nUnknown OS\n')
 
 logfile = hex(int(time.time()))[2:] + '.csv'  # epoch time in hex (minus the 0x prefix) with csv extension
 print ('Logging to: ' + logfile + ' in ' + os.path.join(os.getcwd(), 'log'))
@@ -122,11 +128,17 @@ except:
 # configure serial port and open connection
 bk = serial.Serial()
 if LINUX:  # check for linux
-    bk.port = '/dev/ttyUSB91'  # expects serial port to be set to 91
-    # to permanently set ttyUSB91, copy 99-usb-serial.rules to /etc/udev/rules.d/
-    # run udevadm control --reload-rules then reboot
+    bk.port = serialports['linux']
 else:  # os.name is most likely 'nt' but no point in checking
-    bk.port = 'COM91'  # note that this value must be set in Windows Device Manager
+    bk.port = serialports['windows']
+print('  Default port is: ' + bk.port)
+# try to determine port name automatically
+for portnum, portdesc, portdetails in serial.tools.list_ports.comports():
+    if 'CP210x' in portdesc:  # could also check for 10C4:EA60 in details
+        bk.port = portnum
+        print('  Found: ' + portnum)
+        print('  Desc = ' + portdesc)
+        print('  Details = ' + portdetails)
 bk.baudrate = 57600
 bk.bytesize = 8
 bk.parity = 'N'
@@ -177,7 +189,7 @@ while True:
 # linux instructions for permanent port numbers
 # create a file: 99-usb-serial.rules
 # in folder: /etc/udev/rules.d/
-# containing two lines:
+# containing at least these two lines:
 # SUBSYSTEM=="tty", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", SYMLINK+="ttyUSB91"
 # EOT
 # then do: udevadm control --reload-rules

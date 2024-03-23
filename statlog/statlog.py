@@ -2,6 +2,7 @@
 # Rev 1.00: first integrated release
 
 import serial  # requires pip install pyserial
+import serial.tools.list_ports
 import time    # need time.time, time.sleep
 import os      # need os.system, os.mkdir
 
@@ -20,6 +21,9 @@ logdelay = 3
 
 # initialize log timer to 1970
 lastlog = 0
+
+# default ports
+serialports = {'linux': '/dev/ttyUSB51', 'windows': 'COM51'}
 
 
 def stat(dev):
@@ -129,8 +133,10 @@ if WINDOWS:
     os.system('mode ' + colsandrows)  # set window size in cols,rows maybe...
     print('\nDetected Windows OS\n')
     print('Attempting to set Cols,Rows to ' + colsandrows)  # works on win10, and maybe on win11 if conhost.exe is used?
-else:
+elif LINUX:
     print('\nDetected linux OS\n')
+else:
+    print('\nUnknown OS\n')
 
 logfile = hex(int(time.time()))[2:] + '.csv'  # epoch time in hex (minus the 0x prefix) with csv extension
 print ('Logging to: ' + logfile + ' in ' + os.path.join(os.getcwd(), 'log'))
@@ -142,11 +148,17 @@ except:
 # configure serial port and open connection
 ec = serial.Serial()
 if LINUX:  # check for linux
-    ec.port = '/dev/ttyUSB51'  # expects serial port to be set to 91
-    # to permanently set ttyUSB91, copy 99-usb-serial.rules to /etc/udev/rules.d/
-    # run udevadm control --reload-rules then reboot
+    ec.port = serialports['linux']
 else:  # os.name is most likely 'nt' but no point in checking
-    ec.port = 'COM51'  # note that this value must be set in Windows Device Manager
+    ec.port = serialports['windows']
+print('  Default port is: ' + ec.port)
+# try to determine port name automatically
+for portnum, portdesc, portdetails in serial.tools.list_ports.comports():
+    if 'PID=0403:6015' in portdetails:
+        ec.port = portnum
+        print('  Found: ' + portnum)
+        print('  Desc = ' + portdesc)
+        print('  Details = ' + portdetails)
 ec.baudrate = 115200
 ec.bytesize = 8
 ec.parity = 'N'
@@ -157,6 +169,8 @@ try:
     ec.open()  # may succeed even if device is off
 except:
     print('\n  Simulation mode\n')  # not actually implemented
+
+input("Press <Enter> to initiate logging...")
 
 while True:
     t = int(time.time())  # floating point epoch time
@@ -180,7 +194,7 @@ while True:
         elif LINUX:
             os.system('sleep 3')  # pause for three seconds
         break
-    print('-------------------------------')
+    print('\n------------- READING FROM SAKURA -------------\n')
 
 #EOF
 
