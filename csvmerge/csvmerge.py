@@ -7,7 +7,12 @@
 topology = {3: 'left', 72: 'right'}
 
 import os
-import pyperclip
+try:
+    import pyperclip
+    clipboard = True
+except:
+    print('Requires pyperclip (pip install pyperclip)')
+    clipboard = False
 
 outfile = 'merged.csv'
 filelist = []  # blank list
@@ -60,7 +65,8 @@ with open(outfile, 'w') as f:
     f.write(out)
 
 # print(csv)
-pyperclip.copy(out.replace(',', '\t'))  # replace comma with tab for clipboard
+if clipboard:
+    pyperclip.copy(out.replace(',', '\t'))  # replace comma with tab for clipboard
 
 print()
 os.system('PAUSE')
