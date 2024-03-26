@@ -1,5 +1,6 @@
 # Rev 0.00: started from 9182B.py
 # Rev 1.00: first integrated release
+# Rev 1.01: better COM port management
 
 import serial  # requires pip install pyserial
 import serial.tools.list_ports
@@ -22,8 +23,9 @@ logdelay = 3
 # initialize log timer to 1970
 lastlog = 0
 
-# default ports
-serialports = {'linux': '/dev/ttyUSB51', 'windows': 'COM51'}
+# default ports and ID for linux and windows
+serialports = {'posix': '/dev/ttyUSB51', 'nt': 'COM51'}
+ecid = '0403:6015'
 
 
 def stat(dev):
@@ -127,6 +129,27 @@ def log(info):
 # End
 
 
+def GetBestPort(port, id):
+    goodports = []  # list of ports that meet criteria
+    for portnum, portdesc, portdetails in serial.tools.list_ports.comports():
+        if id in portdetails:  # check for MFG/product ID in details
+            goodports.append(portnum)
+            print('  Found: ' + portnum)
+            print('  Desc = ' + portdesc)
+            print('  Details = ' + portdetails)
+        # else:  # debug
+        #     print('  A: ' + portnum)
+        #     print('  B = ' + portdesc)
+        #     print('  C = ' + portdetails)
+    if port in goodports:  # requested port was found
+        return port
+    elif len(goodports) > 0:  # at least one port matched target ID
+        return goodports[0]
+    else:
+        return 'NONE'  # no ports found
+# End
+
+
 # start of script
 if WINDOWS:
     colsandrows = str(cols) + ',' + str(rows)
@@ -147,18 +170,9 @@ except:
 
 # configure serial port and open connection
 ec = serial.Serial()
-if LINUX:  # check for linux
-    ec.port = serialports['linux']
-else:  # os.name is most likely 'nt' but no point in checking
-    ec.port = serialports['windows']
-print('  Default port is: ' + ec.port)
-# try to determine port name automatically
-for portnum, portdesc, portdetails in serial.tools.list_ports.comports():
-    if 'PID=0403:6015' in portdetails:
-        ec.port = portnum
-        print('  Found: ' + portnum)
-        print('  Desc = ' + portdesc)
-        print('  Details = ' + portdetails)
+ec.port = serialports[os.name]  # this will raise an exception if os.name isn't recognized
+print('  Preferred port is: ' + ec.port)
+ec.port = GetBestPort(ec.port, ecid)  # use <ec.port, ecid> for operation, <'COM5', COM0COM> for simulation
 ec.baudrate = 115200
 ec.bytesize = 8
 ec.parity = 'N'

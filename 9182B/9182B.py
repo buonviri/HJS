@@ -8,6 +8,7 @@
 # Rev 1.05: updated comments, ready for release
 # Rev 1.06: added nt vs posix options
 # Rev 1.10: first integrated release
+# Rev 1.11: better COM port management
 
 import serial  # requires pip install pyserial
 import serial.tools.list_ports
@@ -28,7 +29,7 @@ logdelay = 1
 # initialize log timer to 1970
 lastlog = 0
 
-# default ports and ID
+# default ports and ID for linux and windows
 serialports = {'posix': '/dev/ttyUSB91', 'nt': 'COM91'}
 bkid = '10C4:EA60'
 
@@ -153,7 +154,7 @@ except:
 # configure serial port and open connection
 bk = serial.Serial()
 bk.port = serialports[os.name]  # this will raise an exception if os.name isn't recognized
-print('  Default port is: ' + bk.port)
+print('  Preferred port is: ' + bk.port)
 bk.port = GetBestPort(bk.port, bkid)  # use <bk.port, bkid> for operation, <'COM5', COM0COM> for simulation
 bk.baudrate = 57600
 bk.bytesize = 8
