@@ -112,9 +112,9 @@ def rand():
 
 
 def GetBestPort(port, id):
-    goodports= []  # list of ports that meet criteria
+    goodports = []  # list of ports that meet criteria
     for portnum, portdesc, portdetails in serial.tools.list_ports.comports():
-        if id in portdetails:
+        if id in portdetails:  # check for MFG/product ID in details
             goodports.append(portnum)
             print('  Found: ' + portnum)
             print('  Desc = ' + portdesc)
@@ -123,7 +123,7 @@ def GetBestPort(port, id):
         #     print('  A: ' + portnum)
         #     print('  B = ' + portdesc)
         #     print('  C = ' + portdetails)
-    if port in goodports:
+    if port in goodports:  # requested port was found
         return port
     elif len(goodports) > 0:  # at least one port matched target ID
         return goodports[0]
@@ -154,7 +154,7 @@ except:
 bk = serial.Serial()
 bk.port = serialports[os.name]  # this will raise an exception if os.name isn't recognized
 print('  Default port is: ' + bk.port)
-bk.port = GetBestPort(bk.port, bkid)  # bk.port and bkid for operation, 'COM5' and COM0COM for simularion
+bk.port = GetBestPort(bk.port, bkid)  # use <bk.port, bkid> for operation, <'COM5', COM0COM> for simulation
 bk.baudrate = 57600
 bk.bytesize = 8
 bk.parity = 'N'
@@ -178,12 +178,12 @@ except:
     print('Simulation mode\n')
 
 input("Press <Enter> to enable power and initiate logging...")
-fn[2](bk)  # enable power
+fn[2](bk)  # enable power, function #2
 
 while True:
     t = int(time.time())  # floating point epoch time
-    v = fn[0](bk)    # voltage, function #0, depends on simulation mode
-    i = fn[1](bk)    # current, function #1, depends on simulation mode
+    v = fn[0](bk)    # read voltage, function #0, depends on simulation mode
+    i = fn[1](bk)    # read current, function #1, depends on simulation mode
     p = power(i,v)   # power, multiplies current and voltage
     nz = float(p)+1  # get non-zero value of power
     rects = int(nz)  # get int for multiplying string, range should be 1 to ceiling(max)
