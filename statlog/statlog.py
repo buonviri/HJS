@@ -91,7 +91,7 @@ def getinfo(stat):
     # print(s)
     # print('END')
     slist = s.split()
-    found_equals = FALSE
+    found_equals = False
     for token in slist:
         if token.startswith('-') and token.endswith('-'):  # bunch of dashes
             pass
