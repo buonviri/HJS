@@ -1,6 +1,8 @@
 # Rev 0.00: started from 9182B.py
 # Rev 1.00: first integrated release
 # Rev 1.01: better COM port management
+# Rev 1.02: initialize found_equals which didn't matter until
+#           it ran on linux mint for some reason
 
 import serial  # requires pip install pyserial
 import serial.tools.list_ports
