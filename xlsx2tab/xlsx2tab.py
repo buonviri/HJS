@@ -1,9 +1,14 @@
+# instructions:
+# run this file in a folder containing one or more xlsx files
+# each will be converted to tab data and stored as a new file
+# the last file read will be placed on the clipboard as well
+
 import os
 import pyperclip
 from openpyxl import load_workbook
 
 file_list = []
-extensions = ('.xlsm', '.xlsx')
+extensions = ('.xlsm', '.xlsx')  # must be five chars long
 for file in os.listdir('.'):
     if file[-5:] in extensions:
         file_list.append(file)
