@@ -24,6 +24,8 @@ for x in file_list:
     for i in ws.values:
         row = []  # blank string to hold row
         for j in i:
+            if j is None:
+                j = ''
             row.append(j.strip())  # remove unwanted whitespace
         clip = clip + '\t'.join(row) + '\n'
 
