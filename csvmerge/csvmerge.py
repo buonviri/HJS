@@ -1,13 +1,21 @@
-# Rev 1.00: first integrated release
-
 # this script combines two or more timestamped csv files into one, sorted by time
+# Rev 1.00: first integrated release
+# Rev 1.01: added code to ignore header if someone adds one
 
-# put all csv files in a folder with this script (or a batch file pointing to the script)
+# instructions:
+# put all csv files in a folder with this script (or a batch file pointing to this script)
 # the number of columns of data and desired locations must be entered below
 topology = {3: 'left', 72: 'right'}
 
 import os
-import pyperclip
+
+clipboard = False
+if os.name == 'nt':  # clipboard only works in windows
+    try:
+        import pyperclip
+        clipboard = True
+    except:
+        print('\nRequires pyperclip. Use: pip install pyperclip\n')
 
 outfile = 'merged.csv'
 filelist = []  # blank list
@@ -37,7 +45,9 @@ for filename in filelist:
             tsdata = line.split(',', 1)  # split once to isolate timestamp
             ts = tsdata[0]
             data = tsdata[1]
-            if ts in csv:
+            if ts.startswith('t') or ts.startswith('T'):  # likely a header row starting with time, Timestamp, etc
+                print('  Discarding: ' + line)
+            elif ts in csv:
                 # print('Duplicate: ' + ts)
                 if len(csv[ts][index[location]]) > len(blanks[location]):  # real data would be longer than blank string
                     print(' Overwriting:' + csv[ts][index[location]] + '\n With: ' + data)
@@ -60,9 +70,11 @@ with open(outfile, 'w') as f:
     f.write(out)
 
 # print(csv)
-pyperclip.copy(out.replace(',', '\t'))  # replace comma with tab for clipboard
+if clipboard:
+    pyperclip.copy(out.replace(',', '\t'))  # replace comma with tab for clipboard
 
 print()
-os.system('PAUSE')
+if os.name == 'nt':
+    os.system('PAUSE')
 
 # EOF

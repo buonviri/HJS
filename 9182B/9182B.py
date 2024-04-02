@@ -8,6 +8,7 @@
 # Rev 1.05: updated comments, ready for release
 # Rev 1.06: added nt vs posix options
 # Rev 1.10: first integrated release
+# Rev 1.11: better COM port management
 
 import serial  # requires pip install pyserial
 import serial.tools.list_ports
@@ -28,7 +29,7 @@ logdelay = 1
 # initialize log timer to 1970
 lastlog = 0
 
-# default ports and ID
+# default ports and ID for linux and windows
 serialports = {'posix': '/dev/ttyUSB91', 'nt': 'COM91'}
 bkid = '10C4:EA60'
 
@@ -114,7 +115,7 @@ def rand():
 def GetBestPort(port, id):
     goodports = []  # list of ports that meet criteria
     for portnum, portdesc, portdetails in serial.tools.list_ports.comports():
-        if id in portdetails:
+        if id in portdetails:  # check for MFG/product ID in details
             goodports.append(portnum)
             print('  Found: ' + portnum)
             print('  Desc = ' + portdesc)
@@ -123,13 +124,10 @@ def GetBestPort(port, id):
         #     print('  A: ' + portnum)
         #     print('  B = ' + portdesc)
         #     print('  C = ' + portdetails)
-    if port in goodports:
+    if port in goodports:  # requested port was found
         return port
     elif len(goodports) > 0:  # at least one port matched target ID
         return goodports[0]
-    elif 'COM0COM' in portdetails:  # windows null modem app connecting COM5 and COM6
-        print('  Null Modem Mode for HJS')
-        return 'COM5'
     else:
         return 'NONE'  # no ports found
 # End
@@ -157,8 +155,7 @@ except:
 bk = serial.Serial()
 bk.port = serialports[os.name]  # this will raise an exception if os.name isn't recognized
 print('  Preferred port is: ' + bk.port)
-bk.port = GetBestPort(bk.port, bkid)  # bk.port and bkid for operation, 'COM5' and COM0COM for simularion
-print('  Using port: ' + bk.port)
+bk.port = GetBestPort(bk.port, bkid)  # use <bk.port, bkid> for operation, <'COM5', COM0COM> for simulation
 bk.baudrate = 57600
 bk.bytesize = 8
 bk.parity = 'N'
@@ -182,12 +179,12 @@ except:
     print('Simulation mode\n')
 
 input("Press <Enter> to enable power and initiate logging...")
-fn[2](bk)  # enable power
+fn[2](bk)  # enable power, function #2
 
 while True:
     t = int(time.time())  # floating point epoch time
-    v = fn[0](bk)    # voltage, function #0, depends on simulation mode
-    i = fn[1](bk)    # current, function #1, depends on simulation mode
+    v = fn[0](bk)    # read voltage, function #0, depends on simulation mode
+    i = fn[1](bk)    # read current, function #1, depends on simulation mode
     p = power(i,v)   # power, multiplies current and voltage
     nz = float(p)+1  # get non-zero value of power
     rects = int(nz)  # get int for multiplying string, range should be 1 to ceiling(max)
@@ -200,9 +197,9 @@ while True:
     except KeyboardInterrupt:  # hitting CTRL-C will exit the script cleanly
         print('\n  CTRL-C Detected')
         if WINDOWS:
-            os.system('timeout /t 2')  # keep window open for a few seconds, keystroke ends it instantly
+            os.system('timeout /t 10')  # keep window open for up to ten seconds, keystroke ends it instantly
         elif LINUX:
-            os.system('sleep 2')  # pause for three seconds
+            os.system('sleep 3')  # pause for three seconds
         break
 
 #EOF
