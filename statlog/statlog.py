@@ -151,7 +151,7 @@ if LINUX:  # check for linux
     ec.port = serialports['linux']
 else:  # os.name is most likely 'nt' but no point in checking
     ec.port = serialports['windows']
-print('  Default port is: ' + ec.port)
+print('  Preferred port is: ' + ec.port)
 # try to determine port name automatically
 for portnum, portdesc, portdetails in serial.tools.list_ports.comports():
     if 'PID=0403:6015' in portdetails:
