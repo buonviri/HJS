@@ -128,6 +128,9 @@ def GetBestPort(port, id):
         return port
     elif len(goodports) > 0:  # at least one port matched target ID
         return goodports[0]
+    elif 'COM0COM' in portdetails:  # windows null modem app connecting COM5 and COM6
+        print('  Null Modem Mode for HJS')
+        return('COM5')
     else:
         return 'NONE'  # no ports found
 # End
@@ -156,6 +159,7 @@ bk = serial.Serial()
 bk.port = serialports[os.name]  # this will raise an exception if os.name isn't recognized
 print('  Preferred port is: ' + bk.port)
 bk.port = GetBestPort(bk.port, bkid)  # use <bk.port, bkid> for operation, <'COM5', COM0COM> for simulation
+print('  Using port: ' + bk.port)
 bk.baudrate = 57600
 bk.bytesize = 8
 bk.parity = 'N'
@@ -197,9 +201,9 @@ while True:
     except KeyboardInterrupt:  # hitting CTRL-C will exit the script cleanly
         print('\n  CTRL-C Detected')
         if WINDOWS:
-            os.system('timeout /t 10')  # keep window open for up to ten seconds, keystroke ends it instantly
+            os.system('timeout /t 2')  # keep window open for up to two seconds, keystroke ends it instantly
         elif LINUX:
-            os.system('sleep 3')  # pause for three seconds
+            os.system('sleep 2')  # pause for two seconds
         break
 
 #EOF

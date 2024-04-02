@@ -207,9 +207,9 @@ while True:
     except KeyboardInterrupt:  # hitting CTRL-C will exit the script cleanly
         print('\n  CTRL-C Detected')
         if WINDOWS:
-            os.system('timeout /t 10')  # keep window open for up to ten seconds, keystroke ends it instantly
+            os.system('timeout /t 2')  # keep window open for up to two seconds, keystroke ends it instantly
         elif LINUX:
-            os.system('sleep 3')  # pause for three seconds
+            os.system('sleep 2')  # pause for two seconds
         break
     print('\n------------- READING FROM SAKURA -------------\n')
 
