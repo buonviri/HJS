@@ -1,8 +1,7 @@
 *.csv
 
 # copies of script
-9182.py
-S1LP.py
-host.py
-auto.py
-
+sm-9182.py
+sm-S1LP.py
+sm-host.py
+sm-auto.py
