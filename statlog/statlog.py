@@ -37,32 +37,6 @@ def stat(dev):
 # End
 
 
-def OLDgetinfo(stat):
-    s = stat.replace('---------------------------------------',' ') + ' '  # remove dashes and add trailing space
-    lines = s.split('\n')
-    s = ' '.join(lines)  # gets rid of CRLF
-    # print('Oneline: '+ s)
-    s = s.replace(' V ','|')
-    s = s.replace(' A ','|')
-    s = s.replace(' W ','|')
-    s = s.replace(' C ','|')
-    # print('Pipes: ' + s)
-    slist = s.split('|')
-    info = {}
-    for x in slist:
-        if '=' in x:
-            kv = x.split('=')
-            info[kv[0].strip()] = kv[1].strip()
-        elif ':' in x:
-            kv = x.split(':')
-            info[kv[0].strip()] = kv[1].strip()
-        elif len(x.strip()) > 0:
-            print('Todo: ' + x.strip())
-    print(info)
-    return info
-# End
-
-
 def getinfo(stat):
     discard = []
     info = {'todo': [],}
@@ -148,6 +122,9 @@ def GetBestPort(port, id):
         return port
     elif len(goodports) > 0:  # at least one port matched target ID
         return goodports[0]
+    elif 'COM0COM' in portdetails:  # windows null modem app connecting COM5 and COM6
+        print('  Null Modem Mode for HJS')
+        return('COM5')
     else:
         return 'NONE'  # no ports found
 # End

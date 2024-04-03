@@ -28,7 +28,6 @@ def id9182(dev):
     val = b'Fake 9182B ID String\n'
     print('Writing: ' + val.decode('utf-8').strip())
     dev.write(val)
-# End
 def maxv9182(dev):
     val = b'12.345\n'
     print('Writing: ' + val.decode('utf-8').strip())
@@ -52,6 +51,22 @@ def i9182(dev):
 # End
 
 
+# S1LP simulation
+def sakstat(dev):
+    val = b'V_0P55V = 0.55 V\n'
+    print('Writing: ' + val.decode('utf-8').strip())
+    dev.write(val)
+# End
+
+
+# Host USB simulation
+def hostsj(dev):
+    val = b"""{'x': 'This will contain sensors -j info'}\n"""
+    print('Writing: ' + val.decode('utf-8').strip())
+    dev.write(val)
+# End
+
+
 def log(info):
     with open(os.path.join('log', logfile), 'a') as f:  # assumes 'log' folder exists
         f.write(info + '\n')
@@ -68,19 +83,26 @@ elif LINUX:
 else:
     print('\nUnknown OS\n')
 
-# responses
-mode = '9182'
-response_list = {
-    '9182': {'*IDN?': id9182, 'SOUR:VOLT?': maxv9182, 'OUT:ALL 1': on9182, 'MEAS:VOLT?': v9182, 'MEAS:CURR?': i9182},
+devinfo = {  # commands and response functions, also baudrate setting
+    '9182': {'baudrate': '57600', '*IDN?': id9182, 'SOUR:VOLT?': maxv9182, 'OUT:ALL 1': on9182, 'MEAS:VOLT?': v9182, 'MEAS:CURR?': i9182},
+    'S1LP': {'baudrate': '115200', 'stat': sakstat},
+    'host': {'baudrate': '115200', 'sensorsj': hostsj},
+    # add more devices here as needed
+    'auto': {'baudrate': '115200'}
     }
-# end of responses
-if mode == 'auto':
+dev = 'host'  # manually set the device type
+thisfile = os.path.basename(__file__).split('.')[0]  # get script name without extension
+if thisfile in devinfo:  # script has been renamed to match a devinfo key
+    dev = thisfile  # override dev
+# set dictionary to be used in loop
+if dev == 'auto':
     responses = {}  # need to make loop and add all
-elif mode in response_list:
-    responses = response_list[mode]
+elif dev in devinfo:
+    responses = devinfo[dev]
 else:
     responses = {}  # invalid selection
 # print(responses)  # debug
+print('Device = ' + dev)
 
 logfile = hex(int(time.time()))[2:] + '.csv'  # epoch time in hex (minus the 0x prefix) with csv extension
 print ('Logging to: ' + logfile + ' in ' + os.path.join(os.getcwd(), 'log'))
@@ -103,11 +125,11 @@ for portnum, portdesc, portdetails in serial.tools.list_ports.comports():
         print('  Found: ' + portnum)
         print('  Desc = ' + portdesc)
         print('  Details = ' + portdetails)
-ec.baudrate = 57600
+ec.baudrate = int(devinfo[dev]['baudrate'])
 ec.bytesize = 8
 ec.parity = 'N'
 ec.stopbits = 1
-ec.timeout = 1  # wait up to one second to read
+ec.timeout = 1  # wait to read, should be ignored if \n is found, but does not for some reason
 # could add more flow control settings but they seem to default to off
 
 tzero = int(time.time())  # record start time
