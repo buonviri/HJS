@@ -1,1 +1,8 @@
 *.csv
+
+# copies of script
+9182.py
+S1LP.py
+host.py
+auto.py
+
