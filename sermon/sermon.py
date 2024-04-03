@@ -86,13 +86,13 @@ else:
 devinfo = {  # commands and response functions, also baudrate setting
     '9182': {'baudrate': '57600', '*IDN?': id9182, 'SOUR:VOLT?': maxv9182, 'OUT:ALL 1': on9182, 'MEAS:VOLT?': v9182, 'MEAS:CURR?': i9182},
     'S1LP': {'baudrate': '115200', 'stat': sakstat},
-    'host': {'baudrate': '115200', 'sensorsj': hostsj},
+    'host': {'baudrate': '115200', 'sensorsj': hostsj, 'sj': hostsj},
     # add more devices here as needed
     'auto': {'baudrate': '115200'}
     }
 dev = 'host'  # manually set the device type
-thisfile = os.path.basename(__file__).split('.')[0]  # get script name without extension
-if thisfile in devinfo:  # script has been renamed to match a devinfo key
+thisfile = os.path.basename(__file__).split('.')[0][3:]  # get script name without extension, starting at fourth char (skip sm- prefix)
+if thisfile in devinfo:  # check if script has been renamed to match a devinfo key
     dev = thisfile  # override dev
 # set dictionary to be used in loop
 if dev == 'auto':

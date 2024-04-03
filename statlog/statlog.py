@@ -16,8 +16,8 @@ WINDOWS = os.name == 'nt'
 LINUX = os.name == 'posix'
 
 # set columns and rows in Windows
-cols = 180
-rows = 45
+cols = 100
+rows = 40
 
 # set delay between log entries (in seconds)
 logdelay = 3
