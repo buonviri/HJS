@@ -1,0 +1,6 @@
+sudo add-apt-repository ppa:thopiekar/openrgb
+sudo apt update -y
+sudo apt install openrgb -y
+openrgb --version
+openrgb
+sudo apt update && sudo apt upgrade
