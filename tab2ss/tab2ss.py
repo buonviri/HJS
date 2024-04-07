@@ -1,6 +1,19 @@
 import pyperclip
 import pprint
+import sys
 
+# check args and enable list/dict
+for arg in sys.argv:
+    if arg in ['-l', '--list']:
+        writelist = True
+        writedict = False
+    elif arg in ['-d', '--dict']:
+        writelist = False
+        writedict = True
+    else:
+        writelist = True
+        writedict = True
+        
 ss = []  # whole spreadsheet
 sslist = []
 ssdict = {}
@@ -44,10 +57,12 @@ for r in range(len(ss)):
         sslist.append(row)  # append row to list version
         ssdict[r] = row  # set row index (key) equal to row list (value)
 
-with open('tab2ss.list', 'w') as f:
-    f.write(pprint.pformat(sslist) + '\n')
+if writelist:
+    with open('tab2ss.list', 'w') as f:
+        f.write(pprint.pformat(sslist) + '\n')
 
-with open('tab2ss.dict', 'w') as f:
-    f.write(pprint.pformat(ssdict) + '\n')
+if writedict:
+    with open('tab2ss.dict', 'w') as f:
+        f.write(pprint.pformat(ssdict) + '\n')
 
 # EOF
