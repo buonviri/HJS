@@ -141,6 +141,13 @@ elif LINUX:
 else:
     print('\nUnknown OS\n')
 
+# determine which command to send
+thisfile = os.path.basename(__file__).split('.')[0]  # get script name
+if thisfile == 'statlog':
+    print('Logging stat command')
+else:
+    print('Sending single command: ' + thisfile)
+
 logfile = hex(int(time.time()))[2:] + '.csv'  # epoch time in hex (minus the 0x prefix) with csv extension
 print ('Logging to: ' + logfile + ' in ' + os.path.join(os.getcwd(), 'log'))
 try:
