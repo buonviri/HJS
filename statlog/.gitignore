@@ -1,1 +1,4 @@
 *.csv
+
+# copies of script
+zmax.py

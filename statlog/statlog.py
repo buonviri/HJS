@@ -37,6 +37,13 @@ def stat(dev):
 # End
 
 
+def other(dev, cmd):
+    dev.write(bytes(cmd + '\n', 'utf-8'))
+    val = dev.read(9999)
+    return val.decode('utf-8').strip()
+# End
+
+
 def getinfo(stat):
     discard = []
     info = {'todo': [],}
@@ -145,8 +152,10 @@ else:
 thisfile = os.path.basename(__file__).split('.')[0]  # get script name
 if thisfile == 'statlog':
     print('Logging stat command')
+    dostat = True
 else:
     print('Sending single command: ' + thisfile)
+    dostat = False
 
 logfile = hex(int(time.time()))[2:] + '.csv'  # epoch time in hex (minus the 0x prefix) with csv extension
 print ('Logging to: ' + logfile + ' in ' + os.path.join(os.getcwd(), 'log'))
@@ -175,7 +184,12 @@ input("Press <Enter> to initiate logging...")
 
 while True:
     t = int(time.time())  # floating point epoch time
-    s = stat(ec)
+    if dostat:
+        s = stat(ec)  # send stat command
+    else:
+        s = other(ec, thisfile)  # send other command, so unsecure!
+        print(s)
+        break
     info = getinfo(s)
     # pprint.pprint(info)
     csv = []
