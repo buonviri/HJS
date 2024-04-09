@@ -162,6 +162,8 @@ if thisfile == 'statlog':
     print('Logging stat command')
     dostat = True
 else:
+    if thisfile == '((help))':  # encoded message
+        thisfile = '?'  # replace verbose filename with brief serial command
     print('Sending single command: ' + thisfile)
     dostat = False
 
