@@ -163,8 +163,8 @@ if thisfile == 'statlog':  # default name in repo
     print('Logging stat command')
     dostat = True
 else:
-    if thisfile == '__help__':  # encoded message, translates to '?'
-        thisfile = '?'  # replace verbose filename with brief serial command
+    if thisfile == 'help':  # encoded message, translates to '?'
+        thisfile = '?'  # replace filename with brief serial command
     print('Sending single command: ' + thisfile)
     dostat = False
 
