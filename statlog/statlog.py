@@ -189,7 +189,8 @@ try:
 except:
     print('\n  Simulation mode\n')  # not actually implemented
 
-input("Press <Enter> to initiate logging...")
+if dostat:  # do not pause for input on the single commands, just the logging version
+    input("Press <Enter> to initiate logging...")
 
 while True:
     t = int(time.time())  # floating point epoch time
