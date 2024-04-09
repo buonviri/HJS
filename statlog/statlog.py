@@ -137,6 +137,14 @@ def GetBestPort(port, id):
 # End
 
 
+def checkdir(dirname):
+    try:
+        os.mkdir(dirname)  # attempt to add folder
+    except:
+        pass  # folder exists, move on
+# End
+
+
 # start of script
 if WINDOWS:
     colsandrows = str(cols) + ',' + str(rows)
@@ -157,12 +165,10 @@ else:
     print('Sending single command: ' + thisfile)
     dostat = False
 
+# set up logging
 logfile = hex(int(time.time()))[2:] + '.csv'  # epoch time in hex (minus the 0x prefix) with csv extension
 print ('Logging to: ' + logfile + ' in ' + os.path.join(os.getcwd(), 'log'))
-try:
-    os.mkdir('log')  # just in case it doesn't exist
-except:
-    pass  # folder exists, move on
+checkdir('log')  # just in case it doesn't exist, add it
 
 # configure serial port and open connection
 ec = serial.Serial()
