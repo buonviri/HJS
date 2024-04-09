@@ -3,6 +3,7 @@
 # Rev 1.01: better COM port management
 # Rev 1.02: initialize found_equals which didn't matter until
 #           it ran on linux mint for some reason
+# Rev 1.03: added alternate commands
 
 import serial  # requires pip install pyserial
 import serial.tools.list_ports
@@ -157,12 +158,12 @@ else:
     print('\nUnknown OS\n')
 
 # determine which command to send
-thisfile = os.path.basename(__file__).split('.')[0]  # get script name
-if thisfile == 'statlog':
+thisfile = os.path.basename(__file__).split('.')[0]  # get script name without extension
+if thisfile == 'statlog':  # default name in repo
     print('Logging stat command')
     dostat = True
 else:
-    if thisfile == '((help))':  # encoded message
+    if thisfile == '__help__':  # encoded message, translates to '?'
         thisfile = '?'  # replace verbose filename with brief serial command
     print('Sending single command: ' + thisfile)
     dostat = False
@@ -195,9 +196,9 @@ while True:
     if dostat:
         s = stat(ec)  # send stat command
     else:
-        s = other(ec, thisfile)  # send other command, so unsecure!
-        print(s)
-        break
+        s = other(ec, thisfile)  # send alternate command, so unsafe!
+        print(s)  # print result
+        break  # send alternate command only once
     info = getinfo(s)
     # pprint.pprint(info)
     csv = []
