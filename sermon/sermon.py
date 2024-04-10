@@ -139,7 +139,7 @@ ec.timeout = 1  # wait to read, should be ignored if \n is found, but does not f
 tzero = int(time.time())  # record start time
 tlast = tzero
 try:
-    print('  Opening: ' + ec.oprt)
+    print('  Opening: ' + ec.port)
     ec.open()  # may succeed even if device is off
     while True:
         if ec.in_waiting:  # bytes exist in buffer
