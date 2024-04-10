@@ -187,7 +187,7 @@ ec.parity = 'N'
 ec.stopbits = 1
 ec.timeout = 1  # wait up to one second to read
 # could add more flow control settings but they seem to default to off
-print('  Opening ' + bk.port + ' (' + str(bk.baudrate) + ',' + str(bk.bytesize) + bk.parity + str(bk.stopbits) + ')')
+print('  Opening ' + ec.port + ' (' + str(ec.baudrate) + ',' + str(ec.bytesize) + ec.parity + str(ec.stopbits) + ')')
 try:
     ec.open()  # may succeed even if device is off
 except:
@@ -203,7 +203,7 @@ while True:
     else:
         s = other(ec, thisfile)  # send alternate command, so unsafe!
         print(s)  # print result
-        break  # send alternate command only once
+        break  # send alternate command only once, immediately exit loop
     info = getinfo(s)
     # pprint.pprint(info)
     csv = []
@@ -218,12 +218,13 @@ while True:
         time.sleep(3)  # pause between reads
     except KeyboardInterrupt:  # hitting CTRL-C will exit the script cleanly
         print('\n  CTRL-C Detected')
-        if WINDOWS:
-            os.system('timeout /t 2')  # keep window open for up to two seconds, keystroke ends it instantly
-        elif LINUX:
-            os.system('sleep 2')  # pause for two seconds
-        break
+        break  # exit infinite loop
     print('\n------------- READING FROM SAKURA -------------\n')
+
+if WINDOWS:
+    os.system('timeout /t 2')  # keep window open for up to two seconds, keystroke ends it instantly
+elif LINUX:
+    os.system('sleep 2')  # pause for two seconds
 
 #EOF
 

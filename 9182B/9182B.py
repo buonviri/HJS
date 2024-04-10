@@ -207,11 +207,12 @@ while True:
         time.sleep(0.3)  # loop should happen twice per second
     except KeyboardInterrupt:  # hitting CTRL-C will exit the script cleanly
         print('\n  CTRL-C Detected')
-        if WINDOWS:
-            os.system('timeout /t 2')  # keep window open for up to two seconds, keystroke ends it instantly
-        elif LINUX:
-            os.system('sleep 2')  # pause for two seconds
         break
+
+if WINDOWS:
+    os.system('timeout /t 2')  # keep window open for up to two seconds, keystroke ends it instantly
+elif LINUX:
+    os.system('sleep 2')  # pause for two seconds
 
 #EOF
 
