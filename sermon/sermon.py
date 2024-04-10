@@ -60,6 +60,14 @@ def sakzmax(dev):
     val = b'Zeroing Max Values\n'
     print('Writing: ' + val.decode('utf-8').strip())
     dev.write(val)
+def saksn(dev):
+    val = b'SN = 12345\n'
+    print('Writing: ' + val.decode('utf-8').strip())
+    dev.write(val)
+def sakhelp(dev):
+    val = b'S1LP Help\n'
+    print('Writing: ' + val.decode('utf-8').strip())
+    dev.write(val)
 # End
 
 
@@ -89,7 +97,7 @@ else:
 
 devinfo = {  # commands and response functions, also baudrate setting
     '9182': {'baudrate': '57600', '*IDN?': id9182, 'SOUR:VOLT?': maxv9182, 'OUT:ALL 1': on9182, 'MEAS:VOLT?': v9182, 'MEAS:CURR?': i9182},
-    'S1LP': {'baudrate': '115200', 'stat': sakstat, 'zmax': sakzmax},
+    'S1LP': {'baudrate': '115200', 'stat': sakstat, 'zmax': sakzmax, 'snread': saksn, '?': sakhelp},
     'host': {'baudrate': '115200', 'sensorsj': hostsj, 'sj': hostsj},
     # add more devices here as needed
     'auto': {'baudrate': '115200'}
