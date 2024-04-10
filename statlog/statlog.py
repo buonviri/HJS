@@ -133,6 +133,9 @@ def GetBestPort(port, id):
     elif 'COM0COM' in portdetails:  # windows null modem app connecting COM5 and COM6
         print('  Null Modem Mode for HJS')
         return('COM5')
+    elif 'ROOT\PORTS' in portdetails:  # windows null modem app connecting COM1 and COM2
+        print('  Null Modem Mode for HJS')
+        return('COM1')
     else:
         return 'NONE'  # no ports found
 # End

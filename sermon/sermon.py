@@ -102,7 +102,7 @@ devinfo = {  # commands and response functions, also baudrate setting
     # add more devices here as needed
     'auto': {'baudrate': '115200'}
     }
-dev = 'host'  # manually set the device type
+dev = 'S1LP'  # manually set the device type
 thisfile = os.path.basename(__file__).split('.')[0][3:]  # get script name without extension, starting at fourth char (skip sm- prefix)
 if thisfile in devinfo:  # check if script has been renamed to match a devinfo key
     dev = thisfile  # override dev
@@ -132,8 +132,12 @@ else:  # os.name is most likely 'nt' but no point in checking
 print('  Preferred port is: ' + ec.port)
 # try to determine port name automatically
 for portnum, portdesc, portdetails in serial.tools.list_ports.comports():
-    if 'PID=0403:6015' in portdetails:
+    if 'ROOT\PORTS' in portdetails:  # Shareware name
         ec.port = portnum
+        print('  Found: ' + portnum)
+        print('  Desc = ' + portdesc)
+        print('  Details = ' + portdetails)
+    else:
         print('  Found: ' + portnum)
         print('  Desc = ' + portdesc)
         print('  Details = ' + portdetails)
@@ -170,6 +174,6 @@ except KeyboardInterrupt:
     time.sleep(3)
 except:
     print('\nExiting (Unknown Error)...')
-    time.sleep(3)
+    time.sleep(10)  # allow time to read error on screen
 
 #EOF
