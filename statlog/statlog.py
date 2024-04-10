@@ -187,6 +187,7 @@ ec.parity = 'N'
 ec.stopbits = 1
 ec.timeout = 1  # wait up to one second to read
 # could add more flow control settings but they seem to default to off
+print('  Opening ' + bk.port + ' (' + str(bk.baudrate) + ',' + str(bk.bytesize) + bk.parity + str(bk.stopbits) + ')')
 try:
     ec.open()  # may succeed even if device is off
 except:

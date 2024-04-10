@@ -139,6 +139,14 @@ def GetBestPort(port, id):
 # End
 
 
+def checkdir(dirname):
+    try:
+        os.mkdir(dirname)  # attempt to add folder
+    except:
+        pass  # folder exists, move on
+# End
+
+
 # start of script
 if WINDOWS:
     colsandrows = str(cols) + ',' + str(rows)
@@ -152,17 +160,13 @@ else:
 
 logfile = hex(int(time.time()))[2:] + '.csv'  # epoch time in hex (minus the 0x prefix) with csv extension
 print ('Logging to: ' + logfile + ' in ' + os.path.join(os.getcwd(), 'log'))
-try:
-    os.mkdir('log')  # just in case it doesn't exist
-except:
-    pass  # folder exists, move on
+checkdir('log')  # just in case it doesn't exist, add it
 
 # configure serial port and open connection
 bk = serial.Serial()
 bk.port = serialports[os.name]  # this will raise an exception if os.name isn't recognized
 print('  Preferred port is: ' + bk.port)
 bk.port = GetBestPort(bk.port, bkid)  # use <bk.port, bkid> for operation, <'COM5', COM0COM> for simulation
-print('  Using port: ' + bk.port)
 bk.baudrate = 57600
 bk.bytesize = 8
 bk.parity = 'N'
