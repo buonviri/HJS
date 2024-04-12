@@ -31,7 +31,7 @@ lastlog = 0
 
 # default ports and ID for linux and windows
 serialports = {'posix': '/dev/ttyUSB91', 'nt': 'COM91'}
-bkid = '10C4:EA60'
+productid = '10C4:EA60'
 
 # choose graphing character:
 # 0x2587 is 7/8 height rectangle, didn't exist in font used in Win10 command prompt
@@ -163,51 +163,50 @@ print ('Logging to: ' + logfile + ' in ' + os.path.join(os.getcwd(), 'log'))
 checkdir('log')  # just in case it doesn't exist, add it
 
 # configure serial port and open connection
-bk = serial.Serial()
-bk.port = serialports[os.name]  # this will raise an exception if os.name isn't recognized
-print('  Preferred port is: ' + bk.port)
-bk.port = GetBestPort(bk.port, bkid)  # use <bk.port, bkid> for operation, <'COM5', COM0COM> for simulation
-bk.baudrate = 57600
-bk.bytesize = 8
-bk.parity = 'N'
-bk.stopbits = 1
-bk.timeout = 1  # wait up to one second to read
+io = serial.Serial()
+io.port = serialports[os.name]  # this will raise an exception if os.name isn't recognized
+print('  Preferred port is: ' + io.port)
+io.port = GetBestPort(io.port, productid)  # get best port option
+io.baudrate = 57600
+io.bytesize = 8
+io.parity = 'N'
+io.stopbits = 1
+io.timeout = 1  # wait up to one second to read
 # could add more flow control settings but they seem to default to off
 fn = [simvoltage,simcurrent,simon]  # default to simulation mode
-print('  Opening ' + bk.port + ' (' + str(bk.baudrate) + ',' + str(bk.bytesize) + bk.parity + str(bk.stopbits) + ')')
+print('  Opening ' + io.port + ' (' + str(io.baudrate) + ',' + str(io.bytesize) + io.parity + str(io.stopbits) + ')')
 try:
-    bk.open()  # may succeed even if device is off
-    id = identify(bk)  # get ID
+    io.open()  # may succeed even if device is off
+    id = identify(io)  # get ID
     if id == '':  # timeout (device off or not connected) results in empty string
         print('Device not found\n')
     else:
         print('Device = ' + id + '\n')
         # display Voltage Setting
-        vmax = voltagemax(bk)
+        vmax = voltagemax(io)
         print('Vset = ' + vmax + ' V\n')
         fn = [voltage,current,on]  # override simulation mode with real functions
 except:
     print('Simulation mode\n')
 
 input("Press <Enter> to enable power and initiate logging...")
-fn[2](bk)  # enable power, function #2
+fn[2](io)  # enable power, function #2
 
-while True:
-    t = int(time.time())  # floating point epoch time
-    v = fn[0](bk)    # read voltage, function #0, depends on simulation mode
-    i = fn[1](bk)    # read current, function #1, depends on simulation mode
-    p = power(i,v)   # power, multiplies current and voltage
-    nz = float(p)+1  # get non-zero value of power
-    rects = int(nz)  # get int for multiplying string, range should be 1 to ceiling(max)
-    print('  ' + v + ' V' + ' x ' + i + ' A' + ' = ' + p.rjust(7) + ' W  ' + rect*rects)  # rjust accounts for 100+ watts
-    if t - lastlog >= logdelay:  # wait at least logdelay seconds to write to log again
-        lastlog = t  # record for subsequent checks
-        log(','.join([hex(t)[2:],p,i,v]))  # join with commas [timestamp, power, current, voltage]
-    try:  # normal operation
-        time.sleep(0.3)  # loop should happen twice per second
-    except KeyboardInterrupt:  # hitting CTRL-C will exit the script cleanly
-        print('\n  CTRL-C Detected')
-        break
+try:
+    while True:
+        t = int(time.time())  # floating point epoch time converted to int
+        v = fn[0](io)    # read voltage, function #0, depends on simulation mode
+        i = fn[1](io)    # read current, function #1, depends on simulation mode
+        p = power(i,v)   # power, multiplies current and voltage
+        nz = float(p)+1  # get non-zero value of power
+        rects = int(nz)  # get int for multiplying string, range should be 1 to ceiling(max)
+        print('  ' + v + ' V' + ' x ' + i + ' A' + ' = ' + p.rjust(7) + ' W  ' + rect*rects)  # rjust accounts for 100+ watts
+        if t - lastlog >= logdelay:  # wait at least logdelay seconds to write to log again
+            lastlog = t  # record for subsequent checks
+            log(','.join([hex(t)[2:],p,i,v]))  # join with commas [timestamp, power, current, voltage]
+        time.sleep(0.3)  # loop should happen twice per second, possibly three times
+except KeyboardInterrupt:  # hitting CTRL-C will exit the script cleanly
+    print('\n  CTRL-C Detected')
 
 if WINDOWS:
     os.system('timeout /t 2')  # keep window open for up to two seconds, keystroke ends it instantly
@@ -215,12 +214,3 @@ elif LINUX:
     os.system('sleep 2')  # pause for two seconds
 
 #EOF
-
-# linux instructions for permanent port numbers
-# create a file: 99-usb-serial.rules
-# in folder: /etc/udev/rules.d/
-# containing at least these two lines:
-# SUBSYSTEM=="tty", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", SYMLINK+="ttyUSB91"
-# EOT
-# then do: udevadm control --reload-rules
-# and then: reboot
