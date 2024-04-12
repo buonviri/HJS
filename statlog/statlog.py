@@ -28,7 +28,7 @@ lastlog = 0
 
 # default ports and ID for linux and windows
 serialports = {'posix': '/dev/ttyUSB51', 'nt': 'COM51'}
-ecid = '0403:6015'
+productid = '0403:6015'
 
 
 def stat(dev):
@@ -177,49 +177,48 @@ print ('Logging to: ' + logfile + ' in ' + os.path.join(os.getcwd(), 'log'))
 checkdir('log')  # just in case it doesn't exist, add it
 
 # configure serial port and open connection
-ec = serial.Serial()
-ec.port = serialports[os.name]  # this will raise an exception if os.name isn't recognized
-print('  Preferred port is: ' + ec.port)
-ec.port = GetBestPort(ec.port, ecid)  # use <ec.port, ecid> for operation, <'COM5', COM0COM> for simulation
-ec.baudrate = 115200
-ec.bytesize = 8
-ec.parity = 'N'
-ec.stopbits = 1
-ec.timeout = 1  # wait up to one second to read
+io = serial.Serial()
+io.port = serialports[os.name]  # this will raise an exception if os.name isn't recognized
+print('  Preferred port is: ' + io.port)
+io.port = GetBestPort(io.port, productid)  # get best port option
+io.baudrate = 115200
+io.bytesize = 8
+io.parity = 'N'
+io.stopbits = 1
+io.timeout = 1  # wait up to one second to read
 # could add more flow control settings but they seem to default to off
-print('  Opening ' + ec.port + ' (' + str(ec.baudrate) + ',' + str(ec.bytesize) + ec.parity + str(ec.stopbits) + ')')
+print('  Opening ' + io.port + ' (' + str(io.baudrate) + ',' + str(io.bytesize) + io.parity + str(io.stopbits) + ')')
 try:
-    ec.open()  # may succeed even if device is off
+    io.open()  # may succeed even if device is off
 except:
     print('\n  Simulation mode\n')  # not actually implemented
 
 if dostat:  # do not pause for input on the single commands, just the logging version
     input("Press <Enter> to initiate logging...")
 
-while True:
-    t = int(time.time())  # floating point epoch time
-    if dostat:
-        s = stat(ec)  # send stat command
-    else:
-        s = other(ec, thisfile)  # send alternate command, so unsafe!
-        print(s)  # print result
-        break  # send alternate command only once, immediately exit loop
-    info = getinfo(s)
-    # pprint.pprint(info)
-    csv = []
-    for k in info:
-        row = k + ',' + info[k][0] + ',' + info[k][1]
-        csv.append(row)
-        print(row)
-    if t - lastlog >= logdelay:  # wait at least logdelay seconds to write to log again
-        lastlog = t  # record for subsequent checks
-        log(','.join([ hex(t)[2:], ','.join(csv) ]))  # join with commas [timestamp, info]
-    try:  # normal operation
+try:
+    while True:
+        t = int(time.time())  # floating point epoch time
+        if dostat:
+            s = stat(io)  # send stat command
+        else:
+            s = other(io, thisfile)  # send alternate command, so unsafe!
+            print(s)  # print result
+            break  # send alternate command only once, immediately exit loop
+        info = getinfo(s)
+        # pprint.pprint(info)
+        csv = []
+        for k in info:
+            row = k + ',' + info[k][0] + ',' + info[k][1]
+            csv.append(row)
+            print(row)
+        if t - lastlog >= logdelay:  # wait at least logdelay seconds to write to log again
+            lastlog = t  # record for subsequent checks
+            log(','.join([ hex(t)[2:], ','.join(csv) ]))  # join with commas [timestamp, info]
         time.sleep(3)  # pause between reads
-    except KeyboardInterrupt:  # hitting CTRL-C will exit the script cleanly
-        print('\n  CTRL-C Detected')
-        break  # exit infinite loop
-    print('\n------------- READING FROM SAKURA -------------\n')
+        print('\n------------- READING FROM SAKURA -------------\n')
+except KeyboardInterrupt:  # hitting CTRL-C will exit the script cleanly
+    print('\n  CTRL-C Detected')
 
 if WINDOWS:
     os.system('timeout /t 2')  # keep window open for up to two seconds, keystroke ends it instantly
