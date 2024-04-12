@@ -125,8 +125,8 @@ def GetBestPort():
     xx_list.append('COM1')  # add null modem number for debug
     print('  Valid ports must match ' + str(id_list))  # debug
     print('  Preferred ports order: ' + str(xx_list))  # debug
-    for portnum, portdesc, portdetails in serial.tools.list_ports.comports():
-        for id in id_list:
+    for id in id_list:
+        for portnum, portdesc, portdetails in serial.tools.list_ports.comports():
             if id in portdetails:  # check for MFG/product ID in details
                 goodports.append(portnum)
                 result = '  Found ' + id + ' in '
