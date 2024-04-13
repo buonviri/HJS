@@ -113,8 +113,11 @@ def log(info):
 
 def GetBestPort():
     id_byfile = {
-        '9182B': ['10C4:EA60',],
+        '9182B':   ['10C4:EA60',],
         'statlog': ['0403:6015',],
+        'help':    ['0403:6015',],  # copy of statlog id
+        'snread':  ['0403:6015',],  # copy of statlog id
+        'zmax':    ['0403:6015',],  # copy of statlog id
     }
     preferred = {  # first entry should be linux loopback, which will only show up if socat is running
         '9182B':   ['/home/ec/COM5', '/dev/ttyUSB91', 'COM91'],
@@ -129,6 +132,7 @@ def GetBestPort():
         id_list = id_byfile[thisfile]  # if this file has an entry, start with that list
         xx_list = preferred[thisfile]  # ditto
     except:
+        print('  Script filename not found in dict... ' + thisfile)  # debug
         id_list = ['script filename not found in list',]  # start with a list containing an invalid entry
         xx_list = ['script filename not found in list',]  # ditto
     id_list.append('COM0COM')  # add null modem simulator for debug
