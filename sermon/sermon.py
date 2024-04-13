@@ -1,4 +1,5 @@
 # Rev 0.00: experimental only
+# Rev 1.00: works on linux
 
 import serial  # requires pip install pyserial
 import serial.tools.list_ports
@@ -10,7 +11,7 @@ WINDOWS = os.name == 'nt'
 LINUX = os.name == 'posix'
 
 # default ports
-serialports = {'linux': '/dev/ttyUSB6', 'windows': 'COM6'}
+serialports = {'linux': '/home/ec/COM6', 'windows': 'COM6'}
 
 # number format for voltage, current, power
 format = '%0.3f'
@@ -132,7 +133,7 @@ else:  # os.name is most likely 'nt' but no point in checking
 print('  Preferred port is: ' + ec.port)
 # try to determine port name automatically
 for portnum, portdesc, portdetails in serial.tools.list_ports.comports():
-    if 'ROOT\PORTS' in portdetails:  # Shareware name
+    if 'ROOT\\PORTS' in portdetails:  # Shareware name
         ec.port = portnum
         print('  Found: ' + portnum)
         print('  Desc = ' + portdesc)
