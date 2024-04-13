@@ -117,8 +117,11 @@ def GetBestPort():
         'statlog': ['0403:6015',],
     }
     preferred = {  # first entry should be linux loopback, which will only show up if socat is running
-        '9182B': ['/home/ec/COM5', '/dev/ttyUSB91', 'COM91'],
+        '9182B':   ['/home/ec/COM5', '/dev/ttyUSB91', 'COM91'],
         'statlog': ['/home/ec/COM5', '/dev/ttyUSB51', 'COM51'],
+        'help':    ['/home/ec/COM5', '/dev/ttyUSB51', 'COM51'],  # copy of statlog ports
+        'snread':  ['/home/ec/COM5', '/dev/ttyUSB51', 'COM51'],  # copy of statlog ports
+        'zmax':    ['/home/ec/COM5', '/dev/ttyUSB51', 'COM51'],  # copy of statlog ports
     }
     goodports = []  # blank list that will contain ports that meet criteria
     thisfile = os.path.basename(__file__).split('.')[0]  # get filename (minus extension) for possible match
