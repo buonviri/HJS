@@ -112,8 +112,14 @@ def log(info):
 
 
 def GetBestPort():
-    id_byfile = {'9182B': ['10C4:EA60',], 'statlog': ['0403:6015',], }
-    preferred = {'9182B': ['/dev/ttyUSB91', 'COM91'], 'statlog': ['/dev/ttyUSB51', 'COM51'], }
+    id_byfile = {
+        '9182B': ['10C4:EA60',],
+        'statlog': ['0403:6015',],
+    }
+    preferred = {  # first entry should be linux loopback, which will only show up if socat is running
+        '9182B': ['/home/ec/COM5', '/dev/ttyUSB91', 'COM91'],
+        'statlog': ['/home/ec/COM5', '/dev/ttyUSB51', 'COM51'],
+    }
     goodports = []  # blank list that will contain ports that meet criteria
     thisfile = os.path.basename(__file__).split('.')[0]  # get filename (minus extension) for possible match
     try:
@@ -142,8 +148,8 @@ def GetBestPort():
             return port
     if len(goodports) > 0:  # at least one port matched target ID
         return goodports[0]
-    else:
-        return 'NONE'  # no ports found
+    return xx_list[0]  # no ports found, but return first preferred entry for linux simulation
+    # linux doesn't find /home/username/whatever ports, just /dev/whatever, so the socat loopback never shows up
 # End
 
 
