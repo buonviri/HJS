@@ -4,6 +4,7 @@
 # Rev 1.02: initialize found_equals which didn't matter until
 #           it ran on linux mint for some reason
 # Rev 1.03: added alternate commands
+# Rev 1.20: com port choice improved
 
 import serial  # requires pip install pyserial
 import serial.tools.list_ports
@@ -25,10 +26,6 @@ logdelay = 3
 
 # initialize log timer to 1970
 lastlog = 0
-
-# default ports and ID for linux and windows
-serialports = {'posix': '/dev/ttyUSB51', 'nt': 'COM51'}
-productid = '0403:6015'
 
 
 def stat(dev):
@@ -114,28 +111,37 @@ def log(info):
 # End
 
 
-def GetBestPort(port, id):
-    goodports = []  # list of ports that meet criteria
-    for portnum, portdesc, portdetails in serial.tools.list_ports.comports():
-        if id in portdetails:  # check for MFG/product ID in details
-            goodports.append(portnum)
-            print('  Found: ' + portnum)
-            print('  Desc = ' + portdesc)
-            print('  Details = ' + portdetails)
-        # else:  # debug
-        #     print('  A: ' + portnum)
-        #     print('  B = ' + portdesc)
-        #     print('  C = ' + portdetails)
-    if port in goodports:  # requested port was found
-        return port
-    elif len(goodports) > 0:  # at least one port matched target ID
+def GetBestPort():
+    id_byfile = {'9182B': ['10C4:EA60',], 'statlog': ['0403:6015',], }
+    preferred = {'9182B': ['/dev/ttyUSB91', 'COM91'], 'statlog': ['/dev/ttyUSB51', 'COM51'], }
+    goodports = []  # blank list that will contain ports that meet criteria
+    thisfile = os.path.basename(__file__).split('.')[0]  # get filename (minus extension) for possible match
+    try:
+        id_list = id_byfile[thisfile]  # if this file has an entry, start with that list
+        xx_list = preferred[thisfile]  # ditto
+    except:
+        id_list = ['script filename not found in list',]  # start with a list containing an invalid entry
+        xx_list = ['script filename not found in list',]  # ditto
+    id_list.append('COM0COM')  # add null modem simulator for debug
+    id_list.append('ROOT\\PORTS')  # add null modem simulator for debug
+    xx_list.append('COM5')  # add null modem number for debug
+    xx_list.append('COM1')  # add null modem number for debug
+    print('  Valid ports must match ' + str(id_list))  # debug
+    print('  Preferred ports order: ' + str(xx_list))  # debug
+    for id in id_list:
+        for portnum, portdesc, portdetails in serial.tools.list_ports.comports():
+            if id in portdetails:  # check for MFG/product ID in details
+                goodports.append(portnum)
+                result = '  Found ' + id + ' in '
+            else:
+                result = '    ' + id + ' not in '
+            print(result + portnum + ' | ' + portdesc + ' | ' + portdetails)
+    print('  Good Ports: ' + str(goodports))  # debug
+    for port in xx_list:
+        if port in goodports:  # requested port was found
+            return port
+    if len(goodports) > 0:  # at least one port matched target ID
         return goodports[0]
-    elif 'COM0COM' in portdetails:  # windows null modem app connecting COM5 and COM6
-        print('  Null Modem Mode for HJS')
-        return('COM5')
-    elif 'ROOT\PORTS' in portdetails:  # windows null modem app connecting COM1 and COM2
-        print('  Null Modem Mode for HJS')
-        return('COM1')
     else:
         return 'NONE'  # no ports found
 # End
@@ -178,9 +184,7 @@ checkdir('log')  # just in case it doesn't exist, add it
 
 # configure serial port and open connection
 io = serial.Serial()
-io.port = serialports[os.name]  # this will raise an exception if os.name isn't recognized
-print('  Preferred port is: ' + io.port)
-io.port = GetBestPort(io.port, productid)  # get best port option
+io.port = GetBestPort()  # get best port option
 io.baudrate = 115200
 io.bytesize = 8
 io.parity = 'N'
