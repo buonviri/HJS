@@ -56,7 +56,7 @@ def i9182(dev):
 def sakstat(dev):
     fval = 0.50 + rand()*10/100  # 0.50 to 0.60
     sval = format % fval  # string version
-    val = bytes('V_0P55V = ' + sval + '\n', 'utf-8')
+    val = bytes('V_0P55V = ' + sval + ' V\n', 'utf-8')
     print('Writing: ' + val.decode('utf-8').strip())
     dev.write(val)
 def sakzmax(dev):
