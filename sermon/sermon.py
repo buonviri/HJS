@@ -140,6 +140,8 @@ for portnum, portdesc, portdetails in serial.tools.list_ports.comports():
         print('  Found: ' + portnum)
         print('  Desc = ' + portdesc)
         print('  Details = ' + portdetails)
+    elif portdesc == 'n/a' and portdetails == 'n/a':  # u24 fix, tons of ports show up with no details
+        pass
     else:
         print('  Found: ' + portnum)
         print('  Desc = ' + portdesc)
