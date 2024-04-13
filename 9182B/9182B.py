@@ -9,6 +9,7 @@
 # Rev 1.06: added nt vs posix options
 # Rev 1.10: first integrated release
 # Rev 1.11: better COM port management
+# Rev 1.20: com port choice improved
 
 import serial  # requires pip install pyserial
 import serial.tools.list_ports
@@ -169,8 +170,6 @@ checkdir('log')  # just in case it doesn't exist, add it
 
 # configure serial port and open connection
 io = serial.Serial()
-# io.port = serialports[os.name]  # this will raise an exception if os.name isn't recognized
-# print('  Preferred port is: ' + io.port)
 io.port = GetBestPort()  # get best port option
 io.baudrate = 57600
 io.bytesize = 8
