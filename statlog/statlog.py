@@ -148,7 +148,10 @@ def GetBestPort():
                 result = '  Found ' + id + ' in '
             else:
                 result = '    ' + id + ' not in '
-            print(result + portnum + ' | ' + portdesc + ' | ' + portdetails)
+            if portdesc == 'n/a' and portdetails == 'n/a':  # u24 fix, tons of ports show up with no details
+                pass
+            else:  # port is real(ish) so display it
+                print(result + portnum + ' | ' + portdesc + ' | ' + portdetails)
     print('  Good Ports: ' + str(goodports))  # debug
     for port in xx_list:
         if port in goodports:  # requested port was found
