@@ -113,6 +113,7 @@ def GetBestPort():
     id_byfile = {
         '9182B': ['10C4:EA60',],
         'statlog': ['0403:6015',],
+        # new null modem cable is '0403:6001', could be used for sermon and its children
     }
     preferred = {  # first entry should be linux loopback, which will only show up if socat is running
         '9182B': ['/home/ec/COM5', '/dev/ttyUSB91', 'COM91'],
