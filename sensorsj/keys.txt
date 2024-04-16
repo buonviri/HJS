@@ -1,0 +1,418 @@
+
+asrock.sj
+
+nct6798-isa-02a0|Adapter
+nct6798-isa-02a0|in0|in0_input
+nct6798-isa-02a0|in0|in0_min
+nct6798-isa-02a0|in0|in0_max
+nct6798-isa-02a0|in0|in0_alarm
+nct6798-isa-02a0|in0|in0_beep
+nct6798-isa-02a0|in1|in1_input
+nct6798-isa-02a0|in1|in1_min
+nct6798-isa-02a0|in1|in1_max
+nct6798-isa-02a0|in1|in1_alarm
+nct6798-isa-02a0|in1|in1_beep
+nct6798-isa-02a0|in2|in2_input
+nct6798-isa-02a0|in2|in2_min
+nct6798-isa-02a0|in2|in2_max
+nct6798-isa-02a0|in2|in2_alarm
+nct6798-isa-02a0|in2|in2_beep
+nct6798-isa-02a0|in3|in3_input
+nct6798-isa-02a0|in3|in3_min
+nct6798-isa-02a0|in3|in3_max
+nct6798-isa-02a0|in3|in3_alarm
+nct6798-isa-02a0|in3|in3_beep
+nct6798-isa-02a0|in4|in4_input
+nct6798-isa-02a0|in4|in4_min
+nct6798-isa-02a0|in4|in4_max
+nct6798-isa-02a0|in4|in4_alarm
+nct6798-isa-02a0|in4|in4_beep
+nct6798-isa-02a0|in5|in5_input
+nct6798-isa-02a0|in5|in5_min
+nct6798-isa-02a0|in5|in5_max
+nct6798-isa-02a0|in5|in5_beep
+nct6798-isa-02a0|in6|in6_input
+nct6798-isa-02a0|in6|in6_min
+nct6798-isa-02a0|in6|in6_max
+nct6798-isa-02a0|in6|in6_alarm
+nct6798-isa-02a0|in6|in6_beep
+nct6798-isa-02a0|in7|in7_input
+nct6798-isa-02a0|in7|in7_min
+nct6798-isa-02a0|in7|in7_max
+nct6798-isa-02a0|in7|in7_alarm
+nct6798-isa-02a0|in7|in7_beep
+nct6798-isa-02a0|in8|in8_input
+nct6798-isa-02a0|in8|in8_min
+nct6798-isa-02a0|in8|in8_max
+nct6798-isa-02a0|in8|in8_alarm
+nct6798-isa-02a0|in8|in8_beep
+nct6798-isa-02a0|in9|in9_input
+nct6798-isa-02a0|in9|in9_min
+nct6798-isa-02a0|in9|in9_max
+nct6798-isa-02a0|in9|in9_alarm
+nct6798-isa-02a0|in9|in9_beep
+nct6798-isa-02a0|in10|in10_input
+nct6798-isa-02a0|in10|in10_min
+nct6798-isa-02a0|in10|in10_max
+nct6798-isa-02a0|in10|in10_alarm
+nct6798-isa-02a0|in10|in10_beep
+nct6798-isa-02a0|in11|in11_input
+nct6798-isa-02a0|in11|in11_min
+nct6798-isa-02a0|in11|in11_max
+nct6798-isa-02a0|in11|in11_alarm
+nct6798-isa-02a0|in11|in11_beep
+nct6798-isa-02a0|in12|in12_input
+nct6798-isa-02a0|in12|in12_min
+nct6798-isa-02a0|in12|in12_max
+nct6798-isa-02a0|in12|in12_alarm
+nct6798-isa-02a0|in12|in12_beep
+nct6798-isa-02a0|in13|in13_input
+nct6798-isa-02a0|in13|in13_min
+nct6798-isa-02a0|in13|in13_max
+nct6798-isa-02a0|in13|in13_alarm
+nct6798-isa-02a0|in13|in13_beep
+nct6798-isa-02a0|in14|in14_input
+nct6798-isa-02a0|in14|in14_min
+nct6798-isa-02a0|in14|in14_max
+nct6798-isa-02a0|in14|in14_alarm
+nct6798-isa-02a0|in14|in14_beep
+nct6798-isa-02a0|fan1|fan1_input
+nct6798-isa-02a0|fan1|fan1_min
+nct6798-isa-02a0|fan1|fan1_alarm
+nct6798-isa-02a0|fan1|fan1_beep
+nct6798-isa-02a0|fan1|fan1_pulses
+nct6798-isa-02a0|fan2|fan2_input
+nct6798-isa-02a0|fan2|fan2_min
+nct6798-isa-02a0|fan2|fan2_alarm
+nct6798-isa-02a0|fan2|fan2_beep
+nct6798-isa-02a0|fan2|fan2_pulses
+nct6798-isa-02a0|fan3|fan3_input
+nct6798-isa-02a0|fan3|fan3_min
+nct6798-isa-02a0|fan3|fan3_alarm
+nct6798-isa-02a0|fan3|fan3_beep
+nct6798-isa-02a0|fan3|fan3_pulses
+nct6798-isa-02a0|fan4|fan4_input
+nct6798-isa-02a0|fan4|fan4_min
+nct6798-isa-02a0|fan4|fan4_alarm
+nct6798-isa-02a0|fan4|fan4_beep
+nct6798-isa-02a0|fan4|fan4_pulses
+nct6798-isa-02a0|fan5|fan5_input
+nct6798-isa-02a0|fan5|fan5_min
+nct6798-isa-02a0|fan5|fan5_alarm
+nct6798-isa-02a0|fan5|fan5_beep
+nct6798-isa-02a0|fan5|fan5_pulses
+nct6798-isa-02a0|fan7|fan7_input
+nct6798-isa-02a0|fan7|fan7_min
+nct6798-isa-02a0|fan7|fan7_pulses
+nct6798-isa-02a0|SYSTIN|temp1_input
+nct6798-isa-02a0|SYSTIN|temp1_max
+nct6798-isa-02a0|SYSTIN|temp1_max_hyst
+nct6798-isa-02a0|SYSTIN|temp1_crit
+nct6798-isa-02a0|SYSTIN|temp1_type
+nct6798-isa-02a0|SYSTIN|temp1_offset
+nct6798-isa-02a0|SYSTIN|temp1_beep
+nct6798-isa-02a0|CPUTIN|temp2_input
+nct6798-isa-02a0|CPUTIN|temp2_max
+nct6798-isa-02a0|CPUTIN|temp2_max_hyst
+nct6798-isa-02a0|CPUTIN|temp2_crit
+nct6798-isa-02a0|CPUTIN|temp2_alarm
+nct6798-isa-02a0|CPUTIN|temp2_type
+nct6798-isa-02a0|CPUTIN|temp2_offset
+nct6798-isa-02a0|CPUTIN|temp2_beep
+nct6798-isa-02a0|AUXTIN0|temp3_input
+nct6798-isa-02a0|AUXTIN0|temp3_max
+nct6798-isa-02a0|AUXTIN0|temp3_max_hyst
+nct6798-isa-02a0|AUXTIN0|temp3_crit
+nct6798-isa-02a0|AUXTIN0|temp3_alarm
+nct6798-isa-02a0|AUXTIN0|temp3_type
+nct6798-isa-02a0|AUXTIN0|temp3_offset
+nct6798-isa-02a0|AUXTIN0|temp3_beep
+nct6798-isa-02a0|AUXTIN1|temp4_input
+nct6798-isa-02a0|AUXTIN1|temp4_max
+nct6798-isa-02a0|AUXTIN1|temp4_max_hyst
+nct6798-isa-02a0|AUXTIN1|temp4_crit
+nct6798-isa-02a0|AUXTIN1|temp4_alarm
+nct6798-isa-02a0|AUXTIN1|temp4_type
+nct6798-isa-02a0|AUXTIN1|temp4_offset
+nct6798-isa-02a0|AUXTIN1|temp4_beep
+nct6798-isa-02a0|AUXTIN2|temp5_input
+nct6798-isa-02a0|AUXTIN2|temp5_max
+nct6798-isa-02a0|AUXTIN2|temp5_max_hyst
+nct6798-isa-02a0|AUXTIN2|temp5_crit
+nct6798-isa-02a0|AUXTIN2|temp5_alarm
+nct6798-isa-02a0|AUXTIN2|temp5_type
+nct6798-isa-02a0|AUXTIN2|temp5_offset
+nct6798-isa-02a0|AUXTIN2|temp5_beep
+nct6798-isa-02a0|AUXTIN3|temp6_input
+nct6798-isa-02a0|AUXTIN3|temp6_max
+nct6798-isa-02a0|AUXTIN3|temp6_max_hyst
+nct6798-isa-02a0|AUXTIN3|temp6_crit
+nct6798-isa-02a0|AUXTIN3|temp6_alarm
+nct6798-isa-02a0|AUXTIN3|temp6_type
+nct6798-isa-02a0|AUXTIN3|temp6_offset
+nct6798-isa-02a0|AUXTIN3|temp6_beep
+nct6798-isa-02a0|PECI Agent 0|temp7_input
+nct6798-isa-02a0|PECI Agent 0|temp7_max
+nct6798-isa-02a0|PECI Agent 0|temp7_max_hyst
+nct6798-isa-02a0|PECI Agent 0|temp7_alarm
+nct6798-isa-02a0|PECI Agent 0|temp7_beep
+nct6798-isa-02a0|AUXTIN4|temp8_input
+nct6798-isa-02a0|AUXTIN4|temp8_max
+nct6798-isa-02a0|AUXTIN4|temp8_max_hyst
+nct6798-isa-02a0|AUXTIN4|temp8_crit
+nct6798-isa-02a0|AUXTIN4|temp8_alarm
+nct6798-isa-02a0|AUXTIN4|temp8_beep
+nct6798-isa-02a0|PCH_CHIP_CPU_MAX_TEMP|temp9_input
+nct6798-isa-02a0|PCH_CHIP_TEMP|temp10_input
+nct6798-isa-02a0|PCH_CPU_TEMP|temp11_input
+nct6798-isa-02a0|PCH_MCH_TEMP|temp12_input
+nct6798-isa-02a0|intrusion0|intrusion0_alarm
+nct6798-isa-02a0|intrusion0|intrusion0_beep
+nct6798-isa-02a0|intrusion1|intrusion1_alarm
+nct6798-isa-02a0|intrusion1|intrusion1_beep
+nct6798-isa-02a0|beep_enable|beep_enable
+nvme-pci-0200|Adapter
+nvme-pci-0200|Composite|temp1_input
+nvme-pci-0200|Composite|temp1_max
+nvme-pci-0200|Composite|temp1_min
+nvme-pci-0200|Composite|temp1_crit
+nvme-pci-0200|Composite|temp1_alarm
+nvme-pci-0200|Sensor 1|temp2_input
+nvme-pci-0200|Sensor 1|temp2_max
+nvme-pci-0200|Sensor 1|temp2_min
+coretemp-isa-0000|Adapter
+coretemp-isa-0000|Package id 0|temp1_input
+coretemp-isa-0000|Package id 0|temp1_max
+coretemp-isa-0000|Package id 0|temp1_crit
+coretemp-isa-0000|Package id 0|temp1_crit_alarm
+coretemp-isa-0000|Core 0|temp2_input
+coretemp-isa-0000|Core 0|temp2_max
+coretemp-isa-0000|Core 0|temp2_crit
+coretemp-isa-0000|Core 0|temp2_crit_alarm
+coretemp-isa-0000|Core 4|temp6_input
+coretemp-isa-0000|Core 4|temp6_max
+coretemp-isa-0000|Core 4|temp6_crit
+coretemp-isa-0000|Core 4|temp6_crit_alarm
+coretemp-isa-0000|Core 8|temp10_input
+coretemp-isa-0000|Core 8|temp10_max
+coretemp-isa-0000|Core 8|temp10_crit
+coretemp-isa-0000|Core 8|temp10_crit_alarm
+coretemp-isa-0000|Core 12|temp14_input
+coretemp-isa-0000|Core 12|temp14_max
+coretemp-isa-0000|Core 12|temp14_crit
+coretemp-isa-0000|Core 12|temp14_crit_alarm
+coretemp-isa-0000|Core 16|temp18_input
+coretemp-isa-0000|Core 16|temp18_max
+coretemp-isa-0000|Core 16|temp18_crit
+coretemp-isa-0000|Core 16|temp18_crit_alarm
+coretemp-isa-0000|Core 20|temp22_input
+coretemp-isa-0000|Core 20|temp22_max
+coretemp-isa-0000|Core 20|temp22_crit
+coretemp-isa-0000|Core 20|temp22_crit_alarm
+coretemp-isa-0000|Core 24|temp26_input
+coretemp-isa-0000|Core 24|temp26_max
+coretemp-isa-0000|Core 24|temp26_crit
+coretemp-isa-0000|Core 24|temp26_crit_alarm
+coretemp-isa-0000|Core 25|temp27_input
+coretemp-isa-0000|Core 25|temp27_max
+coretemp-isa-0000|Core 25|temp27_crit
+coretemp-isa-0000|Core 25|temp27_crit_alarm
+coretemp-isa-0000|Core 26|temp28_input
+coretemp-isa-0000|Core 26|temp28_max
+coretemp-isa-0000|Core 26|temp28_crit
+coretemp-isa-0000|Core 26|temp28_crit_alarm
+coretemp-isa-0000|Core 27|temp29_input
+coretemp-isa-0000|Core 27|temp29_max
+coretemp-isa-0000|Core 27|temp29_crit
+coretemp-isa-0000|Core 27|temp29_crit_alarm
+coretemp-isa-0000|Core 28|temp30_input
+coretemp-isa-0000|Core 28|temp30_max
+coretemp-isa-0000|Core 28|temp30_crit
+coretemp-isa-0000|Core 28|temp30_crit_alarm
+coretemp-isa-0000|Core 29|temp31_input
+coretemp-isa-0000|Core 29|temp31_max
+coretemp-isa-0000|Core 29|temp31_crit
+coretemp-isa-0000|Core 29|temp31_crit_alarm
+coretemp-isa-0000|Core 30|temp32_input
+coretemp-isa-0000|Core 30|temp32_max
+coretemp-isa-0000|Core 30|temp32_crit
+coretemp-isa-0000|Core 30|temp32_crit_alarm
+coretemp-isa-0000|Core 31|temp33_input
+coretemp-isa-0000|Core 31|temp33_max
+coretemp-isa-0000|Core 31|temp33_crit
+coretemp-isa-0000|Core 31|temp33_crit_alarm
+
+kfanfail.sj
+
+nvme-pci-0500|Adapter
+nvme-pci-0500|Composite|temp1_input
+nvme-pci-0500|Composite|temp1_max
+nvme-pci-0500|Composite|temp1_min
+nvme-pci-0500|Composite|temp1_crit
+nvme-pci-0500|Composite|temp1_alarm
+acpitz-acpi-0|Adapter
+acpitz-acpi-0|temp1|temp1_input
+acpitz-acpi-0|temp1|temp1_crit
+coretemp-isa-0000|Adapter
+coretemp-isa-0000|Package id 0|temp1_input
+coretemp-isa-0000|Package id 0|temp1_max
+coretemp-isa-0000|Package id 0|temp1_crit
+coretemp-isa-0000|Package id 0|temp1_crit_alarm
+coretemp-isa-0000|Core 0|temp2_input
+coretemp-isa-0000|Core 0|temp2_max
+coretemp-isa-0000|Core 0|temp2_crit
+coretemp-isa-0000|Core 0|temp2_crit_alarm
+coretemp-isa-0000|Core 4|temp3_input
+coretemp-isa-0000|Core 4|temp3_max
+coretemp-isa-0000|Core 4|temp3_crit
+coretemp-isa-0000|Core 4|temp3_crit_alarm
+coretemp-isa-0000|Core 8|temp4_input
+coretemp-isa-0000|Core 8|temp4_max
+coretemp-isa-0000|Core 8|temp4_crit
+coretemp-isa-0000|Core 8|temp4_crit_alarm
+coretemp-isa-0000|Core 12|temp5_input
+coretemp-isa-0000|Core 12|temp5_max
+coretemp-isa-0000|Core 12|temp5_crit
+coretemp-isa-0000|Core 12|temp5_crit_alarm
+coretemp-isa-0000|Core 16|temp6_input
+coretemp-isa-0000|Core 16|temp6_max
+coretemp-isa-0000|Core 16|temp6_crit
+coretemp-isa-0000|Core 16|temp6_crit_alarm
+coretemp-isa-0000|Core 20|temp7_input
+coretemp-isa-0000|Core 20|temp7_max
+coretemp-isa-0000|Core 20|temp7_crit
+coretemp-isa-0000|Core 20|temp7_crit_alarm
+coretemp-isa-0000|Core 24|temp8_input
+coretemp-isa-0000|Core 24|temp8_max
+coretemp-isa-0000|Core 24|temp8_crit
+coretemp-isa-0000|Core 24|temp8_crit_alarm
+coretemp-isa-0000|Core 28|temp9_input
+coretemp-isa-0000|Core 28|temp9_max
+coretemp-isa-0000|Core 28|temp9_crit
+coretemp-isa-0000|Core 28|temp9_crit_alarm
+coretemp-isa-0000|Core 32|temp10_input
+coretemp-isa-0000|Core 32|temp10_max
+coretemp-isa-0000|Core 32|temp10_crit
+coretemp-isa-0000|Core 32|temp10_crit_alarm
+coretemp-isa-0000|Core 33|temp11_input
+coretemp-isa-0000|Core 33|temp11_max
+coretemp-isa-0000|Core 33|temp11_crit
+coretemp-isa-0000|Core 33|temp11_crit_alarm
+coretemp-isa-0000|Core 34|temp12_input
+coretemp-isa-0000|Core 34|temp12_max
+coretemp-isa-0000|Core 34|temp12_crit
+coretemp-isa-0000|Core 34|temp12_crit_alarm
+coretemp-isa-0000|Core 35|temp13_input
+coretemp-isa-0000|Core 35|temp13_max
+coretemp-isa-0000|Core 35|temp13_crit
+coretemp-isa-0000|Core 35|temp13_crit_alarm
+coretemp-isa-0000|Core 36|temp14_input
+coretemp-isa-0000|Core 36|temp14_max
+coretemp-isa-0000|Core 36|temp14_crit
+coretemp-isa-0000|Core 36|temp14_crit_alarm
+coretemp-isa-0000|Core 37|temp15_input
+coretemp-isa-0000|Core 37|temp15_max
+coretemp-isa-0000|Core 37|temp15_crit
+coretemp-isa-0000|Core 37|temp15_crit_alarm
+coretemp-isa-0000|Core 38|temp16_input
+coretemp-isa-0000|Core 38|temp16_max
+coretemp-isa-0000|Core 38|temp16_crit
+coretemp-isa-0000|Core 38|temp16_crit_alarm
+coretemp-isa-0000|Core 39|temp17_input
+coretemp-isa-0000|Core 39|temp17_max
+coretemp-isa-0000|Core 39|temp17_crit
+coretemp-isa-0000|Core 39|temp17_crit_alarm
+nvme-pci-0200|Adapter
+nvme-pci-0200|Composite|temp1_input
+nvme-pci-0200|Composite|temp1_max
+nvme-pci-0200|Composite|temp1_min
+nvme-pci-0200|Composite|temp1_crit
+nvme-pci-0200|Composite|temp1_alarm
+
+kfanless.sj
+
+nvme-pci-0500|Adapter
+nvme-pci-0500|Composite|temp1_input
+nvme-pci-0500|Composite|temp1_max
+nvme-pci-0500|Composite|temp1_min
+nvme-pci-0500|Composite|temp1_crit
+nvme-pci-0500|Composite|temp1_alarm
+acpitz-acpi-0|Adapter
+acpitz-acpi-0|temp1|temp1_input
+acpitz-acpi-0|temp1|temp1_crit
+coretemp-isa-0000|Adapter
+coretemp-isa-0000|Package id 0|temp1_input
+coretemp-isa-0000|Package id 0|temp1_max
+coretemp-isa-0000|Package id 0|temp1_crit
+coretemp-isa-0000|Package id 0|temp1_crit_alarm
+coretemp-isa-0000|Core 0|temp2_input
+coretemp-isa-0000|Core 0|temp2_max
+coretemp-isa-0000|Core 0|temp2_crit
+coretemp-isa-0000|Core 0|temp2_crit_alarm
+coretemp-isa-0000|Core 4|temp3_input
+coretemp-isa-0000|Core 4|temp3_max
+coretemp-isa-0000|Core 4|temp3_crit
+coretemp-isa-0000|Core 4|temp3_crit_alarm
+coretemp-isa-0000|Core 8|temp4_input
+coretemp-isa-0000|Core 8|temp4_max
+coretemp-isa-0000|Core 8|temp4_crit
+coretemp-isa-0000|Core 8|temp4_crit_alarm
+coretemp-isa-0000|Core 12|temp5_input
+coretemp-isa-0000|Core 12|temp5_max
+coretemp-isa-0000|Core 12|temp5_crit
+coretemp-isa-0000|Core 12|temp5_crit_alarm
+coretemp-isa-0000|Core 16|temp6_input
+coretemp-isa-0000|Core 16|temp6_max
+coretemp-isa-0000|Core 16|temp6_crit
+coretemp-isa-0000|Core 16|temp6_crit_alarm
+coretemp-isa-0000|Core 20|temp7_input
+coretemp-isa-0000|Core 20|temp7_max
+coretemp-isa-0000|Core 20|temp7_crit
+coretemp-isa-0000|Core 20|temp7_crit_alarm
+coretemp-isa-0000|Core 24|temp8_input
+coretemp-isa-0000|Core 24|temp8_max
+coretemp-isa-0000|Core 24|temp8_crit
+coretemp-isa-0000|Core 24|temp8_crit_alarm
+coretemp-isa-0000|Core 28|temp9_input
+coretemp-isa-0000|Core 28|temp9_max
+coretemp-isa-0000|Core 28|temp9_crit
+coretemp-isa-0000|Core 28|temp9_crit_alarm
+coretemp-isa-0000|Core 32|temp10_input
+coretemp-isa-0000|Core 32|temp10_max
+coretemp-isa-0000|Core 32|temp10_crit
+coretemp-isa-0000|Core 32|temp10_crit_alarm
+coretemp-isa-0000|Core 33|temp11_input
+coretemp-isa-0000|Core 33|temp11_max
+coretemp-isa-0000|Core 33|temp11_crit
+coretemp-isa-0000|Core 33|temp11_crit_alarm
+coretemp-isa-0000|Core 34|temp12_input
+coretemp-isa-0000|Core 34|temp12_max
+coretemp-isa-0000|Core 34|temp12_crit
+coretemp-isa-0000|Core 34|temp12_crit_alarm
+coretemp-isa-0000|Core 35|temp13_input
+coretemp-isa-0000|Core 35|temp13_max
+coretemp-isa-0000|Core 35|temp13_crit
+coretemp-isa-0000|Core 35|temp13_crit_alarm
+coretemp-isa-0000|Core 36|temp14_input
+coretemp-isa-0000|Core 36|temp14_max
+coretemp-isa-0000|Core 36|temp14_crit
+coretemp-isa-0000|Core 36|temp14_crit_alarm
+coretemp-isa-0000|Core 37|temp15_input
+coretemp-isa-0000|Core 37|temp15_max
+coretemp-isa-0000|Core 37|temp15_crit
+coretemp-isa-0000|Core 37|temp15_crit_alarm
+coretemp-isa-0000|Core 38|temp16_input
+coretemp-isa-0000|Core 38|temp16_max
+coretemp-isa-0000|Core 38|temp16_crit
+coretemp-isa-0000|Core 38|temp16_crit_alarm
+coretemp-isa-0000|Core 39|temp17_input
+coretemp-isa-0000|Core 39|temp17_max
+coretemp-isa-0000|Core 39|temp17_crit
+coretemp-isa-0000|Core 39|temp17_crit_alarm
+nvme-pci-0200|Adapter
+nvme-pci-0200|Composite|temp1_input
+nvme-pci-0200|Composite|temp1_max
+nvme-pci-0200|Composite|temp1_min
+nvme-pci-0200|Composite|temp1_crit
+nvme-pci-0200|Composite|temp1_alarm
+
