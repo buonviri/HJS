@@ -23,9 +23,10 @@ def GetFiles(where, pattern, type):
 
 good = ''
 keycombos = [  # devicename|sensorprefix|valueprefix
-    'nct6798-isa-02a0|fan|fan',
-    'nct6798-isa-02a0|CPUTIN|temp',
-    'coretemp-isa-0000|Core|temp',
+    'nct6798-isa-02a0|fan1|fan|input',
+    'nct6798-isa-02a0|fan2|fan|input',
+    'nct6798-isa-02a0|CPUTIN|temp|input',
+    'coretemp-isa-0000|Core|temp|input',
     ]
 filelist = GetFiles('here', '.sj', 'end')
 for filename in filelist:
@@ -52,7 +53,7 @@ for filename in filelist:
                 if secondkey.startswith(keylist[1]):
                     sensor = sjdict[firstkey][secondkey]
                     for thirdkey in sensor:
-                        if thirdkey.startswith(keylist[2]) and thirdkey.endswith('input'):  # only keep the inputs, not min/max/beep/alarm/etc
+                        if thirdkey.startswith(keylist[2]) and thirdkey.endswith(keylist[3]):  # only keep the inputs, not min/max/beep/alarm/etc
                             sensorvalue = str(sjdict[firstkey][secondkey][thirdkey])
                             good = good + sensorvalue
                             good = good + ' (' + filename + ': ' + firstkey + '|' + secondkey + '|' + thirdkey + ')\n'
