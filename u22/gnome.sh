@@ -22,7 +22,7 @@ else
 fi
 
 # set screen timeout
-gsettings set org.gnome.desktop.session idle-delay 900
+gsettings set org.gnome.desktop.session idle-delay 3600
 gsettings get org.gnome.desktop.session idle-delay
 
 # remove trash, note that older versions require .extensions.desktop-icons instead
