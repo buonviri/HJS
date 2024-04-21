@@ -1,5 +1,5 @@
 import os
-import yaml  # requires pip install pyyaml
+import yaml  # pip install pyyaml
 
 with open("test.yaml") as f:
     try:
