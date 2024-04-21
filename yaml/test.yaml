@@ -1,0 +1,23 @@
+---
+
+# inference per second test
+
+server: /home/ec/NullModemA
+client: /home/ec/NullModemB
+baud: 115200
+
+
+duration: 60  # seconds per test
+delay: 3  # seconds between log attempts
+testlist:
+  - YOLOv5
+  - Resnet50
+  - Fused
+  - Monodepth
+iterations: 1 
+
+# exception if included...
+# fail: =
+# end of test code
+
+...
