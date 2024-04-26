@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # create new file or empty existing one
-echo -n "" > filename
+echo -n "" > ~/sys.info
 
 # append lines with system info
 sudo dmidecode --string baseboard-manufacturer | tee -a ~/sys.info
