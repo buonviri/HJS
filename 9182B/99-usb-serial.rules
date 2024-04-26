@@ -1,4 +1,4 @@
-#9182B DC Power Supply
+# 9182B DC Power Supply
 SUBSYSTEM=="tty", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", SYMLINK+="ttyUSB91"
 
 # S1LP UART
