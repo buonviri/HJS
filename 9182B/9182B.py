@@ -10,6 +10,7 @@
 # Rev 1.10: first integrated release
 # Rev 1.11: better COM port management
 # Rev 1.20: com port choice improved
+# Rev 1.21: faster logging, max per interval
 
 import serial  # requires pip install pyserial
 import serial.tools.list_ports
@@ -207,18 +208,27 @@ input("Press <Enter> to enable power and initiate logging...")
 fn[2](io)  # enable power, function #2
 
 try:
+    max_power = 0  # initialize before loop starts
+    terminal = ''  # blank string for screen output
     while True:
         t = int(time.time())  # floating point epoch time converted to int
         v = fn[0](io)    # read voltage, function #0, depends on simulation mode
         i = fn[1](io)    # read current, function #1, depends on simulation mode
         p = power(i,v)   # power, multiplies current and voltage
-        nz = float(p)+1  # get non-zero value of power
-        rects = int(nz)  # get int for multiplying string, range should be 1 to ceiling(max)
-        print('  ' + v + ' V' + ' x ' + i + ' A' + ' = ' + p.rjust(7) + ' W  ' + rect*rects)  # rjust accounts for 100+ watts
+        floatp = float(p)
+        # print(p + ' ', end="")  # debug, print every reading
+        if floatp > max_power:
+            max_power = floatp  # store new max
+            nz = floatp+1  # get non-zero value of power
+            rects = int(nz)  # get int for multiplying string, range should be 1 to ceiling(max)
+            terminal = '  ' + v + ' V' + ' x ' + i + ' A' + ' = ' + p.rjust(7) + ' W  ' + rect*rects  # rjust accounts for 100+ watts
         if t - lastlog >= logdelay:  # wait at least logdelay seconds to write to log again
             lastlog = t  # record for subsequent checks
             log(','.join([hex(t)[2:],p,i,v]))  # join with commas [timestamp, power, current, voltage]
-        time.sleep(0.3)  # loop should happen twice per second, possibly three times
+            print(terminal)  
+            max_power = 0  # reset for next interval
+            terminal = ''
+        time.sleep(0.05)  # reduced when max per interval was added
 except KeyboardInterrupt:  # hitting CTRL-C will exit the script cleanly
     print('\n  CTRL-C Detected')
 
