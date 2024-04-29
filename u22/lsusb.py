@@ -12,7 +12,7 @@ misc = []
 devices = lsusb.split('\n')
 for device in devices:
     s = device.strip()
-    print(s)
+    # print(s)
     for devtype in devtypes:
         # print(devtype + ' --- ' + s)
         if devtype in s.lower():
@@ -22,9 +22,10 @@ for device in devices:
         misc.append(s)
 
 for devtype in devtypes:
-    print(devtype + ': ')
+    print('\n--- ' + devtype + ' ---')
     for line in devtypes[devtype]:
         print('  ' + line)
+print()
 if len(misc) > 0:
     print(misc)
 
