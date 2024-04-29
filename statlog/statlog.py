@@ -111,9 +111,7 @@ def log(info):
 # End
 
 
-do_pause = True
-def GetBestPort():
-    global do_pause
+def GetBestPort(thisfile):
     id_byfile = {
         '9182B':   ['10C4:EA60',],
         'statlog': ['0403:6015',],
@@ -129,10 +127,6 @@ def GetBestPort():
         'zmax':    ['/home/ec/COM5', '/dev/ttyUSB51', 'COM51'],  # copy of statlog ports
     }
     goodports = []  # blank list that will contain ports that meet criteria
-    thisfile = os.path.basename(__file__).split('.')[0]  # get filename (minus extension) for possible match
-    if thisfile.endswith('-fast'):
-        thisfile = thisfile[:-5]  # trim suffix
-        do_pause = False
     try:
         id_list = id_byfile[thisfile]  # if this file has an entry, start with that list
         xx_list = preferred[thisfile]  # ditto
@@ -188,7 +182,12 @@ else:
     print('\nUnknown OS\n')
 
 # determine which command to send
+do_pause = True
 thisfile = os.path.basename(__file__).split('.')[0]  # get script name without extension
+if thisfile.endswith('-fast'):
+    thisfile = thisfile[:-5]  # trim suffix
+    do_pause = False
+
 if thisfile == 'statlog':  # default name in repo
     print('Logging stat command')
     dostat = True
@@ -205,7 +204,7 @@ checkdir('log')  # just in case it doesn't exist, add it
 
 # configure serial port and open connection
 io = serial.Serial()
-io.port = GetBestPort()  # get best port option
+io.port = GetBestPort(thisfile)  # get best port option
 io.baudrate = 115200
 io.bytesize = 8
 io.parity = 'N'
