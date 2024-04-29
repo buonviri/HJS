@@ -10,5 +10,6 @@ lscpu | grep -Po 'Model name:\s+\K.*' | tee -a ~/sys.info
 lsb_release -d | grep -Po 'Description:\s+\K.*' | tee -a ~/sys.info
 uname -r | tee -a ~/sys.info
 powerprofilesctl get | tee -a ~/sys.info
+python3 ~/HJS/statlog/snread.py | grep -Po 'Serial Number  =\s+\K.*' | tee -a ~/sys.info
 
 # EOF
