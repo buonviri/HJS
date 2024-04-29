@@ -6,7 +6,7 @@ lsusb = stdout.decode("utf-8")
 
 # print(lsusb)
 
-devtypes = {'hub': [], 'mouse': [], 'keyboard': [], '802.11': []}
+devtypes = {'hub': [], 'mouse': [], 'keyboard': [], '802.11': [], 'uart': []}
 misc = []
 
 devices = lsusb.split('\n')
@@ -22,9 +22,10 @@ for device in devices:
         misc.append(s)
 
 for devtype in devtypes:
-    print('\n--- ' + devtype + ' ---')
-    for line in devtypes[devtype]:
-        print('  ' + line)
+    if len(devtypes[devtype]) > 0:  # only print ones with entries
+        print('\n--- ' + devtype + ' ---')
+        for line in devtypes[devtype]:
+            print('  ' + line)
 print()
 if len(misc) > 0:
     print(misc)
