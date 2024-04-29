@@ -26,6 +26,10 @@ for devtype in devtypes:
         print('\n--- ' + devtype + ' ---')
         for line in devtypes[devtype]:
             bus_and_desc = line.split(':',1)
+            try:
+                bus_and_desc[1] = bus_and_desc[1].replace('Future Technology Devices International, Ltd','FTDI')
+            except:
+                pass  # fails if not length = 2
             print('  ' + '\n  '.join(bus_and_desc))
 print()
 if len(misc) > 0:
