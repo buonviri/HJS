@@ -29,6 +29,8 @@ for devtype in devtypes:
             try:
                 bus_and_desc[1] = bus_and_desc[1].replace('Future Technology Devices International, Ltd','[FTDI]')
                 bus_and_desc[1] = bus_and_desc[1].replace('Dell Computer Corp.','[Dell]')
+                bus_and_desc[1] = bus_and_desc[1].replace('Logitech, Inc.','[Logitech]')
+                bus_and_desc[1] = bus_and_desc[1].replace('D-Link Corp.','[D-Link]')
             except:
                 pass  # fails if not length = 2
             print('  ' + '\n  '.join(bus_and_desc))
