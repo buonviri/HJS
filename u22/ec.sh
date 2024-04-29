@@ -21,6 +21,8 @@ gsettings get org.gnome.shell.extensions.ding show-trash
 gsettings set org.gnome.shell.extensions.ding show-home false
 gsettings get org.gnome.shell.extensions.ding show-home
 
+cd ~/HJS/u22
+
 echo
 echo Setup complete. Sincerely, HJS
 
