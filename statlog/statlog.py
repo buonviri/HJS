@@ -111,7 +111,9 @@ def log(info):
 # End
 
 
+do_pause = True
 def GetBestPort():
+    global do_pause
     id_byfile = {
         '9182B':   ['10C4:EA60',],
         'statlog': ['0403:6015',],
@@ -128,6 +130,9 @@ def GetBestPort():
     }
     goodports = []  # blank list that will contain ports that meet criteria
     thisfile = os.path.basename(__file__).split('.')[0]  # get filename (minus extension) for possible match
+    if thisfile.endswith('-fast'):
+        thisfile = thisfile[:-5]  # trim suffix
+        do_pause = False
     try:
         id_list = id_byfile[thisfile]  # if this file has an entry, start with that list
         xx_list = preferred[thisfile]  # ditto
@@ -211,7 +216,8 @@ print('  Opening ' + io.port + ' (' + str(io.baudrate) + ',' + str(io.bytesize) 
 try:
     io.open()  # may succeed even if device is off
 except:
-    print('\n  Simulation mode\n')  # not actually implemented
+    print('\n  Failed to open port\n')
+    exit()
 
 if dostat:  # do not pause for input on the single commands, just the logging version
     input("Press <Enter> to initiate logging...")
@@ -240,9 +246,9 @@ try:
 except KeyboardInterrupt:  # hitting CTRL-C will exit the script cleanly
     print('\n  CTRL-C Detected')
 
-if WINDOWS:
+if WINDOWS and do_pause:
     os.system('timeout /t 2')  # keep window open for up to two seconds, keystroke ends it instantly
-elif LINUX:
+elif LINUX and do_pause:
     os.system('sleep 2')  # pause for two seconds
 
 #EOF
