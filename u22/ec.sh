@@ -25,5 +25,7 @@ cd ~/HJS/u22
 
 echo
 echo Setup complete. Sincerely, HJS
+echo
+echo Set avatar to eca.jpg with bounding box set to max!
 
 # EOF
