@@ -2,7 +2,7 @@
 
 cd
 mkdir -p S1LP/img
-echo copy file to img using \cp -r /zzz/zzz/* /xxx/xxx
+\cp -r ~/HJS/u22/img/* ~/S1LP/img
 
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 gsettings get org.gnome.desktop.interface color-scheme
