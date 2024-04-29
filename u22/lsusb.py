@@ -25,7 +25,8 @@ for devtype in devtypes:
     if len(devtypes[devtype]) > 0:  # only print ones with entries
         print('\n--- ' + devtype + ' ---')
         for line in devtypes[devtype]:
-            print('  ' + line)
+            bus_and_desc = line.split(':',1)
+            print('  ' + '\n  '.join(bus_and_desc))
 print()
 if len(misc) > 0:
     print(misc)
