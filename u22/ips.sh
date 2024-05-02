@@ -20,13 +20,16 @@ cd ~/S1LP/inference/
 echo -n "" > $hexstamp.info
 sudo dmidecode --string baseboard-manufacturer | tee -a $hexstamp.info
 sudo dmidecode --string baseboard-product-name | tee -a $hexstamp.info
-# u20 - skip bios-revision
+# doesn't work in 20.04, suppress error
+sudo dmidecode --string bios-revision 2> /dev/null | tee -a $hexstamp.info
 sudo dmidecode --string bios-version | tee -a $hexstamp.info
 lscpu | grep -Po 'Model name:\s+\K.*' | tee -a $hexstamp.info
 lsb_release -d | grep -Po 'Description:\s+\K.*' | tee -a $hexstamp.info
 uname -r | tee -a $hexstamp.info
-# u20 - skip powerprofilescfg
+# doesn't work in 20.04, suppress error
+powerprofilesctl get 2> /dev/null | tee -a $hexstamp.info
 # need consistent way to read S1LP SN
+python3 ~/HJS/statlog/snread-fast.py | grep -Po 'Serial Number  =\s+\K.*' | tee -a $hexstamp.info
 
 # run
 python run_models.py --csv_name $hexstamp
