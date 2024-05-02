@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# compare timestamps
+echo Local and NIST time:
+date '+%H:%M:%S'
+ntpdate -q time.nist.gov | grep -o '[0-2][0-9]:[0-5][0-9]:[0-5][0-9]'
+
 # timestamp
 time_t=$(date +%s)
 hexstamp=$(printf "%x" $time_t)
