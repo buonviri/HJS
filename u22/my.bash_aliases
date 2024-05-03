@@ -2,7 +2,7 @@
 # ubuntu aliases by HJS
 alias a="sudo apt install git socat xsel ntpdate -y"
 alias b="git clone https://github.com/buonviri/HJS.git"
-alias c="cd ~/HJS/u22 && source gnome.sh"
+alias c="cd ~/HJS/u22 && source ec.sh"
 alias d="sudo adduser ec dialout"
 alias e="sudo apt install python3-pip -y"
 alias f="pip install pyserial"
