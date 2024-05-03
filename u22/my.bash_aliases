@@ -1,6 +1,6 @@
 
 # ubuntu aliases by HJS
-alias a="sudo apt install git socat xsel -y"
+alias a="sudo apt install git socat xsel ntpdate -y"
 alias b="git clone https://github.com/buonviri/HJS.git"
 alias c="cd ~/HJS/u22 && source gnome.sh"
 alias d="sudo adduser ec dialout"
