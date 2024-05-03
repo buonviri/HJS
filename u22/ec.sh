@@ -30,7 +30,7 @@ echo power profile:
 powerprofilesctl set performance
 powerprofilesctl get
 
-cd ~/HJS/u22
+cd "$OLDPWD"
 
 echo
 echo Setup complete. Sincerely, HJS

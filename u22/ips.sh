@@ -28,14 +28,11 @@ python3 ~/HJS/statlog/snread-fast.py | grep -Po 'Serial Number  =\s+\K.*' | tee 
 
 # start card
 cd ~/S1LP/install_mera/ && source start.sh && mera --sakura1_start
+cd "$OLDPWD"
 
-# change to test folder
+# change to test folder, run, return to previous folder
 cd ~/S1LP/inference/
-
-# run
 python run_models.py --csv_name $hexstamp
-
-# return to my folder
-cd ~/HJS/u22
+cd "$OLDPWD"
 
 # EOF
