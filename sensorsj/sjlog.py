@@ -59,6 +59,8 @@ try:
         stdout, stderr = process.communicate()
         sensors = stdout.decode("utf-8")
         sjdict = literal_eval(sensors)
+        for k in cfg['A) Fan Speed']:
+            print(sjdict[k[0]][k[1]][k[2]])
         if t - lastlog >= logdelay:  # wait at least logdelay seconds to write to log again
             lastlog = t  # record for subsequent checks
             log(','.join([hex(t)[2:],'data goes here']))  # join with commas [timestamp, Tmin, Tmax, fans...]

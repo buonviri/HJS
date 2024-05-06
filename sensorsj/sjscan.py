@@ -52,7 +52,8 @@ if __name__ == "__main__":
     sensors = get_sensors()
     pprint.pprint(sensors['A) Fan Speed'])
     pprint.pprint(sensors['B) Temperature'])
-    # skip C) and D)
+    print('Invalid Entries: ' + len(sensors['C) Invalid']))
+    print('Other Entries: ' + len(sensors['D) Other']))
     with open('sjscan.yaml', 'w') as f:
         yaml.dump(sensors, f)
 
