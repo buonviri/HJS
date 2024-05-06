@@ -50,7 +50,9 @@ if __name__ == "__main__":
     print()
     """
     sensors = get_sensors()
-    pprint.pprint(sensors)
+    pprint.pprint(sensors['A) Fan Speed'])
+    pprint.pprint(sensors['B) Temperature'])
+    # skip C) and D)
     with open('sjscan.yaml', 'w') as f:
         yaml.dump(sensors, f)
 

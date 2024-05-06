@@ -4,6 +4,7 @@ import time    # need time.time, time.sleep
 import os      # need os.system, os.mkdir
 from subprocess import Popen, PIPE
 from ast import literal_eval
+import yaml
 
 # pseudo #defines
 WINDOWS = os.name == 'nt'
@@ -37,6 +38,13 @@ elif LINUX:
     print('\nDetected linux OS\n')
 else:
     print('\nUnknown OS\n')
+try:
+    with open('sjscan.yaml', 'r') as f: 
+        cfg = yaml.safe_load(f)
+except:
+    print('Run sjscan.py to generate a sensor list!')
+    cfg = {}  # blank sensor list if no yaml
+print(cfg)  # debug
 
 checkdir('log')  # just in case it doesn't exist, add it
 logfiletime = int(time.time())  # int version of current time
