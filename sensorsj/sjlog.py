@@ -91,7 +91,7 @@ try:
             print(tdata)  # debug
             fdata = []  # clear
             tdata = []  # clear
-        time.sleep(0.45)  # allows up to two reads per second
+        time.sleep(0.334)  # three per second is max
 except KeyboardInterrupt:  # hitting CTRL-C will exit the script cleanly
     print('\n  CTRL-C Detected')
 
