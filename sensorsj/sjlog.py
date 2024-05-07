@@ -56,6 +56,7 @@ checkdir('log')  # just in case it doesn't exist, add it
 logfiletime = int(time.time())  # int version of current time
 logfile = hex(logfiletime)[2:] + '.csv'  # epoch time in hex (minus the 0x prefix) with csv extension
 print ('Logging to: ' + logfile + ' in ' + os.path.join(os.getcwd(), 'log'))
+log('timestamp', 'Fmin', 'Fmax', 'Tmin', 'Tmax')  # create header row in log
 
 try:
     fdata = []  # blank list of fan sensor readings
@@ -85,11 +86,11 @@ try:
                 str(min(tdata)),
                 str(max(tdata)),
                 ]  # vals converted to strings
-            log  (','.join([hex(t)[2:],'data goes here']))  # join with commas [timestamp, fan min/max, temp min/max]
+            log  (','.join(svals))  # join with commas [timestamp, fan min/max, temp min/max]
             print(' '.join(svals))  # print with spaces instead of commas
-            print(fdata)  # debug
-            print(tdata)  # debug
-            print()  # debug
+            # print(fdata)  # debug
+            # print(tdata)  # debug
+            # print()  # debug
             fdata = []  # clear
             tdata = []  # clear
         time.sleep(0.05)  # many reads per second, is this really necessary?
