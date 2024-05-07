@@ -89,9 +89,10 @@ try:
             print(' '.join(svals))  # print with spaces instead of commas
             print(fdata)  # debug
             print(tdata)  # debug
+            print()  # debug
             fdata = []  # clear
             tdata = []  # clear
-        time.sleep(0.334)  # three per second is max
+        time.sleep(0.05)  # many reads per second, is this really necessary?
 except KeyboardInterrupt:  # hitting CTRL-C will exit the script cleanly
     print('\n  CTRL-C Detected')
 
