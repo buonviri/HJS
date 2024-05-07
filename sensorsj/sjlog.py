@@ -61,10 +61,12 @@ try:
         sjdict = literal_eval(sensors)
         for k in cfg['A) Fan Speed']:
             print(sjdict[k[0]][k[1]][k[2]])
+        for k in cfg['B) Temperature']:
+            print(sjdict[k[0]][k[1]][k[2]])
         if t - lastlog >= logdelay:  # wait at least logdelay seconds to write to log again
             lastlog = t  # record for subsequent checks
             log(','.join([hex(t)[2:],'data goes here']))  # join with commas [timestamp, Tmin, Tmax, fans...]
-            print(sjdict)
+            # print(sjdict)
         time.sleep(0.3)  # allows 3-4 reads per second
 except KeyboardInterrupt:  # hitting CTRL-C will exit the script cleanly
     print('\n  CTRL-C Detected')

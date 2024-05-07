@@ -54,6 +54,6 @@ if __name__ == "__main__":
     pprint.pprint(sensors['B) Temperature'])
     print('Invalid Entries: ' + str(len(sensors['C) Invalid'])))
     print('Other Entries: ' + str(len(sensors['D) Other'])))
+    print('See YAML for more details.')
     with open('sjscan.yaml', 'w') as f:
         yaml.dump(sensors, f)
-
