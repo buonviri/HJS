@@ -41,10 +41,16 @@ else:
 try:
     with open('sjscan.yaml', 'r') as f: 
         cfg = yaml.safe_load(f)
+    print('Logging:')
+    for k in cfg['A) Fan Speed']:
+        print(k)
+    for k in cfg['B) Temperature']:
+        print(k)
+    print()
 except:
     print('Run sjscan.py to generate a sensor list!')
     cfg = {}  # blank sensor list if no yaml
-print(cfg)  # debug
+# print(cfg)  # debug
 
 checkdir('log')  # just in case it doesn't exist, add it
 logfiletime = int(time.time())  # int version of current time
