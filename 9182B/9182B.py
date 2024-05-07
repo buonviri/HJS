@@ -110,7 +110,7 @@ def rand():
 # End
 
 
-def GetBestPort():
+def GetBestPort(thisfile):
     id_byfile = {
         '9182B': ['10C4:EA60',],
         'statlog': ['0403:6015',],
@@ -121,7 +121,6 @@ def GetBestPort():
         'statlog': ['/home/ec/COM5', '/dev/ttyUSB51', 'COM51'],
     }
     goodports = []  # blank list that will contain ports that meet criteria
-    thisfile = os.path.basename(__file__).split('.')[0]  # get filename (minus extension) for possible match
     try:
         id_list = id_byfile[thisfile]  # if this file has an entry, start with that list
         xx_list = preferred[thisfile]  # ditto
@@ -174,14 +173,16 @@ elif LINUX:
     print('\nDetected linux OS\n')
 else:
     print('\nUnknown OS\n')
+thisfile = os.path.basename(__file__).split('.')[0]  # get filename (minus extension) for possible match
 
-logfile = hex(int(time.time()))[2:] + '.csv'  # epoch time in hex (minus the 0x prefix) with csv extension
+logfile = thisfile + '-' + hex(int(time.time()))[2:] + '.csv'  # epoch time in hex (minus the 0x prefix) with csv extension
 print ('Logging to: ' + logfile + ' in ' + os.path.join(os.getcwd(), 'log'))
 checkdir('log')  # just in case it doesn't exist, add it
+log('timestamp, power, current, voltage')  # header row
 
 # configure serial port and open connection
 io = serial.Serial()
-io.port = GetBestPort()  # get best port option
+io.port = GetBestPort(thisfile)  # get best port option
 io.baudrate = 57600
 io.bytesize = 8
 io.parity = 'N'
