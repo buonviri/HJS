@@ -58,6 +58,8 @@ logfile = hex(logfiletime)[2:] + '.csv'  # epoch time in hex (minus the 0x prefi
 print ('Logging to: ' + logfile + ' in ' + os.path.join(os.getcwd(), 'log'))
 
 try:
+    fdata = []  # blank list of fan sensor readings
+    tdata = []  # blank list of temperature sensor readings
     while True:
         t = int(time.time())  # floating point epoch time converted to int
         # sensors -j returns multi-line formatted JSON
@@ -66,13 +68,21 @@ try:
         sensors = stdout.decode("utf-8")
         sjdict = literal_eval(sensors)
         for k in cfg['A) Fan Speed']:
-            print(sjdict[k[0]][k[1]][k[2]])
+            try:
+                fdata.append(sjdict[k[0]][k[1]][k[2]])
+            except:
+                fdata.append(-999)  # error reading sensor
         for k in cfg['B) Temperature']:
-            print(sjdict[k[0]][k[1]][k[2]])
+            try:
+                tdata.append(sjdict[k[0]][k[1]][k[2]])
+            except:
+                tdata.append(-999)  # error reading sensor
         if t - lastlog >= logdelay:  # wait at least logdelay seconds to write to log again
             lastlog = t  # record for subsequent checks
             log(','.join([hex(t)[2:],'data goes here']))  # join with commas [timestamp, Tmin, Tmax, fans...]
-            # print(sjdict)
+            print(hex(t)[2:] + ' ... ')
+            print(fdata)
+            print(tdata)
         time.sleep(0.3)  # allows 3-4 reads per second
 except KeyboardInterrupt:  # hitting CTRL-C will exit the script cleanly
     print('\n  CTRL-C Detected')
