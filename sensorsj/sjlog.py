@@ -81,8 +81,8 @@ try:
         if t - lastlog >= logdelay:  # wait at least logdelay seconds to write to log again
             lastlog = t  # record for subsequent checks
             svals = [hex(t)[2:],  # timestamp
-                str(min(fdata)),
-                str(max(fdata)),
+                str(min(fdata, default=0)),  # default accounts for no fan data
+                str(max(fdata, default=0)),  # default accounts for no fan data
                 str(min(tdata)),
                 str(max(tdata)),
                 ]  # vals converted to strings
