@@ -86,7 +86,9 @@ try:
                 str(max(tdata)),
                 ]  # vals converted to strings
             log  (','.join([hex(t)[2:],'data goes here']))  # join with commas [timestamp, fan min/max, temp min/max]
-            print(' '.join(svals)  # print with spaces instead of commas
+            print(' '.join(svals))  # print with spaces instead of commas
+            print(fdata)  # debug
+            print(tdata)  # debug
             fdata = []  # clear
             tdata = []  # clear
         time.sleep(0.3)  # allows 3-4 reads per second
