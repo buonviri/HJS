@@ -79,11 +79,14 @@ try:
                 tdata.append(-999)  # error reading sensor
         if t - lastlog >= logdelay:  # wait at least logdelay seconds to write to log again
             lastlog = t  # record for subsequent checks
-            log(','.join([hex(t)[2:],'data goes here']))  # join with commas [timestamp, Tmin, Tmax, fans...]
-            print(hex(t)[2:] + ' ... ')
-            print(fdata)
-            print(tdata)
-            print()
+            svals = [hex(t)[2:],  # timestamp
+                str(min(fdata)),
+                str(max(fdata)),
+                str(min(tdata)),
+                str(max(tdata)),
+                ]  # vals converted to strings
+            log  (','.join([hex(t)[2:],'data goes here']))  # join with commas [timestamp, fan min/max, temp min/max]
+            print(' '.join(svals)  # print with spaces instead of commas
             fdata = []  # clear
             tdata = []  # clear
         time.sleep(0.3)  # allows 3-4 reads per second
