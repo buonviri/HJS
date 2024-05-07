@@ -56,7 +56,7 @@ checkdir('log')  # just in case it doesn't exist, add it
 logfiletime = int(time.time())  # int version of current time
 logfile = hex(logfiletime)[2:] + '.csv'  # epoch time in hex (minus the 0x prefix) with csv extension
 print ('Logging to: ' + logfile + ' in ' + os.path.join(os.getcwd(), 'log'))
-log('timestamp', 'Fmin', 'Fmax', 'Tmin', 'Tmax')  # create header row in log
+log('timestamp,Fmin,Fmax,Tmin,Tmax')  # create header row in log
 
 try:
     fdata = []  # blank list of fan sensor readings
