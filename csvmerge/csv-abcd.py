@@ -14,8 +14,9 @@ if os.name == 'nt':  # clipboard only works in windows
 
 # get filelist
 filelist = []  # blank list
+outfile = 'abcd.csv'
 for filename in os.listdir():
-    if filename.endswith('.csv'):
+    if filename.endswith('.csv') and filename != outfile:
         filelist.append(filename)
 
 info = {}
@@ -90,8 +91,11 @@ for t in range(start_time, end_time+1):
             out = out + ',' * commacount[filetype]
     out = out + ',' + ts+ '\n'  # add original hex timestamp
 # print(out)
-
 # print(csv)
+
+with open(outfile, 'w') as f:
+    f.write(out + '\n')
+
 if clipboard:
     pyperclip.copy(out.replace(',', '\t'))  # replace comma with tab for clipboard
     print('\nClipboard contains tab data')
