@@ -41,7 +41,7 @@ for filename in filelist:
             fileprefix = 'ignore'
         info[fileprefix] = {}  # blank dict for each file
         commas = []  # blank list for comma counts
-        lines = f.readlines() + ['','']  # add blank lines to guarantee min length
+        lines = f.readlines() + ['','']  # add blank lines to guarantee min length, must subtract from count later
         if lines[0].startswith('timestamp'):
             print('  Found Header Row')
         else:
@@ -55,10 +55,13 @@ for filename in filelist:
             if len(stripped_list[0]) > 0 and stripped_list[0] != 'timestamp':
                 timestamps.append(stripped_list[0])
         # print(commas)
+        if len(commas) == 0:  # no entries were found
+            commas = [-1]
         if min(commas) == max(commas):
             print('  Comma count: ' + str(min(commas)))
         else:
             print('  Comma counts: ' + str(min(commas)) + ' to ' + str(max(commas)))
+        print('  Data Rows: ' + str(len(lines) - 3))  # accounts for header plus the two that were added
 timestampvals = [int(x, 16) for x in timestamps]
 start_time = min(timestampvals)
 end_time = max(timestampvals)
