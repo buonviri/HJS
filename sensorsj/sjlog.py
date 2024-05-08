@@ -38,6 +38,8 @@ elif LINUX:
     print('\nDetected linux OS\n')
 else:
     print('\nUnknown OS\n')
+thisfile = os.path.basename(__file__).split('.')[0]  # get filename (minus extension) for possible match
+
 try:
     with open('sjscan.yaml', 'r') as f: 
         cfg = yaml.safe_load(f)
@@ -52,10 +54,9 @@ except:
     cfg = {}  # blank sensor list if no yaml
 # print(cfg)  # debug
 
-checkdir('log')  # just in case it doesn't exist, add it
-logfiletime = int(time.time())  # int version of current time
-logfile = hex(logfiletime)[2:] + '.csv'  # epoch time in hex (minus the 0x prefix) with csv extension
+logfile = thisfile + '-' + hex(int(time.time()))[2:] + '.csv'  # epoch time in hex (minus the 0x prefix) with csv extension
 print ('Logging to: ' + logfile + ' in ' + os.path.join(os.getcwd(), 'log'))
+checkdir('log')  # just in case it doesn't exist, add it
 log('timestamp,Fmin,Fmax,Tmin,Tmax')  # create header row in log
 
 try:
