@@ -12,6 +12,7 @@ hexstamp=$(printf "%x" $time_t)
 echo Filename: $hexstamp
 
 # store system info
+cd ~/S1LP/inference/
 echo -n "" > $hexstamp.info
 sudo dmidecode --string baseboard-manufacturer | tee -a $hexstamp.info
 sudo dmidecode --string baseboard-product-name | tee -a $hexstamp.info
@@ -25,6 +26,7 @@ uname -r | tee -a $hexstamp.info
 powerprofilesctl get 2> /dev/null | tee -a $hexstamp.info
 # need consistent way to read S1LP SN
 python3 ~/HJS/statlog/snread-fast.py | grep -Po 'Serial Number  =\s+\K.*' | tee -a $hexstamp.info
+cd "$OLDPWD"
 
 # start card
 cd ~/S1LP/install_mera/ && source start.sh && mera --sakura1_start
