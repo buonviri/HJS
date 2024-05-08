@@ -198,9 +198,10 @@ else:
     dostat = False
 
 # set up logging
-logfile = hex(int(time.time()))[2:] + '.csv'  # epoch time in hex (minus the 0x prefix) with csv extension
+logfile = thisfile + '-' + hex(int(time.time()))[2:] + '.csv'  # epoch time in hex (minus the 0x prefix) with csv extension
 print ('Logging to: ' + logfile + ' in ' + os.path.join(os.getcwd(), 'log'))
 checkdir('log')  # just in case it doesn't exist, add it
+log('timestamp','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x')  # header row
 
 # configure serial port and open connection
 io = serial.Serial()
