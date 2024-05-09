@@ -14,11 +14,11 @@ echo Filename: $hexstamp
 # store system info
 cd ~/S1LP/inference/
 echo -n "" > $hexstamp.info
-sudo dmidecode --string baseboard-manufacturer | tee -a $hexstamp.info
-sudo dmidecode --string baseboard-product-name | tee -a $hexstamp.info
+cat /sys/devices/virtual/dmi/id/board_vendor | tee -a $hexstamp.info
+cat /sys/devices/virtual/dmi/id/board_name | tee -a $hexstamp.info
 # doesn't work in 20.04, suppress error
-sudo dmidecode --string bios-revision 2> /dev/null | tee -a $hexstamp.info
-sudo dmidecode --string bios-version | tee -a $hexstamp.info
+cat /sys/devices/virtual/dmi/id/bios_release 2> /dev/null | tee -a $hexstamp.info
+cat /sys/devices/virtual/dmi/id/bios_version | tee -a $hexstamp.info
 lscpu | grep -Po 'Model name:\s+\K.*' | tee -a $hexstamp.info
 lsb_release -d | grep -Po 'Description:\s+\K.*' | tee -a $hexstamp.info
 uname -r | tee -a $hexstamp.info
