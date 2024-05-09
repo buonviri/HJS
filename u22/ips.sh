@@ -16,8 +16,7 @@ cd ~/S1LP/inference/
 echo -n "" > $hexstamp.info
 cat /sys/devices/virtual/dmi/id/board_vendor | tee -a $hexstamp.info
 cat /sys/devices/virtual/dmi/id/board_name | tee -a $hexstamp.info
-# doesn't work in 20.04, suppress error
-cat /sys/devices/virtual/dmi/id/bios_release 2> /dev/null | tee -a $hexstamp.info
+cat /sys/devices/virtual/dmi/id/bios_release | tee -a $hexstamp.info
 cat /sys/devices/virtual/dmi/id/bios_version | tee -a $hexstamp.info
 lscpu | grep -Po 'Model name:\s+\K.*' | tee -a $hexstamp.info
 lsb_release -d | grep -Po 'Description:\s+\K.*' | tee -a $hexstamp.info
