@@ -24,8 +24,8 @@ lsb_release -d | grep -Po 'Description:\s+\K.*' | tee -a $hexstamp.info
 uname -r | tee -a $hexstamp.info
 # doesn't work in 20.04, suppress error
 powerprofilesctl get 2> /dev/null | tee -a $hexstamp.info
-# need consistent way to read S1LP SN
-python3 ~/HJS/statlog/snread-fast.py | grep -Po 'Serial Number  =\s+\K.*' | tee -a $hexstamp.info
+# S1LP SN is now read by statlog so this method is no longer required:
+# python3 ~/HJS/statlog/snread-fast.py | grep -Po 'Serial Number  =\s+\K.*' | tee -a $hexstamp.info
 cd "$OLDPWD"
 
 # start card
