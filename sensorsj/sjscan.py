@@ -1,15 +1,23 @@
 import pprint
 import yaml
+import os
 from subprocess import Popen, PIPE
 from ast import literal_eval
+
+# pseudo #defines
+WINDOWS = os.name == 'nt'
+LINUX = os.name == 'posix'
 
 
 def get_sensors():
     # sensors -j returns multi-line formatted JSON
-    process = Popen(["sensors", "-j"], stdout=PIPE, stderr=PIPE)
-    stdout, stderr = process.communicate()
-    sensors = stdout.decode("utf-8")
-    sjdict = literal_eval(sensors)
+    if LINUX:
+        process = Popen(["sensors", "-j"], stdout=PIPE, stderr=PIPE)
+        stdout, stderr = process.communicate()
+        sensors = stdout.decode("utf-8")
+        sjdict = literal_eval(sensors)
+    else:  # simulate result on Windows
+        sjdict = {"FakeDevice":{"Adapter":"FakeAdapter","fan1":{"fan1_input":1234.500,"fan1_pulses":2},"SYSTIN":{"temp1_input": 12.345},"NC":{"temp2_input": 123.45}}}
     # pprint.pprint(sjdict)
     yaml = {  # blank dict for results
         'A) Fan Speed': [],

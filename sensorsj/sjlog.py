@@ -65,10 +65,13 @@ try:
     while True:
         t = int(time.time())  # floating point epoch time converted to int
         # sensors -j returns multi-line formatted JSON
-        process = Popen(["sensors", "-j"], stdout=PIPE, stderr=PIPE)
-        stdout, stderr = process.communicate()
-        sensors = stdout.decode("utf-8")
-        sjdict = literal_eval(sensors)
+        if LINUX:
+            process = Popen(["sensors", "-j"], stdout=PIPE, stderr=PIPE)
+            stdout, stderr = process.communicate()
+            sensors = stdout.decode("utf-8")
+            sjdict = literal_eval(sensors)
+        else:
+            sjdict = {"FakeDevice":{"Adapter":"FakeAdapter","fan1":{"fan1_input":1234.500,"fan1_pulses":2},"SYSTIN":{"temp1_input": 12.345},"NC":{"temp2_input": 123.45}}}
         for k in cfg['A) Fan Speed']:
             try:
                 fdata.append(sjdict[k[0]][k[1]][k[2]])

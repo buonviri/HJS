@@ -1,2 +1,3 @@
-# do not commit yaml files
+# do not commit yaml files or csv logs
 *.yaml
+*.csv
