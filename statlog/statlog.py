@@ -96,7 +96,8 @@ def getinfo(stat):
             discard.append(token)
         else:
             info['todo'].append(token)
-    print('Discarding tokens: ' + ' '.join(discard))
+    if len(discard) > 0:
+        print('Discarding tokens: ' + ' '.join(discard))
     if len(info['todo']) > 0:
         print('Todo: ' + '\n'.join(info['todo']))
     else:
@@ -134,10 +135,11 @@ def GetBestPort(thisfile):
         print('  Script filename not found in dict... ' + thisfile)  # debug
         id_list = ['script filename not found in list',]  # start with a list containing an invalid entry
         xx_list = ['script filename not found in list',]  # ditto
-    id_list.append('COM0COM')  # add null modem simulator for debug
-    id_list.append('ROOT\\PORTS')  # add null modem simulator for debug
-    xx_list.append('COM5')  # add null modem number for debug
-    xx_list.append('COM1')  # add null modem number for debug
+    # add these lines to use windows null modem emulators
+    # id_list.append('COM0COM')  # add null modem simulator for debug
+    # id_list.append('ROOT\\PORTS')  # add null modem simulator for debug
+    # xx_list.append('COM5')  # add null modem number for debug
+    # xx_list.append('COM1')  # add null modem number for debug
     print('  Valid ports must match ' + str(id_list))  # debug
     print('  Preferred ports order: ' + str(xx_list))  # debug
     for id in id_list:
@@ -172,10 +174,11 @@ def checkdir(dirname):
 
 # start of script
 if WINDOWS:
-    colsandrows = str(cols) + ',' + str(rows)
-    os.system('mode ' + colsandrows)  # set window size in cols,rows maybe...
     print('\nDetected Windows OS\n')
-    print('Attempting to set Cols,Rows to ' + colsandrows)  # works on win10, and maybe on win11 if conhost.exe is used?
+    # no longer works on Win11:
+    # colsandrows = str(cols) + ',' + str(rows)
+    # os.system('mode ' + colsandrows)  # set window size in cols,rows maybe...
+    # print('Attempting to set Cols,Rows to ' + colsandrows)  # works on win10, and maybe on win11 if conhost.exe is used?
 elif LINUX:
     print('\nDetected linux OS\n')
 else:
@@ -201,7 +204,6 @@ else:
 logfile = thisfile + '-' + hex(int(time.time()))[2:] + '.csv'  # epoch time in hex (minus the 0x prefix) with csv extension
 print ('Logging to: ' + logfile + ' in ' + os.path.join(os.getcwd(), 'log'))
 checkdir('log')  # just in case it doesn't exist, add it
-log('timestamp,many columns...')  # header row
 
 # configure serial port and open connection
 io = serial.Serial()
@@ -219,8 +221,18 @@ except:
     print('\n  Failed to open port\n')
     exit()
 
+sn_dec = 'unknown'  # default in case it isn't read
 if dostat:  # do not pause for input on the single commands, just the logging version
+    s = other(io, 'snread')
+    serial_line_start = s.find('Serial Number')
+    serial_sub = s[serial_line_start + 15:]  # should be '= serdec = serhex...'
+    serial_tokens = serial_sub.split()  # token index 1 and 3 will be serial number info
+    sn_dec = serial_tokens[1]
+    sn_hex = serial_tokens[3]
+    print('Serial Number = ' + sn_dec + ' (' + sn_hex + ')')
     input("Press <Enter> to initiate logging...")
+    print()
+log('timestamp,S1LP SN ' + sn_dec + '...')  # header row
 
 try:
     while True:
