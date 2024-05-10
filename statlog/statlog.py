@@ -218,7 +218,7 @@ print('  Opening ' + io.port + ' (' + str(io.baudrate) + ',' + str(io.bytesize) 
 try:
     io.open()  # may succeed even if device is off
 except:
-    print('\n  Failed to open port\n')
+    print('\n  Failed to open port...\n  Serial Number  = unknown \n')  # trick snread script to extract a value
     exit()
 
 sn_dec = 'unknown'  # default in case it isn't read
