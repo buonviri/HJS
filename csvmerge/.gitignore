@@ -1,3 +1,6 @@
 # ignore log files
 *.csv
 *.info
+
+# ignore batch files
+*.bat
