@@ -18,11 +18,11 @@ for row in rows:
             val = cell.strip()
             new_row = new_row + '\t' + val  # add tab and cell string
         try:
-            float_test = float(val)  # convert last val to float     
+            float_test = float(val)  # convert last val to float to check if it's numeric    
             if last_row_was_header and suppress_first:
                 last_row_was_header = False  # row was numeric
                 new_row = str(count) + '\t' + 'removed'
-        except:
+        except: # float_test failed, row is non-numeric
             # test: new_row = new_row + '\t' + 'x'
             last_row_was_header = True
         new_ips = new_ips + new_row + '\n'  # add newline and add to ips
