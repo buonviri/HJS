@@ -1,4 +1,5 @@
 import os
+import pprint  # needed for pformat
 
 
 def convert(filename):
@@ -14,10 +15,14 @@ def convert(filename):
             refdes = 'None'
             # print('  ' + item, end="")  # debug
         xequy = stripped.split('=')
-        if len(xequy) > 1 and xequy[0].strip() == 'COMMENT':  # at least two entries and type is comment
-            print('  Item ' + item + ' (' + refdes + '): ' + xequy[1].strip())  # if more than two entries, only prints first
+        if len(xequy) > 1:
+            keyval = xequy[0].strip() + ' = ' + xequy[1].strip()
+            if xequy[0].strip() == 'COMMENT':  # at least two entries and key is COMMENT
+                print('  Item ' + item + ' (' + refdes + '): ' + keyval)  # if more than two entries, only prints first
+            if xequy[1].strip().startswith('Edge'):  # at least two entries and value starts with Edge
+                print('  Item ' + item + ' (' + refdes + '): ' + keyval)  # if more than two entries, only prints first
         acolb = stripped.split(':')
-        if len(acolb) > 1 and acolb[0].strip() == 'Designator':  # at least two entries and type is designator
+        if len(acolb) > 1 and acolb[0].strip() == 'Reference Designator':  # at least two entries and key is refdes
             refdes = acolb[1].strip()  # if more than two entries, only stores first
     return item  # last item is also item count
 # End
