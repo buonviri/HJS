@@ -21,12 +21,22 @@ for x in file_list:
     wb = load_workbook(filename=x, read_only=True)  # load as read-only
     ws = wb[wb.sheetnames[0]]  # select the first sheet
 
+    found_value = False
+    orcad_bom = False
     for i in ws.values:
         row = []  # blank string to hold row
         for j in i:
             if j is None:
                 j = ''
+            if len(j) > 0 and not found_value:
+                found_value = True
+                if j == 'Table':  # special case for orcad BOMs, could add additional checks if needed
+                    orcad_bom = True
+                    print('    Found "Table", setting orcad_bom to True')
             row.append(j.strip())  # remove unwanted whitespace
+        if orcad_bom:  # modify some columns
+            row[0] = row[0].rjust(30, '.')
+            row[1] = row[1].rjust(30, '.')
         clip = clip + '\t'.join(row) + '\n'
 
     newfile = x[:-5] + '.tab'
