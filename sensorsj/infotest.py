@@ -6,7 +6,7 @@ def LogSystemInfo(filename):
         'Board Name': ['cat', '/sys/devices/virtual/dmi/id/board_name'],
         'BIOS Release': ['cat', '/sys/devices/virtual/dmi/id/bios_release'],
         'BIOS Version': ['cat', '/sys/devices/virtual/dmi/id/bios_version'],
-        
+        'CPU': ['lscpu', '|', 'grep', '-Po', '\'Model name:\\s+\\K.*\''],
         
         'Kernel': ['uname', '-r'],
         'Power Profile': ['powerprofilesctl','get'],
