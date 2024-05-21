@@ -3,6 +3,8 @@ from subprocess import Popen, PIPE
 parameters = {
     'Board Vendor': ['cat', '/sys/devices/virtual/dmi/id/board_vendor'],
     'Board Name': ['cat', '/sys/devices/virtual/dmi/id/board_name'],
+    'BIOS Release': ['cat', '/sys/devices/virtual/dmi/id/bios_release'],
+    'BIOS Version': ['cat', '/sys/devices/virtual/dmi/id/bios_version'],
 }
 
 for label in parameters:
@@ -10,7 +12,7 @@ for label in parameters:
     process = Popen(os_command, stdout=PIPE, stderr=PIPE)
     stdout, stderr = process.communicate()
     info = stdout.decode("utf-8")
-    print(label + ': ' + info)
+    print(label + ': ' + info.strip())
 
 # EOF
 
