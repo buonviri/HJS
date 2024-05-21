@@ -13,10 +13,13 @@ def LogSystemInfo(filename):
     }
 
     for label in parameters:
-        os_command = parameters[label]
-        process = Popen(os_command, stdout=PIPE, stderr=PIPE)
-        stdout, stderr = process.communicate()
-        info = stdout.decode("utf-8")
+        try:
+            os_command = parameters[label]
+            process = Popen(os_command, stdout=PIPE, stderr=PIPE)
+            stdout, stderr = process.communicate()
+            info = stdout.decode("utf-8")
+        except:  # likely the command failed
+            info = '[unknown]'
         if label == 'CPU':  # special case for lscpu
             lines = info.split('\n')
             for line in lines:
