@@ -6,8 +6,8 @@ def LogSystemInfo(filename):
         'Board Name': ['cat', '/sys/devices/virtual/dmi/id/board_name'],
         'BIOS Release': ['cat', '/sys/devices/virtual/dmi/id/bios_release'],
         'BIOS Version': ['cat', '/sys/devices/virtual/dmi/id/bios_version'],
-        'CPU': ['lscpu', '|', 'grep', '-Po', '\'Model name:\\s+\\K.*\''],
-        
+        'CPU': ['lscpu'],  # multi-line string that gets parsed later
+        'OS': ['lsb_release', '-d'],  # string that gets split later
         'Kernel': ['uname', '-r'],
         'Power Profile': ['powerprofilesctl','get'],
     }
@@ -17,22 +17,19 @@ def LogSystemInfo(filename):
         process = Popen(os_command, stdout=PIPE, stderr=PIPE)
         stdout, stderr = process.communicate()
         info = stdout.decode("utf-8")
-        print(label + ': ' + info.strip())
+        if label == 'CPU':  # special case for lscpu
+            lines = info.split('\n')
+            for line in lines:
+                if line.strip().startswith('Model name:'):
+                    info = line[11:]  # skip the search string
+        elif label == 'OS':  # special case for lsb_release
+            line = info.split(None, 1)  # split only once, whitespace is likely tab
+            info = line[1]  # right half of string
+        label = label + ':'  # add colon before right-justify operation
+        print(label.rjust(15) + '  ' + info.strip())
     return
 
 
 LogSystemInfo('xxx')
 
 # EOF
-
-"""
-cat /sys/devices/virtual/dmi/id/board_vendor | tee -a ~/sys.info
-cat /sys/devices/virtual/dmi/id/board_name | tee -a ~/sys.info
-cat /sys/devices/virtual/dmi/id/bios_release | tee -a ~/sys.info
-cat /sys/devices/virtual/dmi/id/bios_version | tee -a ~/sys.info
-lscpu | grep -Po 'Model name:\s+\K.*' | tee -a ~/sys.info
-lsb_release -d | grep -Po 'Description:\s+\K.*' | tee -a ~/sys.info
-uname -r | tee -a ~/sys.info
-# doesn't work in 20.04, suppress error
-powerprofilesctl get 2> /dev/null | tee -a ~/sys.info
-"""
