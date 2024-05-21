@@ -55,7 +55,7 @@ def LogSystemInfo():
         if ',' in info:  # requires quotes
             csvinfo = '"' + info + '"'  # add quotes
         else:
-            csvfino = info  # leave as is
+            csvinfo = info  # leave as is
         csvfile = csvfile + label + ',' + csvinfo + '\n'
         label = label + ':'  # add colon before right-justify operation
         print(label.rjust(16) + '  ' + info)
