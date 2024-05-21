@@ -24,7 +24,7 @@ def log(info):
 
 
 def LogSystemInfo():
-    parameters = {
+    parameters = {  # note: keys may NOT contain commas
         'Board Vendor': ['cat', '/sys/devices/virtual/dmi/id/board_vendor'],
         'Board Name': ['cat', '/sys/devices/virtual/dmi/id/board_name'],
         'BIOS Release': ['cat', '/sys/devices/virtual/dmi/id/bios_release'],
@@ -52,7 +52,11 @@ def LogSystemInfo():
             line = info.split(None, 1)  # split only once, whitespace is likely tab
             info = line[1]  # right half of string
         info = info.strip()  # make sure it doesn't have extra whitespace
-        csvfile = csvfile + '"' + label + '","' + info + '"\n'
+        if ',' in info:  # requires quotes
+            csvinfo = '"' + info + '"'  # add quotes
+        else:
+            csvfino = info  # leave as is
+        csvfile = csvfile + label + ',' + csvinfo + '\n'
         label = label + ':'  # add colon before right-justify operation
         print(label.rjust(16) + '  ' + info)
     with open(os.path.join('log', sysinfofile), 'w') as f:  # assumes 'log' folder exists
