@@ -23,6 +23,43 @@ def log(info):
 # End
 
 
+def LogSystemInfo():
+    parameters = {
+        'Board Vendor': ['cat', '/sys/devices/virtual/dmi/id/board_vendor'],
+        'Board Name': ['cat', '/sys/devices/virtual/dmi/id/board_name'],
+        'BIOS Release': ['cat', '/sys/devices/virtual/dmi/id/bios_release'],
+        'BIOS Version': ['cat', '/sys/devices/virtual/dmi/id/bios_version'],
+        'CPU': ['lscpu'],  # multi-line string that gets parsed later
+        'OS': ['lsb_release', '-d'],  # string that gets split later
+        'Kernel': ['uname', '-r'],
+        'Power Profile': ['powerprofilesctl','get'],
+    }
+    csvfile = ''
+    for label in parameters:
+        try:
+            os_command = parameters[label]
+            process = Popen(os_command, stdout=PIPE, stderr=PIPE)
+            stdout, stderr = process.communicate()
+            info = stdout.decode("utf-8")
+        except:  # likely the command failed
+            info = '[unknown]'
+        if label == 'CPU':  # special case for lscpu
+            lines = info.split('\n')
+            for line in lines:
+                if line.strip().startswith('Model name:'):
+                    info = line[11:]  # skip the search string
+        elif label == 'OS':  # special case for lsb_release
+            line = info.split(None, 1)  # split only once, whitespace is likely tab
+            info = line[1]  # right half of string
+        info = info.strip()  # make sure it doesn't have extra whitespace
+        csvfile = csvfile + label + ',' + info + '\n'
+        label = label + ':'  # add colon before right-justify operation
+        print(label.rjust(16) + '  ' + info)
+    with open(os.path.join('log', sysinfofile), 'w') as f:  # assumes 'log' folder exists
+        f.write(csvfile)
+# End
+
+
 def checkdir(dirname):
     try:
         os.mkdir(dirname)  # attempt to add folder
@@ -54,9 +91,12 @@ except:
     cfg = {}  # blank sensor list if no yaml
 # print(cfg)  # debug
 
-logfile = thisfile + '-' + hex(int(time.time()))[2:] + '.csv'  # epoch time in hex (minus the 0x prefix) with csv extension
+hextimestamp = hex(int(time.time()))[2:]
+sysinfofile = 'sysinfo-' + hextimestamp + '.csv'
+logfile = thisfile + '-' + hextimestamp + '.csv'  # epoch time in hex (minus the 0x prefix) with csv extension
 print ('Logging to: ' + logfile + ' in ' + os.path.join(os.getcwd(), 'log'))
 checkdir('log')  # just in case it doesn't exist, add it
+LogSystemInfo()  # writes sys.info to sysinfofile
 log('timestamp,Fmin,Fmax,Tmin,Tmax')  # create header row in log
 
 try:
