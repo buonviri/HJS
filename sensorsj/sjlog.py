@@ -97,7 +97,7 @@ except:
 
 hextimestamp = hex(int(time.time()))[2:]  # epoch time in hex (minus the 0x prefix)
 sysinfofile = 'sysinfo-' + hextimestamp + '.csv'
-logfile = thisfile + '-' + hextimestamp + '.csv'  
+logfile = thisfile + '-' + hextimestamp + '.csv'
 print ('Logging to: ' + logfile + ' in ' + os.path.join(os.getcwd(), 'log'))
 checkdir('log')  # just in case it doesn't exist, add it
 LogSystemInfo()  # writes sys.info to sysinfofile
