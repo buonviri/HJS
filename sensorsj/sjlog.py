@@ -52,7 +52,7 @@ def LogSystemInfo():
             line = info.split(None, 1)  # split only once, whitespace is likely tab
             info = line[1]  # right half of string
         info = info.strip()  # make sure it doesn't have extra whitespace
-        csvfile = csvfile + label + ',' + info + '\n'
+        csvfile = csvfile + '"' + label + '","' + info + '"\n'
         label = label + ':'  # add colon before right-justify operation
         print(label.rjust(16) + '  ' + info)
     with open(os.path.join('log', sysinfofile), 'w') as f:  # assumes 'log' folder exists
