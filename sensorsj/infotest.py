@@ -29,7 +29,7 @@ def LogSystemInfo(filename):
             line = info.split(None, 1)  # split only once, whitespace is likely tab
             info = line[1]  # right half of string
         label = label + ':'  # add colon before right-justify operation
-        print(label.rjust(15) + '  ' + info.strip())
+        print(label.rjust(16) + '  ' + info.strip())
     return
 
 
