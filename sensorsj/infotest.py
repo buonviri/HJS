@@ -1,18 +1,27 @@
 from subprocess import Popen, PIPE
 
-parameters = {
-    'Board Vendor': ['cat', '/sys/devices/virtual/dmi/id/board_vendor'],
-    'Board Name': ['cat', '/sys/devices/virtual/dmi/id/board_name'],
-    'BIOS Release': ['cat', '/sys/devices/virtual/dmi/id/bios_release'],
-    'BIOS Version': ['cat', '/sys/devices/virtual/dmi/id/bios_version'],
-}
+def LogSystemInfo(filename)
+    parameters = {
+        'Board Vendor': ['cat', '/sys/devices/virtual/dmi/id/board_vendor'],
+        'Board Name': ['cat', '/sys/devices/virtual/dmi/id/board_name'],
+        'BIOS Release': ['cat', '/sys/devices/virtual/dmi/id/bios_release'],
+        'BIOS Version': ['cat', '/sys/devices/virtual/dmi/id/bios_version'],
+        
+        
+        'Kernel': ['uname', '-r'],
+        'Power Profile': ['powerprofilesctl',],
+    }
 
-for label in parameters:
-    os_command = parameters[label]
-    process = Popen(os_command, stdout=PIPE, stderr=PIPE)
-    stdout, stderr = process.communicate()
-    info = stdout.decode("utf-8")
-    print(label + ': ' + info.strip())
+    for label in parameters:
+        os_command = parameters[label]
+        process = Popen(os_command, stdout=PIPE, stderr=PIPE)
+        stdout, stderr = process.communicate()
+        info = stdout.decode("utf-8")
+        print(label + ': ' + info.strip())
+    return
+
+
+LogSystemInfo('xxx')
 
 # EOF
 
