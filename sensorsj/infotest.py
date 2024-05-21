@@ -1,6 +1,6 @@
 from subprocess import Popen, PIPE
 
-def LogSystemInfo(filename)
+def LogSystemInfo(filename):
     parameters = {
         'Board Vendor': ['cat', '/sys/devices/virtual/dmi/id/board_vendor'],
         'Board Name': ['cat', '/sys/devices/virtual/dmi/id/board_name'],
@@ -9,7 +9,7 @@ def LogSystemInfo(filename)
         
         
         'Kernel': ['uname', '-r'],
-        'Power Profile': ['powerprofilesctl',],
+        'Power Profile': ['powerprofilesctl','get'],
     }
 
     for label in parameters:
