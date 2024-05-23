@@ -1,3 +1,6 @@
+# this script extracts attributes based the filename
+# 'BuildOptions.py' extracts BuildOptions info
+
 import os
 import ast
 import pyperclip

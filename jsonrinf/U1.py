@@ -1,3 +1,6 @@
+# this script extracts pin info based the filename
+# 'U1.py' extracts U1 info
+
 import os
 import ast
 import pyperclip
