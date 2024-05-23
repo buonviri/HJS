@@ -45,6 +45,7 @@ def convert(lines):
     pin = '123456'  # fake pin
     netname = 'HOMER SEZ NO NET (ERROR)'  # (hopefully) invalid netname
     addcomcount = 0
+    bomignorecount = 0
     for rawline in lines:
         line = rawline.strip().replace('\t',' ')  # strip newline and spaces, replace tab with space
         if len(line) == 0:
@@ -67,6 +68,8 @@ def convert(lines):
                 info['comps'][device] = {'part': [], 'attributes': []}  # new dictionary for this refdes
                 info['comps'][device]['part'].append(devinfo)  # add info to this refdes
             elif line.startswith('.ATT_COM'):
+                if 'BOM_IGNORE' in line:
+                    bomignorecount = bomignorecount + 1
                 words = GetTokens(line[8:].strip())
                 device = words[0]  # refdes
                 attrinfo = [x.strip(double_quotes) for x in words[1:]]  # list of remaining tokens with quotes removed
@@ -101,6 +104,8 @@ def convert(lines):
         else:
             print('Bad line: ' + line)
     print('  ADD_COM count: ' + str(addcomcount))
+    print('  BOM_IGNORE count: ' + str(bomignorecount))
+    print('  BOM should have ' + str(addcomcount-bomignorecount) + ' entries')
     return info
 # end of convert()
 
