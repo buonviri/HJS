@@ -27,6 +27,12 @@ for row in rows:
             last_row_was_header = True
         new_ips = new_ips + new_row + '\n'  # add newline and add to ips
         count = count + 1
+
+# add fake lines for vlookup in gsheets
+new_ips = new_ips + 'x\tx\tThe End\n'
+new_ips = new_ips + 'x\tx\tx\n'
+new_ips = new_ips + 'x\tremoved\n'
+
 pyperclip.copy(new_ips)  # place back on clipboard
 
 # EOF
