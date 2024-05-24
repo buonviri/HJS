@@ -1,6 +1,17 @@
 import os
 import ast
 
+configs = {
+    'S2LP': {  # project
+        'D08BAB': {  # config
+            'dni': ['DNI', 'DNP', 'SGL_SAKURA'],
+        },
+        'S08BAB': {  # config
+            'dni': ['DNI', 'DNP', 'DUAL_SAKURA'],
+        },
+    },
+}
+
 
 def GetFiles():
     bom = ''
@@ -54,14 +65,20 @@ def GetKeys(bom, net):
         print('  Missing from Netlist: ' + missing)
     missing = ''
     bom_ignore = ''
+    bom_ignore_tp = ''
+    bom_ignore_tp_count = 0
     for k in netkeys:
         if k not in bomkeys:
             if VerifyAttribute(net, k, 'BOM_IGNORE', 'true'):
-                bom_ignore = bom_ignore + ' ' + k
+                if k.startswith('TP'):  # test points are often numerous
+                    bom_ignore_tp_count = bom_ignore_tp_count + 1
+                    bom_ignore_tp = ' TPxx (' + str(bom_ignore_tp_count) + ')'
+                else:  # not a test point
+                    bom_ignore = bom_ignore + ' ' + k
             else:
                 missing = missing + ' ' + k
-    if len(bom_ignore) > 0:
-        print('  Ignored:' + bom_ignore)
+    if len(bom_ignore) > 0 or len(bom_ignore_tp) > 0:
+        print('  Ignored:' + bom_ignore + bom_ignore_tp)
     if len(missing) > 0:
         print('  Missing from BOM:' + missing)
     return bomkeys  # should be the same as netkeys not counting ignores
@@ -110,17 +127,35 @@ def GetColumns(bom, net, keys):
 # End
 
 
-def WriteFiles(all):
+def WriteFiles(files, all):
     refdes = []
     for k in all:
-        refdes.append(k)
-    sorted_refdes = sorted(refdes)
+        refdes.append(k)  # create list of sortable refdes
+    sorted_refdes = sorted(refdes)  # sort them
     filename = 'all.tab'
     with open(filename, 'w') as f:
         f.write('\t'.join(['RefDes', 'ECPN', 'MFG', 'MPN', 'Description', 'BuildOptions']) + '\n')  # header
         for k in sorted_refdes:
-            f.write('\t'.join(all[k]) + '\n')
+            if len(all[k]) == 5:  # no build options, RefDes thru Desc
+                f.write('\t'.join(all[k]) + '\t-\n')  # add dash for BuildOptions
+            else:
+                f.write('\t'.join(all[k]) + '\n')  # should be all six columns
     print('\nWrote ' + filename)
+    print('Count: ' + str(len(sorted_refdes)))
+    print()
+    for project in configs:
+        if project.lower() in files[0].lower():  # only analyze if the project is in the bom filename
+            for config in configs[project]:
+                dni_list = configs[project][config]['dni']
+                print('DNI for ' + project + '-' + config + ' = ' + '|'.join(dni_list))
+                for k in sorted_refdes:
+                    if len(all[k]) == 6:  # has BuildOptions
+                        build_options = all[k][5]
+                        if build_options in dni_list:
+                            print('DNI ' + all[k][0])  # refdes to be DNI
+                        else:
+                            print('Keep ' + all[k][0])  # debug
+                # create BOM and DNI files here
 # End
 
 
@@ -135,7 +170,7 @@ if len(files) == 2:
     # print(keys)  # debug
     print('Count: ' + str(len(keys)))
     all = GetColumns(bom, net, keys)
-    WriteFiles(all)
+    WriteFiles(files, all)
 
 print()
 os.system("PAUSE")
