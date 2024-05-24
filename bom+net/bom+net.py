@@ -115,10 +115,12 @@ def WriteFiles(all):
     for k in all:
         refdes.append(k)
     sorted_refdes = sorted(refdes)
-    with open('all.tab', 'w') as f:
+    filename = 'all.tab'
+    with open(filename, 'w') as f:
         f.write('\t'.join(['RefDes', 'ECPN', 'MFG', 'MPN', 'Description', 'BuildOptions']) + '\n')  # header
         for k in sorted_refdes:
             f.write('\t'.join(all[k]) + '\n')
+    print('\nWrote ' + filename)
 # End
 
 
@@ -134,8 +136,6 @@ if len(files) == 2:
     print('Count: ' + str(len(keys)))
     all = GetColumns(bom, net, keys)
     WriteFiles(all)
-else:
-    pass
 
 print()
 os.system("PAUSE")
