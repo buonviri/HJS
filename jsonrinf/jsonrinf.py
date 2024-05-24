@@ -74,6 +74,10 @@ def convert(lines):
                 device = words[0]  # refdes
                 attrinfo = [x.strip(double_quotes) for x in words[1:]]  # list of remaining tokens with quotes removed
                 info['comps'][device]['attributes'].append(attrinfo)  # add info to this refdes, assumes ADD_COM already happened!
+                if len(attrinfo) == 2:  # this should always be the case
+                    info['comps'][device][attrinfo[0]] = attrinfo[1]
+                else:
+                    print('Questionable attribute list: ' + str(attrinfo))
             elif line.startswith('.ADD_TER'):
                 words = GetTokens(line[8:].strip())
                 device = words[0]  # refdes
