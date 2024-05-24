@@ -54,7 +54,7 @@ def convert(filename):
     formatted = pprint.pformat(out, indent=2, width=200)
     # print(formatted)
     print('  Found ' + str(refdescount) + ' reference designators')
-    with open(filename + '.dict', 'w') as f:
+    with open(filename + ' converted to.dict', 'w') as f:
         f.write(formatted + '\n')
     return str(count)  # BOM Line Items
 # End

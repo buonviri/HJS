@@ -115,11 +115,11 @@ print()  # blank line to separate from prompt
 for filename in os.listdir():  # only look in current folder
     n = filename.lower()  # only used for checking extension
     if n.endswith('.frp') or n.endswith('.net'):
-        name = filename[:-4]  # remove extension
-        print('Writing: ' + name + '.dict')
+        name = filename + ' converted to.dict'
+        print('Writing: ' + name)
         with open(filename, 'r') as f:
             info = convert(f.readlines())  # read entire file and pass as a list
-        with open(name + '.dict', 'w') as f:
+        with open(name, 'w') as f:
             formatted = pprint.pformat(info, indent=2, width=200)
             f.write(formatted + '\n')  # write using pformat
         print('  Done\n')
