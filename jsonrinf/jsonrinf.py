@@ -24,7 +24,33 @@ def GetTokens(x):  # standard function for splitting strings containing quoted s
 # end of GetTokens()
 
 
+def WriteSortedNetlist(lines):
+    found_comp = False
+    pre = []
+    comp = []
+    attr = []
+    post = []
+    for rawline in lines:
+        line = rawline.rstrip()  # strip newline, keep indentation
+        if line.startswith('.ADD_COM'):
+            found_comp = True  # determines pre vs post for fluff
+            comp.append(line)
+        elif line.startswith('.ATT_COM'):
+            attr.append(line)
+        elif found_comp:
+            post.append(line)
+        else:
+            pre.append(line)
+    with open('sorted.txt', 'w') as f:
+        f.write('\n'.join(pre) + '\n')
+        f.write('\n'.join(sorted(comp)) + '\n')
+        f.write('\n'.join(sorted(attr)) + '\n')
+        f.write('\n'.join(post) + '\n')
+# End
+
+
 def convert(lines):
+    WriteSortedNetlist(lines)  # for easier comparison between git revs
     info = {'comps': {}, 'nets': {}}  # blank dict for storing all netlist info
     lastline = ''  # contains keyword of last line
     # list of words that aren't useful:
