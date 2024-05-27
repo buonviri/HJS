@@ -1,6 +1,7 @@
 import os
 import ast
 
+# config levels are project, config, list of DNI strings
 configs = {
     'S2LP': {  # project
         'D08BAB': {  # config
@@ -127,6 +128,34 @@ def GetColumns(bom, net, keys):
 # End
 
 
+def WriteFile(project, config, dni_list, all, sorted_refdes):
+    with open(filename + '.tab', 'w') as f:
+        with open(filename + '-DNI.tab', 'w') as fdni:
+            print('DNI for ' + project + '-' + config + ' = ' + '|'.join(dni_list))
+            option_count = {}  # will contain counts of option strings
+            for k in sorted_refdes:
+                new_bom_line = '\t'.join(all[k])
+                if len(all[k]) == 6:  # has BuildOptions
+                    build_options = all[k][5]
+                    if build_options in dni_list:
+                        # print('DNI (' + build_options + ') ' + all[k][0])  # refdes to be DNI
+                        fdni.write(new_bom_line + '\n')
+                    else:
+                        # print('Keep (' + build_options + ') ' + all[k][0])  # debug
+                        f.write(new_bom_line + '\n')
+                    try:
+                        option_count[build_options] = option_count[build_options] + 1
+                    except:
+                        option_count[build_options] = 1
+                else:  # no build options
+                    f.write(new_bom_line + '\t-\n')  # add dash for blank column
+            print('Found option strings:')
+            for c in option_count:
+                print('  ' + c + ': ' + str(option_count[c]))
+# todo: add condensed versions, and sub list
+# End
+
+
 def WriteFiles(files, all):
     refdes = []
     for k in all:
@@ -146,16 +175,7 @@ def WriteFiles(files, all):
     for project in configs:
         if project.lower() in files[0].lower():  # only analyze if the project is in the bom filename
             for config in configs[project]:
-                dni_list = configs[project][config]['dni']
-                print('DNI for ' + project + '-' + config + ' = ' + '|'.join(dni_list))
-                for k in sorted_refdes:
-                    if len(all[k]) == 6:  # has BuildOptions
-                        build_options = all[k][5]
-                        if build_options in dni_list:
-                            print('DNI ' + all[k][0])  # refdes to be DNI
-                        else:
-                            print('Keep ' + all[k][0])  # debug
-                # create BOM and DNI files here
+                WriteFile(project, config, configs[project][config]['dni'], all, sorted_refdes)
 # End
 
 
