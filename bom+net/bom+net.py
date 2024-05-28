@@ -129,6 +129,7 @@ def GetColumns(bom, net, keys):
 
 
 def WriteFile(project, config, dni_list, all, sorted_refdes):
+    filename = project + '-' + config
     with open(filename + '.tab', 'w') as f:
         with open(filename + '-DNI.tab', 'w') as fdni:
             print('DNI for ' + project + '-' + config + ' = ' + '|'.join(dni_list))
