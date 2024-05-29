@@ -185,7 +185,8 @@ def WriteFile(project, config, dni_list, all, sorted_refdes):
                         condensed[ecpn] = all[k][2:5]  # columnns 2/3/4 are MFG, MPN, DESC
                     condensed[ecpn].append(all[k][0])  # append refdes to existing ecpn's list
                     if all[k][2] != condensed[ecpn][0] or all[k][3] != condensed[ecpn][1] or all[k][4] != condensed[ecpn][2]:
-                        print('Mismatch in ' + all[k][0] + ':\n  ' + '|'.join(all[k][2:5]))  # MFG, MPN, DESC
+                        print('Mismatch in ' + all[k][0] + ':')
+                        print('  ' + '|'.join(all[k][2:5]))  # MFG, MPN, DESC
                         print('  ' + '|'.join(condensed[ecpn][0:3]))  # MFG, MPN, DESC
             print('Found option strings:')
             for c in option_count:
