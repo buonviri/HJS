@@ -2,6 +2,7 @@ import os
 import ast
 
 # config levels are project, config, list of DNI strings
+# todo... add 'sub': [list of subs]
 configs = {
     'S2LP': {  # project
         'D08BAB': {  # config
@@ -128,32 +129,65 @@ def GetColumns(bom, net, keys):
 # End
 
 
+def WriteCondensed(filename, condensed):
+    refdescount = 0
+    with open(filename, 'w') as f:
+        f.write('\t'.join(['ECPN','QTY','RefDes','MFG','MPN','Description']) + '\n')
+        for ecpn in condensed:
+            refdeslist = condensed[ecpn][3:]
+            qty = len(refdeslist)  # count refdes
+            refdescount = refdescount + qty
+            refdes = ','.join(refdeslist)  # join refdes with comma
+            out = [ecpn, str(qty), refdes] + condensed[ecpn][0:3]  # add MFG, MPN, DESC to new list
+            f.write('\t'.join(out) + '\n')  # write tab data and newline
+    print('Wrote ' + str(refdescount) + ' RefDes to condensed BOM')
+# End
+
+
 def WriteFile(project, config, dni_list, all, sorted_refdes):
+    condensed = {}
     filename = project + '-' + config
     with open(filename + '.tab', 'w') as f:
+        count = 0
+        dnicount = 0
         with open(filename + '-DNI.tab', 'w') as fdni:
-            print('DNI for ' + project + '-' + config + ' = ' + '|'.join(dni_list))
+            print('\nDNI for ' + project + '-' + config + ' = ' + '|'.join(dni_list))
             option_count = {}  # will contain counts of option strings
             for k in sorted_refdes:
+                add_to_condensed = False
                 new_bom_line = '\t'.join(all[k])
+                ecpn = all[k][1]
                 if len(all[k]) == 6:  # has BuildOptions
                     build_options = all[k][5]
                     if build_options in dni_list:
                         # print('DNI (' + build_options + ') ' + all[k][0])  # refdes to be DNI
                         fdni.write(new_bom_line + '\n')
+                        dnicount = dnicount + 1
                     else:
                         # print('Keep (' + build_options + ') ' + all[k][0])  # debug
                         f.write(new_bom_line + '\n')
+                        add_to_condensed = True
                     try:
                         option_count[build_options] = option_count[build_options] + 1
                     except:
                         option_count[build_options] = 1
                 else:  # no build options
                     f.write(new_bom_line + '\t-\n')  # add dash for blank column
+                    add_to_condensed = True
+                if add_to_condensed:
+                    count = count + 1
+                    if ecpn not in condensed:
+                        condensed[ecpn] = all[k][2:5]  # columnns 2/3/4 are MFG, MPN, DESC
+                    condensed[ecpn].append(all[k][0])  # append refdes to existing ecpn's list
+                    if all[k][2] != condensed[ecpn][0] or all[k][3] != condensed[ecpn][1] or all[k][4] != condensed[ecpn][2]:
+                        print('Mismatch in ' + all[k][0] + ':\n  ' + '|'.join(all[k][2:5]))  # MFG, MPN, DESC
+                        print('  ' + '|'.join(condensed[ecpn][0:3]))  # MFG, MPN, DESC
             print('Found option strings:')
             for c in option_count:
                 print('  ' + c + ': ' + str(option_count[c]))
-# todo: add condensed versions, and sub list
+            print('Count ' + str(count) + ' (DNI Count ' + str(dnicount) + ', Total ' + str(count+dnicount) + ')')
+    # print(condensed)  # debug
+    WriteCondensed(filename + '-condensed.tab', condensed)
 # End
 
 
@@ -172,7 +206,6 @@ def WriteFiles(files, all):
                 f.write('\t'.join(all[k]) + '\n')  # should be all six columns
     print('\nWrote ' + filename)
     print('Count: ' + str(len(sorted_refdes)))
-    print()
     for project in configs:
         if project.lower() in files[0].lower():  # only analyze if the project is in the bom filename
             for config in configs[project]:
