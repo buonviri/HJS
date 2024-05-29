@@ -12,6 +12,11 @@ configs = {
             'dni': ['DNI', 'DNP', 'DUAL_SAKURA'],
         },
     },
+    'S2M2': {  # project
+        'A16N': {  # config
+            'dni': ['DNI', 'DNP'],
+        },
+    },
 }
 
 
