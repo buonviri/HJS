@@ -138,6 +138,7 @@ def WriteCondensed(filename, condensed):
     replace = {
         'Analog Devices Inc./Maxim Integrated': 'Analog Devices/Maxim',
         'FTDI, Future Technology Devices International Ltd': 'FTDI',
+        'Renesas Electronics Corporation': 'Renesas',
     }
     refdescount = 0
     with open(filename, 'w') as f:
