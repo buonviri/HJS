@@ -135,15 +135,22 @@ def GetColumns(bom, net, keys):
 
 
 def WriteCondensed(filename, condensed):
+    replace = {
+        'Analog Devices Inc./Maxim Integrated': 'Analog Devices/Maxim',
+        'FTDI, Future Technology Devices International Ltd': 'FTDI',
+    }
     refdescount = 0
     with open(filename, 'w') as f:
         f.write('\t'.join(['ECPN','QTY','RefDes','MFG','MPN','Description']) + '\n')
         for ecpn in condensed:
+            mfg = condensed[ecpn][0]
+            if mfg in replace:  # check if MFG is a long name
+                mfg = replace[mfg]  # use replacement string
             refdeslist = condensed[ecpn][3:]
             qty = len(refdeslist)  # count refdes
             refdescount = refdescount + qty
             refdes = ','.join(refdeslist)  # join refdes with comma
-            out = [ecpn, str(qty), refdes] + condensed[ecpn][0:3]  # add MFG, MPN, DESC to new list
+            out = [ecpn, str(qty), refdes, mfg] + condensed[ecpn][1:3]  # create new list
             f.write('\t'.join(out) + '\n')  # write tab data and newline
     print('Wrote ' + str(refdescount) + ' RefDes to condensed BOM')
 # End
