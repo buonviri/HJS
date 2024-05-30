@@ -5,10 +5,10 @@ import ast
 # todo... add 'sub': [list of subs]
 configs = {
     'S2LP': {  # project
-        'D08BAB': {  # config
+        'D16BHN': {  # config
             'dni': ['DNI', 'DNP', 'SGL_SAKURA'],
         },
-        'S08BAB': {  # config
+        'S16BHN': {  # config
             'dni': ['DNI', 'DNP', 'DUAL_SAKURA'],
         },
     },
