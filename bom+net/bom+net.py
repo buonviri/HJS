@@ -6,18 +6,22 @@ configs = {
     'S2LP': {  # project
         'D16BHN': {  # config
             'dni': ['DNI', 'DNP', 'SGL_SAKURA'],
-            'sub': {  # ECPN is key, mfg/mpn is new list
-                'EC-xxxaU': ['mfga', 'mpna'],
-                'EC-xxxbU': ['mfgb', 'mpnb'],
+            'sub': {  # ECPN is key, sub ecpn/mfg/mpn/desc is new list
+                'EC-0023U': ['EC-0023U', 'Micron (Test, D)', 'MT53E1G64D4HJ-046 WT:C', 'LPDDR4 64G 1GX64 FBGA'],
+                # 'EC-FAKE1': ['EC-FAKE2', 'MFG', 'MPN', 'DESC'],  # for testing
             },
         },
         'S16BHN': {  # config
             'dni': ['DNI', 'DNP', 'DUAL_SAKURA'],
+            'sub': {  # ECPN is key, mfg/mpn/desc is new list
+                'EC-0023U': ['EC-0023U', 'Micron (Test, S)', 'MT53E1G64D4HJ-046 WT:C', 'LPDDR4 64G 1GX64 FBGA'],
+            },
         },
     },
     'S2M2': {  # project
         'A16N': {  # config
             'dni': ['DNI', 'DNP'],
+            'sub': {},
         },
     },
 }
@@ -162,28 +166,51 @@ def WriteCondensed(filename, condensed):
 # End
 
 
-def WriteFile(project, config, dni_list, all, sorted_refdes):
+def PrintSubSummary(old, new, last):  # each list is ecpn/mfg/mpn/desc
+    old_mmd = old[1:4]
+    new_mmd = new[1:4]
+    strlen = [len(x) for x in old_mmd] + [len(y) for y in new_mmd]
+    maxlen = max(strlen)
+    padded_old = [old[0] + ' ='] + [x.ljust(maxlen+2) for x in old_mmd]
+    padded_new = [new[0] + ' ='] + [x.ljust(maxlen+2) for x in new_mmd]
+    summary = '  Sub: ' + ' '.join(padded_old) + '\n' + '       ' + ' '.join(padded_new)
+    if summary != last:  # only print if different 
+        print(summary)
+    return summary
+# End
+
+
+def WriteFile(project, config, dni_list, sub_list, all, sorted_refdes):
     condensed = {}
     filename = project + '-' + config
     with open(filename + '.tab', 'w') as f:
         count = 0
         dnicount = 0
         with open(filename + '-DNI.tab', 'w') as fdni:
-            print('\nDNI for ' + project + '-' + config + ' = ' + '|'.join(dni_list))
+            print('\n' + project + '-' + config)
+            print('DNI = ' + '|'.join(dni_list))
+            for sub_list_key in sub_list:
+                print('SUB = ' + sub_list_key + ' -> ' + '|'.join(sub_list[sub_list_key]))
+            last_summary = ''  # records last summary to avoid duplicates
             option_count = {}  # will contain counts of option strings
             for k in sorted_refdes:
                 add_to_condensed = False
-                new_bom_line = '\t'.join(all[k])
-                ecpn = all[k][1]
-                if len(all[k]) == 6:  # has BuildOptions
-                    build_option_value = all[k][5]
+                this_line = all[k].copy()  # need to modify temporarily
+                ecpn = this_line[1]
+                if ecpn in sub_list:
+                    last_summary = PrintSubSummary(this_line[1:5], sub_list[ecpn], last_summary)
+                    this_line[1] = sub_list[ecpn][0]  # there must be a better way
+                    this_line[2] = sub_list[ecpn][1]
+                    this_line[3] = sub_list[ecpn][2]
+                    this_line[4] = sub_list[ecpn][3]
+                new_bom_line = '\t'.join(this_line)
+                if len(this_line) == 6:  # has BuildOptions
+                    build_option_value = this_line[5]
                     build_options = build_option_value.split('(', 1)[0].strip()
                     if build_options in dni_list:
-                        # print('DNI (' + build_options + ') ' + all[k][0])  # refdes to be DNI
                         fdni.write(new_bom_line + '\n')
                         dnicount = dnicount + 1
                     else:
-                        # print('Keep (' + build_options + ') ' + all[k][0])  # debug
                         f.write(new_bom_line + '\n')
                         add_to_condensed = True
                     try:
@@ -196,11 +223,11 @@ def WriteFile(project, config, dni_list, all, sorted_refdes):
                 if add_to_condensed:
                     count = count + 1
                     if ecpn not in condensed:
-                        condensed[ecpn] = all[k][2:5]  # columnns 2/3/4 are MFG, MPN, DESC
-                    condensed[ecpn].append(all[k][0])  # append refdes to existing ecpn's list
-                    if all[k][2] != condensed[ecpn][0] or all[k][3] != condensed[ecpn][1] or all[k][4] != condensed[ecpn][2]:
-                        print('Mismatch in ' + all[k][0] + ':')
-                        print('  ' + '|'.join(all[k][2:5]))  # MFG, MPN, DESC
+                        condensed[ecpn] = this_line[2:5]  # columnns 2/3/4 are MFG, MPN, DESC
+                    condensed[ecpn].append(this_line[0])  # append refdes to existing ecpn's list
+                    if this_line[2] != condensed[ecpn][0] or this_line[3] != condensed[ecpn][1] or this_line[4] != condensed[ecpn][2]:
+                        print('Mismatch in ' + this_line[0] + ':')
+                        print('  ' + '|'.join(this_line[2:5]))  # MFG, MPN, DESC
                         print('  ' + '|'.join(condensed[ecpn][0:3]))  # MFG, MPN, DESC
             print('Found option strings:')
             for c in option_count:
@@ -228,8 +255,8 @@ def WriteFiles(files, all):
     print('Count: ' + str(len(sorted_refdes)))
     for project in configs:
         if project.lower() in files[0].lower():  # only analyze if the project is in the bom filename
-            for config in configs[project]:
-                WriteFile(project, config, configs[project][config]['dni'], all, sorted_refdes)
+            for config in configs[project]:                
+                WriteFile(project, config, configs[project][config]['dni'], configs[project][config]['sub'], all, sorted_refdes)
 # End
 
 
