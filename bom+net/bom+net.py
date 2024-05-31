@@ -1,12 +1,15 @@
 import os
 import ast
 
-# config levels are project, config, list of DNI strings
-# todo... add 'sub': [list of subs]
+# config levels are project, config, list of DNI/SUB strings
 configs = {
     'S2LP': {  # project
         'D16BHN': {  # config
             'dni': ['DNI', 'DNP', 'SGL_SAKURA'],
+            'sub': {  # ECPN is key, mfg/mpn is new list
+                'EC-xxxaU': ['mfga', 'mpna'],
+                'EC-xxxbU': ['mfgb', 'mpnb'],
+            },
         },
         'S16BHN': {  # config
             'dni': ['DNI', 'DNP', 'DUAL_SAKURA'],
@@ -17,6 +20,13 @@ configs = {
             'dni': ['DNI', 'DNP'],
         },
     },
+}
+
+# list of short mfg names
+replaceMFG = {
+    'Analog Devices Inc./Maxim Integrated': 'Analog Devices/Maxim',
+    'FTDI, Future Technology Devices International Ltd': 'FTDI',
+    'Renesas Electronics Corporation': 'Renesas',
 }
 
 
@@ -135,18 +145,13 @@ def GetColumns(bom, net, keys):
 
 
 def WriteCondensed(filename, condensed):
-    replace = {
-        'Analog Devices Inc./Maxim Integrated': 'Analog Devices/Maxim',
-        'FTDI, Future Technology Devices International Ltd': 'FTDI',
-        'Renesas Electronics Corporation': 'Renesas',
-    }
     refdescount = 0
     with open(filename, 'w') as f:
         f.write('\t'.join(['ECPN','QTY','RefDes','MFG','MPN','Description']) + '\n')
         for ecpn in condensed:
             mfg = condensed[ecpn][0]
-            if mfg in replace:  # check if MFG is a long name
-                mfg = replace[mfg]  # use replacement string
+            if mfg in replaceMFG:  # check if MFG is a long name
+                mfg = replaceMFG[mfg]  # use replacement string
             refdeslist = condensed[ecpn][3:]
             qty = len(refdeslist)  # count refdes
             refdescount = refdescount + qty
@@ -171,7 +176,8 @@ def WriteFile(project, config, dni_list, all, sorted_refdes):
                 new_bom_line = '\t'.join(all[k])
                 ecpn = all[k][1]
                 if len(all[k]) == 6:  # has BuildOptions
-                    build_options = all[k][5]
+                    build_option_value = all[k][5]
+                    build_options = build_option_value.split('(', 1)[0].strip()
                     if build_options in dni_list:
                         # print('DNI (' + build_options + ') ' + all[k][0])  # refdes to be DNI
                         fdni.write(new_bom_line + '\n')
