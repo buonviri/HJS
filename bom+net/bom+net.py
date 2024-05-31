@@ -206,7 +206,7 @@ def WriteFile(project, config, dni_list, sub_list, all, sorted_refdes):
                 new_bom_line = '\t'.join(this_line)
                 if len(this_line) == 6:  # has BuildOptions
                     build_option_value = this_line[5]
-                    build_options = build_option_value.split('(', 1)[0].strip()
+                    build_options = build_option_value.split('(', 1)[0].strip()  # remove any comment in parentheses
                     if build_options in dni_list:
                         fdni.write(new_bom_line + '\n')
                         dnicount = dnicount + 1
