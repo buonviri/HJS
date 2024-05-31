@@ -114,12 +114,12 @@ for k in clip:
     try:
         offset = clip[k][0]  # Z offset
         part = clip[k][1]  # footprint (partname) string
-        xyz = library[part]  # list containing xyz info
-        x = str(max(xyz[1]) - min(xyz[1]))  # calc size in X
-        y = str(max(xyz[2]) - min(xyz[2]))  # calc size in Y
-        s = s + '\t'.join([k, offset, xyz[0], x, y, part]) + '\n'
+        zxy = library[part]  # list containing z-x-y info
+        x = str(max(zxy[1]) - min(zxy[1]))  # calc size in X
+        y = str(max(zxy[2]) - min(zxy[2]))  # calc size in Y
+        s = s + '\t'.join([k, offset, zxy[0], x, y, part]) + '\n'  # refdes, zoffset, z, x, y, partinfo
         good = good + 1
-        if len(xyz[1]) != 5 or len(xyz[2]) != 5:  # should five X and five Y
+        if len(zxy[1]) != 5 or len(zxy[2]) != 5:  # should five X and five Y
             if clip[k][1] not in invalid_corners:
                 print('Invalid number of corners found for ' + k + ' (example refdes)')
                 print('   ' + clip[k][1])
