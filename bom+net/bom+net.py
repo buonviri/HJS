@@ -1,5 +1,6 @@
 import os
 import ast
+import yaml
 
 # config levels are project, config, list of DNI/SUB strings
 configs = {
@@ -21,7 +22,9 @@ configs = {
     'S2M2': {  # project
         'A16N': {  # config
             'dni': ['DNI', 'DNP'],
-            'sub': {},
+            'sub': {
+                'A': ['B', 'C', 'D', 'E'],
+            },
         },
     },
 }
@@ -273,6 +276,8 @@ if len(files) == 2:
     all = GetColumns(bom, net, keys)
     WriteFiles(files, all)
 
+with open('test.yaml', 'w') as f:
+    yaml.dump(configs, f)
 print()
 os.system("PAUSE")
 # EOF
