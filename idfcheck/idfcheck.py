@@ -25,6 +25,16 @@ info = {
          '  7.5000  63.2500': ' A) Upper LP Hole, Spec',
          'end of': 'hole locations for 3.1800',
         },
+    '0.6500':  # diameter is dictionary key
+        {'start of': 'hole locations for 0.6500',
+         'XXX.XXXX YYY.YYYY': ' X) this is the expected format',
+         'end of': 'hole locations for 0.6500',
+        },
+    '0.5999':  # diameter is dictionary key
+        {'start of': 'hole locations for 0.5999',
+         'XXX.XXXX YYY.YYYY': ' X) this is the expected format',
+         'end of': 'hole locations for 0.5999',
+        },
     }
 
 # length and width variants
@@ -42,7 +52,7 @@ heights = {'111.1500': 'Standard Height (FH)',
 
 bdf = '.emn'  # file extension to check for (bdf/brd/etc)
 ldf = '.emp'  # file extension to check for (ldf/pro/etc)
-format = "%.4f"  # set decimal places for numeric output (e.g. x.xxxx)
+fmt = "%.4f"  # set decimal places for numeric output (e.g. x.xxxx)
 sections = (".HEADER", ".BOARD_OUTLINE", ".DRILLED_HOLES", ".PLACEMENT", ".ELECTRICAL", ".MECHANICAL")
 endsections = (".END_HEADER", ".END_BOARD_OUTLINE", ".END_DRILLED_HOLES", ".END_PLACEMENT", ".END_ELECTRICAL", ".END_MECHANICAL")
 section = ''
@@ -115,8 +125,8 @@ for k in clip:
         offset = clip[k][0]  # Z offset
         part = clip[k][1]  # footprint (partname) string
         zxy = library[part]  # list containing z-x-y info
-        x = str(max(zxy[1]) - min(zxy[1]))  # calc size in X
-        y = str(max(zxy[2]) - min(zxy[2]))  # calc size in Y
+        x = fmt % (max(zxy[1]) - min(zxy[1]))  # calc size in X
+        y = fmt % (max(zxy[2]) - min(zxy[2]))  # calc size in Y
         s = s + '\t'.join([k, offset, zxy[0], x, y, part]) + '\n'  # refdes, zoffset, z, x, y, partinfo
         good = good + 1
         if len(zxy[1]) != 5 or len(zxy[2]) != 5:  # should five X and five Y
@@ -139,7 +149,7 @@ for dia in holes:
             hole_detail = info[dia][key]
         except:
             hole_detail = "   "  # three blanks to align with 'X) '
-        if float(dia) > 1.99 or hole_detail != '   ':  # only print 2mm and larger holes, UNLESS it's a named hole
+        if float(dia) > .4999 or hole_detail != '   ':  # only print larger holes, UNLESS it's a named hole
             s.append('\nHole' + hole_detail + ' (' + xy[0] + ' ' + xy[1] + ')')
 s.sort()
 print(*s)
@@ -156,10 +166,10 @@ for k in corners:
         xmax = x
     if y > ymax:
         ymax = y
-print('Bottom Left: (' + format % xmin + ' ' + format % ymin + ')')
-print('  Top Right: (' + format % xmax + ' ' + format % ymax + ')')
-sizex = format % (xmax-xmin)
-sizey = format % (ymax-ymin)
+print('Bottom Left: (' + fmt % xmin + ' ' + fmt % ymin + ')')
+print('  Top Right: (' + fmt % xmax + ' ' + fmt % ymax + ')')
+sizex = fmt % (xmax-xmin)
+sizey = fmt % (ymax-ymin)
 
 try:
     length = lengths[sizex]
