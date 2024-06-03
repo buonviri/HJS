@@ -1,7 +1,8 @@
 import os
 import ast
-import yaml
+import yaml  # pip install pyyaml
 
+"""
 # config levels are project, config, list of DNI/SUB strings
 configs = {
     'S2LP': {  # project
@@ -28,6 +29,7 @@ configs = {
         },
     },
 }
+"""
 
 # list of short mfg names
 replaceMFG = {
@@ -35,6 +37,28 @@ replaceMFG = {
     'FTDI, Future Technology Devices International Ltd': 'FTDI',
     'Renesas Electronics Corporation': 'Renesas',
 }
+
+
+configs = {}
+def ReadYAML(filename):
+    global configs
+    try:
+        with open(filename, 'r') as f:
+            configs = yaml.safe_load(f)
+    except:
+        pass  # configs will blank
+    for project in configs:
+        if '_ALL_' not in configs[project]:
+            configs[project]['_ALL_'] = {}  # blank dict
+        for config in configs[project]:
+            if 'add' not in configs[project][config]:
+                configs[project][config]['add'] = {}  # blank dict
+            if 'dni' not in configs[project][config]:
+                configs[project][config]['dni'] = []  # blank list
+            if 'sub' not in configs[project][config]:
+                configs[project][config]['sub'] = {}  # blank dict
+    # print(configs)
+# End
 
 
 def GetFiles():
@@ -183,7 +207,7 @@ def PrintSubSummary(old, new, last):  # each list is ecpn/mfg/mpn/desc
 # End
 
 
-def WriteFile(project, config, dni_list, sub_list, all, sorted_refdes):
+def WriteFile(project, config, dni_list, sub_list, add_list, all, sorted_refdes):
     condensed = {}
     filename = project + '-' + config
     with open(filename + '.tab', 'w') as f:
@@ -192,6 +216,9 @@ def WriteFile(project, config, dni_list, sub_list, all, sorted_refdes):
         with open(filename + '-DNI.tab', 'w') as fdni:
             print('\n' + project + '-' + config)
             print('DNI = ' + '|'.join(dni_list))
+            for add_list_key in add_list:
+                print('ADD = ' + add_list_key + ' -> ' + '|'.join(add_list[add_list_key]))
+                condensed[add_list_key] = add_list[add_list_key]
             for sub_list_key in sub_list:
                 print('SUB = ' + sub_list_key + ' -> ' + '|'.join(sub_list[sub_list_key]))
             last_summary = ''  # records last summary to avoid duplicates
@@ -258,8 +285,17 @@ def WriteFiles(files, all):
     print('Count: ' + str(len(sorted_refdes)))
     for project in configs:
         if project.lower() in files[0].lower():  # only analyze if the project is in the bom filename
-            for config in configs[project]:                
-                WriteFile(project, config, configs[project][config]['dni'], configs[project][config]['sub'], all, sorted_refdes)
+            for config in configs[project]:
+                if config != '_ALL_':  # not meant to be written
+                    WriteFile(
+                        project,
+                        config,
+                        configs[project][config]['dni'],
+                        configs[project][config]['sub'],
+                        configs[project]['_ALL_']['add'] | configs[project][config]['add'],  # merge dicts
+                        all,
+                        sorted_refdes
+                    )
 # End
 
 
@@ -274,9 +310,10 @@ if len(files) == 2:
     # print(keys)  # debug
     print('Count: ' + str(len(keys)))
     all = GetColumns(bom, net, keys)
+    ReadYAML('BOM.yaml')
     WriteFiles(files, all)
 
-with open('test.yaml', 'w') as f:
+with open('BOM.yaml', 'w') as f:
     yaml.dump(configs, f)
 print()
 os.system("PAUSE")
