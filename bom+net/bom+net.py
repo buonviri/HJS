@@ -2,35 +2,6 @@ import os
 import ast
 import yaml  # pip install pyyaml
 
-"""
-# config levels are project, config, list of DNI/SUB strings
-configs = {
-    'S2LP': {  # project
-        'D16BHN': {  # config
-            'dni': ['DNI', 'DNP', 'SGL_SAKURA'],
-            'sub': {  # ECPN is key, sub ecpn/mfg/mpn/desc is new list
-                'EC-0023U': ['EC-0023U', 'Micron (Test, D)', 'MT53E1G64D4HJ-046 WT:C', 'LPDDR4 64G 1GX64 FBGA'],
-                # 'EC-FAKE1': ['EC-FAKE2', 'MFG', 'MPN', 'DESC'],  # for testing
-            },
-        },
-        'S16BHN': {  # config
-            'dni': ['DNI', 'DNP', 'DUAL_SAKURA'],
-            'sub': {  # ECPN is key, mfg/mpn/desc is new list
-                'EC-0023U': ['EC-0023U', 'Micron (Test, S)', 'MT53E1G64D4HJ-046 WT:C', 'LPDDR4 64G 1GX64 FBGA'],
-            },
-        },
-    },
-    'S2M2': {  # project
-        'A16N': {  # config
-            'dni': ['DNI', 'DNP'],
-            'sub': {
-                'A': ['B', 'C', 'D', 'E'],
-            },
-        },
-    },
-}
-"""
-
 # list of short mfg names
 replaceMFG = {
     'Analog Devices Inc./Maxim Integrated': 'Analog Devices/Maxim',
@@ -290,7 +261,7 @@ def WriteFiles(files, all):
                     WriteFile(
                         project,
                         config,
-                        configs[project][config]['dni'],
+                        configs[project]['_ALL_']['dni'] + configs[project][config]['dni'],  # merge lists
                         configs[project][config]['sub'],
                         configs[project]['_ALL_']['add'] | configs[project][config]['add'],  # merge dicts
                         all,
