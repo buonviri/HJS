@@ -24,9 +24,12 @@ def convert(filename):
         'Distributor',
         'Distributor PN',
         'Description',
-        'Part Type'
+        'SCH',
+        'STEP',
+        'PCB',
+        'Height',
     ]
-    good_keys = [2,7,8,11]
+    good_keys = [2,7,8,11,15]
     count = 0
     refdescount = 0
     with open(filename, 'r') as f:
