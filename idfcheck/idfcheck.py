@@ -50,8 +50,8 @@ heights = {'111.1500': 'Standard Height (FH)',
            '42.1500': 'Conversion Kit',
            '68.9000': 'Low Profile (HH)', '68.7500': 'Low Profile (HH)'}  #max/nom
 
-bdf = '.emn'  # file extension to check for (bdf/brd/etc)
-ldf = '.emp'  # file extension to check for (ldf/pro/etc)
+bdf = '.bdf'  # file extension to check for (bdf/brd/etc)
+ldf = '.ldf'  # file extension to check for (ldf/pro/etc)
 fmt = "%.4f"  # set decimal places for numeric output (e.g. x.xxxx)
 sections = (".HEADER", ".BOARD_OUTLINE", ".DRILLED_HOLES", ".PLACEMENT", ".ELECTRICAL", ".MECHANICAL")
 endsections = (".END_HEADER", ".END_BOARD_OUTLINE", ".END_DRILLED_HOLES", ".END_PLACEMENT", ".END_ELECTRICAL", ".END_MECHANICAL")
@@ -77,8 +77,8 @@ def get_tokens(x):
 for dirname, dirnames, filenames in os.walk('.'):
     for filename in filenames:
         myfile = os.path.join(dirname, filename)
+        holes = {}
         if filename.endswith(bdf):  # only initialize the dictionary for bdf
-            holes = {}
             for k in info:
                 holes[k] = []  # create a blank list for each diameter that is listed in info
         if filename.endswith(bdf) or filename.endswith(ldf):
