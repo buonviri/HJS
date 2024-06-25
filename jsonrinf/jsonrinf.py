@@ -64,7 +64,7 @@ def convert(lines):
                 }
     # list of words that contain info:
     keywords = {'.ADD': 'add...',  # should be followed by _COM or _TER
-                '.ATT': 'attribute',  # usually followed by _COM
+                '.ATT': 'attribute',  # usually followed by _COM, can also be _TRE in nets
                 '.TER': 'pin',
                 }
     device = 'UUU999'  # fake device
@@ -72,6 +72,7 @@ def convert(lines):
     netname = 'HOMER SEZ NO NET (ERROR)'  # (hopefully) invalid netname
     addcomcount = 0
     bomignorecount = 0
+    att_tre_count = 0
     for rawline in lines:
         line = rawline.strip().replace('\t',' ')  # strip newline and spaces, replace tab with space
         if len(line) == 0:
@@ -120,6 +121,10 @@ def convert(lines):
                 # note that words[2] *might* exist, as a comment
                 info['nets'][netname].append((device,pin))  # append list with new tuple
                 # print(device.ljust(10) + ' ' + pin.ljust(5) + ' ' + netname)
+            elif line.startswith('.ATT_TRE'):
+                att_tre_count = att_tre_count + 1
+            else:
+                print('  No match: ' + line)
         elif lastline == '.TER':  # special case, additional .TER lines don't need keyword
             words = GetTokens(line.strip())
             if len(words) > 1:  # should contain two or more words
@@ -133,6 +138,7 @@ def convert(lines):
                 print('Bad line: ' + line)
         else:
             print('Bad line: ' + line)
+    print('  ADD_TRE discarded: ' + str(att_tre_count))
     print('  ADD_COM count: ' + str(addcomcount))
     print('  BOM_IGNORE count: ' + str(bomignorecount))
     print('  BOM should have ' + str(addcomcount-bomignorecount) + ' entries')
