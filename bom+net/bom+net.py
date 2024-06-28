@@ -152,8 +152,6 @@ def WriteCondensed(filename, condensed):
         f.write('\t'.join(['ECPN','QTY','RefDes','MFG','MPN','Description']) + '\n')
         for ecpn in condensed:
             mfg = condensed[ecpn][0]
-            if mfg in replaceMFG:  # check if MFG is a long name
-                mfg = replaceMFG[mfg]  # use replacement string
             refdeslist = condensed[ecpn][3:]
             qty = len(refdeslist)  # count refdes
             refdescount = refdescount + qty
@@ -198,6 +196,8 @@ def WriteFile(project, config, dni_list, sub_list, add_list, all, sorted_refdes)
                 add_to_condensed = False
                 this_line = all[k].copy()  # need to modify temporarily
                 ecpn = this_line[1]
+                if this_line[2] in replaceMFG:  # check if MFG is a long name
+                    this_line[2] = replaceMFG[this_line[2]]  # use replacement string
                 if ecpn in sub_list:
                     last_summary = PrintSubSummary(this_line[1:5], sub_list[ecpn], last_summary)
                     this_line[1] = sub_list[ecpn][0]  # there must be a better way
