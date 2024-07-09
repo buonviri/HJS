@@ -10,6 +10,7 @@ date '+%H:%M:%S'
 echo -n "" > ~/sys.info
 
 # append lines with system info
+hostname | tee -a ~/sys.info
 cat /sys/devices/virtual/dmi/id/board_vendor | tee -a ~/sys.info
 cat /sys/devices/virtual/dmi/id/board_name | tee -a ~/sys.info
 cat /sys/devices/virtual/dmi/id/bios_release | tee -a ~/sys.info
