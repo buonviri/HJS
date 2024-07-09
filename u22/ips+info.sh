@@ -14,6 +14,7 @@ echo Filename: $hexstamp
 # store system info
 cd ~/S1LP/inference/log/
 echo -n "" > $hexstamp.info
+hostname | tee -a $hexstamp.info
 cat /sys/devices/virtual/dmi/id/board_vendor | tee -a $hexstamp.info
 cat /sys/devices/virtual/dmi/id/board_name | tee -a $hexstamp.info
 cat /sys/devices/virtual/dmi/id/bios_release | tee -a $hexstamp.info
