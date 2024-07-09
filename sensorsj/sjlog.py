@@ -1,4 +1,5 @@
 # Rev 0.00: copied from 9182B
+# Rev 0.01: added hostname
 
 import time    # need time.time, time.sleep
 import os      # need os.system, os.mkdir
@@ -25,6 +26,7 @@ def log(info):
 
 def LogSystemInfo():
     parameters = {  # note: keys may NOT contain commas
+        'Host Name': ['hostname'],  # added 2024-07-09
         'Board Vendor': ['cat', '/sys/devices/virtual/dmi/id/board_vendor'],
         'Board Name': ['cat', '/sys/devices/virtual/dmi/id/board_name'],
         'BIOS Release': ['cat', '/sys/devices/virtual/dmi/id/bios_release'],
