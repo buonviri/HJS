@@ -147,8 +147,10 @@ def GetColumns(bom, net, keys):
 
 
 def WriteCondensed(filename, condensed):
+    condensed_file = filename + '-condensed.tab'
+    dni_input = filename + '-DNI.tab'
     refdescount = 0
-    with open(filename, 'w') as f:
+    with open(condensed_file, 'w') as f:
         f.write('\t'.join(['ECPN','QTY','RefDes','MFG','MPN','Description']) + '\n')
         for ecpn in condensed:
             mfg = condensed[ecpn][0]
@@ -158,6 +160,9 @@ def WriteCondensed(filename, condensed):
             refdes = ','.join(refdeslist)  # join refdes with comma
             out = [ecpn, str(qty), refdes, mfg] + condensed[ecpn][1:3]  # create new list
             f.write('\t'.join(out) + '\n')  # write tab data and newline
+        with open(dni_input, 'r') as fin:
+            dni_lines = fin.read()
+        f.write(dni_lines)  # add DNI lines to condensed
     print('Wrote ' + str(refdescount) + ' RefDes to condensed BOM')
 # End
 
@@ -209,7 +214,8 @@ def WriteFile(project, config, dni_list, sub_list, add_list, all, sorted_refdes)
                     build_option_value = this_line[5]
                     build_options = build_option_value.split('(', 1)[0].strip()  # remove any comment in parentheses
                     if build_options in dni_list:
-                        fdni.write(new_bom_line + '\n')
+                        reorder = this_line[1] + '\t0\t' + this_line[0] + ' (' + this_line[5] + ')\t' +  '\t'.join(this_line[2:5])
+                        fdni.write(reorder + '\n')
                         dnicount = dnicount + 1
                     else:
                         f.write(new_bom_line + '\n')
@@ -235,7 +241,7 @@ def WriteFile(project, config, dni_list, sub_list, add_list, all, sorted_refdes)
                 print('  ' + c + ': ' + str(option_count[c]))
             print('Count ' + str(count) + ' (DNI Count ' + str(dnicount) + ', Total ' + str(count+dnicount) + ')')
     # print(condensed)  # debug
-    WriteCondensed(filename + '-condensed.tab', condensed)
+    WriteCondensed(filename, condensed)
 # End
 
 
