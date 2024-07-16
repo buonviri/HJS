@@ -23,7 +23,7 @@ for i in range(rows):
     colcount = len(row)
     if i == 0 and colcount == 6 and row[0] == 'ECPN':
         width = ['<td style="width:10%">', '<td style="width:5%">', '<td>', '<td style="width:15%">', '<td style="width:15%">', '<td style="width:20%">']
-    if i == 0 and colcount == 6 and row[0] == 'RefDes':
+    elif i == 0 and colcount == 6 and row[0] == 'RefDes':
         width = ['<td style="width:10%">', '<td style="width:10%">', '<td style="width:15%">', '<td style="width:15%">', '<td style="width:20%">', '<td>']
     else:
         width = ['<td>'] * colcount
