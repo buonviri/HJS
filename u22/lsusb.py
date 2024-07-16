@@ -34,6 +34,7 @@ for devtype in devtypes:
                 bus_and_desc[1] = bus_and_desc[1].replace('ASMedia Technology Inc.','[ASMedia]')
                 bus_and_desc[1] = bus_and_desc[1].replace('Genesys Logic, Inc.','[Genesys]')
                 bus_and_desc[1] = bus_and_desc[1].replace('SanDisk Corp.','[SanDisk]')
+                bus_and_desc[1] = bus_and_desc[1].replace('HP, Inc HyperX','[HyperX]')
                 bus_and_desc[1] = bus_and_desc[1].replace('Kingston Technology','[Kingston]')
                 bus_and_desc[1] = bus_and_desc[1].replace('Linux Foundation 1.1','[1.1]')
                 bus_and_desc[1] = bus_and_desc[1].replace('Linux Foundation 2.0','[2.0]')
