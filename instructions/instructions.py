@@ -22,12 +22,12 @@ def GetTable():
         numberletter = key.split('-')
         fn = numberletter[0] + numberletter[1].lower()  # function should use number and lowercase letter
         s = s + '    <tr style="background-color: #' + mytable[key][0] + '">\n'
-        s = s + '      <td>' + key + '</td>\n'
-        s = s + '      <td>\n'
+        s = s + '      <td style="text-align:center">' + key + '</td>\n'
+        s = s + '      <td style="text-align:center">\n'
         s = s + '        <button onclick="copyText' + fn + '()">&#10697;</button>\n'
         s = s + '        <script>function copyText' + fn + '() {navigator.clipboard.writeText("' + mytable[key][1] + '");}</script>\n'
         s = s + '      </td>\n'
-        s = s + '      <td>' + mytable[key][2] + '</td>\n'
+        s = s + '      <td style="padding-left:15px">' + mytable[key][2] + '</td>\n'
         s = s + '    </tr>\n'
     return s
 # End
