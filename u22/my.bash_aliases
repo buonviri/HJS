@@ -35,4 +35,5 @@ alias b660="printf '\ncoretemp\nnct6775\n# added by EdgeCortix\n' | sudo tee -a 
 alias x300="printf '\nnct6775\n# added by EdgeCortix\n' | sudo tee -a /etc/modules && cat /etc/modules"
 alias x600="printf '\nlm92\nnct6775\n# added by EdgeCortix\n' | sudo tee -a /etc/modules && cat /etc/modules"
 alias u2="sudo lspci -vvv -s 02:00.0 | grep -E 'Subsystem:|LnkSta:|Region 0:|Region 2:|Region 4:'"
+alias hjs="cd ~HJS/u22"
 # EOF
