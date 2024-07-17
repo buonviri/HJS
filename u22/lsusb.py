@@ -6,7 +6,7 @@ lsusb = stdout.decode("utf-8")
 
 # print(lsusb)
 
-devtypes = {'hub': [], 'mouse': [], 'keyboard': [], '802.11': [], 'uart': [], 'cruzer': [], 'hyperx': [], 'webcam': [], 'quickcam': []}
+devtypes = {'hub': [], 'mouse': [], 'keyboard': [], '802.11': [], 'uart': [], 'cruzer': [], 'hyperx': [], 'cherry': [], 'webcam': [], 'quickcam': []}
 misc = []
 
 devices = lsusb.split('\n')
@@ -35,6 +35,7 @@ for devtype in devtypes:
                 bus_and_desc[1] = bus_and_desc[1].replace('Genesys Logic, Inc.','[Genesys]')
                 bus_and_desc[1] = bus_and_desc[1].replace('SanDisk Corp.','[SanDisk]')
                 bus_and_desc[1] = bus_and_desc[1].replace('HP, Inc HyperX','[HyperX]')
+                bus_and_desc[1] = bus_and_desc[1].replace('Cherry GmbH CHERRY','[Cherry]')
                 bus_and_desc[1] = bus_and_desc[1].replace('Kingston Technology','[Kingston]')
                 bus_and_desc[1] = bus_and_desc[1].replace('Linux Foundation 1.1','[1.1]')
                 bus_and_desc[1] = bus_and_desc[1].replace('Linux Foundation 2.0','[2.0]')
