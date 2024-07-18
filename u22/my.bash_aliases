@@ -1,7 +1,7 @@
 
-# ubuntu aliases by HJS v1.10
+# ubuntu aliases by HJS v1.11
 alias a="sudo apt install git xsel ntpdate -y; printf '\n\e[1;35m   Confirm that installation succeeded.\e[0m\n\n'"
-alias b="git clone https://github.com/buonviri/HJS.git && cd ~/HJS/u22 && source alt.sh && cd"
+alias b="git clone https://github.com/buonviri/HJS.git && cd ~/HJS/statlog && source alt.sh && cd"
 alias c="cd ~/HJS/u22 && source ec.sh"
 alias d="sudo adduser ec dialout"
 alias e="sudo apt install python3-pip -y"
