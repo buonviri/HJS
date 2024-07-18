@@ -1,16 +1,16 @@
 
-# ubuntu aliases by HJS v1.03
+# ubuntu aliases by HJS v1.04
 alias a="sudo apt install git xsel ntpdate -y; printf '\nConfirm that installation succeeded.\n\n'"
 alias b="git clone https://github.com/buonviri/HJS.git"
 alias c="cd ~/HJS/u22 && source ec.sh"
 alias d="sudo adduser ec dialout"
 alias e="sudo apt install python3-pip -y"
-alias f="pip install pyserial"
+alias f="pip install pyserial; printf '\nIgnore warning about path\n\n'"
 alias g="pip install pyperclip"
 alias h="sudo apt install lm-sensors -y"
 alias i="sudo sensors-detect"
-alias j="printf '\nSENSORS: ENTER THE MOTHERBOARD NAME [b660/x300/x600]\n\n'"
-alias k="grep GRUB_CMDLINE_LINUX_DEFAULT /etc/default/grub"
+alias j="printf '\nTo continue, enter the motherboard name: [b660/x300/x600]\n\n'"
+alias k="grep GRUB_CMDLINE_LINUX_DEFAULT /etc/default/grub; printf '\n(Existing command line)\n\n'"
 alias l="printf '\nGRUB: ENTER THE CPU MANUFACTURER [amd/intel]\n\n'"
 alias m="sudo sed -i 's/GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"acpi_enforce_resources=lax\"/g' /etc/default/grub"
 alias n="grep GRUB_CMDLINE_LINUX /etc/default/grub"
