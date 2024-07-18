@@ -1,6 +1,6 @@
 
-# ubuntu aliases by HJS v1.02
-alias a="sudo apt install git xsel ntpdate -y; printf '\n\nConfirm that installation succeeded.'"
+# ubuntu aliases by HJS v1.03
+alias a="sudo apt install git xsel ntpdate -y; printf '\nConfirm that installation succeeded.\n\n'"
 alias b="git clone https://github.com/buonviri/HJS.git"
 alias c="cd ~/HJS/u22 && source ec.sh"
 alias d="sudo adduser ec dialout"
@@ -15,13 +15,13 @@ alias l="printf '\nGRUB: ENTER THE CPU MANUFACTURER [amd/intel]\n\n'"
 alias m="sudo sed -i 's/GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"acpi_enforce_resources=lax\"/g' /etc/default/grub"
 alias n="grep GRUB_CMDLINE_LINUX /etc/default/grub"
 alias o="sudo update-grub"
-alias p="printf 'WARNING: Next alias will reboot the system'"
+alias p="printf '\nWARNING: Next alias will reboot the system\n\n'"
 alias q="reboot"
 alias r="grep HugePages_ /proc/meminfo"
 alias s="sensors"
 alias t="sudo apt install psensor -y"
-alias u="sudo lspci && printf '\n\nConfirm 01:00.0'"
-alias v="sudo lspci -vvv -s 01:00.0 | grep -E 'Subsystem:|LnkSta:|Region 0:|Region 2:|Region 4:'  && printf '\n\nConfirm 8M/8M/8M/8G/x16'"
+alias u="sudo lspci && printf '\nConfirm 01:00.0\n\n'"
+alias v="sudo lspci -vvv -s 01:00.0 | grep -E 'Subsystem:|LnkSta:|Region 0:|Region 2:|Region 4:'  && printf '\nConfirm 8M/8M/8M/8G/x16\n\n'"
 alias w="sudo apt update && sudo apt upgrade"
 alias x="printf '\nDowngrade numpy:\npip install --force-reinstall -v numpy==1.26.4\n\n' "
 
