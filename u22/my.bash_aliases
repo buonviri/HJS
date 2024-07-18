@@ -1,5 +1,5 @@
 
-# ubuntu aliases by HJS v1.01
+# ubuntu aliases by HJS v1.02
 alias a="sudo apt install git xsel ntpdate -y; printf '\n\nConfirm that installation succeeded.'"
 alias b="git clone https://github.com/buonviri/HJS.git"
 alias c="cd ~/HJS/u22 && source ec.sh"
@@ -15,7 +15,7 @@ alias l="printf '\nGRUB: ENTER THE CPU MANUFACTURER [amd/intel]\n\n'"
 alias m="sudo sed -i 's/GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"acpi_enforce_resources=lax\"/g' /etc/default/grub"
 alias n="grep GRUB_CMDLINE_LINUX /etc/default/grub"
 alias o="sudo update-grub"
-alias p="printf "WARNING: Next alias will reboot the system""
+alias p="printf 'WARNING: Next alias will reboot the system'"
 alias q="reboot"
 alias r="grep HugePages_ /proc/meminfo"
 alias s="sensors"
