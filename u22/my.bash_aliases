@@ -1,7 +1,7 @@
 
-# ubuntu aliases by HJS v1.08
+# ubuntu aliases by HJS v1.09
 alias a="sudo apt install git xsel ntpdate -y; printf '\nConfirm that installation succeeded.\n\n'"
-alias b="git clone https://github.com/buonviri/HJS.git"
+alias b="git clone https://github.com/buonviri/HJS.git && cd ~/HJS/u22 && source alt.sh && cd"
 alias c="cd ~/HJS/u22 && source ec.sh"
 alias d="sudo adduser ec dialout"
 alias e="sudo apt install python3-pip -y"
@@ -15,7 +15,7 @@ alias l="printf '\nTo continue, enter the CPU manufacturer [amd/intel]...\n\n'"
 alias m="sudo sed -i 's/GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"acpi_enforce_resources=lax\"/g' /etc/default/grub; printf '\nFan sensor fix implemented.\n\n'"
 alias n="grep GRUB_CMDLINE_LINUX /etc/default/grub; printf '\nConfirm pages, iommu, and lax.\n\n'"
 alias o="sudo update-grub"
-alias p="printf '\nWARNING: Next alias will reboot the system!\n\n'"
+alias p="printf '\n\e[1;35mWARNING: Next alias will reboot the system!\e[0m\n\n'"
 alias q="reboot"
 alias r="grep HugePages_ /proc/meminfo; printf '\nConfirm 4/4/0/0.\n\n'"
 alias s="sensors; printf '\nConfirm fan and temp sensors.\n\n'"
