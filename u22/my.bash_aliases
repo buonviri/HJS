@@ -1,6 +1,6 @@
 
-# ubuntu aliases by HJS v1.00
-alias a="sudo apt install git xsel ntpdate -y; printf "\n\nConfirm that installation succeeded.""
+# ubuntu aliases by HJS v1.01
+alias a="sudo apt install git xsel ntpdate -y; printf '\n\nConfirm that installation succeeded.'"
 alias b="git clone https://github.com/buonviri/HJS.git"
 alias c="cd ~/HJS/u22 && source ec.sh"
 alias d="sudo adduser ec dialout"
@@ -20,8 +20,8 @@ alias q="reboot"
 alias r="grep HugePages_ /proc/meminfo"
 alias s="sensors"
 alias t="sudo apt install psensor -y"
-alias u="sudo lspci && printf "\n\nConfirm 01:00.0""
-alias v="sudo lspci -vvv -s 01:00.0 | grep -E 'Subsystem:|LnkSta:|Region 0:|Region 2:|Region 4:'  && printf "\n\nConfirm 8M/8M/8M/8G/x16""
+alias u="sudo lspci && printf '\n\nConfirm 01:00.0'"
+alias v="sudo lspci -vvv -s 01:00.0 | grep -E 'Subsystem:|LnkSta:|Region 0:|Region 2:|Region 4:'  && printf '\n\nConfirm 8M/8M/8M/8G/x16'"
 alias w="sudo apt update && sudo apt upgrade"
 alias x="printf '\nDowngrade numpy:\npip install --force-reinstall -v numpy==1.26.4\n\n' "
 
