@@ -1,5 +1,5 @@
 
-# ubuntu aliases by HJS v1.06
+# ubuntu aliases by HJS v1.07
 alias a="sudo apt install git xsel ntpdate -y; printf '\nConfirm that installation succeeded.\n\n'"
 alias b="git clone https://github.com/buonviri/HJS.git"
 alias c="cd ~/HJS/u22 && source ec.sh"
@@ -19,7 +19,7 @@ alias p="printf '\nWARNING: Next alias will reboot the system!\n\n'"
 alias q="reboot"
 alias r="grep HugePages_ /proc/meminfo; printf '\nConfirm 4/4/0/0.\n\n'"
 alias s="sensors; printf '\nConfirm fan and temp sensors.\n\n'"
-alias t="sudo lspci && printf '\nConfirm 01:00.0\n\n'"
+alias t="sudo lspci && printf '\nConfirm 01:00.0 is xxx with id yyy.\n\n'"
 alias u="sudo lspci -vvv -s 01:00.0 | grep -E 'Subsystem:|LnkSta:|Region 0:|Region 2:|Region 4:'  && printf '\nConfirm 8M/8M/8M/8G/x16.\n\n'"
 alias v="sudo apt update && sudo apt upgrade"
 alias w="printf '\nDowngrade numpy:\npip install --force-reinstall -v numpy==1.26.4\n\n' "
@@ -36,4 +36,5 @@ alias x300="printf '\nnct6775\n# added by EdgeCortix\n' | sudo tee -a /etc/modul
 alias x600="printf '\nlm92\nnct6775\n# added by EdgeCortix\n' | sudo tee -a /etc/modules && cat /etc/modules"
 alias u2="sudo lspci -vvv -s 02:00.0 | grep -E 'Subsystem:|LnkSta:|Region 0:|Region 2:|Region 4:'"
 alias hjs="cd ~/HJS/u22"
+alias snap="killall snap-store && snap refresh"
 # EOF
