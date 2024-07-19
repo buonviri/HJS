@@ -15,6 +15,7 @@ def GetText(s):
 def GetTable():
     s = ''
     filename = 'error.html'
+    revision = '00'
     try:
         with open('table.yaml', 'r') as f: 
             mytable = yaml.safe_load(f)
@@ -23,6 +24,8 @@ def GetTable():
     for key in mytable:
         if key == 'filename':
             filename = mytable[key]
+        elif key == 'revision':
+            revision = mytable[key]
         else:
             numberletter = key.split('-')
             fn = numberletter[0] + numberletter[1].lower()  # function should use number and lowercase letter
@@ -34,19 +37,21 @@ def GetTable():
             s = s + '      </td>\n'
             s = s + '      <td style="padding-left:15px">' + mytable[key][2] + '</td>\n'
             s = s + '    </tr>\n'
-    return filename, s
+    return filename, revision, s
 # End
 
 
 # start of script, get three sections of output file
 a = GetText('header')
-filename, b = GetTable()
+filename, revision, b = GetTable()
 c = GetText('footer')
+print()
 print('Writing: ' + filename)
+print('    Rev: ' + revision)
 
 # write three sections to output file
 with open('..\\' + filename, 'w') as f:
-    f.write(a)
+    f.write(a.replace('</TITLE>', '-' + revision + '</TITLE>'))
     f.write(b)
     f.write(c)
 
