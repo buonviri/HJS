@@ -34,7 +34,6 @@ cd "$OLDPWD"
 
 echo
 echo Setup complete. Sincerely, HJS
-echo
 # echo Set avatar to ~/S1LP/img/eca.jpg with bounding box set to max!
 printf "\n\e[1;35m   Set avatar to ~/S1LP/img/eca.jpg with bounding box set to max.\e[0m\n\n"
 
