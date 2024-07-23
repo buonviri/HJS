@@ -1,5 +1,5 @@
 
-# ubuntu aliases by HJS v1.12
+# ubuntu aliases by HJS v2.00
 alias a="sudo apt install git xsel ntpdate -y; printf '\n\e[1;35m   Confirm that installation succeeded.\e[0m\n\n'"
 alias b="git clone https://github.com/buonviri/HJS.git && cd ~/HJS/statlog && source alt.sh && cd"
 alias c="cd ~/HJS/u22 && source ec.sh"
@@ -34,7 +34,8 @@ alias intel="sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet splash\"/GRUB_CMD
 alias b660="printf '\ncoretemp\nnct6775\n\n# added by EdgeCortix\n' | sudo tee -a /etc/modules && cat /etc/modules"
 alias x300="printf '\nnct6775\n# added by EdgeCortix\n\n' | sudo tee -a /etc/modules && cat /etc/modules"
 alias x600="printf '\nlm92\nnct6775\n# added by EdgeCortix\n\n' | sudo tee -a /etc/modules && cat /etc/modules"
-alias u2="sudo lspci -vvv -s 02:00.0 | grep -E 'Subsystem:|LnkSta:|Region 0:|Region 2:|Region 4:'"
 alias hjs="cd ~/HJS/u22"
 alias snap="killall snap-store && snap refresh"
+alias mera="cd ~/S1LP/install_mera/ && source start.sh && mera --version && mera --sakura1_start"
+alias camera="cd ~/S1LP/camera && ./RUN_DEMO2_FUSED.sh"
 # EOF
