@@ -47,5 +47,5 @@ alias fym="cd ~/S1LP/demos/fused_yolov5m_monodepth/ && python deploy.py && pytho
 alias mde="cd ~/S1LP/demos/monodepth_depth_estimation_demo/ && python deploy.py && python demo_model.py && eog *.png"
 alias yod="cd ~/S1LP/demos/yolov5_object_detection_demo/ && python deploy.py && python demo_model.py && eog *.png"
 alias ips="source ~/S1LP/inference/ips.sh"
-alias ips-setup="cd ~/S1LP && cp -v -r /media/ec/EC/hw-benchmarking/inference/ . && mkdir inference/log/ && cd inference && python3 sjscan.py"
+alias ips-setup="cd ~/S1LP && cp -v -r /media/ec/EC/hw-benchmarking/inference/ . && cd inference && cp -v -r /media/ec/EC/deployments/ . && mkdir log && python3 sjscan.py"
 # EOF
