@@ -1,5 +1,5 @@
 
-# ubuntu aliases by HJS v2.10
+# ubuntu aliases by HJS v2.11
 alias a="sudo apt install git xsel ntpdate -y; printf '\n\e[1;35m   Confirm that installation succeeded.\e[0m\n\n'"
 alias b="git clone https://github.com/buonviri/HJS.git && cd ~/HJS/statlog && source alt.sh && cd"
 alias c="cd ~/HJS/u22 && source ec.sh"
@@ -47,4 +47,5 @@ alias fym="cd ~/S1LP/demos/fused_yolov5m_monodepth/ && python deploy.py && pytho
 alias mde="cd ~/S1LP/demos/monodepth_depth_estimation_demo/ && python deploy.py && python demo_model.py && eog *.png"
 alias yod="cd ~/S1LP/demos/yolov5_object_detection_demo/ && python deploy.py && python demo_model.py && eog *.png"
 alias ips="source ~/S1LP/inference/ips.sh"
+alias ips-setup="cd ~/S1LP && cp -v -r /media/ec/EC/hw-benchmarking/inference/ . && mkdir inference/log/"
 # EOF
