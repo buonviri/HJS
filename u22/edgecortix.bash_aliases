@@ -1,5 +1,5 @@
 
-# ubuntu aliases by HJS v2.02
+# ubuntu aliases by HJS v2.03
 alias a="sudo apt install git xsel ntpdate -y; printf '\n\e[1;35m   Confirm that installation succeeded.\e[0m\n\n'"
 alias b="git clone https://github.com/buonviri/HJS.git && cd ~/HJS/statlog && source alt.sh && cd"
 alias c="cd ~/HJS/u22 && source ec.sh"
@@ -14,7 +14,7 @@ alias k="grep GRUB_CMDLINE_LINUX_DEFAULT /etc/default/grub; printf '\n\e[1;35m  
 alias l="printf '\n\e[1;35m   To continue, enter the CPU manufacturer [amd/intel]...\e[0m\n\n'"
 alias m="sudo sed -i 's/GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"acpi_enforce_resources=lax\"/g' /etc/default/grub; printf '\n\e[1;35m   Fan sensor fix implemented.\e[0m\n\n'"
 alias n="grep GRUB_CMDLINE_LINUX /etc/default/grub; printf '\n\e[1;35m   Confirm pages, iommu, and lax.\e[0m\n\n'"
-alias o="sudo update-grub; printf '\e[1;35m   Updated GRUB.\e[0m\n\n'"
+alias o="sudo update-grub; printf '\n\e[1;35m   Updated GRUB.\e[0m\n\n'"
 alias p="printf '\n\e[1;35m   WARNING: Next alias will reboot the system!\e[0m\n\n'"
 alias q="reboot"
 alias r="grep HugePages_ /proc/meminfo; printf '\n\e[1;35m   Confirm 4/4/0/0.\e[0m\n\n'"
