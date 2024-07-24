@@ -1,5 +1,5 @@
 
-# ubuntu aliases by HJS v2.04
+# ubuntu aliases by HJS v2.05
 alias a="sudo apt install git xsel ntpdate -y; printf '\n\e[1;35m   Confirm that installation succeeded.\e[0m\n\n'"
 alias b="git clone https://github.com/buonviri/HJS.git && cd ~/HJS/statlog && source alt.sh && cd"
 alias c="cd ~/HJS/u22 && source ec.sh"
@@ -39,5 +39,6 @@ alias snap="killall snap-store && snap refresh"
 alias mera="cd ~/S1LP/install_mera/ && source start.sh && mera --version && mera --sakura1_start"
 alias camera="cd ~/S1LP/camera && ./RUN_DEMO2_FUSED.sh"
 alias sysinfo="cd ~/HJS/u22 && source info.sh"
-alias camera-setup="cd ~/Downloads/ && cp /media/ec/EC/camera/*.tar.gz . && tar xvzf ~/Downloads/fused_demo_sakura_novenv.tar.gz && mv fused_demo_sakura_novenv ~/S1LP/camera"
+alias camera-setup="cd ~/Downloads/ && cp -v /media/ec/EC/camera/*.tar.gz . && tar xvzf fused_demo_sakura_novenv.tar.gz && mv fused_demo_sakura_novenv ~/S1LP/camera"
+alias mera-setup="cd ~/Downloads/ && cp -v /media/ec/EC/mera-1.6/*.tar.gz . && tar xvzf sakura-demo.tar.gz && cd sakura_demo && mv * ~/S1LP/ && cd ~/S1LP/install_mera/ && source install.sh && deactivate"
 # EOF
