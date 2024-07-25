@@ -1,5 +1,5 @@
 
-# ubuntu aliases by HJS v2.12
+# ubuntu aliases by HJS v2.13
 alias a="sudo apt install git xsel ntpdate -y; printf '\n\e[1;35m   Confirm that installation succeeded.\e[0m\n\n'"
 alias b="git clone https://github.com/buonviri/HJS.git && cd ~/HJS/statlog && source alt.sh && cd"
 alias c="cd ~/HJS/u22 && source ec.sh"
@@ -48,4 +48,9 @@ alias mde="cd ~/S1LP/demos/monodepth_depth_estimation_demo/ && python deploy.py 
 alias yod="cd ~/S1LP/demos/yolov5_object_detection_demo/ && python deploy.py && python demo_model.py && eog *.png"
 alias ips="source ~/S1LP/inference/ips.sh"
 alias ips-setup="cd ~/S1LP && cp -v -r /media/ec/EC/hw-benchmarking/inference/ . && cd inference && cp -v -r /media/ec/EC/deployments/ . && mkdir log && python3 sjscan.py"
+alias sjlog="cd ~/S1LP/inference/ && python3 sjlog.py"
+alias meas="cd ~/S1LP/latency_power_measurement/ && python measure.py --model_path deployments/"
+alias measu="cd ~/S1LP/latency_power_measurement/ && MERA_MEASURE_POWER=3 python measure.py --model_path deployments/ --power"
+alias measur="cd ~/S1LP/latency_power_measurement/ && python measure.py --model_path precompiled/ --name precompiled"
+alias measure="cd ~/S1LP/latency_power_measurement/ && MERA_MEASURE_POWER=3 python measure.py --model_path precompiled/ --name precompiled --power"
 # EOF
