@@ -1,5 +1,5 @@
 
-# ubuntu aliases by HJS v2.13
+# ubuntu aliases by HJS v2.20
 alias a="sudo apt install git xsel ntpdate -y; printf '\n\e[1;35m   Confirm that installation succeeded.\e[0m\n\n'"
 alias b="git clone https://github.com/buonviri/HJS.git && cd ~/HJS/statlog && source alt.sh && cd"
 alias c="cd ~/HJS/u22 && source ec.sh"
@@ -23,9 +23,9 @@ alias t="sudo lspci && printf '\n\e[1;35m   Confirm 01:00.0 is Co-processor with
 alias u="sudo lspci -vvv -s 01:00.0 | grep -E 'Subsystem:|LnkSta:|Region 0:|Region 2:|Region 4:'  && printf '\n\e[1;35m   Confirm 8M/8M/8M/8GT/x16.\e[0m\n\n'"
 alias v="sudo apt update && sudo apt upgrade"
 alias w="printf '\n\e[1;35m   Downgrade numpy:\n   pip install --force-reinstall -v numpy==1.26.4\e[0m\n\n' "
-
-
-alias z="cd ~/HJS/statlog && python3 statlog.py"
+alias x="printf '\n\e[1;35m   The End\e[0m\n\n' "
+alias y="printf '\n\e[1;35m   mera-setup camera-setup ips-setup deploy\e[0m\n\n' "
+alias z="printf '\n\e[1;35m   sysinfo mera camera\n   fym mde yod\n   meas measu measur measure\n   sjlog ips\e[0m\n\n' "
 alias uu="sudo apt update && sudo apt upgrade"
 alias 0="\rm -f ~/.bash_aliases && echo Aliases removed..."
 alias bios="systemctl reboot --firmware-setup"
