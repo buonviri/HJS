@@ -1,5 +1,5 @@
 
-# ubuntu aliases by HJS v2.22
+# ubuntu aliases by HJS v2.23
 alias a="sudo apt install git xsel ntpdate -y; printf '\n\e[1;35m   Confirm that installation succeeded.\e[0m\n\n'"
 alias b="git clone https://github.com/buonviri/HJS.git && cd ~/HJS/statlog && source alt.sh && cd"
 alias c="cd ~/HJS/u22 && source ec.sh"
@@ -53,4 +53,5 @@ alias meas="cd ~/S1LP/latency_power_measurement/ && python measure.py --model_pa
 alias measu="cd ~/S1LP/latency_power_measurement/ && MERA_MEASURE_POWER=3 python measure.py --model_path deployments/ --power"
 alias measur="cd ~/S1LP/latency_power_measurement/ && python measure.py --model_path precompiled/ --name precompiled"
 alias measure="cd ~/S1LP/latency_power_measurement/ && MERA_MEASURE_POWER=3 python measure.py --model_path precompiled/ --name precompiled --power"
+alias perf="source ~/S1LP/inference/perf.sh"
 # EOF
