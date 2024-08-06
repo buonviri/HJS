@@ -119,6 +119,7 @@ def GetBestPort(thisfile):
         'help':    ['0403:6015',],  # copy of statlog id
         'snread':  ['0403:6015',],  # copy of statlog id
         'zmax':    ['0403:6015',],  # copy of statlog id
+        'cfg':     ['0403:6015',],  # for S2LP
     }
     preferred = {  # first entry should be linux loopback, which will only show up if socat is running
         '9182B':   ['/home/ec/COM5', '/dev/ttyUSB91', 'COM91'],
@@ -126,6 +127,7 @@ def GetBestPort(thisfile):
         'help':    ['/home/ec/COM5', '/dev/ttyUSB51', 'COM51'],  # copy of statlog ports
         'snread':  ['/home/ec/COM5', '/dev/ttyUSB51', 'COM51'],  # copy of statlog ports
         'zmax':    ['/home/ec/COM5', '/dev/ttyUSB51', 'COM51'],  # copy of statlog ports
+        'cfg':     ['/home/ec/COM5', '/dev/ttyUSB51', 'COM51'],  # for S2LP
     }
     goodports = []  # blank list that will contain ports that meet criteria
     try:
