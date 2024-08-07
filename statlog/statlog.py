@@ -119,7 +119,6 @@ def GetBestPort(thisfile):
         'help':    ['0403:6015',],  # copy of statlog id
         'snread':  ['0403:6015',],  # copy of statlog id
         'zmax':    ['0403:6015',],  # copy of statlog id
-        'cfg':     ['0403:6015',],  # for S2LP
     }
     preferred = {  # first entry should be linux loopback, which will only show up if socat is running
         '9182B':   ['/home/ec/COM5', '/dev/ttyUSB91', 'COM91'],
@@ -127,16 +126,15 @@ def GetBestPort(thisfile):
         'help':    ['/home/ec/COM5', '/dev/ttyUSB51', 'COM51'],  # copy of statlog ports
         'snread':  ['/home/ec/COM5', '/dev/ttyUSB51', 'COM51'],  # copy of statlog ports
         'zmax':    ['/home/ec/COM5', '/dev/ttyUSB51', 'COM51'],  # copy of statlog ports
-        'cfg':     ['/home/ec/COM5', '/dev/ttyUSB51', 'COM51'],  # for S2LP
     }
     goodports = []  # blank list that will contain ports that meet criteria
     try:
         id_list = id_byfile[thisfile]  # if this file has an entry, start with that list
         xx_list = preferred[thisfile]  # ditto
     except:
-        print('  Script filename not found in dict... ' + thisfile)  # debug
-        id_list = ['script filename not found in list',]  # start with a list containing an invalid entry
-        xx_list = ['script filename not found in list',]  # ditto
+        print('  Script filename not found in dict... ' + thisfile)  # default to S1LP/S2LP id
+        id_list = ['0403:6015',]  # start with a list containing default
+        xx_list = ['/home/ec/COM5', '/dev/ttyUSB51', 'COM51',]  # ditto
     # add these lines to use windows null modem emulators
     # id_list.append('COM0COM')  # add null modem simulator for debug
     # id_list.append('ROOT\\PORTS')  # add null modem simulator for debug
