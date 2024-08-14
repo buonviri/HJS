@@ -1,5 +1,5 @@
 
-# ubuntu aliases by HJS v2.23
+# ubuntu aliases by HJS v2.24 (added perf to z)
 alias a="sudo apt install git xsel ntpdate -y; printf '\n\e[1;35m   Confirm that installation succeeded.\e[0m\n\n'"
 alias b="git clone https://github.com/buonviri/HJS.git && cd ~/HJS/statlog && source alt.sh && cd"
 alias c="cd ~/HJS/u22 && source ec.sh"
@@ -25,7 +25,7 @@ alias v="sudo apt update && sudo apt upgrade"
 alias w="printf '\n\e[1;35m   Downgrade numpy:\n   pip install --force-reinstall -v numpy==1.26.4\e[0m\n\n' "
 alias x="printf '\n\e[1;35m   The End\e[0m\n\n' "
 alias y="printf '\n\e[1;35m   mera-setup camera-setup ips-setup deploy\e[0m\n\n' "
-alias z="printf '\n\e[1;35m   sysinfo mera camera\n   fym mde yod\n   meas measu measur measure\n   sjlog ips\e[0m\n\n' "
+alias z="printf '\n\e[1;35m   sysinfo mera camera\n   fym mde yod\n   meas measu measur measure\n   sjlog ips perf\e[0m\n\n' "
 alias uu="sudo apt update && sudo apt upgrade"
 alias 00="poweroff"
 alias bios="systemctl reboot --firmware-setup"
