@@ -157,7 +157,7 @@ def WriteCondensed(filename, condensed):
             refdeslist = condensed[ecpn][3:]
             qty = len(refdeslist)  # count refdes
             refdescount = refdescount + qty
-            refdes = ','.join(refdeslist)  # join refdes with comma
+            refdes = ', '.join(refdeslist)  # join refdes with comma and space
             out = [ecpn, str(qty), refdes, mfg] + condensed[ecpn][1:3]  # create new list
             f.write('\t'.join(out) + '\n')  # write tab data and newline
         with open(dni_input, 'r') as fin:
