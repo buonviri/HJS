@@ -159,7 +159,7 @@ def WriteCondensed(filename, condensed):
     with open(condensed_file, 'w') as f:
         f.write('\t'.join(['ECPN','QTY','RefDes','MFG','MPN','Description']) + '\n')
         if note != '':
-            f.write(note + '\n')  # add note if it exists
+            f.write('\t\t' + note + '\n')  # add note if it exists
         for ecpn in condensed:
             mfg = condensed[ecpn][0]
             refdeslist = condensed[ecpn][3:]
