@@ -11,13 +11,19 @@ replaceMFG = {
 
 
 configs = {}
+note = ''
 def ReadYAML(filename):
     global configs
+    global note
     try:
         with open(filename, 'r') as f:
             configs = yaml.safe_load(f)
     except:
-        pass  # configs will blank
+        pass  # configs will be blank
+    if 'Note' in configs:
+        note = configs['Note']
+        del configs['Note']  # remove so it doesn't appear as a project
+        print('\nNote: ' + note)
     for project in configs:
         if '_ALL_' not in configs[project]:
             configs[project]['_ALL_'] = {}  # blank dict
@@ -152,6 +158,8 @@ def WriteCondensed(filename, condensed):
     refdescount = 0
     with open(condensed_file, 'w') as f:
         f.write('\t'.join(['ECPN','QTY','RefDes','MFG','MPN','Description']) + '\n')
+        if note != '':
+            f.write(note + '\n')  # add note if it exists
         for ecpn in condensed:
             mfg = condensed[ecpn][0]
             refdeslist = condensed[ecpn][3:]
@@ -290,6 +298,8 @@ if len(files) == 2:
     ReadYAML('BOM.yaml')
     WriteFiles(files, all)
 
+if note != '':
+    configs['Note'] = note
 with open('BOM.yaml', 'w') as f:
     yaml.dump(configs, f)
 print()
