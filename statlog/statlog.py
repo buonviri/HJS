@@ -194,9 +194,7 @@ if thisfile.endswith('-fast'):
 if thisfile == 'statlog':  # default name in repo
     print('Logging stat command')
     dostat = True
-else:
-    if thisfile == 'help':  # encoded message, translates to '?'
-        thisfile = '?'  # replace filename with brief serial command
+else:  # not statlog
     print('Sending single command: ' + thisfile)
     dostat = False
 
@@ -240,7 +238,10 @@ try:
         if dostat:
             s = stat(io)  # send stat command
         else:
-            s = other(io, thisfile)  # send alternate command, so unsafe!
+            if thisfile == 'help':  # encoded message, translates to '?'
+                s = other(io, '?')  # send question mark instead of the word help
+            else:
+                s = other(io, thisfile)  # send ANY alternate command, so unsafe!
             print(s)  # print result
             break  # send alternate command only once, immediately exit loop
         info = getinfo(s)
