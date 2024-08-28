@@ -1,10 +1,6 @@
-# Rev 0.00: started from 9182B.py
-# Rev 1.00: first integrated release
-# Rev 1.01: better COM port management
-# Rev 1.02: initialize found_equals which didn't matter until
-#           it ran on linux mint for some reason
-# Rev 1.03: added alternate commands
-# Rev 1.20: com port choice improved
+# sends commands to S1/S2
+
+help = 'help'  # set to '?' for S1LP, 'help' for S2LP
 
 import serial  # requires pip install pyserial
 import serial.tools.list_ports
@@ -238,8 +234,8 @@ try:
         if dostat:
             s = stat(io)  # send stat command
         else:
-            if thisfile == 'help':  # encoded message, translates to '?'
-                s = other(io, '?')  # send question mark instead of the word help
+            if thisfile == 'help':  # encoded message, translates to '?' for S1LP
+                s = other(io, help)  # send question mark instead of the word help for S1LP
             else:
                 s = other(io, thisfile)  # send ANY alternate command, so unsafe!
             print(s)  # print result
