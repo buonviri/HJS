@@ -1,5 +1,5 @@
 
-# ubuntu aliases by HJS v2.25 (added none option)
+# ubuntu aliases by HJS v2.26 (added k803 option)
 alias a="sudo apt install git xsel ntpdate -y; printf '\n\e[1;35m   Confirm that installation succeeded.\e[0m\n\n'"
 alias b="git clone https://github.com/buonviri/HJS.git && cd ~/HJS/statlog && source alt.sh && cd"
 alias c="cd ~/HJS/u22 && source ec.sh"
@@ -9,7 +9,7 @@ alias f="pip install pyserial; printf '\n\e[1;35m   Ignore warning about path.\e
 alias g="pip install pyperclip"
 alias h="sudo apt install lm-sensors -y"
 alias i="printf '\n\e[1;35m   Accept every default choice by hitting enter each time.\e[0m\n\n'; sleep 1; sudo sensors-detect"
-alias j="printf '\n\e[1;35m   To continue, enter the motherboard name: [b660/x300/x600/none]...\e[0m\n\n'"
+alias j="printf '\n\e[1;35m   To continue, enter the motherboard name: [b660/x300/x600/k803/none]...\e[0m\n\n'"
 alias k="grep GRUB_CMDLINE_LINUX_DEFAULT /etc/default/grub; printf '\n\e[1;35m   (Existing command line)\e[0m\n\n'"
 alias l="printf '\n\e[1;35m   To continue, enter the CPU manufacturer [amd/intel/none]...\e[0m\n\n'"
 alias m="sudo sed -i 's/GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"acpi_enforce_resources=lax\"/g' /etc/default/grub; printf '\n\e[1;35m   Fan sensor fix implemented.\e[0m\n\n'"
@@ -54,5 +54,6 @@ alias measu="cd ~/S1LP/latency_power_measurement/ && MERA_MEASURE_POWER=3 python
 alias measur="cd ~/S1LP/latency_power_measurement/ && python measure.py --model_path precompiled/ --name precompiled"
 alias measure="cd ~/S1LP/latency_power_measurement/ && MERA_MEASURE_POWER=3 python measure.py --model_path precompiled/ --name precompiled --power"
 alias perf="source ~/S1LP/inference/perf.sh"
+alias k803="printf '\n\e[1;35m   OnLogic K803 is not currently supported - sensor investigation is required.\e[0m\n\n' "
 alias none="printf '\n\e[1;35m   No CPU and/or motherboard chosen.\e[0m\n\n' "
 # EOF
