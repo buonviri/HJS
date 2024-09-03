@@ -1,5 +1,5 @@
 
-# ubuntu aliases by HJS v2.26 (added k803 option)
+# ubuntu aliases by HJS v2.27 (added rplp option)
 alias a="sudo apt install git xsel ntpdate -y; printf '\n\e[1;35m   Confirm that installation succeeded.\e[0m\n\n'"
 alias b="git clone https://github.com/buonviri/HJS.git && cd ~/HJS/statlog && source alt.sh && cd"
 alias c="cd ~/HJS/u22 && source ec.sh"
@@ -9,7 +9,7 @@ alias f="pip install pyserial; printf '\n\e[1;35m   Ignore warning about path.\e
 alias g="pip install pyperclip"
 alias h="sudo apt install lm-sensors -y"
 alias i="printf '\n\e[1;35m   Accept every default choice by hitting enter each time.\e[0m\n\n'; sleep 1; sudo sensors-detect"
-alias j="printf '\n\e[1;35m   To continue, enter the motherboard name: [b660/x300/x600/k803/none]...\e[0m\n\n'"
+alias j="printf '\n\e[1;35m   To continue, enter the motherboard name: [b660/x300/x600/rplp/k803/none]...\e[0m\n\n'"
 alias k="grep GRUB_CMDLINE_LINUX_DEFAULT /etc/default/grub; printf '\n\e[1;35m   (Existing command line)\e[0m\n\n'"
 alias l="printf '\n\e[1;35m   To continue, enter the CPU manufacturer [amd/intel/none]...\e[0m\n\n'"
 alias m="sudo sed -i 's/GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"acpi_enforce_resources=lax\"/g' /etc/default/grub; printf '\n\e[1;35m   Fan sensor fix implemented.\e[0m\n\n'"
@@ -34,6 +34,7 @@ alias intel="sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet splash\"/GRUB_CMD
 alias b660="printf '\ncoretemp\nnct6775\n\n# added by EdgeCortix\n' | sudo tee -a /etc/modules && cat /etc/modules"
 alias x300="printf '\nnct6775\n# added by EdgeCortix\n\n' | sudo tee -a /etc/modules && cat /etc/modules"
 alias x600="printf '\nlm92\nnct6775\n# added by EdgeCortix\n\n' | sudo tee -a /etc/modules && printf '\e[1;35mUpdated file:\e[0m\n' && cat /etc/modules"
+alias rplp="printf '\ncoretemp\nnct6775\n\n# added by EdgeCortix\n' | sudo tee -a /etc/modules && cat /etc/modules"
 alias hjs="cd ~/HJS/u22"
 alias snap="killall snap-store && snap refresh"
 alias mera="cd ~/S1LP/install_mera/ && source start.sh && mera --version && mera --sakura1_start"
