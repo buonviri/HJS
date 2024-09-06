@@ -23,4 +23,10 @@ source ec.sh
 # d
 sudo adduser ec dialout
 
+# e f g h
+sudo apt install python3-pip -y
+pip install pyserial # printf '\n\e[1;35m   Ignore warning about path.\e[0m\n\n'
+pip install pyperclip
+sudo apt install lm-sensors -y
+
 # EOF
