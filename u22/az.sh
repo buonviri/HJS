@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# exit on error
-set -e
+# exit on error, probably a bad idea
+# set -e
 
 # always start in Home
 cd
