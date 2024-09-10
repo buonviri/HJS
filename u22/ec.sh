@@ -3,6 +3,7 @@
 cd
 mkdir -p S1LP/img
 \cp -r ~/HJS/u22/img/* ~/S1LP/img
+mkdir -p S1LP-847
 
 # set dark mode and background/wallpaper
 echo
