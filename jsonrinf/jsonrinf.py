@@ -96,7 +96,10 @@ def convert(lines):
                 info['comps'][device]['part'].append(devinfo)  # add info to this refdes
             elif line.startswith('.ATT_COM'):
                 if 'BOM_IGNORE' in line:
-                    bomignorecount = bomignorecount + 1
+                    if 'true' in line.lower():
+                        bomignorecount = bomignorecount + 1
+                    else:
+                        print('  BOM_IGNORE line found but value is not true: ' + line)
                 words = GetTokens(line[8:].strip())
                 device = words[0]  # refdes
                 attrinfo = [x.strip(double_quotes) for x in words[1:]]  # list of remaining tokens with quotes removed
