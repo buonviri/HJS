@@ -7,7 +7,7 @@ try:
     import serial  # requires pip install pyserial
     import serial.tools.list_ports
 except:
-    print('Serial Number  = [Error reading serial number]')  # emulate actual response
+    print('Serial Number  = [Failed to import pyserial]')  # emulate actual response
     sys.exit(0)
 import time    # need time.time, time.sleep
 import os      # need os.system, os.mkdir
@@ -217,8 +217,8 @@ print('  Opening ' + io.port + ' (' + str(io.baudrate) + ',' + str(io.bytesize) 
 try:
     io.open()  # may succeed even if device is off
 except:
-    print('\n  Failed to open port...\n  Serial Number  = unknown SN\n')  # trick snread script to extract a value
-    exit()
+    print('\n  Failed to open port...\n  Serial Number  = [Failed to open serial port]\n')  # trick snread script to extract a value
+    sys.exit(0)
 
 sn_dec = 'unknown'  # default in case it isn't read
 if dostat:  # do not pause for input on the single commands, just the logging version
