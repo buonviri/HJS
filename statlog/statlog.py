@@ -2,8 +2,13 @@
 
 help = 'help'  # set to '?' for S1LP, 'help' for S2LP
 
-import serial  # requires pip install pyserial
-import serial.tools.list_ports
+import sys
+try:
+    import serial  # requires pip install pyserial
+    import serial.tools.list_ports
+except:
+    print('Serial Number  = (serial port error)')  # emulate actual response
+    sys.exit(0)
 import time    # need time.time, time.sleep
 import os      # need os.system, os.mkdir
 
