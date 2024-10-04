@@ -53,7 +53,7 @@ for r in range(len(ss)):
     for c in range(len(ss[r])):
         if r in goodRows and c in goodCols:
             row.append(ss[r][c])  # append if it's a good cell
-    if len(row) > 0:  # skip blank rows
+    if len(row) > 0 and row[-1] != '[tab2ss-ignore]':  # skip blank rows and rows ending in ignore
         sslist.append(row)  # append row to list version
         ssdict[r] = row  # set row index (key) equal to row list (value)
 
