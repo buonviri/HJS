@@ -21,10 +21,12 @@ for i in range(rows):
     html = html + '    <tr>\n'
     row = ss[i]
     colcount = len(row)
-    if i == 0 and colcount == 6 and row[0] == 'ECPN':
+    if i == 0 and colcount == 6 and row[0] == 'ECPN':  # BOM
         width = ['<td style="width:10%">', '<td style="width:5%">', '<td>', '<td style="width:15%">', '<td style="width:15%">', '<td style="width:20%">']
-    elif i == 0 and colcount == 6 and row[0] == 'RefDes':
+    elif i == 0 and colcount == 6 and row[0] == 'RefDes':  # alternate BOM?
         width = ['<td style="width:10%">', '<td style="width:10%">', '<td style="width:15%">', '<td style="width:15%">', '<td style="width:20%">', '<td>']
+    elif i == 0 and colcount == 4 and row[0] == 'ECPN':  # inventory output from ECPL gsheet
+        width = ['<td style="width:15%">', '<td style="width:15%">', '<td style="width:35%">', '<td>']
     else:
         width = ['<td>'] * colcount
     if i == 0:
