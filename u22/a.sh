@@ -1,6 +1,7 @@
 #!/bin/bash
 
 let "n = 0"  # track current step number
+cd # always start in Home
 
 function purple () {
   printf "\e[1;35m%b\e[0m" "$1"
@@ -15,7 +16,7 @@ function green () {
 }
 
 function check_code () {
-  printf "\n  \e[1;35m#%02d:\e[0m %s\n" "$2" "$3"
+  printf "  \e[1;35m#%02d:\e[0m %s\n" "$2" "$3"
   if [ $1 -eq 0 ]; then
     green "  Success [$1]\n\n"
   else
@@ -23,29 +24,37 @@ function check_code () {
   fi
 }
 
-# always start in Home, DEBUG TODO
-# cd
+# start of script
 
-purple "\nStarting setup...\n\n"
+hostname=$(hostname)  # store for use in log
+purple "\nStarting setup on $hostname...\n\n"
 
 # each step must have an id with NO SPACES
 
-id="apt-bad"
+id="apt-install"
 ((n++))
-sudo apt install gitxx # git xsel ntpdate -y
+sudo apt install git xsel ntpdate -y  # install new applications
 myexitcode=$?
 check_code $myexitcode $n $id
 
-id="apt-good"
+id="HJS-repo"
 ((n++))
-sudo apt install git # git xsel ntpdate -y
+git -C HJS pull || git clone https://github.com/buonviri/HJS.git  # first try to pull, on failure clone instead
 myexitcode=$?
 check_code $myexitcode $n $id
 
+id="alt-statlog"
+((n++))
+echo Copying statlog.py to create alternate commands.
+cd ~/HJS/statlog && source alt.sh && cd  # make copies
+myexitcode=$?
+check_code $myexitcode $n $id
 
-# cd ~/HJS/u22  # temp, return to test dir DEBUG TODO
+# add more here
 
-purple "THE END ($n)\n\n"
+id="the-end"
+cd ~/HJS/u22
+purple "The End ($n)\n\n"
 
 # snipppets:
 
