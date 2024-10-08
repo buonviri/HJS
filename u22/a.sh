@@ -1,38 +1,57 @@
 #!/bin/bash
 
+let "n = 0"  # track current step number
+
+function purple () {
+  printf "\e[1;35m%b\e[0m" "$1"
+}
+
+function red () {
+  printf "\e[1;31m%b\e[0m" "$1"
+}
+
+function green () {
+  printf "\e[1;32m%b\e[0m" "$1"
+}
+
 function check_code () {
-  # printf "\nprintf test: $1\n\n"
-  # echo "echo test" $1
+  printf "\n  \e[1;35m#%02d:\e[0m %s\n" "$2" "$3"
   if [ $1 -eq 0 ]; then
-    printf "\n\e[1;32mSuccess\e[0m\n\n"
+    green "  Success [$1]\n\n"
   else
-    printf "\n\e[1;31mFailed with code $1\e[0m\n\n"
-    # echo Failed with code $1
+    red "  Failed [$1]\n\n"
   fi
 }
 
 # always start in Home, DEBUG TODO
 # cd
 
-printf "\n\e[1;35mStarting setup...\e[0m\n\n"
+purple "\nStarting setup...\n\n"
 
-# a
+# each step must have an id with NO SPACES
+
+id="apt-bad"
+((n++))
 sudo apt install gitxx # git xsel ntpdate -y
 myexitcode=$?
-check_code $myexitcode
+check_code $myexitcode $n $id
 
-# echo
-# read -n 1 -r -p "Hit any key to continue..."
-# echo
-
+id="apt-good"
+((n++))
 sudo apt install git # git xsel ntpdate -y
 myexitcode=$?
-check_code $myexitcode
+check_code $myexitcode $n $id
 
 
 # cd ~/HJS/u22  # temp, return to test dir DEBUG TODO
 
-printf "\e[1;35mTHE END\e[0m\n\n"
+purple "THE END ($n)\n\n"
+
+# snipppets:
+
+# echo
+# read -n 1 -r -p "Hit any key to continue..."
+# echo
 
 # EOF
 
