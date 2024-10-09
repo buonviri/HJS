@@ -67,17 +67,21 @@ id="dialout"
 sudo adduser ec dialout  # add user to dialout group for UART access
 check_code $? $n $id
 
-id="sensors-detect"
-((n++))
-sudo sensors-detect --auto
-check_code $? $n $id
+# DEBUG, SKIP
+#id="sensors-detect"
+#((n++))
+#sudo sensors-detect --auto
+#check_code $? $n $id
 
 echo TODO: MOTHERBOARD INFO
+echo
 
 id="grub"
 ((n++))
 echo GRUB:
 grep GRUB_CMDLINE_LINUX_DEFAULT /etc/default/grub
+echo loose:
+grep GRUB_CMDLINE_LINUX /etc/default/grub
 check_code $? $n $id
 
 id="the-end"
