@@ -76,16 +76,43 @@ check_code $? $n $id
 echo TODO: MOTHERBOARD INFO
 echo
 
-id="grub"
+id="grub-before"
 ((n++))
 echo before:
 \grep GRUB_CMDLINE_LINUX_DEFAULT= /etc/default/grub
-\grep GRUB_CMDLINE_LINUX= /etc/default/grub
-# add SED here
+check_code $? $n $id
+
+id="grub-mod"
+((n++))
+sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet splash\"/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet splash pcie_aspm=off default_hugepagesz=1G hugepagesz=1G hugepages=4 iommu=pt\"/g' /etc/default/grub
+check_code $? $n $id
+
+id="grub-after"
+((n++))
 echo after:
 \grep GRUB_CMDLINE_LINUX_DEFAULT= /etc/default/grub
+check_code $? $n $id
+
+id="grub-before"
+((n++))
+echo before:
 \grep GRUB_CMDLINE_LINUX= /etc/default/grub
-# this check is meaningless?
+check_code $? $n $id
+
+id="grub-mod"
+((n++))
+sudo sed -i 's/GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"acpi_enforce_resources=lax\"/g' /etc/default/grub
+check_code $? $n $id
+
+id="grub-after"
+((n++))
+echo after:
+\grep GRUB_CMDLINE_LINUX= /etc/default/grub
+check_code $? $n $id
+
+id="grub-update"
+((n++))
+echo need to add update command and reboot
 check_code $? $n $id
 
 id="the-end"
