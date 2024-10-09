@@ -84,6 +84,7 @@ check_code $? $n $id
 
 id="grub-mod"
 ((n++))
+echo Modifying /etc/default/grub...  # since sed has no output
 sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet splash\"/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet splash pcie_aspm=off default_hugepagesz=1G hugepagesz=1G hugepages=4 iommu=pt\"/g' /etc/default/grub
 check_code $? $n $id
 
@@ -101,6 +102,7 @@ check_code $? $n $id
 
 id="grub-mod"
 ((n++))
+echo Modifying /etc/default/grub...  # since sed has no output
 sudo sed -i 's/GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"acpi_enforce_resources=lax\"/g' /etc/default/grub
 check_code $? $n $id
 
