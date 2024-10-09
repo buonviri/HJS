@@ -42,6 +42,7 @@ check_code $? $n $id
 
 id="pip-install"
 ((n++))
+echo This will fail on systems that disallow pip.
 pip install pyserial pyperclip
 check_code $? $n $id
 
