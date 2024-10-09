@@ -112,9 +112,10 @@ echo after:
 \grep GRUB_CMDLINE_LINUX= /etc/default/grub
 check_code $? $n $id
 
-id="grub-update"
+id="update-grub"
 ((n++))
-echo need to add update command and reboot
+sudo update-grub
+echo Hit any key to reboot...  # fix this
 check_code $? $n $id
 
 id="the-end"
