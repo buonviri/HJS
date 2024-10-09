@@ -72,6 +72,14 @@ id="sensors-detect"
 sudo sensors-detect --auto
 check_code $? $n $id
 
+echo TODO: MOTHERBOARD INFO
+
+id="grub"
+((n++))
+echo GRUB:
+grep GRUB_CMDLINE_LINUX_DEFAULT /etc/default/grub
+check_code $? $n $id
+
 id="the-end"
 cd ~/HJS/u22
 purple "The End ($n)\n\n"
