@@ -34,6 +34,7 @@ alias x300="printf '\nnct6775\n# added by EdgeCortix\n\n' | sudo tee -a /etc/mod
 alias x600="printf '\nlm92\nnct6775\n# added by EdgeCortix\n\n' | sudo tee -a /etc/modules && printf '\e[1;35mUpdated file:\e[0m\n' && cat /etc/modules"
 alias rplp="printf '\ncoretemp\nnct6775\n\n# added by EdgeCortix\n' | sudo tee -a /etc/modules && cat /etc/modules"
 alias k803="printf '\n\e[1;35m   OnLogic K803 is not currently supported - sensor investigation is required.\e[0m\n\n'"
+alias fl3="printf '\ncoretemp\n\n# added by EdgeCortix\n' | sudo tee -a /etc/modules && cat /etc/modules"
 alias none="printf '\n\e[1;35m   No motherboard chosen.\e[0m\n\n'"
 alias hjs="cd ~/HJS/u22"
 alias snap="killall snap-store && snap refresh"
@@ -55,5 +56,5 @@ alias measu="cd ~/S1LP/latency_power_measurement/ && MERA_MEASURE_POWER=3 python
 alias measur="cd ~/S1LP/latency_power_measurement/ && python measure.py --model_path precompiled/ --name precompiled"
 alias measure="cd ~/S1LP/latency_power_measurement/ && MERA_MEASURE_POWER=3 python measure.py --model_path precompiled/ --name precompiled --power"
 alias perf="source ~/S1LP/inference/perf.sh"
-alias ver="printf '\n\e[1;35m   HJS aliases v2.52\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v2.53\e[0m\n\n'"
 # EOF
