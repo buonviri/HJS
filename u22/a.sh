@@ -78,10 +78,14 @@ echo
 
 id="grub"
 ((n++))
-echo GRUB:
-\grep GRUB_CMDLINE_LINUX_DEFAULT /etc/default/grub
-echo BOTH:
-\grep GRUB_CMDLINE_LINUX /etc/default/grub
+echo before:
+\grep GRUB_CMDLINE_LINUX_DEFAULT= /etc/default/grub
+\grep GRUB_CMDLINE_LINUX= /etc/default/grub
+# add SED here
+echo after:
+\grep GRUB_CMDLINE_LINUX_DEFAULT= /etc/default/grub
+\grep GRUB_CMDLINE_LINUX= /etc/default/grub
+# this check is meaningless?
 check_code $? $n $id
 
 id="the-end"
