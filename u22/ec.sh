@@ -1,12 +1,12 @@
 #!/bin/bash
 
 cd
-mkdir -p S1LP/img
-\cp -r ~/HJS/u22/img/* ~/S1LP/img
-# mkdir -p S1LP-847
+mkdir -p S1LP/img  # -p creates parents and doesn't fail if some already exist
+\cp -r ~/HJS/u22/img/* ~/S1LP/img  # slash uses non-alias version, -r is recursive
+# mkdir -p S1LP-847  # test, no longer needed
 
 # set dark mode and background/wallpaper
-# echo
+# echo  # removed for a.sh script
 echo dark mode and background:
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 gsettings get org.gnome.desktop.interface color-scheme

@@ -115,8 +115,10 @@ check_code $? $n $id
 id="update-grub"
 ((n++))
 sudo update-grub
-echo Hit any key to reboot...  # fix this
+echo Hit any key to reboot...  # TODO fix this
 check_code $? $n $id
+
+# next script should start with alias r
 
 id="the-end"
 cd ~/HJS/u22
