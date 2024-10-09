@@ -19,38 +19,48 @@ function check_code () {
   printf "  \e[1;35m#%02d:\e[0m %s\n" "$2" "$3"
   if [ $1 -eq 0 ]; then
     green "  Success [$1]\n\n"
+    printf "[Success] #%02d: %s\n" "$2" "$3" >> $filename
   else
-    red "  Failed [$1]\n\n"
+    red "  Failure [$1]\n\n"
+    printf "[Failure] #%02d: %s\n" "$2" "$3" >> $filename
   fi
 }
 
-# start of script
+# start of script, get hostname and file name
 
 hostname=$(hostname)  # store for use in log
-purple "\nStarting setup on $hostname...\n\n"
+purple "\nStarting setup on $hostname...\n\n"  # print to terminal
+filename=$(printf "%s.log" "$hostname")  # generate filename
+printf "\n%s: %s\n" "$(date)" "$hostname" >> $filename  # append file with timestamp
 
 # each step must have an id with NO SPACES
 
 id="apt-install"
 ((n++))
-sudo apt install git xsel ntpdate -y  # install new applications
-myexitcode=$?
-check_code $myexitcode $n $id
+sudo apt install git xsel ntpdate git -y  # install new applications
+check_code $? $n $id
 
 id="HJS-repo"
 ((n++))
 git -C HJS pull || git clone https://github.com/buonviri/HJS.git  # first try to pull, on failure clone instead
-myexitcode=$?
-check_code $myexitcode $n $id
+check_code $? $n $id
 
 id="alt-statlog"
 ((n++))
-echo Copying statlog.py to create alternate commands.
+echo Copying statlog.py to create alternate commands.  # since copy script has no output
 cd ~/HJS/statlog && source alt.sh && cd  # make copies
-myexitcode=$?
-check_code $myexitcode $n $id
+check_code $? $n $id
 
-# add more here
+id="gnome"
+((n++))
+cd ~/HJS/u22 && source ec.sh && cd  # gnome settings
+check_code $? $n $id
+
+id="dialout"
+((n++))
+sudo adduser ec dialout  # add user to dialout group for UART access
+check_code $? $n $id
+
 
 id="the-end"
 cd ~/HJS/u22
