@@ -37,7 +37,12 @@ printf "\n%s: %s\n" "$(date)" "$hostname" >> $filename  # append file with times
 
 id="apt-install"
 ((n++))
-sudo apt install git xsel ntpdate git -y  # install new applications
+sudo apt install git xsel ntpdate python3-pip lm-sensors -y  # install new applications
+check_code $? $n $id
+
+id="pip-install"
+((n++))
+pip install pyserial pyperclip
 check_code $? $n $id
 
 id="HJS-repo"
