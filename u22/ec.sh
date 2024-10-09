@@ -3,10 +3,10 @@
 cd
 mkdir -p S1LP/img
 \cp -r ~/HJS/u22/img/* ~/S1LP/img
-mkdir -p S1LP-847
+# mkdir -p S1LP-847
 
 # set dark mode and background/wallpaper
-echo
+# echo
 echo dark mode and background:
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 gsettings get org.gnome.desktop.interface color-scheme
@@ -36,6 +36,6 @@ cd "$OLDPWD"
 echo
 echo Setup complete. Sincerely, HJS
 # echo Set avatar to ~/S1LP/img/eca.jpg with bounding box set to max!
-printf "\n\e[1;35m   Set avatar to ~/S1LP/img/eca.jpg with bounding box set to max.\e[0m\n\n"
+printf "\n\e[1;35m  Set avatar to ~/S1LP/img/eca.jpg with bounding box set to max.\e[0m\n\n"
 
 # EOF
