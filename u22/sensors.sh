@@ -41,6 +41,20 @@ elif [[ "$mobo" == "0VXN07" ]]; then  # Dell Optiplex (Intel)
   do 
     add_module "$sensor"
   done
+elif [[ "$mobo" == "b660goeshere" ]]; then  # ASRock B660 (Intel)
+  echo B660 sensor configuration:
+  for sensor in coretemp nct6775
+  do 
+    add_module "$sensor"
+  done
+elif [[ "$mobo" == "RPLPgoeshere" ]]; then  # BCM ECM-RPLP (Intel mobile)
+  echo RPLP sensor configuration:
+  for sensor in coretemp nct6775
+  do 
+    add_module "$sensor"
+  done
+elif [[ "$mobo" == "K803goeshere" ]]; then  # OnLogic K803 (Intel)
+  echo K803 sensor configuration is currently unsupported.
 else
   printf "Unknown system (%s)... skipping sensor configuration.\n" "$mobo"
 fi
