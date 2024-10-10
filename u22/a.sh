@@ -67,14 +67,15 @@ id="dialout"
 sudo adduser ec dialout  # add user to dialout group for UART access
 check_code $? $n $id
 
-# DEBUG, SKIP
-#id="sensors-detect"
-#((n++))
-#sudo sensors-detect --auto
-#check_code $? $n $id
+id="sensors-detect"
+((n++))
+sudo sensors-detect --auto
+check_code $? $n $id
 
-echo TODO: MOTHERBOARD INFO
-echo
+id="/etc/modules"
+((n++))
+cd ~/HJS/u22 && source sensors.sh && cd  # add sensor names to /etc/modules
+check_code $? $n $id
 
 id="grub-before"
 ((n++))
