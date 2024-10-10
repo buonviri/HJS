@@ -1,8 +1,8 @@
 #!/bin/bash
 
 function add_module () {
-  caret=$(printf "^%s" "$1")
-  match=$(grep "$caret" /etc/modules)
+  caret=$(printf "^%s" "$1")  # insert caret before string, for grep
+  match=$(grep "$caret" /etc/modules)  # check for match (should be blank or exact string)
   printf "\nsensor: %s\n" "$1"
   printf "regex: %s\n" "$caret"
   printf "grep:   %s\n" "$match"
@@ -19,7 +19,7 @@ mobo=$(cat /sys/devices/virtual/dmi/id/board_name)
 
 if [[ "$mobo" == "X600-ITX" ]]; then  # ASRock X600 (AMD)
   echo X600 sensor configuration:
-  for sensor in lm92 nct6775
+  for sensor in lm92 nct6775  # note that this is NOT the list found by sensors-detect, but is required for fan info
   do 
     add_module "$sensor"
   done

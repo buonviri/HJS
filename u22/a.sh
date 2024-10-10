@@ -69,7 +69,7 @@ check_code $? $n $id
 
 id="sensors-detect"
 ((n++))
-sudo sensors-detect --auto
+printf "Writing sensor info to ~/.sensors\n" && sudo sensors-detect --auto > ~/.sensors  #  way too much spam, write to file instead
 check_code $? $n $id
 
 id="/etc/modules"
@@ -116,7 +116,6 @@ check_code $? $n $id
 id="update-grub"
 ((n++))
 sudo update-grub
-echo Hit any key to reboot...  # TODO fix this
 check_code $? $n $id
 
 # next script should start with alias r
@@ -124,6 +123,8 @@ check_code $? $n $id
 id="the-end"
 cd ~/HJS/u22
 purple "The End ($n)\n\n"
+
+echo Hit any key to reboot...  # TODO fix this
 
 # snipppets:
 
