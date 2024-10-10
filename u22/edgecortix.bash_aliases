@@ -24,7 +24,7 @@ alias u="sudo lspci -vvv -s 01:00.0 | grep -E 'Subsystem:|LnkSta:|Region 0:|Regi
 alias v="sudo apt update && sudo apt upgrade"
 alias w="printf '\n\e[1;35m   Downgrade numpy:\n   pip install --force-reinstall -v numpy==1.26.4\e[0m\n\n'"
 alias x="printf '\n\e[1;35m   The End\e[0m\n\n'"
-alias y="printf '\n\e[1;35m   mera-setup camera-setup ips-setup\n   mera numpy deploy\e[0m\n\n'"
+alias y="printf '\n\e[1;35m   mera-setup camera-setup ips-setup\n   mera16 numpy deploy\e[0m\n\n'"
 alias z="printf '\n\e[1;35m   sysinfo mera16 camera\n   fym mde yod\n   meas measu measur measure\n   sjlog ips perf\e[0m\n\n'"
 alias uu="sudo apt update && sudo apt upgrade"
 alias 00="poweroff"
@@ -56,5 +56,5 @@ alias measu="cd ~/S1LP/latency_power_measurement/ && MERA_MEASURE_POWER=3 python
 alias measur="cd ~/S1LP/latency_power_measurement/ && python measure.py --model_path precompiled/ --name precompiled"
 alias measure="cd ~/S1LP/latency_power_measurement/ && MERA_MEASURE_POWER=3 python measure.py --model_path precompiled/ --name precompiled --power"
 alias perf="source ~/S1LP/inference/perf.sh"
-alias ver="printf '\n\e[1;35m   HJS aliases v2.53\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v2.54\e[0m\n\n'"
 # EOF
