@@ -35,6 +35,12 @@ elif [[ "$mobo" == "sbc-flt3" ]]; then  # fitlet3 (Atom)
   do 
     add_module "$sensor"
   done
+elif [[ "$mobo" == "0VXN07" ]]; then  # Dell Optiplex (Intel)
+  echo Dell Optiplex sensor configuration:
+  for sensor in coretemp
+  do 
+    add_module "$sensor"
+  done
 else
   printf "Unknown system (%s)... skipping sensor configuration.\n" "$mobo"
 fi
