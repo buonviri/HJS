@@ -1,9 +1,13 @@
 import os
 import yaml  # pip install pyyaml
+import pprint
 
-with open("test.yaml") as f:
+filename = 'test.yaml'
+# filename = 'S2LP.txt'
+
+with open(filename) as f:
     try:
-        print(yaml.safe_load(f))
+        pprint.pprint(yaml.safe_load(f))
     except:
         print('YAML Error')
 
