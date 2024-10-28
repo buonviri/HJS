@@ -4,12 +4,16 @@ import serial.tools.list_ports  # requires pip install pyserial
 import os
 
 for a,b,c in serial.tools.list_ports.comports():
-    print()
-    print(a)
-    print(b)
-    print(c)
+    if b == 'n/a' and c == 'n/a':
+        print('NA')
+    else:
+        print()
+        print(a)
+        print(b)
+        print(c)
 
-# assumes windows! FIX IT
-os.system('timeout /t 5')  # wait five seconds then close window or return to prompt
+# pause if windows (in case it was run by double-clicking)
+if os.name == 'nt':
+    os.system('timeout /t 5')  # wait five seconds then close window or return to prompt
 
 # end
