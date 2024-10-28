@@ -5,7 +5,8 @@ import os
 
 for a,b,c in serial.tools.list_ports.comports():
     if b == 'n/a' and c == 'n/a':
-        print('NA')
+        # print('N/A')
+        pass
     else:
         print()
         print(a)
