@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # get bus info
-businfo="$(sudo lspci | grep 1fdc:0000 | head -c 7)"
+businfo="$(sudo lspci | grep 1fdc:0100 | head -c 7)"
 echo
 echo Displaying info for: $businfo
 
