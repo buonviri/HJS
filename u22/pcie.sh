@@ -2,6 +2,10 @@
 
 # get bus info
 businfo="$(sudo lspci | grep 1fdc:0100 | head -c 7)"
+if [ -z "$businfo" ]; then  # check if empty
+    echo "1fdc:0100 not found; defaulting to 01:00.0"
+    businfo="01:00.0"  # set default
+fi
 echo
 echo Displaying info for: $businfo
 
