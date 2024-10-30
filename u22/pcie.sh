@@ -2,7 +2,7 @@
 
 # get bus info
 echo
-businfo="$(sudo lspci | grep 1fdc:0100 | head -c 7)"
+businfo="$(sudo lspci | grep 1fdc:0100 | head -c 7)"  # get first seven characters of the line that contains our ID
 if [ -z "$businfo" ]; then  # check if empty
     printf "  1fdc:0100 not found\n  defaulting to 01:00.0\n\n"  # print error message
     businfo="01:00.0"  # set default
