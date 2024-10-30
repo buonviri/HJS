@@ -56,5 +56,7 @@ alias measu="cd ~/S1LP/latency_power_measurement/ && MERA_MEASURE_POWER=3 python
 alias measur="cd ~/S1LP/latency_power_measurement/ && python measure.py --model_path precompiled/ --name precompiled"
 alias measure="cd ~/S1LP/latency_power_measurement/ && MERA_MEASURE_POWER=3 python measure.py --model_path precompiled/ --name precompiled --power"
 alias perf="source ~/S1LP/inference/perf.sh"
-alias ver="printf '\n\e[1;35m   HJS aliases v2.54\e[0m\n\n'"
+alias pcie="source ~/HJS/u22/pcie.sh"
+
+alias ver="printf '\n\e[1;35m   HJS aliases v2.55\e[0m\n\n'"
 # EOF
