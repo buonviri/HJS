@@ -1,4 +1,5 @@
 import os
+import time
 import pyperclip
 
 info = [
@@ -6,16 +7,19 @@ info = [
     ['first search term', 'second search term or ".py" if none required', 'clipboard image']]
 
 thisfile = os.path.basename(__file__)
-if thisfile in ['xyclip.py',]:
+if thisfile in ['xyclip.py',]:  # list of filenames that won't even be checked
     print('\nThis script must be renamed to generate a clipboard image.\n')
     os.system('PAUSE')
 else:
     print(thisfile)
     for searchlist in info:
-        if searchlist[0] in thisfile and searchlist[1] in thisfile:
-            print('Found: ' + searchlist[0] + ' ' + searchlist[1])
-            pyperclip.copy(searchlist[2])
+        x = searchlist[0]
+        y = searchlist[1]
+        z = searchlist[2]
+        if x in thisfile and y in thisfile:
+            print('Found: ' + x + ' ' + y)
+            pyperclip.copy(z)  # place image on clipboard
             break
-    os.system('PAUSE')
+    time.sleep(3)
 
 # End
