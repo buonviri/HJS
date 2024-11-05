@@ -59,5 +59,5 @@ alias perf="source ~/S1LP/inference/perf.sh"
 alias pcie="source ~/HJS/u22/pcie.sh"
 alias 1fdc="sudo lspci -vvv -d 1fdc:0100 | grep -E --color=always 'Subsystem:|LnkSta:|Region 0:|Region 2:|Region 4:' | awk '{\$1=\$1;print}'"
 
-alias ver="printf '\n\e[1;35m   HJS aliases v2.56\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v2.57\e[0m\n\n'"
 # EOF
