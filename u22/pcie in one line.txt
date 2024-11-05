@@ -1,0 +1,5 @@
+success (0100):
+x="$(sudo lspci | grep 1fdc:0100 || echo 01:00.0)" && y="$(echo $x | head -c 7)" && echo $y && sudo lspci -vvv -s $y | grep -E --color=always "Subsystem:|LnkSta:|Region 0:|Region 2:|Region 4:" | awk '{$1=$1;print}'
+
+failure (9999):
+x="$(sudo lspci | grep 1fdc:9999 || echo 01:00.0)" && y="$(echo $x | head -c 7)" && echo $y && sudo lspci -vvv -s $y | grep -E --color=always "Subsystem:|LnkSta:|Region 0:|Region 2:|Region 4:" | awk '{$1=$1;print}'
