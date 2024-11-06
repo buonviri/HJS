@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # compare timestamps
-echo Local and NIST time:
+printf "\e[1;35mLocal and NIST time:\e[0m\n"
 date '+%H:%M:%S'
 ntpdate -q time.nist.gov | grep -o '[0-2][0-9]:[0-5][0-9]:[0-5][0-9]'
 date '+%H:%M:%S'
-echo --------
+printf "\e[1;35m--------\e[0m\n"
 
 # create new file or empty existing one
 echo -n "" > ~/sys.info
