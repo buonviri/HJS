@@ -19,8 +19,8 @@ alias p="printf '\n\e[1;35m   WARNING: Next alias will reboot the system!\e[0m\n
 alias q="reboot"
 alias r="grep HugePages_ /proc/meminfo; printf '\n\e[1;35m   Confirm 4/4/0/0.\e[0m\n\n'"
 alias s="sensors; printf '\e[1;35m   Confirm fan and temp sensors.\e[0m\n\n'"
-alias t="sudo lspci && printf '\n\e[1;35m   Confirm 01:00.0 is Co-processor with Device ID 1fdc:0100.\e[0m\n\n'"
-alias u="sudo lspci -vvv -s 01:00.0 | grep -E 'Subsystem:|LnkSta:|Region 0:|Region 2:|Region 4:'  && printf '\n\e[1;35m   Confirm 8M/8M/8M/8GT/x16.\e[0m\n\n'"
+alias t="sudo lspci | grep -i 1fdc || echo 1fdc not found.;printf '\n\e[1;35m   Confirm xx:00.0 is Co-processor with Device ID 1fdc:0100.\e[0m\n\n'"
+alias u="sudo lspci -vvv -d 1fdc:0100 | grep -E 'Subsystem:|LnkSta:|Region 0:|Region 2:|Region 4:'  && printf '\n\e[1;35m   Confirm 8M/8M/8M/8GT/x16.\e[0m\n\n'"
 alias v="sudo apt update && sudo apt upgrade"
 alias w="printf '\n\e[1;35m   Downgrade numpy:\n   pip install --force-reinstall -v numpy==1.26.4\e[0m\n\n'"
 alias x="printf '\n\e[1;35m   The End\e[0m\n\n'"
@@ -61,5 +61,5 @@ alias 1fdc="sudo lspci -vvv -d 1fdc:0100 | grep -E --color=always 'Subsystem:|Ln
 alias fans="sensors | grep fan | grep -v ':[ \\t]\\+0 RPM'"
 alias us="cd ~/HJS/u22 && git pull && source ./us.sh"
 
-alias ver="printf '\n\e[1;35m   HJS aliases v2.59\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v2.60\e[0m\n\n'"
 # EOF
