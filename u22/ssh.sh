@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo
+sudo echo  # ensure password has been entered, print blank line
 
 machine=$(hostname)
 sudo apt install openssh-server -y
