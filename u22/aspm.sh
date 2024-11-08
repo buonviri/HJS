@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo echo
+sudo echo  # ensure password has been entered, print blank line
 
 printf "\e[1;35m'ASPM' in dmesg:\e[0m\n"
 echo
