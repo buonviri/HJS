@@ -28,8 +28,9 @@ function check_code () {
 
 # start of script, get hostname and file name
 
+sudo echo  # ensure password has been entered, print blank line
 hostname=$(hostname)  # store for use in log
-purple "\nStarting setup on $hostname...\n\n"  # print to terminal
+purple "Starting setup on $hostname...\n\n"  # print to terminal
 filename=$(printf "%s.log" "$hostname")  # generate filename
 printf "\n%s: %s\n" "$(date)" "$hostname" >> $filename  # append file with timestamp
 
