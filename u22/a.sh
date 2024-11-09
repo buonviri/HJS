@@ -1,7 +1,7 @@
 #!/bin/bash
 
 let "n = 0"  # track current step number
-cd # always start in Home
+cd  # always start in Home
 
 function purple () {
   printf "\e[1;35m%b\e[0m" "$1"
