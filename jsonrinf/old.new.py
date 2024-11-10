@@ -36,7 +36,7 @@ def compare_nodes(stringa, stringb, infoa, infob):
             a = infoa[node]
             b = infob[node]
             if a != b:  # might require sorting?
-                log = log + 'Mismatch: ' + a + ' -> ' + b + '\n'
+                log = log + 'Mismatch: ' + a + ' -> ' + b + ' (' + node + ')\n'
             else:
                 match = match + 1
         except:
