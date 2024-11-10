@@ -5,6 +5,59 @@ import os
 import ast
 import sys
 
+
+def compare_nets(stringa, stringb, infoa, infob):
+    match = 0
+    total = 0
+    print(stringa + ' -> ' + stringb + ' (Nets)')
+    for net in infoa:
+        try:
+            a = infoa[net]
+            total = total + len(a)
+            b = infob[net]
+            if a != b:  # might require sorting?
+                print('Mismatch in: ' + net)
+            else:
+                match = match + 1
+        except:
+            print('Net not found: ' + net)
+    print('Matching nets: ' + str(match))
+    print('Total nodes: ' + str(total))
+    print() # blank line between sections
+# End
+
+
+def compare_nodes(stringa, stringb, infoa, infob):
+    match = 0
+    log = ''
+    print(stringa + ' -> ' + stringb + ' (Nodes)')
+    for node in infoa:
+        try:
+            a = infoa[node]
+            b = infob[node]
+            if a != b:  # might require sorting?
+                log = log + 'Mismatch: ' + a + ' -> ' + b + '\n'
+            else:
+                match = match + 1
+        except:
+            print('Node not found: ' + node)
+    print('Total nodes: ' + str(match))
+    with open(stringa + '.' + stringb + '.log', 'w') as f:
+        f.write(log)
+    print() # blank line between sections
+# End
+
+
+def getnodes(info):
+    nodes = {}
+    for net in info:
+        for node in info[net]:
+            nodes[node[0]+'.'+node[1]] = net  # dev.pin is the key and net is the value
+    return nodes
+# End
+
+
+# get filenames
 splitondot = os.path.basename(__file__).split('.')
 if len(splitondot) == 3:
     oldfilename = splitondot[0]
@@ -15,6 +68,7 @@ else:
     sys.exit()
 ext = '.NET converted to.dict'
 
+# open old
 try:
     with open(oldfilename + ext, 'r') as f:
         oldfile = f.read()
@@ -23,7 +77,10 @@ except:
     print('Error reading: ' + oldfilename + ext)
     oldinfo = {'nets': []}  # likely due to file not found
     print()
+oldnets = oldinfo['nets']
+oldnodes = getnodes(oldnets)
 
+# open new
 try:
     with open(newfilename + ext, 'r') as f:
         newfile = f.read()
@@ -32,43 +89,19 @@ except:
     print('Error reading: ' + newfilename + ext)
     newinfo = {'nets': []}  # likely due to file not found
     print()
+newnets = newinfo['nets']
+newnodes = getnodes(newnets)
 
-match = 0
-total = 0
-print('old -> new')
-for net in oldinfo['nets']:
-    try:
-        a = oldinfo['nets'][net]
-        total = total + len(a)
-        b = newinfo['nets'][net]
-        if a != b:  # might require sorting?
-            print('Mismatch in: ' + net)
-        else:
-            match = match + 1
-    except:
-        print('Net not found: ' + net)
-print('Matching nets: ' + str(match))
-print('Total nodes: ' + str(total))
+# start of script
+print('Netlist and Node Compare Utility by HJS\n')
 
-print()  # blank line between sections
+# net analysis
+compare_nets('old', 'new', oldnets, newnets)
+compare_nets('new', 'old', newnets, oldnets)
 
-match = 0
-total = 0
-print('new -> old')
-for net in newinfo['nets']:
-    try:
-        a = newinfo['nets'][net]
-        total = total + len(a)
-        b = oldinfo['nets'][net]
-        if a != b:  # might require sorting?
-            print('Mismatch in: ' + net)
-        else:
-            match = match + 1
-    except:
-        print('Net not found: ' + net)
-print('Matching nets: ' + str(match))
-print('Total nodes: ' + str(total))
+# node analysis
+compare_nodes('old', 'new', oldnodes, newnodes)
+compare_nodes('new', 'old', newnodes, oldnodes)
 
-print()
 os.system("PAUSE")
 # EOF
