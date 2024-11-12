@@ -96,12 +96,12 @@ newnodes = getnodes(newnets)
 print('Netlist and Node Compare Utility by HJS\n')
 
 # net analysis
-compare_nets('old', 'new', oldnets, newnets)
-compare_nets('new', 'old', newnets, oldnets)
+compare_nets(oldfilename, newfilename, oldnets, newnets)
+compare_nets(newfilename, oldfilename, newnets, oldnets)
 
 # node analysis
-compare_nodes('old', 'new', oldnodes, newnodes)
-compare_nodes('new', 'old', newnodes, oldnodes)
+compare_nodes(oldfilename, newfilename, oldnodes, newnodes)
+compare_nodes(newfilename, oldfilename, newnodes, oldnodes)
 
 os.system("PAUSE")
 # EOF
