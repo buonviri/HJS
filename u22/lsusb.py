@@ -34,7 +34,7 @@ for devtype in devtypes:
                 bus_and_desc[1] = bus_and_desc[1].replace('Dell Computer Corp.','[Dell]')
                 bus_and_desc[1] = bus_and_desc[1].replace('Future Technology Devices International, Ltd','[FTDI]')
                 bus_and_desc[1] = bus_and_desc[1].replace('HP, Inc HyperX','[HyperX]')
-                bus_and_desc[1] = bus_and_desc[1].replace('Intel Corp.','[INtel]')
+                bus_and_desc[1] = bus_and_desc[1].replace('Intel Corp.','[Intel]')
                 bus_and_desc[1] = bus_and_desc[1].replace('Genesys Logic, Inc.','[Genesys]')
                 bus_and_desc[1] = bus_and_desc[1].replace('Kingston Technology','[Kingston]')
                 bus_and_desc[1] = bus_and_desc[1].replace('Logitech, Inc.','[Logitech]')
