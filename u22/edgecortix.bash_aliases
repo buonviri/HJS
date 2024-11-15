@@ -57,7 +57,7 @@ alias measur="cd ~/S1LP/latency_power_measurement/ && python measure.py --model_
 alias measure="cd ~/S1LP/latency_power_measurement/ && MERA_MEASURE_POWER=3 python measure.py --model_path precompiled/ --name precompiled --power"
 alias perf="source ~/S1LP/inference/perf.sh"
 alias pcie="source ~/HJS/u22/pcie.sh"
-alias 1fdc="sudo lspci -vvv -d 1fdc: | grep -E --color=always 'Subsystem:|LnkSta:|Region 0:|Region 2:|Region 4:' | awk '{\$1=\$1;print}' | tee ~/lscpi.txt"
+alias 1fdc="sudo lspci -vvv -d 1fdc: | \\grep -E 'Subsystem:|LnkSta:|Region 0:|Region 2:|Region 4:' | awk '{\$1=\$1;print}' | tee ~/lscpi.txt"
 alias fans="sensors | grep fan | grep -v ':[ \\t]\\+0 RPM'"
 alias aspm="source ~/HJS/u22/aspm.sh"
 alias us="cd ~/HJS/u22 && git pull && source ./us.sh"
