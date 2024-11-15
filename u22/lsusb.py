@@ -6,7 +6,7 @@ lsusb = stdout.decode("utf-8")
 
 # print(lsusb)
 
-devtypes = {'hub': [], 'mouse': [], 'keyboard': [], '802.11': [], 'bluetooth': [], 'uart': [], 'cruzer': [], 'hyperx': [], 'cherry': [], 'webcam': [], 'quickcam': []}
+devtypes = {'hub': [], 'mouse': [], 'keyboard': [], '802.11': [], 'bluetooth': [], 'uart': [], 'cruzer': [], 'hyperx': [], 'cherry': [], 'webcam': [], 'quickcam': [], 'graugear': []}
 misc = []
 
 devices = lsusb.split('\n')
