@@ -57,7 +57,7 @@ alias measur="cd ~/S1LP/latency_power_measurement/ && python measure.py --model_
 alias measure="cd ~/S1LP/latency_power_measurement/ && MERA_MEASURE_POWER=3 python measure.py --model_path precompiled/ --name precompiled --power"
 alias perf="source ~/S1LP/inference/perf.sh"
 alias pcie="source ~/HJS/u22/pcie.sh"
-alias 1fdc="sudo lspci -vvv -d 1fdc:0100 | grep -E --color=always 'Subsystem:|LnkSta:|Region 0:|Region 2:|Region 4:' | awk '{\$1=\$1;print}'"
+alias 1fdc="sudo lspci -vvv -d 1fdc: | grep -E --color=always 'Subsystem:|LnkSta:|Region 0:|Region 2:|Region 4:' | awk '{\$1=\$1;print}'"
 alias fans="sensors | grep fan | grep -v ':[ \\t]\\+0 RPM'"
 alias aspm="source ~/HJS/u22/aspm.sh"
 alias us="cd ~/HJS/u22 && git pull && source ./us.sh"
@@ -67,5 +67,5 @@ alias thunderbolt="echo Thunderbolt entries in lspci... && lspci | grep -i thund
 alias grau="echo GRAUGEAR entries in lsusb... && lsusb | grep -i graugear"
 alias usb="python3 ~/HJS/u22/lsusb.py"
 
-alias ver="printf '\n\e[1;35m   HJS aliases v2.68\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v2.69\e[0m\n\n'"
 # EOF
