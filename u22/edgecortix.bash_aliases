@@ -63,7 +63,8 @@ alias aspm="source ~/HJS/u22/aspm.sh"
 alias us="cd ~/HJS/u22 && git pull && source ./us.sh"
 alias novm="lspci | grep -v -i vmware"
 alias noloops="sudo fdisk -l | sed -e '/Disk \/dev\/loop/,+5d'"
-alias thunderbolt="echo Thunderbolt entries in lspci:;\lspci | grep -i thunderbolt"
+alias thunderbolt="echo Thunderbolt entries in lspci... && lspci | grep -i thunderbolt"
+alias grau="echo GRAUGEAR entries in lsusb... && lsusb | grep -i graugear"
 
-alias ver="printf '\n\e[1;35m   HJS aliases v2.66\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v2.67\e[0m\n\n'"
 # EOF
