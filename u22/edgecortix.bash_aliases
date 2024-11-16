@@ -65,7 +65,7 @@ alias novm="lspci | grep -v -i vmware"
 alias noloops="sudo fdisk -l | sed -e '/Disk \/dev\/loop/,+5d'"
 alias thunderbolt="echo Thunderbolt entries in lspci... && lspci | grep -i thunderbolt"
 alias grau="echo GRAUGEAR entries in lsusb... && lsusb | grep -i graugear"
-alias usb="python3 ~/HJS/u22/lsusb.py"
+alias usb="python3 ~/HJS/u22/lsusb.py | tee ~/lsusb.info"
 
-alias ver="printf '\n\e[1;35m   HJS aliases v2.72\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v2.73\e[0m\n\n'"
 # EOF
