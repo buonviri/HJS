@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# this script is only useful for S1LP
+# for S2LP use 1fdc instead
+
 sudo echo  # ensure password has been entered, print blank line
 
 # get bus info
