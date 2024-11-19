@@ -141,7 +141,8 @@ def GetBestPort(thisfile):
         id_list = id_byfile[thisfile]  # if this file has an entry, start with that list
         xx_list = preferred[thisfile]  # ditto
     except:
-        print('  Script filename not found in dict... ' + thisfile)  # default to S1LP/S2LP id
+        if verbose:
+            print('  Script filename not found in dict... ' + thisfile)  # default to S1LP/S2LP id
         id_list = ['0403:6015',]  # start with a list containing default
         xx_list = ['/home/ec/COM5', '/dev/ttyUSB51', 'COM51',]  # ditto
     # add these lines to use windows null modem emulators
@@ -149,8 +150,9 @@ def GetBestPort(thisfile):
     # id_list.append('ROOT\\PORTS')  # add null modem simulator for debug
     # xx_list.append('COM5')  # add null modem number for debug
     # xx_list.append('COM1')  # add null modem number for debug
-    print('  Valid ports must match ' + str(id_list))  # debug
-    print('  Preferred ports order: ' + str(xx_list))  # debug
+    if verbose:
+        print('  Valid ports must match ' + str(id_list))  # debug
+        print('  Preferred ports order: ' + str(xx_list))  # debug
     for id in id_list:
         for portnum, portdesc, portdetails in serial.tools.list_ports.comports():
             if id in portdetails:  # check for MFG/product ID in details
@@ -162,7 +164,8 @@ def GetBestPort(thisfile):
                 pass
             else:  # port is real(ish) so display it
                 print(result + portnum + ' | ' + portdesc + ' | ' + portdetails)
-    print('  Good Ports: ' + str(goodports))  # debug
+    if verbose:
+        print('  Good Ports: ' + str(goodports))  # debug
     for port in xx_list:
         if port in goodports:  # requested port was found
             return port
@@ -228,24 +231,22 @@ def GetCommand(fullfilename):
 
 # start of script
 if WINDOWS:
-    msg = '\nDetected Windows OS'
+    msg = '\nDetected Windows OS\n'
 elif LINUX:
-    msg = '\nDetected linux OS'
+    msg = '\nDetected linux OS\n'
 else:
-    msg = '\nUnknown OS'
-if verbose:
-    print(msg)
+    msg = '\nUnknown OS\n'
 
 # determine which command to send
 thisfile = GetCommand(os.path.basename(__file__))
 
 if thisfile == 'statlog':  # default name in repo
-    msg = 'Logging stat command (' + my_product + ')'
+    msg = msg + 'Logging stat command (' + my_product + ')'
     dostat = True
 else:  # not statlog
-    msg = 'Sending command sequence (' + my_product + '): ' + thisfile
+    msg = msg + 'Sending command sequence (' + my_product + '): ' + thisfile
     dostat = False
-if verbose:
+if verbose:  # have to wait until after filename is parsed to do first print check
     print(msg)
 
 # set up logging
@@ -263,7 +264,8 @@ io.parity = 'N'
 io.stopbits = 1
 io.timeout = 1  # wait up to one second to read
 # could add more flow control settings but they seem to default to off
-print('  Opening ' + io.port + ' (' + str(io.baudrate) + ',' + str(io.bytesize) + io.parity + str(io.stopbits) + ')')
+if verbose:
+    print('  Opening ' + io.port + ' (' + str(io.baudrate) + ',' + str(io.bytesize) + io.parity + str(io.stopbits) + ')')
 try:
     io.open()  # may succeed even if device is off
 except:
