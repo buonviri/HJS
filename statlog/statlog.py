@@ -31,6 +31,10 @@ lastlog = 0
 # determines if the script pauses at the end
 do_pause = True
 
+# set product name, default is S1LP for historical purposes
+my_product = S1LP
+
+
 def stat(dev):
     dev.write(b'stat\n')
     val = dev.read(9999)
@@ -177,11 +181,27 @@ def checkdir(dirname):
 
 def GetCommand(fullfilename):
     global do_pause
+    global my_product
     thisfile = fullfilename.split('.')[0]  # get script name without extension
+
+    # strip -fast suffix
     if thisfile.endswith('-fast'):
         thisfile = thisfile[:-5]  # trim suffix
         do_pause = False
-    return thisfile
+
+    # strip product prefix
+    if thisfile.startswith('S1LP-'):
+        thisfile = thisfile[5:]  # trim prefix
+        my_product = 'S1LP'
+    elif thisfile.startswith('S2LP-'):
+        thisfile = thisfile[5:]  # trim prefix
+        my_product = 'S2LP'
+    if thisfile.startswith('S2M2-'):
+        thisfile = thisfile[5:]  # trim prefix
+        my_product = 'S2M2'
+
+    # return command without prefix and suffix
+    return thisfile.replace('.', ' ')  # replace . with space, needs CRLF also
 
 # End
 
@@ -202,10 +222,10 @@ else:
 thisfile = GetCommand(os.path.basename(__file__))
 
 if thisfile == 'statlog':  # default name in repo
-    print('Logging stat command')
+    print('Logging stat command (' + my_product + ')')
     dostat = True
 else:  # not statlog
-    print('Sending single command: ' + thisfile)
+    print('Sending single command (' + my_product + '): ' + thisfile)
     dostat = False
 
 # set up logging
