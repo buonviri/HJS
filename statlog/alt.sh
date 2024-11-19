@@ -6,3 +6,4 @@ cp -f statlog.py snread.py
 cp -f statlog.py hist.py
 cp -f statlog.py xlog.py
 cp -f statlog.py cfg.py
+cp -f statlog.py S2LP-cfg-fast.py

@@ -26,12 +26,16 @@ powerprofilesctl get 2> /dev/null | tee -a ~/sys.info
 foo=$(lspci | grep 1fdc:0100)
 if [ $? -eq 0 ]; then
     python3 ~/HJS/statlog/snread-fast.py | grep -Po 'Serial Number  =\s+\K.*' | tee -a ~/sys.info
+else
+    echo No S1LP found.
 fi
 
 # check if S2LP
 foo=$(lspci | grep 1fdc:0001)
 if [ $? -eq 0 ]; then
-    python3 ~/HJS/statlog/cfg.py | grep -Po 'Serial Number  =\s+\K.*' | tee -a ~/sys.info
+    python3 ~/HJS/statlog/S2LP-cfg-fast.py | grep -Po 'Serial Number  =\s+\K.*' | tee -a ~/sys.info
+else
+    echo No S2LP found.
 fi
 
 # EOF
