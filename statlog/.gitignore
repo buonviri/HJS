@@ -1,7 +1,5 @@
 *.csv
+*.py
 
-# copies of script
-zmax.py
-snread.py
-snread-fast.py
-help.py
+# include real script
+!statlog.py

@@ -32,7 +32,7 @@ lastlog = 0
 do_pause = True
 
 # set product name, default is S1LP for historical purposes
-my_product = S1LP
+my_product = 'S1LP'
 
 
 def stat(dev):
@@ -182,7 +182,12 @@ def checkdir(dirname):
 def GetCommand(fullfilename):
     global do_pause
     global my_product
-    thisfile = fullfilename.split('.')[0]  # get script name without extension
+
+    # trim extension
+    if fullfilename.endswith('.py'):
+        thisfile = fullfilename[:-3]
+    else:
+        thisfile = fullfilename  # probably shouldn't be possible
 
     # strip -fast suffix
     if thisfile.endswith('-fast'):
@@ -201,7 +206,7 @@ def GetCommand(fullfilename):
         my_product = 'S2M2'
 
     # return command without prefix and suffix
-    return thisfile.replace('.', ' ')  # replace . with space, needs CRLF also
+    return thisfile.replace('.', ' ')  # replace dot with space
 
 # End
 
@@ -225,7 +230,7 @@ if thisfile == 'statlog':  # default name in repo
     print('Logging stat command (' + my_product + ')')
     dostat = True
 else:  # not statlog
-    print('Sending single command (' + my_product + '): ' + thisfile)
+    print('Sending command sequence (' + my_product + '): ' + thisfile)
     dostat = False
 
 # set up logging
