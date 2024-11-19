@@ -220,15 +220,15 @@ def GetCommand(fullfilename):
 
 # start of script
 if WINDOWS:
-    print('\nDetected Windows OS\n')
+    print('\nDetected Windows OS')
     # no longer works on Win11:
     # colsandrows = str(cols) + ',' + str(rows)
     # os.system('mode ' + colsandrows)  # set window size in cols,rows maybe...
     # print('Attempting to set Cols,Rows to ' + colsandrows)  # works on win10, and maybe on win11 if conhost.exe is used?
 elif LINUX:
-    print('\nDetected linux OS\n')
+    print('\nDetected linux OS')
 else:
-    print('\nUnknown OS\n')
+    print('\nUnknown OS')
 
 # determine which command to send
 thisfile = GetCommand(os.path.basename(__file__))
@@ -241,7 +241,7 @@ else:  # not statlog
     dostat = False
 
 # set up logging
-logfile = thisfile + '-' + hex(int(time.time()))[2:] + '.csv'  # epoch time in hex (minus the 0x prefix) with csv extension
+logfile = thisfile.replace(' ', '.') + '-' + hex(int(time.time()))[2:] + '.csv'  # epoch time in hex (minus the 0x prefix) with csv extension
 print ('Logging to: ' + logfile + ' in ' + os.path.join(os.getcwd(), 'log'))
 checkdir('log')  # just in case it doesn't exist, add it
 
