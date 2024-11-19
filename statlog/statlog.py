@@ -175,7 +175,7 @@ def checkdir(dirname):
 # End
 
 
-def GetCommand(fullfilename)
+def GetCommand(fullfilename):
     global do_pause
     thisfile = fullfilename.split('.')[0]  # get script name without extension
     if thisfile.endswith('-fast'):
