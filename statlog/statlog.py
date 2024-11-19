@@ -163,7 +163,8 @@ def GetBestPort(thisfile):
             if portdesc == 'n/a' and portdetails == 'n/a':  # u24 fix, tons of ports show up with no details
                 pass
             else:  # port is real(ish) so display it
-                print(result + portnum + ' | ' + portdesc + ' | ' + portdetails)
+                if verbose:
+                    print(result + portnum + ' | ' + portdesc + ' | ' + portdetails)
     if verbose:
         print('  Good Ports: ' + str(goodports))  # debug
     for port in xx_list:
@@ -266,6 +267,8 @@ io.timeout = 1  # wait up to one second to read
 # could add more flow control settings but they seem to default to off
 if verbose:
     print('  Opening ' + io.port + ' (' + str(io.baudrate) + ',' + str(io.bytesize) + io.parity + str(io.stopbits) + ')')
+else:
+    print('[' + io.port + ']')
 try:
     io.open()  # may succeed even if device is off
 except:
