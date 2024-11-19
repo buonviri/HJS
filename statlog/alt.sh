@@ -18,3 +18,4 @@ cp -f statlog.py S2LP-fan.a.100-fast.py
 cp -f statlog.py S2LP-fan.py
 cp -f statlog.py S2LP-fan-slow.py
 cp -f statlog.py S2LP-stats-slow.py
+cp -f statlog.py S2LP-stats-fast.py

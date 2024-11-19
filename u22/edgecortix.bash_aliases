@@ -69,6 +69,7 @@ alias usb="python3 ~/HJS/u22/lsusb.py | tee ~/lsusb.info"
 alias imdt="screen /dev/ttyUSB0 115200"
 alias maxfan="python3 ~/HJS/statlog/S2LP-fan.a.100-fast.py && python3 ~/HJS/statlog/S2LP-fan.py"
 alias minfan="python3 ~/HJS/statlog/S2LP-fan.a.40-fast.py && python3 ~/HJS/statlog/S2LP-fan.py"
+alias stats="python3 ~/HJS/statlog/S2LP-stats-fast.py"
 
-alias ver="printf '\n\e[1;35m   HJS aliases v2.77\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v2.78\e[0m\n\n'"
 # EOF
