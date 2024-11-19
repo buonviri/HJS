@@ -11,13 +11,9 @@ cp -f statlog.py xlog.py
 cp -f statlog.py cfg.py
 cp -f statlog.py S2LP-cfg-fast.py
 
-cp -f statlog.py S2LP-fan.a.40-fast.py
-cp -f statlog.py S2LP-fan.a.60-fast.py
-cp -f statlog.py S2LP-fan.a.80-fast.py
-cp -f statlog.py S2LP-fan.a.100-fast.py
-cp -f statlog.py S2LP-fan.py
-cp -f statlog.py S2LP-fan-slow.py
-cp -f statlog.py S2LP-fan-fast.py
+cp -f statlog.py S2LP-fan.a.40-void.py
+cp -f statlog.py S2LP-fan.a.60-void.py
+cp -f statlog.py S2LP-fan.a.80-void.py
+cp -f statlog.py S2LP-fan.a.100-void.py
 cp -f statlog.py S2LP-fan-void.py
-cp -f statlog.py S2LP-stats-slow.py
-cp -f statlog.py S2LP-stats-fast.py
+cp -f statlog.py S2LP-stats-void.py

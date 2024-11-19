@@ -10,13 +10,9 @@ xcopy statlog.py xlog.py /Y
 xcopy statlog.py cfg.py /Y
 xcopy statlog.py S2LP-cfg-fast.py /Y
 
-xcopy statlog.py S2LP-fan.a.40-fast.py /Y
-xcopy statlog.py S2LP-fan.a.60-fast.py /Y
-xcopy statlog.py S2LP-fan.a.80-fast.py /Y
-xcopy statlog.py S2LP-fan.a.100-fast.py /Y
-xcopy statlog.py S2LP-fan.py /Y
-xcopy statlog.py S2LP-fan-slow.py /Y
-xcopy statlog.py S2LP-fan-fast.py /Y
+xcopy statlog.py S2LP-fan.a.40-void.py /Y
+xcopy statlog.py S2LP-fan.a.60-void.py /Y
+xcopy statlog.py S2LP-fan.a.80-void.py /Y
+xcopy statlog.py S2LP-fan.a.100-void.py /Y
 xcopy statlog.py S2LP-fan-void.py /Y
-xcopy statlog.py S2LP-stats-slow.py /Y
-xcopy statlog.py S2LP-stats-fast.py /Y
+xcopy statlog.py S2LP-stats-void.py /Y
