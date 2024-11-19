@@ -21,6 +21,17 @@ lsb_release -d | grep -Po 'Description:\s+\K.*' | tee -a ~/sys.info
 uname -r | tee -a ~/sys.info
 # doesn't work in 20.04, suppress error
 powerprofilesctl get 2> /dev/null | tee -a ~/sys.info
-python3 ~/HJS/statlog/snread-fast.py | grep -Po 'Serial Number  =\s+\K.*' | tee -a ~/sys.info
+
+# check if S1LP
+foo=$(lspci | grep 1fdc:0100)
+if [ $? -eq 0 ]; then
+    python3 ~/HJS/statlog/snread-fast.py | grep -Po 'Serial Number  =\s+\K.*' | tee -a ~/sys.info
+fi
+
+# check if S2LP
+foo=$(lspci | grep 1fdc:0001)
+if [ $? -eq 0 ]; then
+    python3 ~/HJS/statlog/cfg.py | grep -Po 'Serial Number  =\s+\K.*' | tee -a ~/sys.info
+fi
 
 # EOF
