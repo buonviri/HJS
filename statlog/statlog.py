@@ -30,6 +30,7 @@ lastlog = 0
 
 # determines if the script pauses at the end
 do_pause = True
+do_slow = False
 
 # set product name, default is S1LP for historical purposes
 my_product = 'S1LP'
@@ -181,6 +182,7 @@ def checkdir(dirname):
 
 def GetCommand(fullfilename):
     global do_pause
+    global do_slow
     global my_product
 
     # trim extension
@@ -193,6 +195,11 @@ def GetCommand(fullfilename):
     if thisfile.endswith('-fast'):
         thisfile = thisfile[:-5]  # trim suffix
         do_pause = False
+
+    # strip -slow suffix
+    if thisfile.endswith('-slow'):
+        thisfile = thisfile[:-5]  # trim suffix
+        do_slow = True
 
     # strip product prefix
     if thisfile.startswith('S1LP-'):
@@ -295,7 +302,10 @@ except KeyboardInterrupt:  # hitting CTRL-C will exit the script cleanly
     print('\n  CTRL-C Detected')
 
 if WINDOWS and do_pause:
-    os.system('timeout /t 2')  # keep window open for up to two seconds, keystroke ends it instantly
+    if do_slow:
+        os.system('timeout /t 6')  # keep window open longer
+    else:
+        os.system('timeout /t 2')  # keep window open for up to two seconds, keystroke ends it instantly        
 elif LINUX and do_pause:
     os.system('sleep 2')  # pause for two seconds
 
