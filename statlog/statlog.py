@@ -28,6 +28,8 @@ logdelay = 3
 # initialize log timer to 1970
 lastlog = 0
 
+# determines if the script pauses at the end
+do_pause = True
 
 def stat(dev):
     dev.write(b'stat\n')
@@ -173,6 +175,17 @@ def checkdir(dirname):
 # End
 
 
+def GetCommand(fullfilename)
+    global do_pause
+    thisfile = fullfilename.split('.')[0]  # get script name without extension
+    if thisfile.endswith('-fast'):
+        thisfile = thisfile[:-5]  # trim suffix
+        do_pause = False
+    return thisfile
+
+# End
+
+
 # start of script
 if WINDOWS:
     print('\nDetected Windows OS\n')
@@ -186,11 +199,7 @@ else:
     print('\nUnknown OS\n')
 
 # determine which command to send
-do_pause = True
-thisfile = os.path.basename(__file__).split('.')[0]  # get script name without extension
-if thisfile.endswith('-fast'):
-    thisfile = thisfile[:-5]  # trim suffix
-    do_pause = False
+thisfile = GetCommand(os.path.basename(__file__))
 
 if thisfile == 'statlog':  # default name in repo
     print('Logging stat command')
