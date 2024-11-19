@@ -6,7 +6,14 @@ lsusb = stdout.decode("utf-8")
 
 # print(lsusb)
 
-devtypes = {'hub': [], 'mouse': [], 'keyboard': [], '802.11': [], 'bluetooth': [], 'uart': [], 'cruzer': [], 'hyperx': [], 'cherry': [], 'webcam': [], 'quickcam': [], 'graugear': []}
+devtypes = {'hub': [],
+    'mouse': [], 'keyboard': [],
+    '802.11': [], 'bluetooth': [],
+    'uart': [],
+    'cruzer': [],
+    'hyperx': [], 'cherry': [],
+    'camera': [], 'webcam': [], 'quickcam': [],
+    'graugear': []}
 misc = []
 
 devices = lsusb.split('\n')
@@ -30,6 +37,7 @@ for devtype in devtypes:
                 bus_and_desc[1] = bus_and_desc[1].replace('ASMedia Technology Inc.','[ASMedia]')
                 bus_and_desc[1] = bus_and_desc[1].replace('Broadcom Corp.','[Broadcom]')
                 bus_and_desc[1] = bus_and_desc[1].replace('Cherry GmbH CHERRY','[Cherry]')
+                bus_and_desc[1] = bus_and_desc[1].replace('Chicony Electronics Co., Ltd','[Chicony]')
                 bus_and_desc[1] = bus_and_desc[1].replace('D-Link Corp.','[D-Link]')
                 bus_and_desc[1] = bus_and_desc[1].replace('Dell Computer Corp.','[Dell]')
                 bus_and_desc[1] = bus_and_desc[1].replace('Future Technology Devices International, Ltd','[FTDI]')
