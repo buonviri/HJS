@@ -328,7 +328,11 @@ try:
                 else:
                     s = other(io, command)  # send ANY alternate command, so unsafe!
                 s = s.replace('success 0x000000', ' ')  # strip verbosity
-                print(s)  # print result
+                if len(s) == 3:  # likely a stripped success message
+                    print(s, end='')  # print result without newline
+                else:
+                    print(s)  # print result
+                print()  # in case last result had no newline
             break  # send alternate command only once, immediately exit loop
         info = getinfo(s)
         # pprint.pprint(info)
