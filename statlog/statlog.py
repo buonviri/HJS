@@ -219,9 +219,12 @@ def GetCommand(fullfilename):
     elif thisfile.startswith('S2LP-'):
         thisfile = thisfile[5:]  # trim prefix
         my_product = 'S2LP'
-    if thisfile.startswith('S2M2-'):
+    elif thisfile.startswith('S2M2-'):
         thisfile = thisfile[5:]  # trim prefix
         my_product = 'S2M2'
+    elif thisfile.startswith('S2XX-'):
+        thisfile = thisfile[5:]  # trim prefix
+        my_product = 'S2XX'
 
     # return command without prefix and suffix
     return thisfile.replace('.', ' ')  # replace dot with space
