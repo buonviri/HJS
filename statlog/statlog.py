@@ -332,7 +332,7 @@ try:
                     print(s, end='')  # print result without newline
                 else:
                     print(s)  # print result
-                print()  # in case last result had no newline
+            print()  # in case last result had no newline
             break  # send alternate command only once, immediately exit loop
         info = getinfo(s)
         # pprint.pprint(info)
