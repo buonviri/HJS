@@ -330,8 +330,8 @@ try:
                     s = other(io, command)  # send ANY alternate command, so unsafe!
                 s = s.replace('success 0x000000', ' ')  # strip verbosity
                 if s.startswith('Pin P'):  # S2 BMC verbose pin set output
-                    slist = s[3:].split()  # split on all whitespace, starting after the word Pin
-                    s = ' '.join(slist) + '\n ' + slist[0][4:8]  # line plus pin number
+                    slist = s[4:].split()  # split on all whitespace, starting with P after the word Pin
+                    s = ' '.join(slist) + '\n ' + slist[0][0:4]  # line plus pin number
                     newline = False
                 if len(s) == 3:  # likely a stripped success message
                     newline = False
