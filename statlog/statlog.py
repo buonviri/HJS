@@ -287,7 +287,7 @@ io.timeout = 1  # wait up to one second to read
 if verbose:
     print('  Opening ' + io.port + ' (' + str(io.baudrate) + ',' + str(io.bytesize) + io.parity + str(io.stopbits) + ')')
 else:
-    print('[' + io.port + ']')
+    print('[' + io.port + '] ',end='')  # omit newline so that command sequence may be added
 try:
     io.open()  # may succeed even if device is off
 except:
@@ -313,7 +313,8 @@ try:
         if dostat:
             s = stat(io)  # send stat command
         else:
-            sequence = thisfile.split(';')  # semicolon may be used to separate commands
+            sequence = thisfile.split('+')  # plus sign may be used to separate commands
+            print(sequence)
             for command in sequence:
                 if command == 'help':  # encoded message, translates to '?' for S1LP
                     s = other(io, help)  # send question mark instead of the word help for S1LP
