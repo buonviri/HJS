@@ -328,6 +328,9 @@ try:
                 else:
                     s = other(io, command)  # send ANY alternate command, so unsafe!
                 s = s.replace('success 0x000000', ' ')  # strip verbosity
+                if s.startswith('Pin P'):  # S2 BMC verbose pin set output
+                    slist = s.split()  # split on all whitespace
+                    s = ' '.join(slist)
                 if len(s) == 3:  # likely a stripped success message
                     print(s, end='')  # print result without newline
                 else:
