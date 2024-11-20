@@ -38,14 +38,14 @@ my_product = 'S1LP'
 
 def stat(dev):
     dev.write(b'stat\n')
-    val = dev.read(9999)
+    val = dev.read(99999)
     return val.decode('utf-8').strip()
 # End
 
 
 def other(dev, cmd):
     dev.write(bytes(cmd + '\n', 'utf-8'))
-    val = dev.read(9999)
+    val = dev.read(99999)
     return val.decode('utf-8').strip()
 # End
 
@@ -285,10 +285,10 @@ io.baudrate = 115200
 io.bytesize = 8
 io.parity = 'N'
 io.stopbits = 1
-if dostat:
-    io.timeout = 1.0  # wait up to one second to read the stat command
-else:
+if do_pause == False:  # fast or void
     io.timeout = 0.2  # this might not always work, needs more testing
+else:
+    io.timeout = 1.0  # wait up to one second to read the stat command or whatever else is sent
 # could add more flow control settings but they seem to default to off
 if verbose:
     print('  Opening ' + io.port + ' (' + str(io.baudrate) + ',' + str(io.bytesize) + io.parity + str(io.stopbits) + ')')
