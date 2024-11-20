@@ -314,7 +314,8 @@ try:
             s = stat(io)  # send stat command
         else:
             sequence = thisfile.split('+')  # plus sign may be used to separate commands
-            print(sequence)
+            if verbose == False:  # don't need to print for verbose mode, already done
+                print(sequence)  # gets adding to port listing with no newline
             for command in sequence:
                 if command == 'help':  # encoded message, translates to '?' for S1LP
                     s = other(io, help)  # send question mark instead of the word help for S1LP
