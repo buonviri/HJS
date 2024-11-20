@@ -1,7 +1,5 @@
 # sends commands to S1/S2
 
-help = 'help'  # set to '?' for S1LP, 'help' for S2LP
-
 import sys
 try:
     import serial  # requires pip install pyserial
@@ -28,10 +26,11 @@ logdelay = 3
 # initialize log timer to 1970
 lastlog = 0
 
-# determines if the script pauses at the end
+# determines if the script pauses at the end, etc
 do_pause = True
 do_slow = False
 verbose = True
+# add new entries to flags() function as well
 
 # set product name, default is S1LP for historical purposes
 my_product = 'S1LP'
@@ -230,6 +229,19 @@ def GetCommand(fullfilename):
 # End
 
 
+def flags():
+    # returns formatted string of all flags
+    s = ''
+    if do_pause == False:
+        s = s + '[F]'
+    if do_slow == True:
+        s = s + '[S]'
+    if verbose == True:
+        s = s + '[V]'
+    return s
+# End
+
+
 # start of script
 if WINDOWS:
     msg = '\nDetected Windows OS\n'
@@ -239,13 +251,20 @@ else:
     msg = '\nUnknown OS\n'
 
 # determine which command to send
-thisfile = GetCommand(os.path.basename(__file__))
+if len(sys.argv) > 1:  # not just script name, but has arg(s)
+    thisfile = GetCommand(' '.join(sys.argv[1:]))
+else:  # use filename
+    thisfile = GetCommand(os.path.basename(__file__))
+if my_product in ['S1LP',]:  # list of products that use '?'
+    help = '?'  # set to '?' for S1LP
+else:
+    help = 'help'  # set to 'help' for S2LP
 
 if thisfile == 'statlog':  # default name in repo
     msg = msg + 'Logging stat command (' + my_product + ')'
     dostat = True
 else:  # not statlog
-    msg = msg + 'Sending command sequence (' + my_product + '): ' + thisfile
+    msg = msg + 'Sending command sequence to ' + my_product + flags() + ': ' + thisfile
     dostat = False
 if verbose:  # have to wait until after filename is parsed to do first print check
     print(msg)
