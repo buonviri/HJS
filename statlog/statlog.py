@@ -30,6 +30,7 @@ lastlog = 0
 do_pause = True
 do_slow = False
 verbose = True
+void_msg = ''  # if void flag is used, this stores the one message that gets printed
 # add new entries to flags() function as well
 
 # set product name, default is S1LP for historical purposes
@@ -293,7 +294,7 @@ else:
 if verbose:
     print('  Opening ' + io.port + ' (' + str(io.baudrate) + ',' + str(io.bytesize) + io.parity + str(io.stopbits) + ')')
 else:
-    print('[' + io.port + '] ',end='')  # omit newline so that command sequence may be added
+    void_msg = '[' + io.port + ']'  # start of message, command sequence to be added later
 try:
     io.open()  # may succeed even if device is off
 except:
@@ -321,7 +322,7 @@ try:
         else:
             sequence = thisfile.split('+')  # plus sign may be used to separate commands
             if verbose == False:  # don't need to print for verbose mode, already done
-                print(sequence)  # gets adding to port listing with no newline
+                void_msg = void_msg + '  ' + str(sequence)  # add list containing command sequence to port info
             for command in sequence:
                 newline = True  # print newline by default
                 if command == 'help':  # encoded message, translates to '?' for S1LP
@@ -339,8 +340,11 @@ try:
                     print(s, end='')  # print result without newline
                 else:
                     print(s)  # print result
-            print()  # in case last result had no newline
-            break  # send alternate command only once, immediately exit loop
+            if verbose == True:
+                print()  # in case last result had no newline
+            else:
+                print('  ' + void_msg)  # adds message to end of line
+            break  # send alternate command sequence only once, immediately exit loop
         info = getinfo(s)
         # pprint.pprint(info)
         csv = []
