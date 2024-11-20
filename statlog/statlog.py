@@ -285,7 +285,10 @@ io.baudrate = 115200
 io.bytesize = 8
 io.parity = 'N'
 io.stopbits = 1
-io.timeout = 1  # wait up to one second to read
+if dostat:
+    io.timeout = 1.0  # wait up to one second to read the stat command
+else:
+    io.timeout = 0.2  # this might not always work, needs more testing
 # could add more flow control settings but they seem to default to off
 if verbose:
     print('  Opening ' + io.port + ' (' + str(io.baudrate) + ',' + str(io.bytesize) + io.parity + str(io.stopbits) + ')')
