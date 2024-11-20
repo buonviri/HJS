@@ -313,11 +313,13 @@ try:
         if dostat:
             s = stat(io)  # send stat command
         else:
-            if thisfile == 'help':  # encoded message, translates to '?' for S1LP
-                s = other(io, help)  # send question mark instead of the word help for S1LP
-            else:
-                s = other(io, thisfile)  # send ANY alternate command, so unsafe!
-            print(s)  # print result
+            sequence = thisfile.split(';')  # semicolon may be used to separate commands
+            for command in sequence:
+                if command == 'help':  # encoded message, translates to '?' for S1LP
+                    s = other(io, help)  # send question mark instead of the word help for S1LP
+                else:
+                    s = other(io, command)  # send ANY alternate command, so unsafe!
+                print(s)  # print result
             break  # send alternate command only once, immediately exit loop
         info = getinfo(s)
         # pprint.pprint(info)
