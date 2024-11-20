@@ -327,6 +327,7 @@ try:
                     s = other(io, help)  # send question mark instead of the word help for S1LP
                 else:
                     s = other(io, command)  # send ANY alternate command, so unsafe!
+                s.replace('success 0x000000', ' ')  # strip verbosity
                 print(s)  # print result
             break  # send alternate command only once, immediately exit loop
         info = getinfo(s)
