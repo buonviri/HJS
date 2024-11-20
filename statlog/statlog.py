@@ -323,6 +323,7 @@ try:
             if verbose == False:  # don't need to print for verbose mode, already done
                 print(sequence)  # gets adding to port listing with no newline
             for command in sequence:
+                newline = True  # print newline by default
                 if command == 'help':  # encoded message, translates to '?' for S1LP
                     s = other(io, help)  # send question mark instead of the word help for S1LP
                 else:
@@ -330,8 +331,11 @@ try:
                 s = s.replace('success 0x000000', ' ')  # strip verbosity
                 if s.startswith('Pin P'):  # S2 BMC verbose pin set output
                     slist = s[3:].split()  # split on all whitespace, starting after the word Pin
-                    s = ' '.join(slist)
+                    s = ' '.join(slist) + '\n ' + slist[0][4:8]  # line plus pin number
+                    newline = False
                 if len(s) == 3:  # likely a stripped success message
+                    newline = False
+                if newline == False:
                     print(s, end='')  # print result without newline
                 else:
                     print(s)  # print result
