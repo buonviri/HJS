@@ -332,6 +332,8 @@ try:
                 s = s.replace('success 0x000000', ' ')  # strip verbosity
                 s = s.replace('TEMP_', '   T_')  # fix for S2LP stats for readability
                 s = s.replace(' W_', ' P_')  # fix for S2LP stats for readability
+                s = s.replace('I_P', ' I_')  # fix for S2LP stats for readability
+                s = s.replace('I_CBLK', '  I_CB')  # fix for S2LP stats for readability
                 if s.startswith('Pin P'):  # S2 BMC verbose pin set output
                     slist = s[4:].split()  # split on all whitespace, starting with P after the word Pin
                     s = '\n' + ' '.join(slist) + '\n ' + slist[0][0:4]  # newline plus joined line plus pin number
