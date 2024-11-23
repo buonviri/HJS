@@ -191,6 +191,7 @@ def GetCommand(fullfilename):
     global do_slow
     global my_product
     global verbose
+    global do_null
 
     # trim extension
     if fullfilename.endswith('.py'):
