@@ -30,6 +30,7 @@ lastlog = 0
 do_pause = True
 do_slow = False
 verbose = True
+null = False
 void_msg = ''  # if void flag is used, this stores the one message that gets printed
 # add new entries to flags() function as well
 
@@ -208,6 +209,13 @@ def GetCommand(fullfilename):
         do_pause = False
         verbose = False
 
+    # strip -null suffix
+    if thisfile.endswith('-null'):
+        thisfile = thisfile[:-5]  # trim suffix
+        do_pause = False
+        verbose = False
+        null = True
+
     # strip -slow suffix
     if thisfile.endswith('-slow'):
         thisfile = thisfile[:-5]  # trim suffix
@@ -242,6 +250,8 @@ def flags():
         s = s + '[S]'
     if verbose == True:
         s = s + '[V]'
+    if null == True:
+        s = s + '[N]'
     return s
 # End
 
@@ -350,6 +360,8 @@ try:
                     print(s)  # print result
             if verbose == True:
                 print()  # in case last result had no newline
+            elif null:
+                print()  # don't print any message
             else:
                 print('  ' + void_msg)  # adds message to end of line
             break  # send alternate command sequence only once, immediately exit loop
