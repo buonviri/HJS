@@ -32,7 +32,7 @@ do_slow = False
 verbose = True
 do_null = False
 void_msg = ''  # if void flag is used, this stores the one message that gets printed
-# add new entries to flags() function as well
+# add new entries to flags() function as well, make sure these are global in GetCommand
 
 # set product name, default is S1LP for historical purposes
 my_product = 'S1LP'
