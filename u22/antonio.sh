@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo echo running antonio.sh
+sudo echo Running antonio.sh
 
 sudo apt install build-essential linux-headers-$(uname -r) -y
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test && sudo apt update && sudo apt-get install --only-upgrade libstdc++6 -y
@@ -14,11 +14,12 @@ cd -
 rm -rf libft
 sudo ldconfig
 
-sudo apt install gcc-12  # added by HJS
+sudo apt install gcc-12 picocom  # added by HJS
 
-printf "Additional instructions:"
+printf "\n\nAdditional instructions:\n\n"
+printf "cd ~/S2LP\n"
 printf "tar xvzf dna2_self_test.tar.gz\n"
-printf "cd ~/S2LP/dna2_self_test\n"
+printf "cd dna2_self_test\n"
 printf "chmod +x ./setup.sh\n"
 printf "./setup.sh\n"
 printf "chmod +x ./run.sh\n"
