@@ -14,4 +14,14 @@ cd -
 rm -rf libft
 sudo ldconfig
 
+sudo apt install gcc-12  # added by HJS
+
+printf "Additional instructions:"
+printf "tar xvzf dna2_self_test.tar.gz\n"
+printf "cd ~/S2LP/dna2_self_test\n"
+printf "chmod +x ./setup.sh\n"
+printf "./setup.sh\n"
+printf "chmod +x ./run.sh\n"
+printf "./run.sh\n"
+
 # EOF
