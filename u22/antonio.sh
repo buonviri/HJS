@@ -14,4 +14,10 @@ cd -
 rm -rf libft
 sudo ldconfig
 
+printf "tar xvzf dna2_self_test.tar.gz\n"
+printf "chmod +x ./setup.sh\n"
+printf "./setup.sh\n"
+printf "chmod +x ./run.sh\n"
+printf "./run.sh\n"
+
 # EOF
