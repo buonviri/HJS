@@ -73,7 +73,7 @@ alias minfan="python3 ~/HJS/statlog/statlog.py S2LP-fan.a.40+fan-void"
 alias s2="python3 ~/HJS/statlog/statlog.py S2XX-stats-void"
 alias cb12="cd ~/HJS/statlog && source ./CB++.sh"
 alias bmc="python3 ~/HJS/statlog/statlog.py S2XX-info-void"
-alias xlog="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/xlog.txt && python3 ~/HJS/statlog/statlog.py S2XX-xlog-null | tee -a ~/xlog.txt"
+alias xlog="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/xlog.info && python3 ~/HJS/statlog/statlog.py S2XX-xlog-null | tee -a ~/xlog.info"
 
-alias ver="printf '\n\e[1;35m   HJS aliases v2.89\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v2.90\e[0m\n\n'"
 # EOF
