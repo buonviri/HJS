@@ -17,12 +17,9 @@ sudo ldconfig
 sudo apt install gcc-12 picocom  # added by HJS
 
 printf "\n\nAdditional instructions:\n\n"
-printf "cd ~/S2LP\n"
-printf "tar xvzf dna2_self_test.tar.gz\n"
-printf "cd dna2_self_test\n"
-printf "chmod +x ./setup.sh\n"
-printf "./setup.sh\n"
-printf "chmod +x ./run.sh\n"
-printf "./run.sh\n"
+printf "Copy tar file to new folder ~S2LP\n"
+printf "cd ~/S2LP && tar xvzf dna2_self_test.tar.gz && cd dna2_self_test\n"
+printf "chmod +x ./setup.sh && ./setup.sh\n"
+printf "chmod +x ./run.sh && ./run.sh\n"
 
 # EOF
