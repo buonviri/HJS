@@ -31,7 +31,7 @@ function check_code () {
 sudo echo  # ensure password has been entered, print blank line
 hostname=$(hostname)  # store for use in log
 purple "Starting setup on $hostname...\n\n"  # print to terminal
-filename=$(printf "%s.log" "$hostname")  # generate filename
+filename=$(printf "%s.info" "$hostname")  # generate filename
 printf "\n%s: %s\n" "$(date)" "$hostname" >> $filename  # append file with timestamp
 
 # each step must have an id with NO SPACES
@@ -125,9 +125,9 @@ id="the-end"
 cd ~/HJS/u22
 purple "The End ($n)\n\n"
 
-echo Hit any key to reboot...  # TODO fix this
+echo Hit any key to reboot (not yet implemented, try hitting r)...  # TODO fix this
 
-# snipppets:
+# snippets:
 
 # echo
 # read -n 1 -r -p "Hit any key to continue..."
