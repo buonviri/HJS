@@ -16,10 +16,6 @@ import pprint  # temp
 WINDOWS = os.name == 'nt'
 LINUX = os.name == 'posix'
 
-# set columns and rows in Windows
-cols = 100
-rows = 40
-
 # set delay between log entries (in seconds)
 logdelay = 3
 
@@ -38,21 +34,14 @@ void_msg = ''  # if void flag is used, this stores the one message that gets pri
 my_product = 'S1LP'
 
 
-def stat(dev):
-    dev.write(b'stat\n')
-    val = dev.read(99999)
-    return val.decode('utf-8').strip()
-# End
-
-
-def other(dev, cmd):
+def bmc_cmd(dev, cmd):
     dev.write(bytes(cmd + '\n', 'utf-8'))
     val = dev.read(99999)
     return val.decode('utf-8').strip()
 # End
 
 
-def getinfo(stat):
+def getinfoS1LP(stat):
     discard = []
     info = {'todo': [],}
     keys = {'V_0P55V': '0.55(V)', 'I_0P55V': '0.55(A)',
@@ -112,6 +101,35 @@ def getinfo(stat):
         print('Todo: ' + '\n'.join(info['todo']))
     else:
         del info['todo']
+    return info
+# End
+
+
+def getinfoS2LP(stats):
+    info = {}
+    keys = []
+    vals = []
+    lines = stats.split('\n')
+    for line in lines:  #lines start with VAL/LAST/MEAN/MAX
+        nospaces = line.replace(' ', '')
+        if nospaces.startswith('VAL'):
+            keys = nospaces.split(',')
+        elif nospaces.startswith('LAST'):
+            vals = nospaces.split(',')
+            if len(keys) == len(vals):
+                for i in range(len(keys)):
+                    key = keys[i]
+                    if key in info:  # already exists
+                        if info[key] == vals[i]:
+                            pass  # both match
+                        else:
+                            print('Key exists: ' + key + '(Keeping ' + info[key] + ', Discarding ' + vals[i] + ')')
+                    else:
+                        info[key] = vals[i]
+            else:
+                print('Length of keys and vals does not match')
+    # print(stats)
+    # pprint.pprint(info)
     return info
 # End
 
@@ -257,6 +275,19 @@ def flags():
 # End
 
 
+def filterS2LPstats(s):
+    # these should all be temporary!
+    s = s.replace('TEMP_', '   T_')  # fix for S2LP stats for readability
+    s = s.replace(' W_', ' P_')  # fix for S2LP stats for readability
+    s = s.replace('I_P', ' I_')  # fix for S2LP stats for readability
+    s = s.replace('I_CBLK', '  I_CB')  # fix for S2LP stats for readability
+    s = s.replace('I_CB_A1A2', ' I_CB_A12')  # fix for S2LP stats for readability
+    s = s.replace('I_CB_B1B2', ' I_CB_B12')  # fix for S2LP stats for readability
+    # end of temporary replacements
+    return s
+# End
+
+
 # start of script
 if WINDOWS:
     msg = '\nDetected Windows OS\n'
@@ -270,14 +301,21 @@ if len(sys.argv) > 1:  # not just script name, but has arg(s)
     thisfile = GetCommand(' '.join(sys.argv[1:]))
 else:  # use filename
     thisfile = GetCommand(os.path.basename(__file__))
-if my_product in ['S1LP',]:  # list of products that use '?'
+if my_product in ['S1LP',]:  # list of products that use '?' and 'snread'
     help = '?'  # set to '?' for S1LP
+    snread = 'snread'  # read serial number
 else:
     help = 'help'  # set to 'help' for S2LP
+    snread = 'cfg'  # read config which contains serial number
 
 if thisfile == 'statlog':  # default name in repo
     msg = msg + 'Logging stat command (' + my_product + ')'
     dostat = True
+    stat = 'stat'
+elif thisfile == 'statslog':  # variation
+    msg = msg + 'Logging stat command (' + my_product + ')'
+    dostat = True
+    stat = 'stats'
 else:  # not statlog
     msg = msg + 'Sending command sequence to ' + my_product + flags() + ': ' + thisfile
     dostat = False
@@ -314,7 +352,7 @@ except:
 
 sn_dec = 'unknown'  # default in case it isn't read
 if dostat:  # do not pause for input on the single commands, just the logging version
-    s = other(io, 'snread')
+    s = bmc_cmd(io, snread)  # snread command varies
     serial_line_start = s.find('Serial Number')
     serial_sub = s[serial_line_start + 15:]  # should be '= serdec = serhex...'
     serial_tokens = serial_sub.split()  # token index 1 and 3 will be serial number info
@@ -329,7 +367,7 @@ try:
     while True:
         t = int(time.time())  # floating point epoch time
         if dostat:
-            s = stat(io)  # send stat command
+            s = bmc_cmd(io, stat)  # send stat command
         else:
             sequence = thisfile.split('+')  # plus sign may be used to separate commands
             if verbose == False:  # don't need to print for verbose mode, already done
@@ -337,18 +375,11 @@ try:
             for command in sequence:
                 newline = True  # print newline by default
                 if command == 'help':  # encoded message, translates to '?' for S1LP
-                    s = other(io, help)  # send question mark instead of the word help for S1LP
+                    s = bmc_cmd(io, help)  # send question mark instead of the word help for S1LP
                 else:
-                    s = other(io, command)  # send ANY alternate command, so unsafe!
+                    s = bmc_cmd(io, command)  # send ANY alternate command, so unsafe!
                 s = s.replace('success 0x000000', ' ')  # strip verbosity
-                # these should all be temporary!
-                s = s.replace('TEMP_', '   T_')  # fix for S2LP stats for readability
-                s = s.replace(' W_', ' P_')  # fix for S2LP stats for readability
-                s = s.replace('I_P', ' I_')  # fix for S2LP stats for readability
-                s = s.replace('I_CBLK', '  I_CB')  # fix for S2LP stats for readability
-                s = s.replace('I_CB_A1A2', ' I_CB_A12')  # fix for S2LP stats for readability
-                s = s.replace('I_CB_B1B2', ' I_CB_B12')  # fix for S2LP stats for readability
-                # end of temporary replacements
+                s = filterS2LPstats(s)  # should be fixed in BMC instead
                 if s.startswith('Pin P'):  # S2 BMC verbose pin set output
                     slist = s[4:].split()  # split on all whitespace, starting with P after the word Pin
                     s = '\n' + ' '.join(slist) + '\n ' + slist[0][0:4]  # newline plus joined line plus pin number
@@ -366,13 +397,21 @@ try:
             else:
                 print('  ' + void_msg)  # adds message to end of line
             break  # send alternate command sequence only once, immediately exit loop
-        info = getinfo(s)
-        # pprint.pprint(info)
         csv = []
-        for k in info:
-            row = k + ',' + info[k][0] + ',' + info[k][1]
-            csv.append(row)
-            print(row)
+        if my_product in ['S1LP',]:
+            info = getinfoS1LP(s)
+            for k in info:
+                row = k + ',' + info[k][0] + ',' + info[k][1]  # stat name, value, units
+                csv.append(row)
+                print(row)
+        else:
+            info = getinfoS2LP(s)
+            # pprint.pprint(info)
+            for k in info:
+                if k != 'VAL':
+                    row = k + ',' + info[k]  # stat name, value
+                    csv.append(row)
+                    print(row)
         if t - lastlog >= logdelay:  # wait at least logdelay seconds to write to log again
             lastlog = t  # record for subsequent checks
             log(','.join([ hex(t)[2:], ','.join(csv) ]))  # join with commas [timestamp, info]
