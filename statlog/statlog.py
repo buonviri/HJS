@@ -327,6 +327,7 @@ logfile = thisfile.replace(' ', '.') + '-' + hex(int(time.time()))[2:] + '.csv' 
 if verbose:
     print ('Logging to: ' + logfile + ' in ' + os.path.join(os.getcwd(), 'log'))
 checkdir('log')  # just in case it doesn't exist, add it
+csv_header = ['        ',]  # empty timestamp, gets completed in at the first read
 
 # configure serial port and open connection
 io = serial.Serial()
@@ -358,10 +359,10 @@ if dostat:  # do not pause for input on the single commands, just the logging ve
     serial_tokens = serial_sub.split()  # token index 1 and 3 will be serial number info
     sn_dec = serial_tokens[1]
     sn_hex = serial_tokens[3]
-    print('Serial Number = ' + sn_dec + ' (' + sn_hex + ')')
+    print(my_product + ' Serial Number = ' + sn_dec + ' (' + sn_hex + ')')
     input("Press <Enter> to initiate logging...")
     print()
-log('timestamp,S1LP SN ' + sn_dec + '...')  # header row
+log('timestamp,' + my_product + ' SN ' + sn_dec + '...')  # header row
 
 try:
     while True:
@@ -409,9 +410,14 @@ try:
             # pprint.pprint(info)
             for k in info:
                 if k != 'VAL':
-                    row = k + ',' + info[k]  # stat name, value
+                    if len(csv_header) > 0:  # 0 = done, 1 = blank timestamp, 2+ = appended at least once
+                        csv_header.append(k)
+                    row = info[k]  # value only
                     csv.append(row)
-                    print(row)
+                    print(k.ljust(10) + ' = ' + row)
+        if len(csv_header) > 1:
+            log(','.join(csv_header))
+            csv_header = []  # next iteration it won't be touched
         if t - lastlog >= logdelay:  # wait at least logdelay seconds to write to log again
             lastlog = t  # record for subsequent checks
             log(','.join([ hex(t)[2:], ','.join(csv) ]))  # join with commas [timestamp, info]
@@ -429,13 +435,3 @@ elif LINUX and do_pause:
     os.system('sleep 2')  # pause for two seconds
 
 #EOF
-
-# NEED TO UPDATE FOR FTDI CHIP
-# linux instructions for permanent port numbers
-# create a file: 99-usb-serial.rules
-# in folder: /etc/udev/rules.d/
-# containing two lines:
-# SUBSYSTEM=="tty", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", SYMLINK+="ttyUSB91"
-# EOT
-# then do: udevadm control --reload-rules
-# and then: reboot
