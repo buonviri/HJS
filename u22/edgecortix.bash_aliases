@@ -76,9 +76,9 @@ alias cb12="cd ~/HJS/statlog && source ./CB12.sh"
 alias cbm2="cd ~/HJS/statlog && source ./CBM2.sh"
 alias bmc="python3 ~/HJS/statlog/statlog.py S2XX-info-void"
 alias info="python3 ~/HJS/statlog/statlog.py S2XX-info-void"
-alias xlog="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/zog.info && python3 ~/HJS/statlog/statlog.py S2XX-xlog-null | tee -a ~/zog.info"
+alias xlog="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/zog.info && python3 ~/HJS/statlog/statlog.py S2XX-xlog-slow | tee -a ~/zog.info"
 alias cfg="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/cfg.info && python3 ~/HJS/statlog/statlog.py S2XX-cfg-null | tee -a ~/cfg.info"
 # End of S2
 
-alias ver="printf '\n\e[1;35m   HJS aliases v2.95\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v2.96\e[0m\n\n'"
 # EOF
