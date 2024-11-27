@@ -72,12 +72,13 @@ alias imdt="screen /dev/ttyUSB0 115200"
 alias maxfan="python3 ~/HJS/statlog/statlog.py S2LP-fan.a.100+fan-void"
 alias minfan="python3 ~/HJS/statlog/statlog.py S2LP-fan.a.40+fan-void"
 alias s2="python3 ~/HJS/statlog/statlog.py S2XX-stats-void"
-alias cb12="cd ~/HJS/statlog && source ./CB++.sh"
+alias cb12="cd ~/HJS/statlog && source ./CB12.sh"
+alias cbm2="cd ~/HJS/statlog && source ./CBM2.sh"
 alias bmc="python3 ~/HJS/statlog/statlog.py S2XX-info-void"
 alias info="python3 ~/HJS/statlog/statlog.py S2XX-info-void"
 alias xlog="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/zog.info && python3 ~/HJS/statlog/statlog.py S2XX-xlog-null | tee -a ~/zog.info"
 alias cfg="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/cfg.info && python3 ~/HJS/statlog/statlog.py S2XX-cfg-null | tee -a ~/cfg.info"
 # End of S2
 
-alias ver="printf '\n\e[1;35m   HJS aliases v2.94\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v2.95\e[0m\n\n'"
 # EOF
