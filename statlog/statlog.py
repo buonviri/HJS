@@ -432,6 +432,7 @@ if WINDOWS and do_pause:
     else:
         os.system('timeout /t 2')  # keep window open for up to two seconds, keystroke ends it instantly        
 elif LINUX and do_pause:
-    os.system('sleep 2')  # pause for two seconds
+    pass  # can't think of any reason a pause makes sense
+    # os.system('sleep 2')  # pause for two seconds
 
 #EOF
