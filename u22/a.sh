@@ -54,8 +54,7 @@ check_code $? $n $id
 
 id="alt-statlog"
 ((n++))
-echo Copying statlog.py to create alternate commands.  # since copy script has no output
-cd ~/HJS/statlog && source alt.sh && cd  # make copies
+echo This step is obsolete: Copying statlog.py to create alternate commands.  # echo, since copy script has no output
 check_code $? $n $id
 
 id="gnome"
