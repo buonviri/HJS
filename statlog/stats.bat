@@ -1,3 +1,3 @@
 @echo off
 
-python.exe S2LP-stats-void.py
+python.exe statlog.py S2XX-stats-void
