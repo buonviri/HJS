@@ -68,7 +68,7 @@ alias thunderbolt="echo Thunderbolt entries in lspci... && lspci | grep -i thund
 alias grau="echo GRAUGEAR entries in lsusb... && lsusb | grep -i graugear"
 alias usb="python3 ~/HJS/u22/lsusb.py | tee ~/usb.info"
 alias imdt="screen /dev/ttyUSB0 115200"
-alias jam="jamlog="$@";jamt=$(date +%s);jamhex=$(printf "%x" $jamt);echo Writing to file...;echo $jamhex $jamlog >> ~/jam.info"
+alias jam="source ~/HJS/u22/jam.sh"
 # S2
 alias maxfan="python3 ~/HJS/statlog/statlog.py S2LP-fan.a.100+fan-void"
 alias minfan="python3 ~/HJS/statlog/statlog.py S2LP-fan.a.40+fan-void"
