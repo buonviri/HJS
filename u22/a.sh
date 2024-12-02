@@ -125,6 +125,7 @@ cd ~/HJS/u22
 purple "The End ($n)\n\n"
 
 echo 'Hit any key to reboot (not yet implemented, try hitting q instead)...'  # TODO fix this
+echo 'After reboot, resume with aliases r thru z'
 
 # snippets:
 

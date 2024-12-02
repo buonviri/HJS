@@ -1,22 +1,22 @@
 
 # ubuntu aliases by HJS
-alias a="sudo apt install git xsel ntpdate -y; printf '\n\e[1;35m   Confirm that installation succeeded.\e[0m\n\n'"
-alias b="git clone https://github.com/buonviri/HJS.git && cd ~/HJS/statlog && cd"
-alias c="cd ~/HJS/u22 && source ec.sh"
-alias d="sudo adduser ec dialout"
-alias e="sudo apt install python3-pip -y"
-alias f="pip install pyserial; printf '\n\e[1;35m   Ignore warning about path.\e[0m\n\n'"
-alias g="pip install pyperclip"
-alias h="sudo apt install lm-sensors -y"
-alias i="printf '\n\e[1;35m   Accept defaults if needed.\e[0m\n\n'; sleep 1; sudo sensors-detect --auto"
-alias j="printf '\n\e[1;35m   To continue, enter the motherboard name: [b660/x300/x600/rplp/k803/none]...\e[0m\n\n'"
-alias k="grep GRUB_CMDLINE_LINUX_DEFAULT /etc/default/grub; printf '\n\e[1;35m   (Existing command line)\e[0m\n\n'"
-alias l="sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet splash\"/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet splash pcie_aspm=off default_hugepagesz=1G hugepagesz=1G hugepages=4 iommu=pt\"/g' /etc/default/grub"
-alias m="sudo sed -i 's/GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"acpi_enforce_resources=lax\"/g' /etc/default/grub; printf '\n\e[1;35m   Fan sensor fix implemented.\e[0m\n\n'"
-alias n="grep GRUB_CMDLINE_LINUX /etc/default/grub; printf '\n\e[1;35m   Confirm pages, iommu, and lax.\e[0m\n\n'"
-alias o="sudo update-grub; printf '\n\e[1;35m   Updated GRUB.\e[0m\n\n'"
-alias p="printf '\n\e[1;35m   WARNING: Next alias will reboot the system!\e[0m\n\n'"
-alias q="reboot"
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
 alias r="grep HugePages_ /proc/meminfo; printf '\n\e[1;35m   Confirm 4/4/0/0.\e[0m\n\n'"
 alias s="sensors; printf '\e[1;35m   Confirm fan and temp sensors.\e[0m\n\n'"
 alias t="sudo lspci | grep -i 1fdc:.... || echo Device not found: 1fdc:nnnn;printf '\n\e[1;35m   Confirm xx:00.0 is Co-processor with Device ID 1fdc:0100.\e[0m\n\n'"
@@ -81,5 +81,5 @@ alias xlog="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/zog.info && p
 alias cfg="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/cfg.info && python3 ~/HJS/statlog/statlog.py S2XX-cfg-null | tee -a ~/cfg.info"
 # End of S2
 
-alias ver="printf '\n\e[1;35m   HJS aliases v2.98\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.00\e[0m\n\n'"
 # EOF
