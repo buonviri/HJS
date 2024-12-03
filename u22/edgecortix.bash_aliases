@@ -29,13 +29,13 @@ alias z="printf '\n\e[1;35m   sysinfo mera16 camera\n   fym mde yod\n   meas mea
 alias uu="sudo apt update && sudo apt upgrade"
 alias 00="poweroff"
 alias bios="systemctl reboot --firmware-setup"
-alias b660="printf '\ncoretemp\nnct6775\n\n# added by EdgeCortix\n' | sudo tee -a /etc/modules && cat /etc/modules"
-alias x300="printf '\nnct6775\n# added by EdgeCortix\n\n' | sudo tee -a /etc/modules && cat /etc/modules"
-alias x600="printf '\nlm92\nnct6775\n# added by EdgeCortix\n\n' | sudo tee -a /etc/modules && printf '\e[1;35mUpdated file:\e[0m\n' && cat /etc/modules"
-alias rplp="printf '\ncoretemp\nnct6775\n\n# added by EdgeCortix\n' | sudo tee -a /etc/modules && cat /etc/modules"
-alias k803="printf '\n\e[1;35m   OnLogic K803 is not currently supported - sensor investigation is required.\e[0m\n\n'"
-alias fl3="printf '\ncoretemp\n\n# added by EdgeCortix\n' | sudo tee -a /etc/modules && cat /etc/modules"
-alias none="printf '\n\e[1;35m   No motherboard chosen.\e[0m\n\n'"
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
 alias hjs="cd ~/HJS/u22"
 alias snap="killall snap-store && snap refresh"
 alias mera16="cd ~/S1LP/install_mera/ && source start.sh && mera --version && mera --sakura1_start"
@@ -62,10 +62,10 @@ alias fans="sensors | grep fan | grep -v ':[ \\t]\\+0 RPM' || echo No fans detec
 alias temps="sensors | \grep ':.*+.*C'"
 alias aspm="source ~/HJS/u22/aspm.sh"
 alias us="cd ~/HJS/u22 && git pull && source ./us.sh"
-alias novm="lspci | grep -v -i vmware"
-alias noloops="sudo fdisk -l | sed -e '/Disk \/dev\/loop/,+5d'"
-alias thunderbolt="echo Thunderbolt entries in lspci... && lspci | grep -i thunderbolt"
-alias grau="echo GRAUGEAR entries in lsusb... && lsusb | grep -i graugear"
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
 alias usb="python3 ~/HJS/u22/lsusb.py | tee ~/usb.info"
 alias imdt="screen /dev/ttyUSB0 115200"
 alias jam="source ~/HJS/u22/jam.sh"
@@ -81,5 +81,5 @@ alias xlog="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/zog.info && p
 alias cfg="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/cfg.info && python3 ~/HJS/statlog/statlog.py S2XX-cfg-null | tee -a ~/cfg.info"
 # End of S2
 
-alias ver="printf '\n\e[1;35m   HJS aliases v3.00\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.01\e[0m\n\n'"
 # EOF
