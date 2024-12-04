@@ -1,5 +1,5 @@
 # temporary alias to run antonio's dna2 script
-alias ant='cd ~/S2LP/dna2_self_test && ./setup.sh && echo run.sh'
+alias ant='cd ~/S2LP/dna2_self_test && ./setup.sh && echo && echo Type ./run.sh or ./run.sh 1000'
 
 # Print "ubuntu" to terminal screen on startup
 echo "        _                 _         "
