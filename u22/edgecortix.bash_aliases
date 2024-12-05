@@ -27,6 +27,7 @@ alias x="printf '\n\e[1;35m   The End\e[0m\n\n'"
 alias y="printf '\n\e[1;35m   mera-setup camera-setup ips-setup\n   mera16 numpy deploy\e[0m\n\n'"
 alias z="printf '\n\e[1;35m   sysinfo mera16 camera\n   fym mde yod\n   meas measu measur measure\n   sjlog ips perf\e[0m\n\n'"
 alias uu="sudo apt update && sudo apt upgrade"
+alias au="sudo apt autoremove -y"
 alias 00="poweroff"
 alias bios="systemctl reboot --firmware-setup"
 # alias is obsolete
@@ -81,5 +82,5 @@ alias xlog="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/zog.info && p
 alias cfg="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/cfg.info && python3 ~/HJS/statlog/statlog.py S2XX-cfg-null | tee -a ~/cfg.info"
 # End of S2
 
-alias ver="printf '\n\e[1;35m   HJS aliases v3.01\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.02\e[0m\n\n'"
 # EOF
