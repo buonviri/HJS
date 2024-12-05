@@ -27,7 +27,7 @@ alias x="printf '\n\e[1;35m   The End\e[0m\n\n'"
 alias y="printf '\n\e[1;35m   mera-setup camera-setup ips-setup\n   mera16 numpy deploy\e[0m\n\n'"
 alias z="printf '\n\e[1;35m   sysinfo mera16 camera\n   fym mde yod\n   meas measu measur measure\n   sjlog ips perf\e[0m\n\n'"
 alias uu="sudo apt update && sudo apt upgrade"
-alias au="sudo apt autoremove -y"
+alias aa="sudo apt autoremove -y"
 alias 00="poweroff"
 alias bios="systemctl reboot --firmware-setup"
 # alias is obsolete
