@@ -10,7 +10,4 @@ echo " | |_| | |_) | |_| | | | | |_| |_| |"
 echo "  \__,_|_.__/ \__,_|_| |_|\__|\__,_|"
 echo
 
-# to be safe, last thing should be cd
-cd
-
 # EOF
