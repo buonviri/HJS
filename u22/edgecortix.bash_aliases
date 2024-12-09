@@ -82,6 +82,7 @@ alias info="python3 ~/HJS/statlog/statlog.py S2XX-info-void"
 alias xlog="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/zog.info && python3 ~/HJS/statlog/statlog.py S2XX-xlog-slow | tee -a ~/zog.info"
 alias cfg="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/cfg.info && python3 ~/HJS/statlog/statlog.py S2XX-cfg-null | tee -a ~/cfg.info"
 alias enpg="python3 ~/HJS/statlog/statlog.py S2LP-pins.-quotestar-EN_PG-starquote-"
+alias s2do="python3 ~/HJS/statlog/statlog.py"
 # End of S2
 
 alias ver="printf '\n\e[1;35m   HJS aliases v3.03\e[0m\n\n'"
