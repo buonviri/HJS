@@ -241,17 +241,17 @@ def GetCommand(fullfilename):
         thisfile = thisfile[:-5]  # trim suffix
         do_slow = True
 
-    # strip product prefix
-    if thisfile.startswith('S1LP-'):
+    # strip product prefix, allow dash or space
+    if thisfile.startswith('S1LP-') or thisfile.startswith('S1LP '):
         thisfile = thisfile[5:]  # trim prefix
         my_product = 'S1LP'
-    elif thisfile.startswith('S2LP-'):
+    elif thisfile.startswith('S2LP-') or thisfile.startswith('S2LP '):
         thisfile = thisfile[5:]  # trim prefix
         my_product = 'S2LP'
-    elif thisfile.startswith('S2M2-'):
+    elif thisfile.startswith('S2M2-') or thisfile.startswith('S2M2 '):
         thisfile = thisfile[5:]  # trim prefix
         my_product = 'S2M2'
-    elif thisfile.startswith('S2XX-'):
+    elif thisfile.startswith('S2XX-') or thisfile.startswith('S2XX '):
         thisfile = thisfile[5:]  # trim prefix
         my_product = 'S2XX'
 
