@@ -289,6 +289,11 @@ def filterS2LPstats(s):
 # End
 
 
+def filter(s):  # replace keywords with symbols
+    return s.replace('quotestar', '"*').replace('starquote', '*"')
+# End
+
+
 # start of script
 if WINDOWS:
     msg = '\nDetected Windows OS\n'
@@ -318,7 +323,7 @@ elif thisfile == 'statslog':  # variation
     dostat = True
     stat = 'stats'
 else:  # not statlog
-    msg = msg + 'Sending command sequence to ' + my_product + flags() + ': ' + thisfile
+    msg = msg + 'Sending command sequence to ' + my_product + flags() + ': ' + filter(thisfile)
     dostat = False
 if verbose:  # have to wait until after filename is parsed to do first print check
     print(msg)
@@ -379,8 +384,7 @@ try:
                 if command == 'help':  # encoded message, translates to '?' for S1LP
                     s = bmc_cmd(io, help)  # send question mark instead of the word help for S1LP
                 else:
-                    filteredcommand = command.replace('quotestar', '"*').replace('starquote', '*"')
-                    s = bmc_cmd(io, filteredcommand)  # send ANY alternate command, so unsafe!
+                    s = bmc_cmd(io, filter(command))  # send ANY alternate command, so unsafe!
                 s = s.replace('success 0x000000', ' ')  # strip verbosity
                 s = filterS2LPstats(s)  # should be fixed in BMC instead
                 if s.startswith('Pin P'):  # S2 BMC verbose pin set output
