@@ -290,7 +290,7 @@ def filterS2LPstats(s):
 
 
 def filter(s):  # replace keywords with symbols
-    return s.replace('(quotestar)', '"*').replace('(starquote)', '*"')
+    return s.replace('-quotestar-', '"*').replace('-starquote-', '*"')
 # End
 
 
