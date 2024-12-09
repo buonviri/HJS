@@ -160,8 +160,9 @@ def GetBestPort(thisfile):
         id_list = id_byfile[thisfile]  # if this file has an entry, start with that list
         xx_list = preferred[thisfile]  # ditto
     except:
-        if verbose:
-            print('  Script filename not found in dict... ' + thisfile)  # default to S1LP/S2LP id
+        # removed this print statement, which almost always triggers and add no value
+        # if verbose:
+        #     print('  Script filename not found in dict... ' + thisfile)  # default to S1LP/S2LP id
         id_list = ['0403:6015',]  # start with a list containing default
         xx_list = ['/home/ec/COM5', '/dev/ttyUSB51', 'COM51',]  # ditto
     # add these lines to use windows null modem emulators
@@ -378,7 +379,8 @@ try:
                 if command == 'help':  # encoded message, translates to '?' for S1LP
                     s = bmc_cmd(io, help)  # send question mark instead of the word help for S1LP
                 else:
-                    s = bmc_cmd(io, command)  # send ANY alternate command, so unsafe!
+                    filteredcommand = command.replace('quotestar', '"*').replace('starquote', '*"')
+                    s = bmc_cmd(io, filteredcommand)  # send ANY alternate command, so unsafe!
                 s = s.replace('success 0x000000', ' ')  # strip verbosity
                 s = filterS2LPstats(s)  # should be fixed in BMC instead
                 if s.startswith('Pin P'):  # S2 BMC verbose pin set output
