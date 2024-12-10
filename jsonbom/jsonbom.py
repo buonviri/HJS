@@ -10,6 +10,7 @@ def GetTokens(x):  # modified to split on comma
 
 def convert(filename):
     out = {}
+    height = []  # blank list for height strings
     header = []  # should get overwritten
     keys = [
         '-',
@@ -30,6 +31,7 @@ def convert(filename):
         'Height',
     ]
     good_keys = [2,7,8,11,15]
+    height_keys = [2,15]  # ECPN and height
     count = 0
     refdescount = 0
     with open(filename, 'r') as f:
@@ -51,14 +53,20 @@ def convert(filename):
             else:
                 refdescount = refdescount + 1
                 out[refdes] = {}
+                height_string = refdes  # initialize string each time using refdes
                 for k in good_keys:
                     out[refdes][keys[k]] = tokens[k]
+                for k in height_keys:
+                    height_string = height_string + '\t' + tokens[k]  # add value to string
+                height.append(height_string)  # add new height string to list
         count = count + 1
     formatted = pprint.pformat(out, indent=2, width=200)
     # print(formatted)
     print('  Found ' + str(refdescount) + ' reference designators')
     with open(filename + ' converted to.dict', 'w') as f:
         f.write(formatted + '\n')
+    with open('z.tsv', 'w') as f:  # if multiple csv are processed, only the last tsv will survive
+        f.write('\n'.join(height) + '\n')
     return str(count)  # BOM Line Items
 # End
 
