@@ -21,12 +21,12 @@ alias r="grep HugePages_ /proc/meminfo; printf '\n\e[1;35m   Confirm 4/4/0/0.\e[
 alias s="sensors; printf '\e[1;35m   Confirm fan and temp sensors.\e[0m\n\n'"
 alias t="sudo lspci | grep -i 1fdc:.... || echo Device not found: 1fdc:nnnn;printf '\n\e[1;35m   Confirm xx:00.0 is Co-processor with Device ID 1fdc:0100.\e[0m\n\n'"
 alias u="sudo lspci -vvv -d 1fdc:0100 | grep -E 'Subsystem:|LnkSta:|Region 0:|Region 2:|Region 4:'  | awk '{\$1=\$1;print}' && printf '\n\e[1;35m   Confirm 8M/8M/8M/8GT/x16.\e[0m\n\n'"
-alias v="sudo apt update && sudo apt upgrade"
+alias v="sudo apt update -y && sudo apt upgrade -y"
 alias w="printf '\n\e[1;35m   Downgrade numpy:\n   pip install --force-reinstall -v numpy==1.26.4\e[0m\n\n'"
 alias x="printf '\n\e[1;35m   The End\e[0m\n\n'"
 alias y="printf '\n\e[1;35m   mera-setup camera-setup ips-setup\n   mera16 numpy deploy\e[0m\n\n'"
 alias z="printf '\n\e[1;35m   sysinfo mera16 camera\n   fym mde yod\n   meas measu measur measure\n   sjlog ips perf\e[0m\n\n'"
-alias uu="sudo apt update && sudo apt upgrade"
+alias uu="sudo apt update -y && sudo apt upgrade -y"
 alias ar="sudo apt autoremove -y"
 alias 00="poweroff"
 alias bios="systemctl reboot --firmware-setup"
@@ -85,5 +85,5 @@ alias enpg="python3 ~/HJS/statlog/statlog.py S2LP-pins.-quotestar-EN_PG-starquot
 alias s2do="python3 ~/HJS/statlog/statlog.py S2XX"
 # End of S2
 
-alias ver="printf '\n\e[1;35m   HJS aliases v3.04\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.05\e[0m\n\n'"
 # EOF
