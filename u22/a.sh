@@ -128,11 +128,11 @@ us  # copy aliases to Home
 
 # splash EC
 # purple note about testing ssh
-# move avatar note to end
+# move avatar note to end, rename S1LP folder
 
 purple "The End ($n)\n\n"
 
-echo 'Hit any key to reboot (not yet implemented, try hitting q instead)...'  # TODO fix this
+echo 'Hit any key to reboot (not yet implemented, try typing reboot instead)...'  # TODO fix this
 echo 'After reboot, resume with aliases r thru z'
 
 # snippets:
