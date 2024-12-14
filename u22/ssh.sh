@@ -9,7 +9,7 @@ sudo ufw enable
 sudo ufw allow ssh
 echo
 
-printf "\e[1;35mTest using Windows: ssh ec@%s\e[0m\n" "$machine"
+printf "\e[1;35mTest using Windows: ssh ec@%s\n\e[0m" "$machine"
 
 echo
 
