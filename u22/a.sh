@@ -122,6 +122,7 @@ check_code $? $n $id
 
 id="the-end"
 cd ~/HJS/u22
+source ./edgecortix.bash_aliases
 purple "The End ($n)\n\n"
 
 echo 'Hit any key to reboot (not yet implemented, try hitting q instead)...'  # TODO fix this
