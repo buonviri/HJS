@@ -125,6 +125,11 @@ cd ~/HJS/u22
 source ./edgecortix.bash_aliases  # install aliases
 source ./ssh.sh  # set up ssh access
 us  # copy aliases to Home
+
+# splash EC
+# purple note about testing ssh
+# move avatar note to end
+
 purple "The End ($n)\n\n"
 
 echo 'Hit any key to reboot (not yet implemented, try hitting q instead)...'  # TODO fix this

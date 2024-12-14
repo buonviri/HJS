@@ -8,7 +8,8 @@ sudo systemctl enable ssh
 sudo ufw enable
 sudo ufw allow ssh
 echo
-echo Test using Windows: ssh ec@"$machine"
+
+printf "\e[1;35mTest using Windows: ssh ec@%s\e[0m" "$machine"
 
 echo
 
