@@ -70,7 +70,7 @@ alias us="cd ~/HJS/u22 && git pull && source ./us.sh"
 alias usb="python3 ~/HJS/u22/lsusb.py | tee ~/usb.info"
 alias imdt="screen /dev/ttyUSB0 115200"
 alias jam="source ~/HJS/u22/jam.sh"
-
+alias mem="free -m"
 # Start of S2
 alias maxfan="python3 ~/HJS/statlog/statlog.py S2LP-fan.a.100+fan-void"
 alias minfan="python3 ~/HJS/statlog/statlog.py S2LP-fan.a.40+fan-void"
@@ -85,5 +85,5 @@ alias enpg="python3 ~/HJS/statlog/statlog.py S2LP-pins.-quotestar-EN_PG-starquot
 alias s2do="python3 ~/HJS/statlog/statlog.py S2XX"
 # End of S2
 
-alias ver="printf '\n\e[1;35m   HJS aliases v3.06\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.07\e[0m\n\n'"
 # EOF
