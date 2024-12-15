@@ -2,7 +2,10 @@
 
 cd
 mkdir -p S1LP/img  # -p creates parents and doesn't fail if some already exist
-\cp -r ~/HJS/u22/img/* ~/S1LP/img  # slash uses non-alias version, -r is recursive
+mkdir -p S2LP/img  # -p creates parents and doesn't fail if some already exist
+mkdir -p S2M2/img  # -p creates parents and doesn't fail if some already exist
+mkdir -p EC/img    # -p creates parents and doesn't fail if some already exist
+\cp -r ~/HJS/u22/img/* ~/EC/img  # slash uses non-alias version, -r is recursive
 # mkdir -p S1LP-847  # test, no longer needed
 
 # set dark mode and background/wallpaper
