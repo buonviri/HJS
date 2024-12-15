@@ -131,7 +131,7 @@ us  # copy aliases to Home
 # move avatar note to end
 # rename S1LP folder - added all four, moved images to EC - DONE
 
-purple "Set avatar to ~/EC/img/eca.jpg with bounding box set to max.\n"  # same as in ec.sh
+purple "   Set avatar to ~/EC/img/eca.jpg with bounding box set to max.\n\n"  # same as in ec.sh
 purple "The End ($n)\n\n"
 
 echo 'Hit any key to reboot (not yet implemented, try typing reboot instead)...'  # TODO fix this
