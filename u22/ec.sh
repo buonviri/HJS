@@ -32,6 +32,9 @@ echo power profile:
 powerprofilesctl set performance
 powerprofilesctl get
 
+# one workspace
+gsettings set org.gnome.desktop.wm.preferences num-workspaces 1
+
 cd "$OLDPWD"
 
 echo

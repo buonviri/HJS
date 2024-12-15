@@ -128,7 +128,7 @@ us  # copy aliases to Home
 
 # splash EC
 # purple note about testing ssh - DONE
-# move avatar note to end
+# move avatar note to end, or both places - DONE
 # rename S1LP folder - added all four, moved images to EC - DONE
 
 purple "   Set avatar to ~/EC/img/eca.jpg with bounding box set to max.\n\n"  # same as in ec.sh
