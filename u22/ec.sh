@@ -6,10 +6,8 @@ mkdir -p S2LP/img  # -p creates parents and doesn't fail if some already exist
 mkdir -p S2M2/img  # -p creates parents and doesn't fail if some already exist
 mkdir -p EC/img    # -p creates parents and doesn't fail if some already exist
 \cp -r ~/HJS/u22/img/* ~/EC/img  # slash uses non-alias version, -r is recursive
-# mkdir -p S1LP-847  # test, no longer needed
 
 # set dark mode and background/wallpaper
-# echo  # removed for a.sh script
 echo dark mode and background:
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 gsettings get org.gnome.desktop.interface color-scheme
@@ -39,6 +37,6 @@ cd "$OLDPWD"
 echo
 echo Setup complete. Sincerely, HJS
 # echo Set avatar to ~/S1LP/img/eca.jpg with bounding box set to max!
-printf "\n\e[1;35m  Set avatar to ~/S1LP/img/eca.jpg with bounding box set to max.\e[0m\n\n"
+printf "\n\e[1;35m  Set avatar to ~/S1LP/img/eca.jpg with bounding box set to max.\e[0m\n\n"  # needs to be at end of a.sh as well
 
 # EOF
