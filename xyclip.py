@@ -3,24 +3,21 @@ import time
 import pyperclip
 
 info = [
-    ['jam', 'zoom', """https://us02web.zoom.us/j/7034311136?pwd%3DcVRib2RwTk9HcTBuQXZvcUpNb3ZuZz09&sa=D&source=calendar&ust=1731178891129279&usg=AOvVaw193s4XvVVrFYkVRRfDVcf7"""],
-    ['040', '.py', '040'],
-    ['071', '.py', '071'],
-    ['first search term', 'second search term or ".py" if none required', 'clipboard image']]
+    ['jam',   'zoom',    """https://us02web.zoom.us/j/7034311136?pwd%3DcVRib2RwTk9HcTBuQXZvcUpNb3ZuZz09&sa=D&source=calendar&ust=1731178891129279&usg=AOvVaw193s4XvVVrFYkVRRfDVcf7"""],
+    ['040',   '.py',     """s2lp-s2m2_0p4p0x1.hex"""],
+    ['071',   '.py',     """s2_bmc_0_7_1_secondary.hex"""],
+    ['first search term', 'second search term or ".py" if none required', 'clipboard image or filename']]
 
 
-def checkforfile(s):
-
-    targets = {
-        '040': """s2lp-s2m2_0p4p0x1.hex""",
-        '071': """s2_bmc_0_7_1_secondary.hex""",
-    }
-    if s in targets:  # string is in the list of files to open
-        filename = targets[s]
-        print('Reading: ' + filename)
+def readfile(filename):
+    print('Reading: ' + filename)
+    try:
         with open(filename, 'r') as f:  # open file
             s = f.read()  # read file
-    return s  # return either raw string or file contents
+    except:
+        print('\nFile Error\n')  # print for clarity
+        s = 'File Error'  # most likely file doesn't exist
+    return s  # return file contents
 # End
 
 
@@ -36,8 +33,11 @@ else:
         z = searchlist[2]
         if x in thisfile and y in thisfile:
             print('Found search terms: ' + x + ' & ' + y)
-            pyperclip.copy(checkforfile(z))  # place image on clipboard
+            if 'hex2clip' in thisfile:  # could add other keywords that cause readfile to happen
+                z = readfile(z)
+            pyperclip.copy(z)  # place image on clipboard
             break
+    print('Clipboard image is now accessible. Script exiting in three seconds...')
     time.sleep(3)
 
 # End
