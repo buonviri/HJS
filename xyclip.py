@@ -4,12 +4,17 @@ import pyperclip
 
 info = [
     ['jam', 'zoom', """https://us02web.zoom.us/j/7034311136?pwd%3DcVRib2RwTk9HcTBuQXZvcUpNb3ZuZz09&sa=D&source=calendar&ust=1731178891129279&usg=AOvVaw193s4XvVVrFYkVRRfDVcf7"""],
+    ['040', '.py', '040'],
     ['071', '.py', '071'],
     ['first search term', 'second search term or ".py" if none required', 'clipboard image']]
 
 
 def checkforfile(s):
-    targets = {'071': """C:\EdgeCortix\HW\S2_BMC_Hex\s2_bmc_0_7_1_secondary.hex""",}
+
+    targets = {
+        '040': """s2lp-s2m2_0p4p0x1.hex""",
+        '071': """s2_bmc_0_7_1_secondary.hex""",
+    }
     if s in targets:  # string is in the list of files to open
         filename = targets[s]
         print('Reading: ' + filename)
