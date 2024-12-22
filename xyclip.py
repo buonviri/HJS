@@ -1,6 +1,12 @@
 import os
+import sys
 import time
-import pyperclip
+try:
+    import pyperclip  # requires pip install pyperclip
+except:
+    print('This script requires pyperclip')
+    os.system('PAUSE')
+    sys.exit(0)
 
 info = [
     ['jam',   'zoom',    """https://us02web.zoom.us/j/7034311136?pwd%3DcVRib2RwTk9HcTBuQXZvcUpNb3ZuZz09&sa=D&source=calendar&ust=1731178891129279&usg=AOvVaw193s4XvVVrFYkVRRfDVcf7"""],
