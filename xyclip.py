@@ -9,9 +9,10 @@ except:
     sys.exit(0)
 
 info = [
-    ['jam',   'zoom',    """https://us02web.zoom.us/j/7034311136?pwd%3DcVRib2RwTk9HcTBuQXZvcUpNb3ZuZz09&sa=D&source=calendar&ust=1731178891129279&usg=AOvVaw193s4XvVVrFYkVRRfDVcf7"""],
-    ['040',   '.py',     """s2lp-s2m2_0p4p0x1.hex"""],
-    ['071',   '.py',     """s2_bmc_0_7_1_secondary.hex"""],
+    ['jam',        'zoom',    """https://us02web.zoom.us/j/7034311136?pwd%3DcVRib2RwTk9HcTBuQXZvcUpNb3ZuZz09&sa=D&source=calendar&ust=1731178891129279&usg=AOvVaw193s4XvVVrFYkVRRfDVcf7"""],
+    ['040',        '.py',     """s2lp-s2m2_0p4p0x1.hex"""],
+    ['04LDO',      '.py',     """s2lp-s2m2_0p4p0_DIS-P0V8-LDO_X1.hex"""],
+    ['071',        '.py',     """s2_bmc_0_7_1_secondary.hex"""],
     ['first search term', 'second search term or ".py" if none required', 'clipboard image or filename']]
 
 
