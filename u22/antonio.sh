@@ -17,7 +17,7 @@ sudo ldconfig
 sudo apt install gcc-12  # added by HJS, picocom removed
 
 printf "\n\nAdditional instructions:\n\n"
-printf "Copy tar file to new folder ~S2LP\n"
+printf "Copy tar file to new folder ~/S2LP\n"
 printf "cd ~/S2LP && tar xvzf dna2_self_test.tar.gz\n"
 printf "cd dna2_self_test\n"
 printf "chmod +x ./setup.sh && ./setup.sh\n"
