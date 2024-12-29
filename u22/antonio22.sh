@@ -8,8 +8,7 @@ sudo ldconfig
 
 printf "\n\nAdditional instructions:\n\n"
 printf "Copy tar file to new folder ~/S2LP\n"
-printf "cd ~/S2LP && tar xvzf dna2_self_test_2_2_0.tar.gz\n"
-printf "cd dna2_self_test_2_2_0\n"
+printf "cd ~/S2LP && tar xvzf dna2_self_test_2_2_0.tar.gz && cd dna2_self_test_2_2_0\n"
 printf "chmod +x ./setup_3pg.sh && ./setup_3pg.sh\n"
 printf "chmod +x ./run_3pg.sh && ./run_3pg.sh\n"
 
