@@ -72,6 +72,7 @@ alias usb="python3 ~/HJS/u22/lsusb.py | tee ~/usb.info"
 alias imdt="screen /dev/ttyUSB0 115200"
 alias jam="source ~/HJS/u22/jam.sh"
 alias mem="free -m"
+alias catinfo="tail -n +1 ~/*.info"
 # Start of S2
 alias maxfan="python3 ~/HJS/statlog/statlog.py S2LP-fan.a.100+fan-void"
 alias minfan="python3 ~/HJS/statlog/statlog.py S2LP-fan.a.40+fan-void"
@@ -89,5 +90,5 @@ alias s2do="python3 ~/HJS/statlog/statlog.py S2XX"
 alias ant="cd ~/S2LP/dna2_self_test && ./setup.sh ; echo ; echo Ensure that compute blocks 01 and 02 are enabled, then ./run.sh or ./run.sh 999"
 alias ant22="cd ~/S2LP/dna2_self_test_2_2_0 && ./setup_3pg.sh ; echo ; echo Ensure that compute blocks 01 and 02 are enabled, then ./run_3pg.sh or ./run_3pg.sh 999"
 
-alias ver="printf '\n\e[1;35m   HJS aliases v3.09\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.10\e[0m\n\n'"
 # EOF
