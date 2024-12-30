@@ -57,6 +57,7 @@ alias measu="cd ~/S1LP/latency_power_measurement/ && MERA_MEASURE_POWER=3 python
 alias measur="cd ~/S1LP/latency_power_measurement/ && python measure.py --model_path precompiled/ --name precompiled"
 alias measure="cd ~/S1LP/latency_power_measurement/ && MERA_MEASURE_POWER=3 python measure.py --model_path precompiled/ --name precompiled --power"
 alias perf="source ~/S1LP/inference/perf.sh"
+alias pci="source ~/HJS/u22/pcie.sh"
 alias pcie="source ~/HJS/u22/pcie.sh"
 alias 1fdc="sudo lspci -vvv -d 1fdc: | \\grep -E '1fdc|Subsystem:|LnkSta:|Region 0:|Region 2:|Region 4:' | tee ~/pci.info"
 alias fans="sensors | grep fan | grep -v ':[ \\t]\\+0 RPM' || echo No fans detected."
@@ -88,5 +89,5 @@ alias s2do="python3 ~/HJS/statlog/statlog.py S2XX"
 alias ant="cd ~/S2LP/dna2_self_test && ./setup.sh ; echo ; echo Ensure that compute blocks 01 and 02 are enabled, then ./run.sh or ./run.sh 999"
 alias ant22="cd ~/S2LP/dna2_self_test_2_2_0 && ./setup_3pg.sh ; echo ; echo Ensure that compute blocks 01 and 02 are enabled, then ./run_3pg.sh or ./run_3pg.sh 999"
 
-alias ver="printf '\n\e[1;35m   HJS aliases v3.08\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.09\e[0m\n\n'"
 # EOF
