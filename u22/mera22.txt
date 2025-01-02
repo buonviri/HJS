@@ -1,0 +1,11 @@
+copy mera 2.2 file to downloads
+extract here
+copy one file and four folders to ~/S2M2
+browse to 'install_mera' and run terminal here
+1  ./install_os_dependencies.sh
+2  [virtual]
+3  [mera]
+4  [models]
+5  [visualization]
+
+# EOF
