@@ -57,7 +57,10 @@ def convert(filename):
                 for k in good_keys:
                     out[refdes][keys[k]] = tokens[k]
                 for k in height_keys:
-                    height_string = height_string + '\t' + tokens[k]  # add value to string
+                    tokens_k = tokens[k]  # make a temp copy that may be modified
+                    if tokens_k.endswith(' max'):  # some height strings end with the word max
+                        tokens_k = tokens_k[:-4]  # remove the word max and leading space
+                    height_string = height_string + '\t' + tokens_k  # add value to string
                 height.append(height_string)  # add new height string to list
         count = count + 1
     formatted = pprint.pformat(out, indent=2, width=200)
