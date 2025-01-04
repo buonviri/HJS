@@ -104,10 +104,14 @@ for filename in filelist:
     dxf = lines2pairs(lines)
     print(dxf['comments'])
     # print(dxf['sections'])
+    linecount = 0
     for i in dxf['ENTITIES']:
         if i[0] == '0':
             print()
+            if i[1] == 'LINE':
+                linecount = linecount + 1
         print(i[0] + ': ' + i[1] + '  ', end='')
+    print('\n  Line count: ' + str(linecount))
 
 if pause:
     print()
