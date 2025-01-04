@@ -2,7 +2,7 @@
 
 import os
 
-pause = False  # set to true to pause before exist, false to exit instantly
+pause = True  # set to true to pause before exist, false to exit instantly
 
 
 """FUNCTIONS"""
