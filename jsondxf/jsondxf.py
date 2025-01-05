@@ -4,7 +4,8 @@ import os
 
 pause = False  # set to true to pause before exist, false to exit instantly
 replace_codes = False  # set to true to replace codes with strings
-
+print_entities = False  # set to true to print all entities during execution
+print_comments = True  # set to true to print all comments during execution
 
 """FUNCTIONS"""
 
@@ -60,7 +61,7 @@ def lines2pairs(lines):
     foo = {'_errors_': [],
            'comments': [],
            'sections': [],
-           'the__end': []}  # blank dict
+           'the__end': []}  # create blank dict
     section = '_errors_'  # default to error section
     for i in range(pairs):
         rawkey = lines[i*2].strip()  # every other line, no whitespace
@@ -86,7 +87,7 @@ def lines2pairs(lines):
                 if rawkey == '2':
                     section = val
                     foo[section] = []  # add new list for this section
-                    infotuple = ('pyname', section)  # tuple containing info
+                    infotuple = ('2', section)  # tuple containing info
                     foo['sections'].append(infotuple)  # add info tuple
                 else:
                     print('ERROR: The first key in a new section must be 2.')
@@ -104,16 +105,25 @@ for filename in filelist:
     print('\nAnalyzing: ' + filename)
     lines = getlines(filename)
     dxf = lines2pairs(lines)
-    print(dxf['comments'])
+    if print_comments:
+        for i in dxf['comments']:
+            print('  ' + i[0] + ': ' + i[1] + '\n')
     # print(dxf['sections'])
-    linecount = 0
-    for i in dxf['ENTITIES']:
-        if i[0] == '0':  # start of new entry
-            print()  # add newline
-            if i[1] == 'LINE':  # could check for more types here
-                linecount = linecount + 1
-        print(i[0] + ': ' + i[1] + '  ', end='')  # print key and value without newline
-    print('\n  Line count: ' + str(linecount))
+    if print_entities:
+        linecount = 0
+        for i in dxf['ENTITIES']:
+            if i[0] == '0':  # start of new entry
+                print()  # add newline
+                if i[1] == 'LINE':  # could check for more types here
+                    linecount = linecount + 1
+            print(i[0] + ': ' + i[1] + '  ', end='')  # print key and value without newline
+        print('\n  Line count: ' + str(linecount))
+    with open(filename + ' converted to.dict', 'w') as f:
+        for k in dxf:  # keys in dxf dictionary
+            f.write('   ---   ' + k + '   ---   ' + '\n')
+            for kcv in dxf[k]:  # key,val pairs in list
+                f.write(kcv[0] + '\n')
+                f.write(kcv[1] + '\n')
 
 if pause:
     print()

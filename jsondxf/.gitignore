@@ -1,2 +1,3 @@
-# don't commit any dxf files
+# don't commit any dxf or dict test files
 *.dxf
+*.dict
