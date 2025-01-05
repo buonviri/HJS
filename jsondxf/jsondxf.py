@@ -2,7 +2,8 @@
 
 import os
 
-pause = True  # set to true to pause before exist, false to exit instantly
+pause = False  # set to true to pause before exist, false to exit instantly
+replace_codes = False  # set to true to replace codes with strings
 
 
 """FUNCTIONS"""
@@ -28,26 +29,27 @@ def getlines(foo):
 
 def replace(foo):
     """Replace dxf codes with meaningful strings."""
-    if foo == '999':
-        return 'comment'
-    if foo == '5':
-        return '#'  # index
-    if foo == '10':
-        return 'X0'
-    if foo == '20':
-        return 'Y0'
-    if foo == '30':
-        return 'Z0'
-    if foo == '11':
-        return 'X1'
-    if foo == '21':
-        return 'Y1'
-    if foo == '31':
-        return 'Z1'
-    if foo == '100':
-        return 'db'  # handle
-    if foo == '330':
-        return 'db'  # handle
+    if replace_codes:
+        if foo == '999':
+            return 'comment'
+        if foo == '5':
+            return '#'  # index
+        if foo == '10':
+            return 'X0'
+        if foo == '20':
+            return 'Y0'
+        if foo == '30':
+            return 'Z0'
+        if foo == '11':
+            return 'X1'
+        if foo == '21':
+            return 'Y1'
+        if foo == '31':
+            return 'Z1'
+        if foo == '100':
+            return 'db'  # handle
+        if foo == '330':
+            return 'db'  # handle
     return foo  # no match found
 # End
 
@@ -61,27 +63,27 @@ def lines2pairs(lines):
            'the__end': []}  # blank dict
     section = '_errors_'  # default to error section
     for i in range(pairs):
-        key = lines[i*2].strip()  # every other line, no whitespace
-        key = replace(key)  # replace key with meaningful string
+        rawkey = lines[i*2].strip()  # every other line, no whitespace
+        key = replace(rawkey)  # replace key with meaningful string
         val = lines[i*2+1].strip()  # every other line +1, no whitespace
-        if key in ['X0', 'X1', 'Y0', 'Y1', 'Z0', 'Z1']:  # key is XYZ coord
+        if rawkey in ['10', '20', '30', '11', '21', '31']:  # key is XYZ coord
             kcv = (key, val.rjust(7))  # key comma val, with padding
         else:
             kcv = (key, val)  # key comma val, no padding
-        if key == 'comment':  # indicates comment
+        if rawkey == '999':  # indicates comment
             foo['comments'].append(kcv)  # add tuple to list
-        elif key == '0' and val == 'SECTION':
+        elif rawkey == '0' and val == 'SECTION':
             foo['sections'].append(kcv)  # add tuple to list
             section = '_errors_'
-        elif key == '0' and val == 'ENDSEC':
+        elif rawkey == '0' and val == 'ENDSEC':
             foo['sections'].append(kcv)  # add tuple to list
             section = '_errors_'
-        elif key == '0' and val == 'EOF':
+        elif rawkey == '0' and val == 'EOF':
             foo['the__end'].append(kcv)  # add tuple to list
             section = '_errors_'
         else:
             if section == '_errors_':
-                if key == '2':
+                if rawkey == '2':
                     section = val
                     foo[section] = []  # add new list for this section
                     infotuple = ('pyname', section)  # tuple containing info
