@@ -118,12 +118,20 @@ for filename in filelist:
                     linecount = linecount + 1
             print(i[0] + ': ' + i[1] + '  ', end='')  # print key and value without newline
         print('\n  Line count: ' + str(linecount))
-    with open(filename + ' converted to.dict', 'w') as f:
-        for k in dxf:  # keys in dxf dictionary
-            f.write('   ---   ' + k + '   ---   ' + '\n')
+    with open(filename + ' converted to.txt', 'w') as f:
+        for k in ['sections', 'the__end']:  # keys in dxf dictionary that should be printed
+            # f.write('   ---   ' + k + '   ---   ' + '\n')  # debug separator
             for kcv in dxf[k]:  # key,val pairs in list
                 f.write(kcv[0] + '\n')
                 f.write(kcv[1] + '\n')
+                if kcv[0] == '2':
+                    try:
+                        section = dxf[kcv[1]]  # only succeeds if section is also a dict entry
+                        for section_kcv in section:
+                            f.write(section_kcv[0] + '\n')
+                            f.write(section_kcv[1] + '\n')
+                    except:
+                        pass
 
 if pause:
     print()
