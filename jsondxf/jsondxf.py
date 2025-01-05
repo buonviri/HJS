@@ -108,11 +108,11 @@ for filename in filelist:
     # print(dxf['sections'])
     linecount = 0
     for i in dxf['ENTITIES']:
-        if i[0] == '0':
-            print()
-            if i[1] == 'LINE':
+        if i[0] == '0':  # start of new entry
+            print()  # add newline
+            if i[1] == 'LINE':  # could check for more types here
                 linecount = linecount + 1
-        print(i[0] + ': ' + i[1] + '  ', end='')
+        print(i[0] + ': ' + i[1] + '  ', end='')  # print key and value without newline
     print('\n  Line count: ' + str(linecount))
 
 if pause:
