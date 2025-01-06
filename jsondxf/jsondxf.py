@@ -4,8 +4,9 @@ import os
 
 pause = False  # set to true to pause before exist, false to exit instantly
 replace_codes = False  # set to true to replace codes with strings
-print_entities = False  # set to true to print all entities during execution
-print_comments = True  # set to true to print all comments during execution
+print_entities = True  # set to true to print all entities
+print_comments = True  # set to true to print all comments
+
 
 """FUNCTIONS"""
 
@@ -110,14 +111,25 @@ for filename in filelist:
             print('  ' + i[0] + ': ' + i[1] + '\n')
     # print(dxf['sections'])
     if print_entities:
-        linecount = 0
+        linecount = 0  # count lines printed in entities
+        zerozero = 0  # count lines with both z values equal to zero
+        thirty = ''
         for i in dxf['ENTITIES']:
             if i[0] == '0':  # start of new entry
-                print()  # add newline
+                print()  # newline
                 if i[1] == 'LINE':  # could check for more types here
                     linecount = linecount + 1
             print(i[0] + ': ' + i[1] + '  ', end='')  # print key and value without newline
-        print('\n  Line count: ' + str(linecount))
+            if i[0] =='30':  # first z value
+                thirty = i[1]
+            elif i[0] =='31':  # second z value, assumes first already happened
+                print('[[' + thirty + i[1] + ']]  ', end='')
+                if thirty.strip() == '0' and i[1].strip() == '0':  # only works for integers
+                    zerozero = zerozero + 1
+                    print('***', end='')
+        print('\nEnd of entities (*** indicates z=0)\n')  # blank line to end the section
+        print('  Line count: ' + str(linecount))
+        print('  z0z0 count: ' + str(zerozero))
     with open(filename + ' converted to.txt', 'w') as f:
         for k in ['sections', 'the__end']:  # keys in dxf dictionary that should be printed
             # f.write('   ---   ' + k + '   ---   ' + '\n')  # debug separator
