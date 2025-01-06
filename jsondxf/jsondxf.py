@@ -2,8 +2,8 @@
 
 import os
 
-pause = False  # set to true to pause before exist, false to exit instantly
-replace_codes = False  # set to true to replace codes with strings
+pause = True  # set to true to pause before exist, false to exit instantly
+replace_codes = False  # set to true to replace codes with strings, may break stuff
 print_entities = True  # set to true to print all entities
 print_comments = True  # set to true to print all comments
 
@@ -108,7 +108,7 @@ for filename in filelist:
     dxf = lines2pairs(lines)
     if print_comments:
         for i in dxf['comments']:
-            print('  ' + i[0] + ': ' + i[1] + '\n')
+            print('  ' + i[0] + ': ' + i[1])
     # print(dxf['sections'])
     if print_entities:
         linecount = 0  # count lines printed in entities
@@ -129,7 +129,7 @@ for filename in filelist:
                     print('***', end='')
         print('\nEnd of entities (*** indicates z=0)\n')  # blank line to end the section
         print('  Line count: ' + str(linecount))
-        print('  z0z0 count: ' + str(zerozero))
+        print('  Z==0 count: ' + str(zerozero))
     with open(filename + ' converted to.txt', 'w') as f:
         for k in ['sections', 'the__end']:  # keys in dxf dictionary that should be printed
             # f.write('   ---   ' + k + '   ---   ' + '\n')  # debug separator
@@ -144,7 +144,7 @@ for filename in filelist:
                             f.write(section_kcv[1] + '\n')
                     except:
                         pass
-
+# end of script
 if pause:
     print()
     os.system('PAUSE')
