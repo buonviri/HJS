@@ -1,11 +1,33 @@
-copy mera 2.2 file to downloads
+# may need this once (removed picocom):
+sudo apt install build-essential linux-headers-$(uname -r) gcc-12
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test && sudo apt update && sudo apt-get install --only-upgrade libstdc++6
+
+# tar
+copy mera 2.2 file to Downloads, e.g. mera_package_v2.2.0_ubuntu22.04_20241223-0538_with_driver.tar.gz
 extract here
-copy one file and four folders to ~/S2M2
+copy one file and four folders to ~/S2M2 or ~/S2LP
 browse to 'install_mera' and run terminal here
-1  ./install_os_dependencies.sh
-2  [virtual]
-3  [mera]
-4  [models]
-5  [visualization]
+
+# install
+./install_os_dependencies.sh
+./create_virtual_env.sh
+source start.sh
+./install_mera_and_python_dependencies.sh
+./install_mera_models_and_python_dependencies.sh
+./install_mera_visualizer_and_python_dependencies.sh
+deactivate
+
+# run
+1fdc
+cbm2
+cd ~/S2M2/install_mera && source start.sh
+cd ~/S2M2/initialize_sakura_ii && chmod +x ./setup.sh && ./setup.sh
+
+# resnet50
+cd ~/S2M2/examples/resnet50 && chmod +x ./run.sh && ./run.sh
+
+# todo
+cd telemetry_sakura_ii
+cat README.md
 
 # EOF
