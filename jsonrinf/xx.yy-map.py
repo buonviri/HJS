@@ -24,32 +24,22 @@ def getnet(target):
 # End
 
 
-def printleft(ecpn, node):
-    """Print left node."""
-    foo = '[' + node[0] + '.' + node[1] + '] ' + getnet(node)
-    print('  ' + ecpn + foo.rjust(30), end='')  # two spaces, eight ECPN length
-# End
-
-
-def printright(node):
-    """Print right node."""
-    foo = ' -> ' + getnet(node) + ' [' + node[0] + '.' + node[1] + ']'
-    print(foo)
-# End
-
-
 def transparent(ecpn):
     """Generate [a,b,b,a] list based on ECPN."""
     if ecpn == 'EC-0018R':
-        return ['1', '4', '4', '1']  # pins 1 and 4 are in/out
+        return [['1', '4', '4', '1'],]  # pins 1 and 4 are in/out
     elif ecpn == 'EC-0001U':
-        return ['D1', 'E1', 'E1', 'D1']  # first phase only
+        return [  # four phase switcher
+            ['D1', 'E1', 'E1', 'D1'],
+            ['D1', 'B1', 'B1', 'D1'],
+            ['D1', 'B9', 'B9', 'D1'],
+            ['D1', 'E9', 'E9', 'D1']]
     elif ecpn == 'EC-0003J':
-        return ['1', '2', '2', '1']  # fan header happens to match RLC
+        return [['1', '2', '2', '1'],]  # fan header happens to match RLC
     elif ecpn == 'EC-0046U':
-        return ['A1', 'A2', 'A2', 'A1']  # fan header happens to match RLC
+        return [['A1', 'A2', 'A2', 'A1'],]  # fan header happens to match RLC
     else:
-        return ['1', '2', '2', '1']  # default (RLC) is 1 -> 2 and 2 -> 1
+        return [['1', '2', '2', '1'],]  # default (RLC) is 1 -> 2 and 2 -> 1
 # End
 
 
@@ -80,22 +70,23 @@ def display(startnode):
             ecpn = info['comps'][node[0]]['PART_NUMBER']
         except:
             ecpn = '--ECPN--'
-        ab = transparent(ecpn)  # get a -> b and b -> a transparency
-        newnode = ('dev','pin')  # default in case no match is found
-        for i in range(2):
-            left = ab[2 * i]  # left pin number
-            if node[1] == left:
-                right = ab[2 * i + 1]  # right pin number
-                newnode = (node[0], right)
-        if show(node):
-            left_raw = '[' + node[0] + '.' + node[1] + '] ' + getnet(node)
-            left_str = '  ' + ecpn + left_raw.rjust(60)
-            right_str = ' -> ' + getnet(newnode) + ' [' + newnode[0] + '.' + newnode[1] + ']'
-            if newnode == ('dev','pin'):  # new node not found
-                if show_all:
-                    print(left_str + '    ???')
-            else:
-                print(left_str + right_str)
+        ab_list = transparent(ecpn)  # get list of [a -> b and b -> a] transparency sets
+        for ab in ab_list:
+            newnode = ('dev','pin')  # default in case no match is found
+            for i in range(2):
+                left = ab[2 * i]  # left pin number
+                if node[1] == left:
+                    right = ab[2 * i + 1]  # right pin number
+                    newnode = (node[0], right)
+            if show(node):
+                left_raw = '[' + node[0] + '.' + node[1] + '] ' + getnet(node)
+                left_str = '  ' + ecpn + left_raw.rjust(60)
+                right_str = ' -> ' + getnet(newnode) + ' [' + newnode[0] + '.' + newnode[1] + ']'
+                if newnode == ('dev','pin'):  # new node not found
+                    if show_all:
+                        print(left_str + '    ???')
+                else:
+                    print(left_str + right_str)
 # End
 
 
