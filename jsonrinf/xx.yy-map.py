@@ -135,6 +135,8 @@ for mynode in map['nodes']:
         display(mynode)
 # end of main
 
-if False:
-    os.system("PAUSE")
+if 'pause' in map:  # make sure key exists
+    if map['pause']:  # check if set to True
+        print()
+        os.system("PAUSE")
 # EOF

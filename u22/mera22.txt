@@ -18,6 +18,7 @@ source start.sh
 deactivate
 
 # run
+bmc
 1fdc
 cbm2
 cd ~/S2M2/install_mera && source start.sh
@@ -28,6 +29,11 @@ cd ~/S2M2/examples/detr && chmod +x ./run.sh && ./run.sh
 
 # resnet50
 cd ~/S2M2/examples/resnet50 && chmod +x ./run.sh && ./run.sh
+
+# yolo
+cd ~/S2M2/examples/yolov5 && chmod +x ./run.sh && ./run.sh
+cd ~/S2M2/examples/yolov7 && chmod +x ./run.sh && ./run.sh
+cd ~/S2M2/examples/yolov8 && chmod +x ./run.sh && ./run.sh
 
 # todo
 cd telemetry_sakura_ii
