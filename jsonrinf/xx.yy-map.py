@@ -115,12 +115,20 @@ if 'show_list' in map:
 if 'show_non_ecpn' in map:
     show_non_ecpn = map['show_non_ecpn']  # override default with yaml value
 
-# check show status
+# check status of various flags
 if 'C' not in show_list:
     print('Info:  Capacitors are hidden')
 if 'TP' not in show_list:
     print('Info:  Testpoints are hidden')
-
+if show_all:
+    print('Info:  Showing all nodes including those without a map entry')
+else:
+    print('Info:  Unmapped nodes are hidden')
+if show_non_ecpn:
+    print('Info:  Showing all parts including those without an ECPN')
+else:
+    print('Info:  Non-ECPN parts are hidden')
+    
 # start of main
 for mynode in map['nodes']:
     if mynode.startswith('info'):  # allows info string to be displayed
