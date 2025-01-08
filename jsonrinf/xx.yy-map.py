@@ -5,8 +5,10 @@ import ast
 import yaml
 
 # user settings
+# (1) verbose is ['C', 'TP'], quiet is []
 show_list = []  # show or hide C (capacitors) and TP (testpoints)
-# verbose is ['C', 'TP'], quiet is []
+# (2) True or False
+show_all = False  # show all nodes, rather than just mapped one
 
 
 """ FUNCTIONS """
@@ -72,28 +74,25 @@ def display(startnode):
     # print('Temp: ', end='')
     # print(info['nets'][startnet])
     for node in info['nets'][startnet]:
-        ecpn = '--ECPN--'
         try:
             ecpn = info['comps'][node[0]]['PART_NUMBER']
         except:
-            pass  # not found
+            ecpn = '--ECPN--'
         ab = transparent(ecpn)  # get a -> b and b -> a transparency
+        newnode = ('dev','pin')  # default in case no match is found
+        for i in range(2):
+            left = ab[2 * i]  # left pin number
+            if node[1] == left:
+                right = ab[2 * i + 1]  # right pin number
+                newnode = (node[0], right)
         if show(node):
-            printleft(ecpn, node)
-        if True:
-            if node[1] == ab[0]:
-                newnode = (node[0], ab[1])
-                if show(node):
-                    printright(newnode)
-            elif node[1] == ab[2]:
-                newnode = (node[0], ab[3])
-                if show(node):
-                    printright(newnode)
+            if newnode == ('dev','pin'):
+                if show_all:
+                    printleft(ecpn, node)
+                    print('    [Non-standard pin]')  # default string
             else:
-                if show(node):
-                    print('    [Non-standard pin]')
-        else:
-            print()  # add missing newline
+                printleft(ecpn, node)
+                printright(newnode)
 # End
 
 
@@ -126,6 +125,6 @@ for mynode in map['nodes']:
     display(mynode)
 # end of main
 
-if True:
+if False:
     os.system("PAUSE")
 # EOF
