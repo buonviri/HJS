@@ -5,7 +5,7 @@ import ast
 import yaml
 
 # user settings
-# (1) verbose is ['C', 'TP'], quiet is []
+# (1) verbose is ['C', 'TP'], quiet is [] or ['none']
 show_list = []  # show or hide C (capacitors) and TP (testpoints)
 # (2) True or False
 show_all = False  # show all nodes, rather than just mapped one
@@ -46,6 +46,8 @@ def transparent(ecpn):
         return ['D1', 'E1', 'E1', 'D1']  # first phase only
     elif ecpn == 'EC-0003J':
         return ['1', '2', '2', '1']  # fan header happens to match RLC
+    elif ecpn == 'EC-0046U':
+        return ['A1', 'A2', 'A2', 'A1']  # fan header happens to match RLC
     else:
         return ['1', '2', '2', '1']  # default (RLC) is 1 -> 2 and 2 -> 1
 # End
@@ -86,13 +88,14 @@ def display(startnode):
                 right = ab[2 * i + 1]  # right pin number
                 newnode = (node[0], right)
         if show(node):
-            if newnode == ('dev','pin'):
+            left_raw = '[' + node[0] + '.' + node[1] + '] ' + getnet(node)
+            left_str = '  ' + ecpn + left_raw.rjust(60)
+            right_str = ' -> ' + getnet(newnode) + ' [' + newnode[0] + '.' + newnode[1] + ']'
+            if newnode == ('dev','pin'):  # new node not found
                 if show_all:
-                    printleft(ecpn, node)
-                    print('    [Non-standard pin]')  # default string
+                    print(left_str + '    ???')
             else:
-                printleft(ecpn, node)
-                printright(newnode)
+                print(left_str + right_str)
 # End
 
 
@@ -112,6 +115,10 @@ try:
 except:
     print('File not found')
     exit(0)
+if 'show_all' in map:
+    show_all = map['show_all']  # override default with yaml value
+if 'show_list' in map:
+    show_list = map['show_list']  # override default with yaml value
 
 # check show status
 if 'C' not in show_list:
@@ -121,8 +128,11 @@ if 'TP' not in show_list:
 
 # start of main
 for mynode in map['nodes']:
-    print('\nNode:  ' + mynode)
-    display(mynode)
+    if mynode.startswith('info'):  # allows info string to be displayed
+        print('\n' + mynode[4:].strip())  # insert extra newline
+    else:
+        print('\nNode:  ' + mynode)
+        display(mynode)
 # end of main
 
 if False:
