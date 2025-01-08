@@ -9,7 +9,7 @@ import yaml
 show_list = []  # show or hide C (capacitors) and TP (testpoints)
 # (2) True or False
 show_all = False  # show all nodes, rather than just mapped ones
-
+show_non_ecpn = True  # show lines with no ECPN, may be overriden by other settings
 
 """ FUNCTIONS """
 
@@ -84,9 +84,11 @@ def display(startnode):
                 right_str = ' -> ' + getnet(newnode) + ' [' + newnode[0] + '.' + newnode[1] + ']'
                 if newnode == ('dev','pin'):  # new node not found
                     if show_all:
-                        print(left_str + '    ???')
+                        if show_non_ecpn or ecpn != '--ECPN--':
+                            print(left_str + '    ???')
                 else:
-                    print(left_str + right_str)
+                    if show_non_ecpn or ecpn != '--ECPN--':
+                        print(left_str + right_str)
 # End
 
 
@@ -110,6 +112,8 @@ if 'show_all' in map:
     show_all = map['show_all']  # override default with yaml value
 if 'show_list' in map:
     show_list = map['show_list']  # override default with yaml value
+if 'show_non_ecpn' in map:
+    show_non_ecpn = map['show_non_ecpn']  # override default with yaml value
 
 # check show status
 if 'C' not in show_list:
