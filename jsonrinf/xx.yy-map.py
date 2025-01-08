@@ -8,7 +8,7 @@ import yaml
 # (1) verbose is ['C', 'TP'], quiet is [] or ['none']
 show_list = []  # show or hide C (capacitors) and TP (testpoints)
 # (2) True or False
-show_all = False  # show all nodes, rather than just mapped one
+show_all = False  # show all nodes, rather than just mapped ones
 
 
 """ FUNCTIONS """

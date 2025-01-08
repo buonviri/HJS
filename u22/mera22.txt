@@ -30,7 +30,7 @@ cd ~/S2M2/examples/detr && chmod +x ./run.sh && ./run.sh
 # resnet50
 cd ~/S2M2/examples/resnet50 && chmod +x ./run.sh && ./run.sh
 
-# yolo
+# yolo (only v5 works on asrock with 16MB)
 cd ~/S2M2/examples/yolov5 && chmod +x ./run.sh && ./run.sh
 cd ~/S2M2/examples/yolov7 && chmod +x ./run.sh && ./run.sh
 cd ~/S2M2/examples/yolov8 && chmod +x ./run.sh && ./run.sh
