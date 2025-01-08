@@ -19,7 +19,7 @@ def getnet(target):
     for net in info['nets']:
         for node in info['nets'][net]:
             if node == target:  # compare tuples
-                return net
+                return net.replace('SAK_SYS_A1', '[NODE B]').replace('SAK_SYS_A', '[NODE A]')
     return 'NET_NOT_FOUND'
 # End
 
