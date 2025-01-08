@@ -23,6 +23,9 @@ cbm2
 cd ~/S2M2/install_mera && source start.sh
 cd ~/S2M2/initialize_sakura_ii && chmod +x ./setup.sh && ./setup.sh
 
+# detr
+cd ~/S2M2/examples/detr && chmod +x ./run.sh && ./run.sh
+
 # resnet50
 cd ~/S2M2/examples/resnet50 && chmod +x ./run.sh && ./run.sh
 
