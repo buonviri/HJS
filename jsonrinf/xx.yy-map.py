@@ -25,7 +25,7 @@ def getnet(target):
 def printleft(ecpn, node):
     """Print left node."""
     foo = '[' + node[0] + '.' + node[1] + '] ' + getnet(node)
-    print(ecpn + foo.rjust(32), end='')
+    print('  ' + ecpn + foo.rjust(30), end='')  # two spaces, eight ECPN length
 # End
 
 
@@ -67,7 +67,7 @@ def display(startnode):
         for node in info['nets'][net]:
             if node == startinfo:  # compare tuples
                 startnet = net
-                print('\nName:  ' + startnet)  # insert blank line
+                print('Name:  ' + startnet)  # insert blank line
     # debug:
     # print('Temp: ', end='')
     # print(info['nets'][startnet])
@@ -105,9 +105,7 @@ try:
     with open('map.yaml', 'r') as f:
         map = yaml.safe_load(f)
 except:
-    map = {'start': [], 'file': 'none'}  # blank-ish dict
-startnode = map['start'][0]  # get script name
-print('Node:  ' + startnode)
+    map = {'nodes': [], 'file': 'none'}  # blank-ish dict
 try:
     with open(map['file'], 'r') as f:
         info_text = f.read()
@@ -123,10 +121,11 @@ if 'TP' not in show_list:
     print('Info:  Testpoints are hidden')
 
 # start of main
-for mynode in map['start']:
+for mynode in map['nodes']:
+    print('\nNode:  ' + mynode)
     display(mynode)
-# end of script
+# end of main
 
-if False:
+if True:
     os.system("PAUSE")
 # EOF
