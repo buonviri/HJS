@@ -10,8 +10,28 @@ show_list = []  # show or hide C (capacitors) and TP (testpoints)
 # (2) True or False
 show_all = False  # show all nodes, rather than just mapped ones
 show_non_ecpn = True  # show lines with no ECPN, may be overriden by other settings
+replacements = {
+    '_SAK_SYS_A1_': '.NODE.B.',
+    '_SAK_SYS_A_': '.NODE.A.',
+    '_SAK_SYS_A1': '.NODE.B',
+    '_SAK_SYS_A': '.NODE.A',
+    'POWER_TOP_LOC_P3V3_P1V8': 'PWR.3V3.1V8',
+    'POWER_TOP_LOC_PWR_MISC': 'PWR.MISC',
+    'POWER_TOP_LOC_LDOS': 'PWR.LDO',
+    'SAK_CHIP': 'SAKURA',
+    }
+# End
+
 
 """ FUNCTIONS """
+
+
+def replacetext(s):
+    """Replace string(s) within net."""
+    for k in replacements:
+        s = s.replace(k, replacements[k])
+    return s
+# End
 
 
 def getnet(target):
@@ -19,7 +39,7 @@ def getnet(target):
     for net in info['nets']:
         for node in info['nets'][net]:
             if node == target:  # compare tuples
-                return net.replace('SAK_SYS_A1', '[NODE B]').replace('SAK_SYS_A', '[NODE A]')
+                return replacetext(net)
     return 'NET_NOT_FOUND'
 # End
 
@@ -27,7 +47,7 @@ def getnet(target):
 def transparent(ecpn):
     """Generate [a,b,b,a] list based on ECPN."""
     if ecpn == 'EC-0018R':
-        return [['1', '4', '4', '1'],]  # pins 1 and 4 are in/out
+        return [['1', '4', '4', '1'], ]  # pins 1 and 4 are in/out
     elif ecpn == 'EC-0001U':
         return [  # four phase switcher
             ['D1', 'E1', 'E1', 'D1'],
@@ -35,11 +55,11 @@ def transparent(ecpn):
             ['D1', 'B9', 'B9', 'D1'],
             ['D1', 'E9', 'E9', 'D1']]
     elif ecpn == 'EC-0003J':
-        return [['1', '2', '2', '1'],]  # fan header happens to match RLC
+        return [['1', '2', '2', '1'], ]  # fan header happens to match RLC
     elif ecpn == 'EC-0046U':
-        return [['A1', 'A2', 'A2', 'A1'],]  # fan header happens to match RLC
+        return [['A1', 'A2', 'A2', 'A1'], ]  # fan header happens to match RLC
     else:
-        return [['1', '2', '2', '1'],]  # default (RLC) is 1 -> 2 and 2 -> 1
+        return [['1', '2', '2', '1'], ]  # default (RLC) is 1 -> 2 and 2 -> 1
 # End
 
 
@@ -128,7 +148,9 @@ if show_non_ecpn:
     print('Info:  Showing all parts including those without an ECPN')
 else:
     print('Info:  Non-ECPN parts are hidden')
-    
+for k in replacements:
+    print('Info:  Net rename ' + k + ' -> ' + replacements[k])
+
 # start of main
 for mynode in map['nodes']:
     if mynode.startswith('info'):  # allows info string to be displayed
