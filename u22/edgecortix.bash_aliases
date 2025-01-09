@@ -29,6 +29,7 @@ alias z="printf '\n\e[1;35m   sysinfo mera16 camera\n   fym mde yod\n   meas mea
 alias uu="sudo apt update -y && sudo apt upgrade -y"
 alias ar="sudo apt autoremove -y"
 alias 00="poweroff"
+alias de="deactivate"
 alias bios="systemctl reboot --firmware-setup"
 # alias is obsolete
 # alias is obsolete
@@ -91,5 +92,5 @@ alias s2do="python3 ~/HJS/statlog/statlog.py S2XX"
 alias ant="cd ~/S2LP/dna2_self_test && ./setup.sh ; echo ; echo Ensure that compute blocks 01 and 02 are enabled, then ./run.sh or ./run.sh 999"
 alias ant22="cd ~/S2LP/dna2_self_test_2_2_0 && ./setup_3pg.sh ; echo ; echo Ensure that compute blocks 01 and 02 are enabled, then ./run_3pg.sh or ./run_3pg.sh 999"
 
-alias ver="printf '\n\e[1;35m   HJS aliases v3.11\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.12\e[0m\n\n'"
 # EOF
