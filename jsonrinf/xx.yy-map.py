@@ -10,6 +10,7 @@ show_list = []  # show or hide C (capacitors) and TP (testpoints)
 # (2) True or False
 show_all = False  # show all nodes, rather than just mapped ones
 show_non_ecpn = True  # show lines with no ECPN, may be overriden by other settings
+# (3) text replacement list for nets
 replacements = {
     '_SAK_SYS_A1_': '.NODE.B.',
     '_SAK_SYS_A_': '.NODE.A.',
@@ -20,6 +21,8 @@ replacements = {
     'POWER_TOP_LOC_LDOS': 'PWR.LDO',
     'SAK_CHIP': 'SAKURA',
     }
+# (4) display width
+left_size = 40
 # End
 
 
@@ -100,7 +103,7 @@ def display(startnode):
                     newnode = (node[0], right)
             if show(node):
                 left_raw = '[' + node[0] + '.' + node[1] + '] ' + getnet(node)
-                left_str = '  ' + ecpn + left_raw.rjust(60)
+                left_str = '  ' + ecpn + left_raw.rjust(left_size)
                 right_str = ' -> ' + getnet(newnode) + ' [' + newnode[0] + '.' + newnode[1] + ']'
                 if newnode == ('dev','pin'):  # new node not found
                     if show_all:
@@ -158,10 +161,11 @@ for mynode in map['nodes']:
     else:
         print('\nNode:  ' + mynode)
         display(mynode)
-# end of main
 
+# pause
 if 'pause' in map:  # make sure key exists
     if map['pause']:  # check if set to True
         print()
         os.system("PAUSE")
+
 # EOF
