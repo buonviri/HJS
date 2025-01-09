@@ -166,7 +166,5 @@ for mynode in map['nodes']:
 if 'pause' in map and map['pause']:  # make sure key exists and check if true
     print()
     os.system("PAUSE")
-else:
-    # this won't display if redirected to log file
-    os.system('timeout /t 2')
+
 # EOF
