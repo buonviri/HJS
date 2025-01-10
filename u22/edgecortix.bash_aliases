@@ -89,7 +89,10 @@ alias s2do="python3 ~/HJS/statlog/statlog.py S2XX"
 # End of S2
 alias s2i="source ~/HJS/u22/S2xx.sh"
 alias s2s="mera --lssakura | tee ~/sak.info"
+alias models="printf '\n\e[1;35m   detr resnet effnet\n   yolov5 yolov7 yolov8\n   hf1 hf2 hf3 hf4\e[0m\n\n'"
 alias detr="cd ~/S2xx/examples/detr && chmod +x ./run.sh && ./run.sh"
+alias resnet="cd ~/S2xx/examples/resnet50 && chmod +x ./run.sh && ./run.sh"
+alias effnet="cd ~/S2xx/examples/efficient_net_demo && chmod +x ./run.sh && ./run.sh"
 alias yolov5="cd ~/S2xx/examples/yolov5 && chmod +x ./run.sh && ./run.sh"
 alias yolov7="cd ~/S2xx/examples/yolov7 && chmod +x ./run.sh && ./run.sh"
 alias yolov8="cd ~/S2xx/examples/yolov8 && chmod +x ./run.sh && ./run.sh"
@@ -97,5 +100,5 @@ alias res="eog result.png"
 alias ant="cd ~/S2LP/dna2_self_test && ./setup.sh ; echo ; echo Ensure that compute blocks 01 and 02 are enabled, then ./run.sh or ./run.sh 999"
 alias ant22="cd ~/S2LP/dna2_self_test_2_2_0 && ./setup_3pg.sh ; echo ; echo Ensure that compute blocks 01 and 02 are enabled, then ./run_3pg.sh or ./run_3pg.sh 999"
 
-alias ver="printf '\n\e[1;35m   HJS aliases v3.15\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.16\e[0m\n\n'"
 # EOF
