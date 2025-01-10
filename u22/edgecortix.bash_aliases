@@ -75,7 +75,7 @@ alias imdt="screen /dev/ttyUSB0 115200"
 alias jam="source ~/HJS/u22/jam.sh"
 alias mem="free -m"
 alias catinfo="tail -n +1 ~/*.info"
-# Start of S2
+# Start of S2 utils
 alias maxfan="python3 ~/HJS/statlog/statlog.py S2LP-fan.a.100+fan-void"
 alias minfan="python3 ~/HJS/statlog/statlog.py S2LP-fan.a.40+fan-void"
 alias s2="python3 ~/HJS/statlog/statlog.py S2XX-stats-void"
@@ -86,19 +86,23 @@ alias xlog="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/zog.info && p
 alias cfg="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/cfg.info && python3 ~/HJS/statlog/statlog.py S2XX-cfg-null | tee -a ~/cfg.info"
 alias enpg="python3 ~/HJS/statlog/statlog.py S2LP-pins.-quotestar-EN_PG-starquote-"
 alias s2do="python3 ~/HJS/statlog/statlog.py S2XX"
-# End of S2
 alias s2i="source ~/HJS/u22/S2xx.sh"
 alias s2s="mera --lssakura | tee ~/sak.info"
+# End of S2 utils, start of S2 models
 alias models="printf '\n\e[1;35m   detr resnet effnet\n   yolov5 yolov7 yolov8\n   hf1 hf2 hf3 hf4\e[0m\n\n'"
 alias detr="cd ~/S2xx/examples/detr && chmod +x ./run.sh && ./run.sh"
 alias resnet="cd ~/S2xx/examples/resnet50 && chmod +x ./run.sh && ./run.sh"
 alias effnet="cd ~/S2xx/examples/efficient_net_demo && chmod +x ./run.sh && ./run.sh"
+alias hf1="cd ~/S2xx/examples/huggingface_image_classification && chmod +x ./run.sh && ./run.sh"
+alias hf2="cd ~/S2xx/examples/huggingface_image_segmentation && chmod +x ./run.sh && ./run.sh"
+alias hf3="cd ~/S2xx/examples/huggingface_text_classification && chmod +x ./run.sh && ./run.sh"
+alias hf4="cd ~/S2xx/examples/huggingface_text_gen && chmod +x ./run.sh && ./run.sh"
 alias yolov5="cd ~/S2xx/examples/yolov5 && chmod +x ./run.sh && ./run.sh"
 alias yolov7="cd ~/S2xx/examples/yolov7 && chmod +x ./run.sh && ./run.sh"
 alias yolov8="cd ~/S2xx/examples/yolov8 && chmod +x ./run.sh && ./run.sh"
-alias res="eog result.png"
+alias res="eog result*.png"
 alias ant="cd ~/S2LP/dna2_self_test && ./setup.sh ; echo ; echo Ensure that compute blocks 01 and 02 are enabled, then ./run.sh or ./run.sh 999"
 alias ant22="cd ~/S2LP/dna2_self_test_2_2_0 && ./setup_3pg.sh ; echo ; echo Ensure that compute blocks 01 and 02 are enabled, then ./run_3pg.sh or ./run_3pg.sh 999"
 
-alias ver="printf '\n\e[1;35m   HJS aliases v3.16\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.17\e[0m\n\n'"
 # EOF
