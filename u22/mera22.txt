@@ -38,8 +38,7 @@ cd ~/S2M2/examples/yolov7 && chmod +x ./run.sh && ./run.sh
 # DO NOT USE: cd ~/S2M2/examples/yolov8 && chmod +x ./run.sh && ./run.sh
 
 # v8 fix
-cd ~/S2M2/examples/yolov8
-python deploy.py --model_path ./source_model_files/yolov8m_6_heads.onnx --target ip && python demo_model.py --target ip
+cd ~/S2M2/examples/yolov8 && python deploy.py --model_path ./source_model_files/yolov8m_6_heads.onnx --target ip && python demo_model.py --target ip
 
 # huggingface
 cd ~/S2M2/examples/huggingface_image_classification && chmod +x ./run.sh && ./run.sh
