@@ -1,30 +1,33 @@
-# may need this once (removed picocom):
+# need this once per system (removed picocom):
 sudo apt install build-essential linux-headers-$(uname -r) gcc-12
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test && sudo apt update && sudo apt-get install --only-upgrade libstdc++6
 
 # tar
 copy mera 2.2 file to Downloads, e.g. mera_package_v2.2.0_ubuntu22.04_20241223-0538_with_driver.tar.gz
 extract here
-copy one file and four folders to ~/S2M2 or ~/S2LP
-browse to 'install_mera' and run terminal here
+copy one file and four folders to ~/S2xx
 
 # install
+cd ~/S2xx/install_mera
 ./install_os_dependencies.sh
 ./create_virtual_env.sh && source start.sh
 ./install_mera_and_python_dependencies.sh
 ./install_mera_models_and_python_dependencies.sh
 ./install_mera_visualizer_and_python_dependencies.sh
+echo
+echo mera22.txt install is complete
 deactivate
 
 # run
-bmc
-1fdc
-cbm2
-cd ~/S2M2/install_mera && source start.sh && cd ~/S2M2/initialize_sakura_ii && chmod +x ./setup.sh && ./setup.sh
-mera --lssakura
+# all steps have been consolidated into the 's2i' alias that calls 'S2xx.sh' and works for either card
+  bmc
+  1fdc
+  cbm2
+  cd ~/S2M2/install_mera && source start.sh && cd ~/S2M2/initialize_sakura_ii && chmod +x ./setup.sh && ./setup.sh
+  mera --lssakura
 
 # detr
-cd ~/S2M2/examples/detr && chmod +x ./run.sh && ./run.sh
+[ALIAS] cd ~/S2M2/examples/detr && chmod +x ./run.sh && ./run.sh
 
 # resnet50
 cd ~/S2M2/examples/resnet50 && chmod +x ./run.sh && ./run.sh
@@ -33,12 +36,12 @@ cd ~/S2M2/examples/resnet50 && chmod +x ./run.sh && ./run.sh
 cd ~/S2M2/examples/efficient_net_demo && chmod +x ./run.sh && ./run.sh
 
 # yolo (only v5 works on asrock with 16MB)
-cd ~/S2M2/examples/yolov5 && chmod +x ./run.sh && ./run.sh
-cd ~/S2M2/examples/yolov7 && chmod +x ./run.sh && ./run.sh
+[ALIAS] cd ~/S2M2/examples/yolov5 && chmod +x ./run.sh && ./run.sh
+[ALIAS] cd ~/S2M2/examples/yolov7 && chmod +x ./run.sh && ./run.sh
 # DO NOT USE: cd ~/S2M2/examples/yolov8 && chmod +x ./run.sh && ./run.sh
 
 # v8 fix
-cd ~/S2M2/examples/yolov8 && python deploy.py --model_path ./source_model_files/yolov8m_6_heads.onnx --target ip && python demo_model.py --target ip
+[ALIAS] cd ~/S2M2/examples/yolov8 && python deploy.py --model_path ./source_model_files/yolov8m_6_heads.onnx --target ip && python demo_model.py --target ip
 
 # huggingface
 cd ~/S2M2/examples/huggingface_image_classification && chmod +x ./run.sh && ./run.sh
