@@ -1,5 +1,20 @@
 #!/bin/bash
 
+python3 ~/HJS/statlog/statlog.py S2XX-info-void | grep S2M2
+if [ $? -eq 0 ]; then
+    printf "S2M2 init"
+    exit 0
+fi
+
+python3 ~/HJS/statlog/statlog.py S2XX-info-void | grep S2LP
+if [ $? -eq 0 ]; then
+    printf "S2LP init"
+    exit 0
+fi
+
+printf "No S2 cards found."
+exit 1
+
 echo
 echo "Compute Node A:" | tee 'CB.log'
 python3 statlog.py S2LP-srread.a.0x10100+srwrite.a.0x10100.0+srread.a.0x10100-void | tee -a 'CB.log'
