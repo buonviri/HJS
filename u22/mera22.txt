@@ -22,6 +22,7 @@ bmc
 1fdc
 cbm2
 cd ~/S2M2/install_mera && source start.sh && cd ~/S2M2/initialize_sakura_ii && chmod +x ./setup.sh && ./setup.sh
+mera --lssakura
 
 # detr
 cd ~/S2M2/examples/detr && chmod +x ./run.sh && ./run.sh

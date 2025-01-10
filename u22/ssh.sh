@@ -14,4 +14,3 @@ printf "\e[1;35m   Test using Windows: ssh ec@%s\n\e[0m" "$machine"
 echo
 
 # end
-

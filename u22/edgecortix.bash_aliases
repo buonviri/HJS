@@ -88,9 +88,11 @@ alias cfg="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/cfg.info && py
 alias enpg="python3 ~/HJS/statlog/statlog.py S2LP-pins.-quotestar-EN_PG-starquote-"
 alias s2do="python3 ~/HJS/statlog/statlog.py S2XX"
 # End of S2
-
+alias s2lp="source ~/HJS/u22/S2LP.sh"
+alias s2m2="source ~/HJS/u22/S2M2.sh"
+alias s2s="mera --lssakura | tee ~/sak.info"
 alias ant="cd ~/S2LP/dna2_self_test && ./setup.sh ; echo ; echo Ensure that compute blocks 01 and 02 are enabled, then ./run.sh or ./run.sh 999"
 alias ant22="cd ~/S2LP/dna2_self_test_2_2_0 && ./setup_3pg.sh ; echo ; echo Ensure that compute blocks 01 and 02 are enabled, then ./run_3pg.sh or ./run_3pg.sh 999"
 
-alias ver="printf '\n\e[1;35m   HJS aliases v3.13\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.14\e[0m\n\n'"
 # EOF
