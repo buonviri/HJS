@@ -60,7 +60,7 @@ else
         echo N >> 'CB.log'
         echo D >> 'CB.log'
     else
-        printf "No S2 cards found.\n"
+        printf "Compute Block enable - no S2 cards found.\n"
     fi
 fi
 
