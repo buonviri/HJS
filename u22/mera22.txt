@@ -10,8 +10,7 @@ browse to 'install_mera' and run terminal here
 
 # install
 ./install_os_dependencies.sh
-./create_virtual_env.sh
-source start.sh
+./create_virtual_env.sh && source start.sh
 ./install_mera_and_python_dependencies.sh
 ./install_mera_models_and_python_dependencies.sh
 ./install_mera_visualizer_and_python_dependencies.sh
