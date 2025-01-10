@@ -43,7 +43,7 @@ else
         echo N >> 'CB.log'
         echo D >> 'CB.log'
     else
-        print "No S2 cards found.\n"
+        printf "No S2 cards found.\n"
     fi
 fi
 
