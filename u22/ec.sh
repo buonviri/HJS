@@ -35,6 +35,9 @@ powerprofilesctl get
 # one workspace
 gsettings set org.gnome.desktop.wm.preferences num-workspaces 1
 
+# volume
+pactl set-sink-volume @DEFAULT_SINK@ 50%
+
 cd "$OLDPWD"
 
 echo
