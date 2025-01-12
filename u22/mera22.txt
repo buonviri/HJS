@@ -1,11 +1,16 @@
 # need this once per system (removed picocom):
 sudo apt install build-essential linux-headers-$(uname -r) gcc-12
-sudo add-apt-repository ppa:ubuntu-toolchain-r/test && sudo apt update && sudo apt-get install --only-upgrade libstdc++6
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt update && sudo apt-get install --only-upgrade libstdc++6
 
 # tar
-copy mera 2.2 file to Downloads, e.g. mera_package_v2.2.0_ubuntu22.04_20241223-0538_with_driver.tar.gz
-extract here
-copy one file and four folders to ~/S2xx
+copy mera 2.2 file to 'Downloads', e.g.:
+  mera_package_v2.2.0_ubuntu22.04_20241223-0538_with_driver.tar.gz
+  mera_package_v2.2.0_ubuntu22.04_20250110-1722_yolov8-bf16-for-andy.tar.gz
+right click file and extract here
+browse two levels into newly created  folder
+copy one file and four folders
+paste to ~/S2xx/ (create folder if necessary)
 
 # install
 cd ~/S2xx/install_mera
@@ -16,6 +21,7 @@ cd ~/S2xx/install_mera
 ./install_mera_visualizer_and_python_dependencies.sh
 echo
 echo mera22.txt install is complete
+echo deactivating...
 deactivate
 
 # run
