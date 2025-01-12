@@ -8,8 +8,8 @@ copy mera 2.2 file to 'Downloads', e.g.:
   mera_package_v2.2.0_ubuntu22.04_20241223-0538_with_driver.tar.gz
   mera_package_v2.2.0_ubuntu22.04_20250110-1722_yolov8-bf16-for-andy.tar.gz
 right click file and extract here
-browse two levels into newly created  folder
-copy one file and four folders
+browse two levels into newly created folder
+copy one file and four folders (CTRL-C)
 paste to ~/S2xx/ (create folder if necessary)
 
 # install
