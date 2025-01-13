@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # this script assumes the mera tar file has been unzipped and placed in ~/S2xx already
+\cp -v ~/HJS/u22/results-mera22.html ~/S2xx/examples/results.html
 
 # need this once per system (removed picocom from original version):
 sudo apt install build-essential linux-headers-$(uname -r) gcc-12

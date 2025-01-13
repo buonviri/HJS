@@ -43,7 +43,7 @@ html = html + '</HTML>\n'
 
 outfile = 'ss.html'
 with open(outfile, 'w') as f:
-    f.write(html + '\n')
+    f.write(html + '\n')  # TODO: this newline is probably unneeded, verify
 
 print('Wrote: ' + outfile)
 print()
