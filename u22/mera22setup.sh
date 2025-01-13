@@ -1,16 +1,11 @@
-# need this once per system (removed picocom):
+#!/bin/bash
+
+# this script assumes the mera tar file has been unzipped and placed in ~/S2xx already
+
+# need this once per system (removed picocom from original version):
 sudo apt install build-essential linux-headers-$(uname -r) gcc-12
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 sudo apt update && sudo apt-get install --only-upgrade libstdc++6
-
-# tar
-copy mera 2.2 file to 'Downloads', e.g.:
-  mera_package_v2.2.0_ubuntu22.04_20241223-0538_with_driver.tar.gz
-  mera_package_v2.2.0_ubuntu22.04_20250110-1722_yolov8-bf16-for-andy.tar.gz
-right click file and extract here
-browse into newly created folder to the contents of install_mera
-copy one file and four folders (CTRL-C)
-paste to ~/S2xx/ (create folder if necessary)
 
 # install
 cd ~/S2xx/install_mera
@@ -20,43 +15,8 @@ cd ~/S2xx/install_mera
 ./install_mera_models_and_python_dependencies.sh
 ./install_mera_visualizer_and_python_dependencies.sh
 echo
-echo mera22.txt install is complete
-echo deactivating...
+echo MERA 2.2 setup is complete
+echo Deactivating...
 deactivate
-
-# run
-# all steps have been consolidated into the 's2i' alias that calls 'S2xx.sh' and works for either card
-  bmc
-  1fdc
-  cbm2
-  cd ~/S2M2/install_mera && source start.sh && cd ~/S2M2/initialize_sakura_ii && chmod +x ./setup.sh && ./setup.sh
-  mera --lssakura
-
-# detr
-[ALIAS] cd ~/S2M2/examples/detr && chmod +x ./run.sh && ./run.sh
-
-# resnet50
-cd ~/S2M2/examples/resnet50 && chmod +x ./run.sh && ./run.sh
-
-# efficient
-cd ~/S2M2/examples/efficient_net_demo && chmod +x ./run.sh && ./run.sh
-
-# yolo (only v5 works on asrock with 16MB)
-[ALIAS] cd ~/S2M2/examples/yolov5 && chmod +x ./run.sh && ./run.sh
-[ALIAS] cd ~/S2M2/examples/yolov7 && chmod +x ./run.sh && ./run.sh
-# DO NOT USE: cd ~/S2M2/examples/yolov8 && chmod +x ./run.sh && ./run.sh
-
-# v8 fix
-[ALIAS] cd ~/S2M2/examples/yolov8 && python deploy.py --model_path ./source_model_files/yolov8m_6_heads.onnx --target ip && python demo_model.py --target ip
-
-# huggingface
-cd ~/S2M2/examples/huggingface_image_classification && chmod +x ./run.sh && ./run.sh
-cd ~/S2M2/examples/huggingface_image_segmentation && chmod +x ./run.sh && ./run.sh
-cd ~/S2M2/examples/huggingface_text_classification && chmod +x ./run.sh && ./run.sh
-cd ~/S2M2/examples/huggingface_text_gen && chmod +x ./run.sh && ./run.sh
-
-# todo
-cd telemetry_sakura_ii
-cat README.md
 
 # EOF
