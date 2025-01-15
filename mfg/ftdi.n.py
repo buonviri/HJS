@@ -1,9 +1,15 @@
 # ASSUMNES WINDOWS OS
-# rename this script ftdi.n.py where n is the number of serialized objects
+# rename this script abcd.n.py where:
+#   abcd is the product name
+#   n is the number of serialized objects
+#   use nnn... to control the desired number of leading zeroes
+#   example: myproduct.099.py will create 001 through 099
 
 import os
 
-# Template
+separator = '_'
+
+# Template:
 
 template = """<?xml version="1.0" encoding="utf-16"?>
 <FT_EEPROM>
@@ -29,8 +35,8 @@ template = """<?xml version="1.0" encoding="utf-16"?>
     <Manufacturer>FTDI</Manufacturer>
     <Product_Description>FT230X on ABCD</Product_Description>
     <SerialNumber_Enabled>true</SerialNumber_Enabled>
-    <SerialNumber>12345678</SerialNumber>
-    <SerialNumberPrefix>12345</SerialNumberPrefix>
+    <SerialNumber>9876543210</SerialNumber>
+    <SerialNumberPrefix>99999</SerialNumberPrefix>
     <SerialNumber_AutoGenerate>false</SerialNumber_AutoGenerate>
   </USB_String_Descriptors>
   <Hardware_Specific>
@@ -111,7 +117,10 @@ if len(lot_code) in [5,]:  # check if length is in the list of valid lot code le
     else:
         print('Generating ' + str(max_sn) + ' serial number(s), format "' + 'n' * len_sn + '", for ' + product + ' lot code: ' + lot_code)
         for sn in range(max_sn):
-            print(str(lot_code) + str(sn+1).rjust(len_sn, '0'))  # loop value is zero to n-1, padded with leading zeroes
+            sn = str(sn+1).rjust(len_sn, '0')  # loop value is zero to n-1, so add one, and pad with leading zeroes
+            print('  ' + lot_code + separator + sn)
+            with open(lot_code + separator + sn + '.xml', 'w') as f:
+                f.write(template.replace('ABCD', product).replace('9876543210', lot_code + sn).replace('99999', lot_code))
 else:
     print('Invalid lot code: ' + lot_code)
 
