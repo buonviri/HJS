@@ -102,8 +102,10 @@ alias yolov5="cd ~/S2xx/examples/yolov5 && chmod +x ./run.sh && ./run.sh"
 alias yolov7="cd ~/S2xx/examples/yolov7 && chmod +x ./run.sh && ./run.sh"
 alias yolov8="cd ~/S2xx/examples/yolov8 && chmod +x ./run.sh && ./run.sh"
 alias res="eog result*.png"
+alias s2clr="source ~/HJS/u22/mera22clr.sh"
+
 alias ant="cd ~/S2LP/dna2_self_test && ./setup.sh ; echo ; echo Ensure that compute blocks 01 and 02 are enabled, then ./run.sh or ./run.sh 999"
 alias ant22="cd ~/S2LP/dna2_self_test_2_2_0 && ./setup_3pg.sh ; echo ; echo Ensure that compute blocks 01 and 02 are enabled, then ./run_3pg.sh or ./run_3pg.sh 999"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v3.20\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.21\e[0m\n\n'"
 # EOF
