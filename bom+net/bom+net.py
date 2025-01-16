@@ -220,7 +220,7 @@ def WriteFile(project, config, dni_list, sub_list, add_list, all, sorted_refdes)
                 new_bom_line = '\t'.join(this_line)
                 if len(this_line) == 6:  # has BuildOptions
                     build_option_value = this_line[5]
-                    build_options = build_option_value.split('(', 1)[0].strip()  # remove any comment in parentheses
+                    build_options = build_option_value.split('(', 1)[0].strip()  # remove any comment in parentheses, such as (w/ subs)
                     if build_options in dni_list:
                         reorder = this_line[1] + '\t0\t' + this_line[0] + ' (' + this_line[5] + ')\t' +  '\t'.join(this_line[2:5])
                         fdni.write(reorder + '\n')
