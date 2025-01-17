@@ -71,6 +71,7 @@ alias us="cd ~/HJS/u22 && git pull && source ./us.sh"
 # alias is obsolete
 # alias is obsolete
 alias usb="python3 ~/HJS/u22/lsusb.py | tee ~/usb.info"
+alias usbsn="lsusb -v -d 0403: | grep iserial"
 alias imdt="screen /dev/ttyUSB0 115200"
 alias jam="source ~/HJS/u22/jam.sh"
 alias mem="free -m"
@@ -107,5 +108,5 @@ alias s2clr="source ~/HJS/u22/mera22clr.sh"
 alias ant="cd ~/S2LP/dna2_self_test && ./setup.sh ; echo ; echo Ensure that compute blocks 01 and 02 are enabled, then ./run.sh or ./run.sh 999"
 alias ant22="cd ~/S2LP/dna2_self_test_2_2_0 && ./setup_3pg.sh ; echo ; echo Ensure that compute blocks 01 and 02 are enabled, then ./run_3pg.sh or ./run_3pg.sh 999"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v3.21\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.22\e[0m\n\n'"
 # EOF

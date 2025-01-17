@@ -119,7 +119,7 @@ if len(lot_code) in [5,]:  # check if length is in the list of valid lot code le
         for sn in range(max_sn):
             sn = str(sn+1).rjust(len_sn, '0')  # loop value is zero to n-1, so add one, and pad with leading zeroes
             print('  ' + lot_code + separator + sn)
-            with open(lot_code + separator + sn + '.xml', 'w') as f:
+            with open(lot_code + separator + sn + '.xml', 'w', encoding="utf-16") as f:
                 f.write(template.replace('ABCD', product).replace('9876543210', lot_code + sn).replace('99999', lot_code))
 else:
     print('Invalid lot code: ' + lot_code)
