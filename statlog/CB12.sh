@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo echo Target info:  # makes lspci line look less out of place
+
 sudo lspci -vvv -d 1fdc: | grep -E 'LnkSta:.*Speed'  # highlight link info line
 python3 ~/HJS/statlog/statlog.py S2XX-info-void | grep -E 'EdgeCortix.*S2M2'
 if [ $? -eq 0 ]; then
