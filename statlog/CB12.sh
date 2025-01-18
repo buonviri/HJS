@@ -1,5 +1,6 @@
 #!/bin/bash
 
+sudo lspci -vvv -d 1fdc: | grep LnkSta:  # highlight link info line
 python3 ~/HJS/statlog/statlog.py S2XX-info-void | grep S2M2
 if [ $? -eq 0 ]; then
     echo
