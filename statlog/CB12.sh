@@ -1,7 +1,7 @@
 #!/bin/bash
 
-sudo lspci -vvv -d 1fdc: | grep "LnkSta: Speed"  # highlight link info line
-python3 ~/HJS/statlog/statlog.py S2XX-info-void | grep "EdgeCortix S2M2"
+sudo lspci -vvv -d 1fdc: | grep -E 'LnkSta: Speed'  # highlight link info line
+python3 ~/HJS/statlog/statlog.py S2XX-info-void | grep -E 'EdgeCortix S2M2'
 if [ $? -eq 0 ]; then
     echo
     echo "Compute Node A:" | tee 'CB.log'
@@ -25,7 +25,7 @@ if [ $? -eq 0 ]; then
     echo N >> 'CB.log'
     echo D >> 'CB.log'
 else
-    python3 ~/HJS/statlog/statlog.py S2XX-info-void | grep "EdgeCortix S2LP"
+    python3 ~/HJS/statlog/statlog.py S2XX-info-void | grep -E 'EdgeCortix S2LP'
     if [ $? -eq 0 ]; then
         echo
         echo "Compute Node A:" | tee 'CB.log'
