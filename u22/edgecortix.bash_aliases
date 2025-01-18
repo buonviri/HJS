@@ -71,7 +71,7 @@ alias us="cd ~/HJS/u22 && git pull && source ./us.sh"
 # alias is obsolete
 # alias is obsolete
 alias usb="python3 ~/HJS/u22/lsusb.py | tee ~/usb.info"
-alias usbsn="lsusb -v -d 0403: > ~/ftdi.info && cat ftdi.info | grep -E 'iManufacturer|iProduct|iSerial'"
+alias usbsn="lsusb -v -d 0403: 2> /dev/null > ~/ftdi.info && cat ftdi.info | \\grep -E 'idVendor|idProduct|iManufacturer|iProduct|iSerial'"
 alias imdt="screen /dev/ttyUSB0 115200"
 alias jam="source ~/HJS/u22/jam.sh"
 alias mem="free -m"
