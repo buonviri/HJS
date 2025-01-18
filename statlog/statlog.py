@@ -354,7 +354,7 @@ io.stopbits = 1
 if do_pause == False:  # fast or void
     io.timeout = 0.2  # this might not always work, needs more testing
 elif do_wait == True:
-    io.timeout = None  # never time out 
+    io.timeout = 15  # wait for test to finish, needs integer input 
 else:
     io.timeout = 1.0  # wait up to one second to read the stat command or whatever else is sent
 # could add more flow control settings but they seem to default to off
