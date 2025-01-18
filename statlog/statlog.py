@@ -278,6 +278,8 @@ def flags():
         s = s + '[V]'
     if do_null == True:
         s = s + '[N]'
+    if do_wait == True:
+        s = s + '[W]'
     return s
 # End
 
