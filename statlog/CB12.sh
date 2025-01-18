@@ -1,7 +1,6 @@
 #!/bin/bash
 
-sudo lspci -vvv -d 1fdc: | grep -E 'LnkSta:'  # highlight link info line
-sudo lspci -vvv -d 1fdc: | grep -E 'LnkSta: Speed'  # highlight link info line
+sudo lspci -vvv -d 1fdc: | grep -E 'LnkSta:.*$'  # highlight link info line
 python3 ~/HJS/statlog/statlog.py S2XX-info-void | grep -E 'EdgeCortix S2M2'
 if [ $? -eq 0 ]; then
     echo
