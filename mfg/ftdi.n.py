@@ -97,6 +97,8 @@ def get_container():
 
 def get_limit():
     foo = os.path.basename(__file__)
+    if foo.startswith('_'):  # remove leading underscore if present
+        foo = foo[1:]
     foolist = foo.split('.')
     if len(foolist) == 3:  # ftdi.n.py should have three objects
         try:
@@ -117,10 +119,15 @@ if len(lot_code) in [5,]:  # check if length is in the list of valid lot code le
     else:
         print('Generating ' + str(max_sn) + ' serial number(s), format "' + 'n' * len_sn + '", for ' + product + ' lot code: ' + lot_code)
         for sn in range(max_sn):
-            sn = str(sn+1).rjust(len_sn, '0')  # loop value is zero to n-1, so add one, and pad with leading zeroes
-            print('  ' + lot_code + separator + sn)
-            with open(lot_code + separator + sn + '.xml', 'w', encoding="utf-16") as f:
-                f.write(template.replace('ABCD', product).replace('9876543210', lot_code + sn).replace('99999', lot_code))
+            str_sn = str(sn+1).rjust(len_sn, '0')  # loop value is zero to n-1, so add one, and pad with leading zeroes
+            if sn == 0:
+                sn_start = lot_code + separator + str_sn
+                sn_end = lot_code + separator + str_sn
+            else:
+                sn_end = lot_code + separator + str_sn
+            with open(lot_code + separator + str_sn + '.xml', 'w', encoding="utf-16") as f:
+                f.write(template.replace('ABCD', product).replace('9876543210', lot_code + str_sn).replace('99999', lot_code))
+        print(sn_start + ' thru ' + sn_end)
 else:
     print('Invalid lot code: ' + lot_code)
 
