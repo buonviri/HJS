@@ -27,6 +27,7 @@ do_pause = True
 do_slow = False
 verbose = True
 do_null = False
+do_wait = False
 void_msg = ''  # if void flag is used, this stores the one message that gets printed
 # add new entries to flags() function as well, make sure these are global in GetCommand
 
@@ -241,6 +242,11 @@ def GetCommand(fullfilename):
         thisfile = thisfile[:-5]  # trim suffix
         do_slow = True
 
+    # strip -wait suffix
+    if thisfile.endswith('-wait'):
+        thisfile = thisfile[:-5]  # trim suffix
+        do_wait = True
+
     # strip product prefix, allow dash or space
     if thisfile.startswith('S1LP-') or thisfile.startswith('S1LP '):
         thisfile = thisfile[5:]  # trim prefix
@@ -344,6 +350,8 @@ io.parity = 'N'
 io.stopbits = 1
 if do_pause == False:  # fast or void
     io.timeout = 0.2  # this might not always work, needs more testing
+elif do_wait == True:
+    io.timeout = None  # never time out 
 else:
     io.timeout = 1.0  # wait up to one second to read the stat command or whatever else is sent
 # could add more flow control settings but they seem to default to off
