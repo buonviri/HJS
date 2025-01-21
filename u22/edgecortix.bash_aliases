@@ -29,7 +29,6 @@ alias z="printf '\n\e[1;35m   sysinfo mera16 camera\n   fym mde yod\n   meas mea
 alias uu="sudo apt update -y && sudo apt upgrade -y"
 alias ar="sudo apt autoremove -y"
 alias 00="poweroff"
-alias de="deactivate"
 alias bios="systemctl reboot --firmware-setup"
 # alias is obsolete
 # alias is obsolete
@@ -91,6 +90,7 @@ alias s2do="python3 ~/HJS/statlog/statlog.py S2XX"
 alias s2i="source ~/HJS/u22/S2xx.sh"
 alias s2s="mera --lssakura | tee ~/sak.info"
 alias s2env="cd ~/S2xx/install_mera && source start.sh && cd ~/S2xx && mera --lssakura"
+alias de="deactivate"
 # End of S2 utils, start of S2 models
 alias models="printf '\n\e[1;35m   detr resnet effnet\n   hf1 hf2 hf3 hf4\n   yolov5 yolov7 yolov8\e[0m\n\n'"
 alias detr="cd ~/S2xx/examples/detr && chmod +x ./run.sh && ./run.sh"
