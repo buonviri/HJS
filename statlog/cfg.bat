@@ -1,3 +1,3 @@
 @echo off
 
-python.exe statlog.py S2XX-cfg-void
+python.exe C:\EdgeCortix\HJS\statlog\statlog.py statlog.py S2XX-cfg-void
