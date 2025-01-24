@@ -1,5 +1,5 @@
 
-# Start of EdgeCortix bashrc
+# Start of EdgeCortix .bashrc
 
 # remove default aliases
 unalias l
