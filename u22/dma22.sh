@@ -5,7 +5,7 @@ size="1024"  # 1k * 1k
 size="1048576"  # 1k * 1k * 1k
 
 echo
-echo Hopefully you already typed ant22!
+printf "\e[1;31mHopefully you already typed ant22!\e[0m\n"
 
 echo
 echo Testing Device 0, DDR0...
