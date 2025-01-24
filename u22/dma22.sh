@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # whichever one is last wins
-size="1048576"
-size="1024"
+size="1024"  # 1k * 1k
+size="1048576"  # 1k * 1k * 1k
 
 echo
 echo Hopefully you already typed ant22!
