@@ -110,13 +110,14 @@ alias res="eog result*.png"
 alias s2clr="source ~/HJS/u22/mera22clr.sh"
 
 alias ant="cd ~/S2LP/dna2_self_test && ./setup.sh ; echo ; echo Ensure that compute blocks 01 and 02 are enabled, then ./run.sh or ./run.sh 999"
-alias ant22="cd ~/S2LP/dna2_self_test_2_2_0 && ./setup_3pg.sh ; echo ; echo Ensure that compute blocks 01 and 02 are enabled, then ./run_3pg.sh or ./run_3pg.sh 999"
+alias ant22="cd ~/S2LP/dna2_self_test_2_2_0/ && ./setup_3pg.sh ; echo ; echo Ensure that compute blocks 01 and 02 are enabled, then ./run_3pg.sh or ./run_3pg.sh 999"
 alias d00="~/S2LP/dna2_self_test_2_2_0/dma_test 0 ddr0 1048576"
 alias d01="~/S2LP/dna2_self_test_2_2_0/dma_test 0 ddr1 1048576"
 alias d10="~/S2LP/dna2_self_test_2_2_0/dma_test 1 ddr0 1048576"
 alias d11="~/S2LP/dna2_self_test_2_2_0/dma_test 1 ddr1 1048576"
 alias dma="source ~/HJS/u22/dma22.sh"
 alias dma1k="source ~/HJS/u22/dma1k.sh"
+alias dry="cd ~/S2LP/dna2_self_test_2_2_0/ && ./run_3pg.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v3.29\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.30\e[0m\n\n'"
 # EOF
