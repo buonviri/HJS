@@ -85,6 +85,7 @@ alias bmc="python3 ~/HJS/statlog/statlog.py S2XX-info-void && printf '\nBoth sho
 alias info="python3 ~/HJS/statlog/statlog.py S2XX-info-void"
 alias xlog="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/zog.info && python3 ~/HJS/statlog/statlog.py S2XX-xlog-slow | tee -a ~/zog.info"
 alias xerr="cat ~/zog.info | grep -i -E 'pass|fail|error'"
+alias xx="xlog && xerr"
 alias cfg="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/cfg.info && python3 ~/HJS/statlog/statlog.py S2XX-cfg-null | tee -a ~/cfg.info"
 alias enpg="python3 ~/HJS/statlog/statlog.py S2LP-pins.-quotestar-EN_PG-starquote-"
 alias s2do="python3 ~/HJS/statlog/statlog.py S2XX"
@@ -114,6 +115,7 @@ alias d01="~/S2LP/dna2_self_test_2_2_0/dma_test 0 ddr1 1048576"
 alias d10="~/S2LP/dna2_self_test_2_2_0/dma_test 1 ddr0 1048576"
 alias d11="~/S2LP/dna2_self_test_2_2_0/dma_test 1 ddr1 1048576"
 alias dma="source ~/HJS/u22/dma22.sh"
+alias dma1k="source ~/HJS/u22/dma1k.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v3.27\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.28\e[0m\n\n'"
 # EOF
