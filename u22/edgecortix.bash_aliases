@@ -112,6 +112,7 @@ alias d00="~/S2LP/dna2_self_test_2_2_0/dma_test 0 ddr0 1048576"
 alias d01="~/S2LP/dna2_self_test_2_2_0/dma_test 0 ddr1 1048576"
 alias d10="~/S2LP/dna2_self_test_2_2_0/dma_test 1 ddr0 1048576"
 alias d11="~/S2LP/dna2_self_test_2_2_0/dma_test 1 ddr1 1048576"
+alias dma="source ~/HJS/u22/dma22.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v3.26\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.27\e[0m\n\n'"
 # EOF
