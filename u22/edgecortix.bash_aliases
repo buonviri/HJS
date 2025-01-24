@@ -29,6 +29,7 @@ alias z="printf '\n\e[1;35m   sysinfo mera16 camera\n   fym mde yod\n   meas mea
 alias uu="sudo apt update -y && sudo apt upgrade -y"
 alias ar="sudo apt autoremove -y"
 alias 00="poweroff"
+alias 01="reboot"
 alias bios="systemctl reboot --firmware-setup"
 # alias is obsolete
 # alias is obsolete
@@ -117,5 +118,5 @@ alias d11="~/S2LP/dna2_self_test_2_2_0/dma_test 1 ddr1 1048576"
 alias dma="source ~/HJS/u22/dma22.sh"
 alias dma1k="source ~/HJS/u22/dma1k.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v3.28\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.29\e[0m\n\n'"
 # EOF
