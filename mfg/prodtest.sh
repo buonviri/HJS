@@ -28,7 +28,7 @@ printf "\e[1;35m%b\e[0m"  "Running all DMA tests...\n"
 source ~/HJS/u22/dma00.sh >> ~/.prodtest-$hexstamp  # run all DMA tests
 
 # stats
-s2 | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp
+s2 >> ~/.prodtest-$hexstamp
 
 echo  # results
 cat ~/.prodtest-$hexstamp
