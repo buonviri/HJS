@@ -12,6 +12,6 @@ cat ~/.bmc  # debug, dislplay file
 echo [/ALL]
 echo
 
-cat ~/.bmc | grep -i -E "variant|revision"  #  variants and revisions
+cat ~/.bmc | grep -i -E "variant|revision|c008c"  #  variants and revisions
 
 # EOF
