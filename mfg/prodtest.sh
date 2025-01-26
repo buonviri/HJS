@@ -9,7 +9,7 @@ hexstamp=$(printf "%x" $time_t)
 # END
 
 # start
-sudo echo [ProdTest UTC $hexstamp] | tee ~/.prodtest-$hexstamp  # forces root login
+sudo echo [ProdTest UTC $hexstamp] > ~/.prodtest-$hexstamp  # forces root login
 
 # serial in FTDI
 echo
