@@ -3,11 +3,11 @@
 echo  # get timestamp
 time_t=$(date +%s)
 hexstamp=$(printf "%x" $time_t)
-logfile="~/.prodtest-$hexstamp"
+logfile=$(printf "~/.prodtest-%s" $hexstamp)
 # echo timestamp: $hexstamp
 
 # write timestamp
-sudo echo [ProdTest UTC $hexstamp] > logfile  # forces root login
+sudo echo "[ProdTest UTC $hexstamp] -> $logfile" > logfile  # forces root login
 
 # serial in FTDI
 printf "\e[1;35m%b\e[0m" "   Reading FTDI serial number (lsusb)\n"
