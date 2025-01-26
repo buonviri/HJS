@@ -46,7 +46,7 @@ sn_bmc=$(cat .prodtest-67965a8a | \grep -o -P ".....-PAC..." | sed "s/-PAC//g")
 id_ftdi=$(cat .prodtest-67965a8a | \grep -o -P "iProduct 2 FT230X on \K.*")
 id_bmc=$(cat .prodtest-67965a8a | \grep -o -P "Board: EdgeCortix \K....")
 if [ "${#sn_ftdi}" -eq 8 ] && [ "$sn_ftdi" -eq "$sn_bmc" ]; then
-  mv ~/.prodtest-$hexstamp ~/sn_bmc-$hexstamp  # rename file
+  mv -v ~/.prodtest-$hexstamp ~/$sn_bmc-$hexstamp  # rename file
 else
   echo "Length of serial number is incorrect or there is a mismatch: FTDI=$sn_ftdi BMC=$sn_bmc"
 fi
