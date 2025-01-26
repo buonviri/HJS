@@ -1,20 +1,16 @@
 #!/bin/bash
 
-echo  # do not tee
+echo  # get timestamp
 time_t=$(date +%s)
 hexstamp=$(printf "%x" $time_t)
-
-# DEBUG
 # echo timestamp: $hexstamp
-# END
 
-# start
+# write timestamp
 sudo echo [ProdTest UTC $hexstamp] > ~/.prodtest-$hexstamp  # forces root login
 
 # serial in FTDI
-echo
-echo [get FTDI serial numnber]
-usbsn | awk '{$1=$1;print}' | tee -a ~/.prodtest-$hexstamp  #  USB serial number
+echo Reading FTDI serial number...
+usbsn | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  #  USB serial number
 
 # BMC: serial, version, PCIe
 echo
