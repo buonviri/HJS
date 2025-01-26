@@ -1,8 +1,9 @@
 #!/bin/bash
+echo
 
-echo  # get timestamp
+# get timestamp and hexstamp
 time_t=$(date +%s)
-hexstamp=$(printf "%x" $time_t)  # echo timestamp: $hexstamp
+hexstamp=$(printf "%x" $time_t)  # echo "[DEBUG] timestamp: $hexstamp"
 
 # write timestamp
 sudo echo "[ProdTest UTC=0x$hexstamp] -> ~/.prodtest-$hexstamp" > ~/.prodtest-$hexstamp  # forces root login
@@ -51,4 +52,5 @@ else
   echo "Length of serial number is incorrect or there is a mismatch: FTDI=$sn_ftdi BMC=$sn_bmc"
 fi
 
+echo
 # EOF
