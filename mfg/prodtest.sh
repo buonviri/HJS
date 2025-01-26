@@ -1,10 +1,12 @@
 #!/bin/bash
 
-# do not tee
 echo
 time_t=$(date +%s)
 hexstamp=$(printf "%x" $time_t)
-echo timestamp: $hexstamp
+
+# DEBUG
+# echo timestamp: $hexstamp
+# END
 
 sudo echo [ProdTest] | tee ~/.prodtest-$hexstamp  # forces root login
 
