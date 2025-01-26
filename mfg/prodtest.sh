@@ -18,5 +18,11 @@ echo
 
 cat ~/.bmc | grep -i -E "variant|revision|c008c"  #  variants and revisions
 
+# DEBUG
+1fdc | awk '{\$1=\$1;print}'  # PCIe without leading spaces
+# END
+
 echo
+
+# awk '{\$1=\$1;print}' 
 # EOF
