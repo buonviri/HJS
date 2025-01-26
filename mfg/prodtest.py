@@ -1,9 +1,11 @@
 from subprocess import Popen, PIPE
+import ast
 
-process = Popen(['ls'], stdout=PIPE, stderr=PIPE)  # sensors -j returns JSON format
+process = Popen(['dir'], stdout=PIPE, stderr=PIPE)  # sensors -j returns JSON format
 stdout, stderr = process.communicate()
 sensors = stdout.decode("utf-8")
 
+print('SENSORS')
 print(sensors)
 
 # notes:
@@ -14,8 +16,8 @@ print(sensors)
 # -----------------------------------------------------
 
 # eval test for use on logging computer:
-import ast
-prodtest = ast.literal_eval(sensors)
+prodtest = sensors
+print('PRODTEST')
 print(prodtest)
 
 # EOF
