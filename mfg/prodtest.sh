@@ -8,7 +8,7 @@ hexstamp=$(printf "%x" $time_t)
 # echo timestamp: $hexstamp
 # END
 
-sudo echo [ProdTest] | tee ~/.prodtest-$hexstamp  # forces root login
+sudo echo [ProdTest $hexstamp] | tee ~/.prodtest-$hexstamp  # forces root login
 
 python3 ~/HJS/statlog/statlog.py S2XX-info-void > ~/.bmc | tee -a ~/.prodtest-$hexstamp  # write info to file
 python3 ~/HJS/statlog/statlog.py S2LP-srread.a.0xC008C+srread.b.0xC008C-void >> ~/.bmc | tee -a ~/.prodtest-$hexstamp  # append PCIe info
