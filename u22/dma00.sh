@@ -1,8 +1,17 @@
 #!/bin/bash
 
 # whichever one is last wins
-size="1048576"  # 1k * 1k * 1k
 size="1024"  # 1k * 1k
+size="2048"
+size="4096"
+size="8192"
+size="16384"
+size="32768"
+size="65536"
+size="131072"
+size="262144"
+size="524288"
+size="1048576"  # 1k * 1k * 1k
 
 # echo
 # printf "\e[1;31m   Hopefully you already typed 'ant22' !!!\e[0m\n"
