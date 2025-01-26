@@ -24,8 +24,8 @@ printf "Reading OS info (lspci)\n"
 
 # ant22 and dma
 printf "Please be patient...\n"
-ant22 > /dev/null
-dma >> ~/.prodtest-$hexstamp
+ant22 > /dev/null 2>&1
+source ~/HJS/u22/dma00.sh >> ~/.prodtest-$hexstamp
 
 echo  # results
 cat ~/.prodtest-$hexstamp
