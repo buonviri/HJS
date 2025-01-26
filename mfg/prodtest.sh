@@ -24,8 +24,9 @@ printf "\e[1;35m%b\e[0m" "   Reading OS info (lspci)\n"
 
 # ant22 and dma
 printf "\e[1;35m%b\e[0m"  "   Running all DMA tests...\n"
-cd ~/S2LP/dna2_self_test_2_2_0/ && ./setup_3pg.sh > /dev/null 2>&1  # hide all of the spam
-cd -
+cd ~/S2LP/dna2_self_test_2_2_0/ > /dev/null  # setup must be run from the correct folder
+./setup_3pg.sh > /dev/null 2>&1  # hide all of the spam
+cd - > /dev/null  # return to previous folder
 source ~/HJS/u22/dma00.sh >> ~/.prodtest-$hexstamp  # run all DMA tests
 
 # stats
