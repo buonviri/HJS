@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo
 sudo echo [ProdTest]  # forces root login
 
 python3 ~/HJS/statlog/statlog.py S2XX-info-void > ~/.bmc  # write info to file
@@ -17,4 +18,5 @@ echo
 
 cat ~/.bmc | grep -i -E "variant|revision|c008c"  #  variants and revisions
 
+echo
 # EOF
