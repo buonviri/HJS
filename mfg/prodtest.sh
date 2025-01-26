@@ -17,6 +17,7 @@ python3 ~/HJS/statlog/statlog.py S2LP-srread.a.0xC008C+srread.b.0xC008C-void >> 
 # END
 
 cat ~/.bmc | grep -i -E "variant|revision|c008c" | awk '{$1=$1;print}'  #  variants and revisions
+usbsn | awk '{$1=$1;print}'  #  USB serial number
 
 # DEBUG
 1fdc | awk '{$1=$1;print}'  # PCIe without leading spaces
