@@ -22,6 +22,11 @@ cat ~/.bmc | grep -i -E "variant|revision|c008c" | awk '{$1=$1;print}' >> ~/.pro
 printf "Reading OS info (lspci)\n"
 1fdc | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # PCIe without leading spaces
 
+# ant22 and dma
+printf "Please be patient...\n"
+ant22 > /dev/null
+dma >> ~/.prodtest-$hexstamp
+
 echo  # results
 cat ~/.prodtest-$hexstamp
 
