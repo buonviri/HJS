@@ -28,7 +28,7 @@ printf "\e[1;35m%b\e[0m"  "   Running all DMA tests...\n"
 cd ~/S2LP/dna2_self_test_2_2_0/ > /dev/null  # setup must be run from the correct folder
 ./setup_3pg.sh > /dev/null 2>&1  # hide all of the spam
 cd - > /dev/null  # return to previous folder
-source ~/HJS/u22/dma00.sh >> logfile  # run all DMA tests
+source ~/HJS/u22/dma00.sh >> logfile  # run all DMA tests using version with minimal spam
 
 # xlog
 printf "\e[1;35m%b\e[0m"  "   Reading xlog...\n"
@@ -47,7 +47,7 @@ sn_ftdi=$(cat .prodtest-67965a8a | \grep -o -P "iSerial 3 \K.*")
 sn_bmc=$(cat .prodtest-67965a8a | \grep -o -P ".....-PAC..." | sed "s/-PAC//g")
 id_ftdi=$(cat .prodtest-67965a8a | \grep -o -P "iProduct 2 FT230X on \K.*")
 id_bmc=$(cat .prodtest-67965a8a | \grep -o -P "Board: EdgeCortix \K....")
-if [ "${#sn_ftdi}" -eq 9 ] && [ "$sn_ftdi" -eq "$sn_bmc" ]; then
+if [ "${#sn_ftdi}" -eq 8 ] && [ "$sn_ftdi" -eq "$sn_bmc" ]; then
   echo "Eight, Match"
 else
   echo "Length of serial number is incorrect or there is a mismatch: FTDI=$sn_ftdi BMC=$sn_bmc"
