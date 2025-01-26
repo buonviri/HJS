@@ -1,6 +1,6 @@
 from subprocess import Popen, PIPE
 
-process = Popen(['bmc'], stdout=PIPE, stderr=PIPE)  # sensors -j returns JSON format
+process = Popen(['ls'], stdout=PIPE, stderr=PIPE)  # sensors -j returns JSON format
 stdout, stderr = process.communicate()
 sensors = stdout.decode("utf-8")
 
