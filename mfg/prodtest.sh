@@ -30,7 +30,7 @@ echo [get linux version of PCIe]
 
 echo  # do not tee
 
-echo TEMP
+echo [---TEMP---]
 cat ~/.prodtest-$hexstamp
 
 # EOF
