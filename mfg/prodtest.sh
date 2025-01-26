@@ -24,7 +24,9 @@ printf "Reading OS info (lspci)\n"
 
 # ant22 and dma
 printf "\nPlease be patient...\n"
-source ~/S2LP/dna2_self_test_2_2_0/setup_3pg.sh > /dev/null 2>&1
+cd ~/S2LP/dna2_self_test_2_2_0/
+./setup_3pg.sh > /dev/null 2>&1
+cd -
 source ~/HJS/u22/dma00.sh >> ~/.prodtest-$hexstamp
 
 echo  # results
