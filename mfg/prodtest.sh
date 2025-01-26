@@ -23,7 +23,6 @@ echo Reading OS info [lspci]
 1fdc | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # PCIe without leading spaces
 
 echo  # results
-echo [LOG]
 cat ~/.prodtest-$hexstamp
 
 # EOF
