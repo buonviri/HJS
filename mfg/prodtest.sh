@@ -23,7 +23,7 @@ printf "Reading OS info (lspci)\n"
 1fdc | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # PCIe without leading spaces
 
 # ant22 and dma
-printf "\nRunning all DMA tests...\n"
+printf "Running all DMA tests...\n"
 ~/S2LP/dna2_self_test_2_2_0/setup_3pg.sh > /dev/null 2>&1  # hide all of the spam
 source ~/HJS/u22/dma00.sh >> ~/.prodtest-$hexstamp  # run all DMA tests
 
