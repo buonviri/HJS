@@ -23,8 +23,8 @@ printf "Reading OS info (lspci)\n"
 1fdc | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # PCIe without leading spaces
 
 # ant22 and dma
-printf "Please be patient...\n"
-ant22 > /dev/null 2>&1
+printf "\nPlease be patient...\n"
+source ~/S2LP/dna2_self_test_2_2_0/setup_3pg.sh > /dev/null 2>&1
 source ~/HJS/u22/dma00.sh >> ~/.prodtest-$hexstamp
 
 echo  # results
