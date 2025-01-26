@@ -16,7 +16,7 @@ python3 ~/HJS/statlog/statlog.py S2LP-srread.a.0xC008C+srread.b.0xC008C-void >> 
 # echo
 # END
 
-cat ~/.bmc | grep -i -E "variant|revision|c008c"  #  variants and revisions
+cat ~/.bmc | grep -i -E "variant|revision|c008c" | awk '{$1=$1;print}'  #  variants and revisions
 
 # DEBUG
 1fdc | awk '{$1=$1;print}'  # PCIe without leading spaces
