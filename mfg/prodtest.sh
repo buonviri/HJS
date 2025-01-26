@@ -29,6 +29,12 @@ cd ~/S2LP/dna2_self_test_2_2_0/ > /dev/null  # setup must be run from the correc
 cd - > /dev/null  # return to previous folder
 source ~/HJS/u22/dma00.sh >> ~/.prodtest-$hexstamp  # run all DMA tests
 
+# xlog
+printf "\e[1;35m%b\e[0m"  "   Reading xlog...\n"
+python3 ~/HJS/statlog/statlog.py S2XX-ver-null > ~/zog.info  # first half of xlog alias
+python3 ~/HJS/statlog/statlog.py S2XX-xlog-slow >> ~/zog.info  # second half of xlog alias
+xerr | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # xlog errors without leading spaces
+
 # stats
 s2 >> ~/.prodtest-$hexstamp
 
