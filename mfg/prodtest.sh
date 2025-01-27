@@ -18,6 +18,12 @@ python3 ~/HJS/statlog/statlog.py S2XX-info-void > ~/.bmc  # write BMC serial and
 python3 ~/HJS/statlog/statlog.py S2XX-srread.a.0xC008C+srread.b.0xC008C-void >> ~/.bmc  # append PCIe info
 cat ~/.bmc | grep -i -E "variant|revision|c008c" | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  #  variants and revisions
 
+# get serial number and card name
+sn_ftdi=$(cat .prodtest-67965a8a | \grep -o -P "iSerial 3 \K.*")
+sn_bmc=$(cat .prodtest-67965a8a | \grep -o -P ".....-PAC..." | sed "s/-PAC//g")
+id_ftdi=$(cat .prodtest-67965a8a | \grep -o -P "iProduct 2 FT230X on \K.*")
+id_bmc=$(cat .prodtest-67965a8a | \grep -o -P "Board: EdgeCortix \K....")
+
 # 1FDC
 printf "\e[1;35m%b\e[0m" "   Reading OS info (lspci)\n"
 1fdc | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # PCIe without leading spaces
@@ -41,11 +47,7 @@ s2 >> ~/.prodtest-$hexstamp
 echo  # results
 cat ~/.prodtest-$hexstamp
 
-# validate serial number and card name
-sn_ftdi=$(cat .prodtest-67965a8a | \grep -o -P "iSerial 3 \K.*")
-sn_bmc=$(cat .prodtest-67965a8a | \grep -o -P ".....-PAC..." | sed "s/-PAC//g")
-id_ftdi=$(cat .prodtest-67965a8a | \grep -o -P "iProduct 2 FT230X on \K.*")
-id_bmc=$(cat .prodtest-67965a8a | \grep -o -P "Board: EdgeCortix \K....")
+# rename based on serial number
 if [ "${#sn_ftdi}" -eq 8 ] && [ "$sn_ftdi" -eq "$sn_bmc" ]; then
   mv -v ~/.prodtest-$hexstamp ~/$sn_bmc-0x$hexstamp.txt  # rename file
 else
