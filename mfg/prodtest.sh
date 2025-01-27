@@ -55,6 +55,7 @@ cat ~/.prodtest-$hexstamp
 # rename based on serial number
 if [ "${#sn_ftdi}" -eq 8 ] && [ "$sn_ftdi" == "$sn_bmc" ]; then
   printf "%s == %s? \u2713\n" $sn_ftdi $sn_bmc
+  printf "HJS "  # signature
   mv -v ~/.prodtest-$hexstamp ~/$sn_bmc-0x$hexstamp.txt  # rename file
 else
   echo "Length of serial number is incorrect or there is a mismatch: FTDI=$sn_ftdi BMC=$sn_bmc"
