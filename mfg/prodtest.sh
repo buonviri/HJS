@@ -23,7 +23,7 @@ sn_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iSerial 3 \K.*")
 sn_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P ".....-PAC..." | sed "s/-PAC//g")
 id_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iProduct 2 FT230X on \K.*")
 id_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board: EdgeCortix \K....")
-dual=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board: EdgeCortix \K......")
+dual=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board:.*variant \K...")
 echo DUAL? $dual
 
 # 1FDC
