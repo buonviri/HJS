@@ -9,6 +9,7 @@ hexstamp=$(printf "%x" $time_t)  # echo "[DEBUG] timestamp: $hexstamp"
 sudo echo "[ProdTest UTC=0x$hexstamp] -> ~/.prodtest-$hexstamp" > ~/.prodtest-$hexstamp  # forces root login
 
 # serial in FTDI
+rm ~/ftdi.info  # remove existing file to be safe
 printf "\e[1;35m%b\e[0m" "   Reading FTDI serial number (lsusb)\n"
 usbsn | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  #  USB serial number
 
@@ -54,7 +55,7 @@ cat ~/.prodtest-$hexstamp
 
 # rename based on serial number
 if [ "${#sn_ftdi}" -eq 8 ] && [ "$sn_ftdi" == "$sn_bmc" ]; then
-  printf "Verify %s == %s? \u2713\n" $sn_ftdi $sn_bmc
+  printf "Verify %s == %s \u2713\n" $sn_ftdi $sn_bmc
   printf "HJS "  # signature prefix
   mv -v ~/.prodtest-$hexstamp ~/$sn_bmc-0x$hexstamp.txt  # rename file
 else
