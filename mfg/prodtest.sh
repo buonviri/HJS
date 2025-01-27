@@ -36,7 +36,7 @@ cd ~/S2LP/dna2_self_test_2_2_0/ > /dev/null  # setup must be run from the correc
 ./setup_3pg.sh > /dev/null 2>&1  # hide all of the spam
 cd - > /dev/null  # return to previous folder
 if [ "$dual" == "D16" ]; then
-  source ~/HJS/u22/dma00.sh >> ~/.prodtest-$hexstamp  # run all DMA tests using version with minimal spam, dual
+  source ~/HJS/u22/dma00d.sh >> ~/.prodtest-$hexstamp  # run all DMA tests using version with minimal spam, dual
 else
   source ~/HJS/u22/dma00s.sh >> ~/.prodtest-$hexstamp  # run all DMA tests using version with minimal spam, single
 fi
