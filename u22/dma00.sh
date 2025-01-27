@@ -12,6 +12,7 @@ size="131072"
 size="262144"
 size="524288"
 size="1048576"  # 1k * 1k * 1k
+size="262144"  # set to 256k
 
 # echo
 # printf "\e[1;31m   Hopefully you already typed 'ant22' !!!\e[0m\n"
