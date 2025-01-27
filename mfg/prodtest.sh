@@ -19,10 +19,10 @@ python3 ~/HJS/statlog/statlog.py S2XX-srread.a.0xC008C+srread.b.0xC008C-void >> 
 cat ~/.bmc | grep -i -E "variant|revision|c008c" | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  #  variants and revisions
 
 # get serial number and card name
-sn_ftdi=$(cat .prodtest-67965a8a | \grep -o -P "iSerial 3 \K.*")
-sn_bmc=$(cat .prodtest-67965a8a | \grep -o -P ".....-PAC..." | sed "s/-PAC//g")
-id_ftdi=$(cat .prodtest-67965a8a | \grep -o -P "iProduct 2 FT230X on \K.*")
-id_bmc=$(cat .prodtest-67965a8a | \grep -o -P "Board: EdgeCortix \K....")
+sn_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iSerial 3 \K.*")
+sn_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P ".....-PAC..." | sed "s/-PAC//g")
+id_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iProduct 2 FT230X on \K.*")
+id_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board: EdgeCortix \K....")
 
 # 1FDC
 printf "\e[1;35m%b\e[0m" "   Reading OS info (lspci)\n"
