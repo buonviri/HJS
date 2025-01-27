@@ -33,7 +33,7 @@ fi
 # check if S2LP/S2M2
 foo=$(lspci | grep 1fdc:0001)
 if [ $? -eq 0 ]; then
-    python3 ~/HJS/statlog/statlog.py S2XX-cfg-fast | grep -Po 'Serial Number  =\s+\K.*' | tee -a ~/sys.info
+    python3 ~/HJS/statlog/statlog.py S2XX-cfg-fast | grep -Po 'Serial Number\s+=\s+\K.*' | tee -a ~/sys.info
 else  # terminal only, not stored in sys.info
     echo No S2XX found.
 fi
