@@ -55,7 +55,7 @@ cat ~/.prodtest-$hexstamp
 
 # rename based on serial number
 if [ "${#sn_ftdi}" -eq 8 ] && [ "$sn_ftdi" == "$sn_bmc" ]; then
-  printf "Verify %s == %s [\u2713]\n" $sn_ftdi $sn_bmc
+  printf "Verify %s == %s \u2611\n" $sn_ftdi $sn_bmc
   printf "HJS "  # signature prefix
   mv -v ~/.prodtest-$hexstamp ~/$sn_bmc-0x$hexstamp.txt  # rename file
 else
