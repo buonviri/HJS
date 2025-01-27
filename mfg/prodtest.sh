@@ -23,8 +23,7 @@ sn_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iSerial 3 \K.*")
 sn_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P ".....-PAC..." | sed "s/-PAC//g")
 id_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iProduct 2 FT230X on \K.*")
 id_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board: EdgeCortix \K....")
-dual=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board:.*variant \K...")
-echo DUAL? $dual
+dual=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board:.*variant \K...")  # should be D16 or S16
 
 # 1FDC
 printf "\e[1;35m%b\e[0m" "   Reading OS info (lspci)\n"
@@ -35,7 +34,11 @@ printf "\e[1;35m%b\e[0m"  "   Running all DMA tests...\n"
 cd ~/S2LP/dna2_self_test_2_2_0/ > /dev/null  # setup must be run from the correct folder
 ./setup_3pg.sh > /dev/null 2>&1  # hide all of the spam
 cd - > /dev/null  # return to previous folder
-source ~/HJS/u22/dma00.sh >> ~/.prodtest-$hexstamp  # run all DMA tests using version with minimal spam
+if [ "$dual" -eq "D16" ]; then
+  source ~/HJS/u22/dma00.sh >> ~/.prodtest-$hexstamp  # run all DMA tests using version with minimal spam, dual
+else
+  source ~/HJS/u22/dma00s.sh >> ~/.prodtest-$hexstamp  # run all DMA tests using version with minimal spam, single
+fi
 
 # xlog
 printf "\e[1;35m%b\e[0m"  "   Reading xlog...\n"
