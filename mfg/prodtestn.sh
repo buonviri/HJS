@@ -6,6 +6,6 @@ if [ $# == 1 ]; then
     source ~/HJS/mfg/prodtest.sh
   done
 else
-  printf "Usage:\n   Enter the number of loops.\nExample:\n   prodtestn 99\n"
+  printf "Usage:\n   Enter the number of loops.\nExample:\n   prodtestn 10\n"
 fi
 # EOF
