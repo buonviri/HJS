@@ -63,10 +63,10 @@ cat ~/.prodtest-$hexstamp
 # rename based on serial number
 if [ "${#sn_ftdi}" -eq 8 ] && [ "$sn_ftdi" == "$sn_bmc" ]; then
   printf "Verify %s == %s \u2611\n" $sn_ftdi $sn_bmc
-  printf "Lot Code: ${sn_bmc:0:5}\n"
+  # printf "Lot Code: ${sn_bmc:0:5}\n"
   mkdir -p ~/S2xx/prodtest/"${sn_bmc:0:5}"
   printf "HJS "  # signature prefix
-  mv -v ~/.prodtest-$hexstamp ~/S2xx/prodtest/"$sn_bmc"-0x"$hexstamp".txt  # rename file
+  mv -v ~/.prodtest-$hexstamp ~/S2xx/prodtest/"${sn_bmc:0:5}"/"$sn_bmc"-0x"$hexstamp".txt  # rename file
 else
   echo "Length of serial number is incorrect or there is a mismatch: FTDI=$sn_ftdi BMC=$sn_bmc"
 fi
