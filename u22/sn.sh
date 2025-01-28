@@ -1,4 +1,5 @@
 #!/bin/bash
+echo
 
 if [ $# == 2 ]; then
   foo=$(printf "$HOME/S2xx/prodtest/%s/" "$1" )
@@ -7,9 +8,9 @@ if [ $# == 2 ]; then
   # echo "DEBUG: $foo $bar"
   valid=$(find "$foo" -name "$bar$star")
   if [ -z "$valid" ]; then
-    printf "\n   \e[1;31mSerial number not found: %s%s\e[0m\n" "$1" "$2"
+    printf "   \e[1;31mSerial number not found: %s%s\e[0m\n" "$1" "$2"
   else
-    printf "\nSummary for serial number %s%s" "$1" "$2" # start of summary line
+    printf "Summary for serial number %s%s" "$1" "$2" # start of summary line
     foobar=$(printf "%s%s" "$foo" "$bar")
     printf " in \e[1;35m$foobar%s\e[0m\n" "$star" # finish the previous line
     printf "Log count: "
@@ -29,10 +30,3 @@ fi
 
 echo
 # EOF
-
-# cat ~/S2xx/prodtest/52979/52979001*
-# ls ~/S2xx/prodtest/52979/
-# cd ~/S2xx/prodtest/52979/
-
-# "%s%s-0x6797e0df.txt"
-# 52979018-0x6797e0df.txt
