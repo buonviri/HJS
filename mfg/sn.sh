@@ -13,8 +13,10 @@ if [ $# == 2 ]; then
     printf "Summary for serial number %s%s" "$1" "$2" # start of summary line
     foobar=$(printf "%s%s" "$foo" "$bar")
     printf " in \e[1;35m$foobar%s\e[0m\n" "$star" # finish the previous line
+
     printf "Log count: "
     cat $foobar$star | grep -o -i 'board.*edgecortix' | wc -l
+
     printf "BIST pass: "
     cat $foobar$star | grep -o -i 'bist.*pass' | wc -l
     printf "BIST fail: "
@@ -24,10 +26,17 @@ if [ $# == 2 ]; then
     b0=$(cat $foobar$star | grep -o -i 'bist.*sakura b.*ddr0.*fail' | wc -l)
     b1=$(cat $foobar$star | grep -o -i 'bist.*sakura b.*ddr1.*fail' | wc -l)
     printf "$total [$a0 $a1 $b0 $b1]\n"
+
     printf "DMA pass: "
     cat $foobar$star | grep -o -i 'trial.*pass' | wc -l
     printf "DMA fail: "
+    total=$(cat $foobar$star | grep -o -i 'trial.*fail' | wc -l)
     cat $foobar$star | grep -o -i 'trial.*fail' | wc -l
+    a0=$(cat $foobar$star | grep -o -i 'trial.*sakura a.*ddr0.*fail' | wc -l)
+    a1=$(cat $foobar$star | grep -o -i 'trial.*sakura a.*ddr1.*fail' | wc -l)
+    b0=$(cat $foobar$star | grep -o -i 'trial.*sakura b.*ddr0.*fail' | wc -l)
+    b1=$(cat $foobar$star | grep -o -i 'trial.*sakura b.*ddr1.*fail' | wc -l)
+    printf "$total [$a0 $a1 $b0 $b1]\n"
   fi
 else
   printf "Usage:\n   Enter the lot code and serial number as parameters.\nExample:\n   sn 12345 001\n"
