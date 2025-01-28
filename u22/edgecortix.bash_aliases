@@ -111,6 +111,7 @@ alias s2clr="source ~/HJS/u22/mera22clr.sh"
 alias prodtest="source ~/HJS/mfg/prodtest.sh"
 alias prodtestn="source ~/HJS/mfg/prodtestn.sh"
 alias sn="source ~/HJS/mfg/sn.sh"
+alias lot="source ~/HJS/mfg/lot.sh"
 
 alias ant="cd ~/S2LP/dna2_self_test && ./setup.sh ; echo ; echo Ensure that compute blocks 01 and 02 are enabled, then ./run.sh or ./run.sh 999"
 alias ant22="cd ~/S2LP/dna2_self_test_2_2_0/ && ./setup_3pg.sh ; echo ; echo Ensure that compute blocks 01 and 02 are enabled, then ./run_3pg.sh or ./run_3pg.sh 999"
@@ -122,5 +123,5 @@ alias dma="source ~/HJS/u22/dma22.sh"
 alias dma1k="source ~/HJS/u22/dma1k.sh"
 alias dry="cd ~/S2LP/dna2_self_test_2_2_0/ && ./run_3pg.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v3.33\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.34\e[0m\n\n'"
 # EOF
