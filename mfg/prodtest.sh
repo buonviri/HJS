@@ -43,7 +43,8 @@ printf "\e[1;35m%b\e[0m"  "   Running all DMA tests...\n"
 cd ~/S2LP/dna2_self_test_2_2_0/ > /dev/null  # setup must be run from the correct folder
 ./setup_3pg.sh > /dev/null 2>&1  # hide all of the spam
 cd - > /dev/null  # return to previous folder
-if [ cat ~/.prodtest-$hexstamp | \grep -i "fail" ]; then
+bistfail=$(cat ~/.prodtest-$hexstamp | \grep -i "fail")
+if [ bistfail ]; then
   printf "\e[1;35m%b\e[0m"  "   ABORTED DUE TO BIST FAILURE\n"
 elif [ "$dual" == "D16" ]; then
   source ~/HJS/u22/dma00d.sh >> ~/.prodtest-$hexstamp  # run all DMA tests using version with minimal spam, dual
