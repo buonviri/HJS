@@ -41,7 +41,7 @@ xerr | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # xlog pass/fail/error line
 # ant22 and dma
 printf "\e[1;35m%b\e[0m"  "   Running all DMA tests...\n"
 bistfail=$(cat ~/.prodtest-$hexstamp | \grep -i "fail")
-if [ bistfail ]; then
+if [ -n bistfail ]; then  # check if not empty
   printf "\e[1;35m%b\e[0m"  "   ABORTED DUE TO BIST FAILURE\n"
 else
   cd ~/S2LP/dna2_self_test_2_2_0/ > /dev/null  # setup must be run from the correct folder
