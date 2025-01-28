@@ -19,6 +19,10 @@ if [ $# == 2 ]; then
     cat $foobar$star | grep -o -i 'bist.*pass' | wc -l
     printf "BIST fail: "
     cat $foobar$star | grep -o -i 'bist.*fail' | wc -l
+    cat $foobar$star | grep -o -i 'bist.*sakura a.*ddr0.*fail' | wc -l
+    cat $foobar$star | grep -o -i 'bist.*sakura a.*ddr1.*fail' | wc -l
+    cat $foobar$star | grep -o -i 'bist.*sakura b.*ddr0.*fail' | wc -l
+    cat $foobar$star | grep -o -i 'bist.*sakura b.*ddr1.*fail' | wc -l
     printf "DMA pass: "
     cat $foobar$star | grep -o -i 'trial.*pass' | wc -l
     printf "DMA fail: "
