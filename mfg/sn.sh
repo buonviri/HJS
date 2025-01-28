@@ -31,11 +31,10 @@ if [ $# == 2 ]; then
     cat $foobar$star | grep -o -i 'trial.*pass' | wc -l
     printf "DMA fail: "
     total=$(cat $foobar$star | grep -o -i 'trial.*fail' | wc -l)
-    cat $foobar$star | grep -o -i 'trial.*fail' | wc -l
-    a0=$(cat $foobar$star | grep -o -i 'trial.*sakura a.*ddr0.*fail' | wc -l)
-    a1=$(cat $foobar$star | grep -o -i 'trial.*sakura a.*ddr1.*fail' | wc -l)
-    b0=$(cat $foobar$star | grep -o -i 'trial.*sakura b.*ddr0.*fail' | wc -l)
-    b1=$(cat $foobar$star | grep -o -i 'trial.*sakura b.*ddr1.*fail' | wc -l)
+    a0=$(cat $foobar$star | grep -o -i 'failed.*device ID = 0.*ddr0' | wc -l)
+    a1=$(cat $foobar$star | grep -o -i 'failed.*device ID = 0.*ddr1' | wc -l)
+    b0=$(cat $foobar$star | grep -o -i 'failed.*device ID = 1.*ddr0' | wc -l)
+    b1=$(cat $foobar$star | grep -o -i 'failed.*device ID = 1.*ddr1' | wc -l)
     printf "$total [$a0 $a1 $b0 $b1]\n"
   fi
 else
@@ -43,4 +42,3 @@ else
 fi
 
 echo
-# EOF
