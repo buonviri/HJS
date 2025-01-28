@@ -18,11 +18,12 @@ if [ $# == 2 ]; then
     printf "BIST pass: "
     cat $foobar$star | grep -o -i 'bist.*pass' | wc -l
     printf "BIST fail: "
-    cat $foobar$star | grep -o -i 'bist.*fail' | wc -l
-    cat $foobar$star | grep -o -i 'bist.*sakura a.*ddr0.*fail' | wc -l
-    cat $foobar$star | grep -o -i 'bist.*sakura a.*ddr1.*fail' | wc -l
-    cat $foobar$star | grep -o -i 'bist.*sakura b.*ddr0.*fail' | wc -l
-    cat $foobar$star | grep -o -i 'bist.*sakura b.*ddr1.*fail' | wc -l
+    total=$(cat $foobar$star | grep -o -i 'bist.*fail' | wc -l)
+    a0=$(cat $foobar$star | grep -o -i 'bist.*sakura a.*ddr0.*fail' | wc -l)
+    a1=$(cat $foobar$star | grep -o -i 'bist.*sakura a.*ddr1.*fail' | wc -l)
+    b0=$(cat $foobar$star | grep -o -i 'bist.*sakura b.*ddr0.*fail' | wc -l)
+    b1=$(cat $foobar$star | grep -o -i 'bist.*sakura b.*ddr1.*fail' | wc -l)
+    printf "$total [$a0 $a1 $b0 $b1]\n"
     printf "DMA pass: "
     cat $foobar$star | grep -o -i 'trial.*pass' | wc -l
     printf "DMA fail: "
