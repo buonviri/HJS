@@ -37,7 +37,7 @@ if [ $# == 2 ]; then
     b1=$(cat $foobar$star | grep -o -i 'failed.*device ID = 1.*ddr1' | wc -l)
     printf "$total [$a0 $a1 $b0 $b1]\n"
   fi
-else
+else  # wrong number of args
   printf "Usage:\n   Enter the lot code and serial number as parameters.\nExample:\n   sn 12345 001\n"
 fi
 
