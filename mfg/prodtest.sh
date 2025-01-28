@@ -9,7 +9,9 @@ hexstamp=$(printf "%x" $time_t)  # echo "[DEBUG] timestamp: $hexstamp"
 sudo echo "[ProdTest UTC=0x$hexstamp] -> ~/.prodtest-$hexstamp" > ~/.prodtest-$hexstamp  # forces root login
 
 # serial in FTDI
-rm ~/ftdi.info  # remove existing file to be safe
+if [ -f ~/ftdi.info ]; then
+  rm ~/ftdi.info  # remove existing file to be safe
+fi
 printf "\e[1;35m%b\e[0m" "   Reading FTDI serial number (lsusb)\n"
 usbsn | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  #  USB serial number
 
@@ -30,6 +32,12 @@ dual=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board:.*variant \K...")  # shoul
 printf "\e[1;35m%b\e[0m" "   Reading OS info (lspci)\n"
 1fdc | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # PCIe without leading spaces
 
+# xlog
+printf "\e[1;35m%b\e[0m"  "   Reading xlog...\n"
+python3 ~/HJS/statlog/statlog.py S2XX-ver-null > ~/zog.info  # first half of xlog alias
+python3 ~/HJS/statlog/statlog.py S2XX-xlog-slow >> ~/zog.info  # second half of xlog alias
+xerr | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # xlog pass/fail/error lines without leading spaces
+
 # ant22 and dma
 printf "\e[1;35m%b\e[0m"  "   Running all DMA tests...\n"
 cd ~/S2LP/dna2_self_test_2_2_0/ > /dev/null  # setup must be run from the correct folder
@@ -40,12 +48,6 @@ if [ "$dual" == "D16" ]; then
 else
   source ~/HJS/u22/dma00s.sh >> ~/.prodtest-$hexstamp  # run all DMA tests using version with minimal spam, single
 fi
-
-# xlog
-printf "\e[1;35m%b\e[0m"  "   Reading xlog...\n"
-python3 ~/HJS/statlog/statlog.py S2XX-ver-null > ~/zog.info  # first half of xlog alias
-python3 ~/HJS/statlog/statlog.py S2XX-xlog-slow >> ~/zog.info  # second half of xlog alias
-xerr | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # xlog pass/fail/error lines without leading spaces
 
 # stats
 s2 >> ~/.prodtest-$hexstamp
