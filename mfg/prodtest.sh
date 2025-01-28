@@ -8,7 +8,7 @@ hexstamp=$(printf "%x" $time_t)  # echo "[DEBUG] timestamp: $hexstamp"
 # write timestamp
 sudo echo "[ProdTest UTC=0x$hexstamp] -> ~/.prodtest-$hexstamp" > ~/.prodtest-$hexstamp  # forces root login
 
-# serial in FTDI
+# get serial number from FTDI
 if [ -f ~/ftdi.info ]; then
   rm ~/ftdi.info  # remove existing file to be safe
 fi
@@ -43,7 +43,9 @@ printf "\e[1;35m%b\e[0m"  "   Running all DMA tests...\n"
 cd ~/S2LP/dna2_self_test_2_2_0/ > /dev/null  # setup must be run from the correct folder
 ./setup_3pg.sh > /dev/null 2>&1  # hide all of the spam
 cd - > /dev/null  # return to previous folder
-if [ "$dual" == "D16" ]; then
+if [ cat ~/.prodtest-$hexstamp | \grep -i "fail" ]; then
+  printf "\e[1;35m%b\e[0m"  "   ABORTED DUE TO BIST FAILURE\n"
+elif [ "$dual" == "D16" ]; then
   source ~/HJS/u22/dma00d.sh >> ~/.prodtest-$hexstamp  # run all DMA tests using version with minimal spam, dual
 else
   source ~/HJS/u22/dma00s.sh >> ~/.prodtest-$hexstamp  # run all DMA tests using version with minimal spam, single
