@@ -19,10 +19,11 @@ if [ $# == 2 ]; then  # expects two args
 
   for i in "${foo[@]}"; do
     touch "$HOME/S2xx/prodtest/$lotcode/$lotcode$i-xxx.tmp"  # these could be deleted at the end
-    zeroruns=$(sn "$lotcode" "$i" | grep "Log count: 0")
-    echo Z="$zeroruns"
-    sn "$lotcode" "$i" | awk NF  # run the serial number script then format+print
-    echo
+    zeroruns=$(sn "$lotcode" "$i" | grep "Log count: 0")  # look for log count of zero
+    if [ -z "$zeroruns" ]; then  # if result is empty, log count is non-zero
+      sn "$lotcode" "$i" | awk NF  # run the serial number script then format+print
+      echo
+    fi
   done
 
 else  # wrong number of args
