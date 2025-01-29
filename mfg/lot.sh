@@ -19,7 +19,7 @@ if [ $# == 2 ]; then  # expects two args
 
   for i in "${foo[@]}"; do
     touch "$HOME/S2xx/prodtest/$lotcode/$lotcode$i-xxx.tmp"  # these could be deleted at the end
-    zeroruns=$(sn "$lotcode" "$i") | grep "Log Count: 0")
+    zeroruns=$(sn "$lotcode" "$i" | grep "Log Count: 0")
     echo "$zeroruns"
     sn "$lotcode" "$i" | awk NF  # run the serial number script then format+print
     echo
