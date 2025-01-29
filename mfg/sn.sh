@@ -40,7 +40,7 @@ if [ $# == 2 ]; then
     my_array=("Wr (GB/s):")
     wr=$(cat $foobar$star | grep -i -o -P 'write speed =\K [0-9]\.[0-9]' | sed "s/[[:space:]]//g")
     while read line; do
-      if [[ ! " ${my_array[@]} " =~ " ${new_string} " ]]; then
+      if [[ ! " ${my_array[@]} " =~ " ${line} " ]]; then
         my_array+=("${line}")
       fi
     done <<< "$wr"
@@ -60,19 +60,3 @@ fi
 
 echo
 # EOF
-
-
-# Declare an array
-my_array=("apple" "banana" "cherry")
-
-# String to add
-new_string="orange"
-
-# Check if the string is already in the array
-if [[ ! " ${my_array[@]} " =~ " ${new_string} " ]]; then
-  # Add the string to the array if it's not already there
-  my_array+=("${new_string}")
-fi
-
-# Print the array
-echo "${my_array[@]}"
