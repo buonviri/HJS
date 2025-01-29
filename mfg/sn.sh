@@ -38,7 +38,7 @@ if [ $# == 2 ]; then
     printf "$total [$a0 $a1 $b0 $b1]\n"
 
     printf "Wr (GB/s):"
-    wr=$(cat $foobar$star | grep -i -o -P 'write speed =\K [0-9]\.[0-9]' | sed "s/\n/ /g")
+    wr=$(cat $foobar$star | grep -i -o -P 'write speed =\K [0-9]\.[0-9]' | sed "s/[[:space:]]//g")
     printf "$wr\n"
     #printf "Rd (GB/s):"
     #cat $foobar$star | grep -i -o -P 'read speed =\K [0-9]\.[0-9]' | sed "s/\n/ /g"
