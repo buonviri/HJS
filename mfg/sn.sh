@@ -37,12 +37,15 @@ if [ $# == 2 ]; then
     b1=$(cat $foobar$star | grep -o -i 'failed.*device ID = 1.*ddr1' | wc -l)
     printf "$total [$a0 $a1 $b0 $b1]\n"
 
-    printf "Wr (GB/s):"
+    my_array=("Wr (GB/s):")
     wr=$(cat $foobar$star | grep -i -o -P 'write speed =\K [0-9]\.[0-9]' | sed "s/[[:space:]]//g")
     while read line; do
-      printf " $line"
+      if [[ ! " ${my_array[@]} " =~ " ${new_string} " ]]; then
+        my_array+=("${line}")
+      fi
     done <<< "$wr"
-    printf "\n"
+    echo "${my_array[@]}"
+
     printf "Rd (GB/s):"
     rd=$(cat $foobar$star | grep -i -o -P 'read speed =\K [0-9]\.[0-9]' | sed "s/[[:space:]]//g")
     while read line; do
@@ -57,3 +60,19 @@ fi
 
 echo
 # EOF
+
+
+# Declare an array
+my_array=("apple" "banana" "cherry")
+
+# String to add
+new_string="orange"
+
+# Check if the string is already in the array
+if [[ ! " ${my_array[@]} " =~ " ${new_string} " ]]; then
+  # Add the string to the array if it's not already there
+  my_array+=("${new_string}")
+fi
+
+# Print the array
+echo "${my_array[@]}"
