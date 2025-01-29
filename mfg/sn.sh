@@ -43,8 +43,12 @@ if [ $# == 2 ]; then
       printf " $line"
     done <<< "$wr"
     printf "\n"
-    #printf "Rd (GB/s):"
-    #cat $foobar$star | grep -i -o -P 'read speed =\K [0-9]\.[0-9]' | sed "s/\n/ /g"
+    printf "Rd (GB/s):"
+    rd=$(cat $foobar$star | grep -i -o -P 'read speed =\K [0-9]\.[0-9]' | sed "s/[[:space:]]//g")
+    while read line; do
+      printf " $line"
+    done <<< "$rd"
+    printf "\n"
 
   fi
 else  # wrong number of args
