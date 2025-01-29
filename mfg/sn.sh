@@ -46,12 +46,14 @@ if [ $# == 2 ]; then
     done <<< "$wr"
     echo "${my_array[@]}"
 
-    printf "Rd (GB/s):"
+    my_array=("Rd (GB/s):")
     rd=$(cat $foobar$star | grep -i -o -P 'read speed =\K [0-9]\.[0-9]' | sed "s/[[:space:]]//g")
     while read line; do
-      printf " $line"
+      if [[ ! " ${my_array[@]} " =~ " ${line} " ]]; then
+        my_array+=("${line}")
+      fi
     done <<< "$rd"
-    printf "\n"
+    echo "${my_array[@]}"
 
   fi
 else  # wrong number of args
