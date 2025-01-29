@@ -38,11 +38,11 @@ if [ $# == 2 ]; then
     printf "$total [$a0 $a1 $b0 $b1]\n"
 
     printf "Wr (GB/s):"
-    cat $foobar$star | grep -i -o -P 'write speed =\K [0-9]\.[0-9]' | sed "s/\n/ /g"
-    echo  # needs newline
-    printf "Rd (GB/s):"
-    cat $foobar$star | grep -i -o -P 'read speed =\K [0-9]\.[0-9]' | sed "s/\n/ /g"
-    echo  # needs newline
+    wr=$(cat $foobar$star | grep -i -o -P 'write speed =\K [0-9]\.[0-9]')
+    printf "$wr\n"
+    #printf "Rd (GB/s):"
+    #cat $foobar$star | grep -i -o -P 'read speed =\K [0-9]\.[0-9]' | sed "s/\n/ /g"
+
   fi
 else  # wrong number of args
   printf "Usage:\n   Enter the lot code and serial number as parameters.\nExample:\n   sn 12345 001\n"
