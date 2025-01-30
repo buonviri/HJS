@@ -28,7 +28,7 @@ id_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iProduct 2 FT230X on \K.*")
 id_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board: EdgeCortix \K....")
 dual=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board:.*variant \K...")  # should be D16 or S16
 
-# 1FDC
+# 1FDC:xxxx
 printf "\e[1;35m%b\e[0m" "   Reading OS info (lspci)\n"
 1fdc | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # PCIe without leading spaces
 
@@ -48,9 +48,9 @@ else
   ./setup_3pg.sh > /dev/null 2>&1  # hide all of the spam
   cd - > /dev/null  # return to previous folder
   if [ "$dual" == "D16" ]; then
-    source ~/HJS/u22/dma00d.sh >> ~/.prodtest-$hexstamp  # run all DMA tests using version with minimal spam, dual
+    source ~/HJS/u22/dma00d.sh >> ~/.prodtest-$hexstamp  # run all DMA tests using version with minimal spam, dual (S2LP-D16)
   else
-    source ~/HJS/u22/dma00s.sh >> ~/.prodtest-$hexstamp  # run all DMA tests using version with minimal spam, single
+    source ~/HJS/u22/dma00s.sh >> ~/.prodtest-$hexstamp  # run all DMA tests using version with minimal spam, single (S2LP-S16 or S2M2-S16)
   fi
 fi
 
