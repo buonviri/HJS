@@ -38,7 +38,7 @@ my_product = 'S1LP'
 def bmc_cmd(dev, cmd):
     dev.write(bytes(cmd + '\n', 'utf-8'))
     val = dev.read(99999)
-    return val.decode('utf-8').strip()
+    return val.decode('utf-8').rstrip()  # 2025.01.29 test - replaced strip with rstrip
 # End
 
 
