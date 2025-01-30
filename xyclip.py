@@ -14,6 +14,7 @@ info = [
     ['04LDO',      '.py',     """s2lp-s2m2_0p4p0_DIS-P0V8-LDO_X1.hex"""],
     ['071',        '.py',     """s2_bmc_0_7_1_secondary.hex"""],
     ['101',        '.py',     """s2_bmc_1_0_1_secondary.hex"""],
+    ['102',        '.py',     """s2_bmc_1_0_2_secondary.hex"""],
     ['first search term', 'second search term or ".py" if none required', 'clipboard image or filename']]
 
 

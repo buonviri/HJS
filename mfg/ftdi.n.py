@@ -87,7 +87,17 @@ template = """<?xml version="1.0" encoding="utf-16"?>
   </Hardware_Specific>
 </FT_EEPROM>"""
 
-# End of Template
+# End of Template, start of batch file
+
+batch = ('@echo off\n'
+'"C:\\Program Files (x86)\\FTDI\\FT_Prog\\FT_Prog-CmdLine.exe" SCAN PROG 0 C:\\EdgeCortix\\FDTI\\99999\\9876543210.xml CYCL 0\n'
+'echo.\n'
+'echo Verify programming succeeded!\n'
+'timeout 5\n'
+'"C:\\Program Files (x86)\\FTDI\\FT_Prog\\FT_Prog-CmdLine.exe" SCAN\n'
+'timeout 3\n')
+
+# End of batch file
 
 
 def get_container():
@@ -125,8 +135,10 @@ if len(lot_code) in [5,]:  # check if length is in the list of valid lot code le
                 sn_end = lot_code + separator + str_sn
             else:
                 sn_end = lot_code + separator + str_sn
-            with open(lot_code + separator + str_sn + '.xml', 'w', encoding="utf-16") as f:
-                f.write(template.replace('ABCD', product).replace('9876543210', lot_code + str_sn).replace('99999', lot_code))
+            with open(lot_code + separator + str_sn + '.xml', 'w', encoding="utf-16") as f:  # filename contains separator
+                f.write(template.replace('ABCD', product).replace('9876543210', lot_code + str_sn).replace('99999', lot_code))  # programmed value does not
+            with open(lot_code + separator + str_sn + '.bat', 'w') as f:  # filename contains separator
+                f.write(batch.replace('ABCD', product).replace('9876543210', lot_code + separator + str_sn).replace('99999', lot_code))  # filename contains separator
         print(sn_start + ' thru ' + sn_end)
 else:
     print('Invalid lot code: ' + lot_code)
