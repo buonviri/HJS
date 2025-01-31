@@ -12,7 +12,7 @@ mkdir -p EC/img    # -p creates parents and doesn't fail if some already exist
 echo dark mode and background:
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 gsettings get org.gnome.desktop.interface color-scheme
-gsettings set org.gnome.desktop.background picture-uri-dark file:///home/ec/S1LP/img/ecw.png
+gsettings set org.gnome.desktop.background picture-uri-dark file:///home/ec/EC/img/ecw.png
 gsettings get org.gnome.desktop.background picture-uri-dark
 
 # set screen timeout
@@ -44,6 +44,6 @@ cd "$OLDPWD"
 echo
 echo Setup complete. Sincerely, HJS
 # echo Set avatar to ~/S1LP/img/eca.jpg with bounding box set to max!
-printf "\n\e[1;35m  Set avatar to ~/S1LP/img/eca.jpg with bounding box set to max.\e[0m\n\n"  # needs to be at end of a.sh as well
+printf "\n\e[1;35m  Set avatar to ~/EC/img/eca.jpg with bounding box set to max.\e[0m\n\n"  # needs to be at end of a.sh as well
 
 # EOF
