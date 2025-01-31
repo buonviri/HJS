@@ -4,6 +4,7 @@
 #   n is the number of serialized objects
 #   use nnn... to control the desired number of leading zeroes
 #   example: myproduct.099.py will create 001 through 099
+#   leading underscore may be added for sorting purposes
 
 import os
 
@@ -90,13 +91,12 @@ template = """<?xml version="1.0" encoding="utf-16"?>
 # End of Template, start of batch file
 
 batch = ('@echo off\n'
-         '"C:\\Program Files (x86)\\FTDI\\FT_Prog\\FT_Prog-CmdLine.exe" SCAN PROG 0 C:\\EdgeCortix\\FDTI\\99999\\9876543210.xml CYCL 0\n'
-         'echo.\n'
-         'echo Verify programming succeeded. Do not dismiss the countdown timer. Rebooting the USB device takes up to five seconds.\n'
-         'echo.\n'
-         'timeout 5\n'
-         '"C:\\Program Files (x86)\\FTDI\\FT_Prog\\FT_Prog-CmdLine.exe" SCAN\n'
-         'timeout 3\n')
+         'echo SCAN and PROG\n'
+         '"C:\\Program Files (x86)\\FTDI\\FT_Prog\\FT_Prog-CmdLine.exe" SCAN PROG 0 C:\\EdgeCortix\\FTDI\\99999\\9876543210.xml\n'
+         'echo SCAN and CYCL\n'
+         '"C:\\Program Files (x86)\\FTDI\\FT_Prog\\FT_Prog-CmdLine.exe" SCAN CYCL 0\n'
+         'echo DONE\n'
+         'timeout 10\n')
 
 # End of batch file
 
