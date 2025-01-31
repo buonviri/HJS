@@ -90,12 +90,13 @@ template = """<?xml version="1.0" encoding="utf-16"?>
 # End of Template, start of batch file
 
 batch = ('@echo off\n'
-'"C:\\Program Files (x86)\\FTDI\\FT_Prog\\FT_Prog-CmdLine.exe" SCAN PROG 0 C:\\EdgeCortix\\FDTI\\99999\\9876543210.xml CYCL 0\n'
-'echo.\n'
-'echo Verify programming succeeded!\n'
-'timeout 5\n'
-'"C:\\Program Files (x86)\\FTDI\\FT_Prog\\FT_Prog-CmdLine.exe" SCAN\n'
-'timeout 3\n')
+         '"C:\\Program Files (x86)\\FTDI\\FT_Prog\\FT_Prog-CmdLine.exe" SCAN PROG 0 C:\\EdgeCortix\\FDTI\\99999\\9876543210.xml CYCL 0\n'
+         'echo.\n'
+         'echo Verify programming succeeded. Do not dismiss the countdown timer. Rebooting the USB device takes up to five seconds.\n'
+         'echo.\n'
+         'timeout 5\n'
+         '"C:\\Program Files (x86)\\FTDI\\FT_Prog\\FT_Prog-CmdLine.exe" SCAN\n'
+         'timeout 3\n')
 
 # End of batch file
 
