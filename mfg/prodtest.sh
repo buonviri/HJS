@@ -33,8 +33,8 @@ printf "\e[1;35m%b\e[0m" "   Reading OS info (lspci)\n"
 1fdc | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # PCIe without leading spaces
 
 # enable CB/PG
-printf "\e[1;35m%b\e[0m" "   Reading CB info\n"
-enpg | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # PG from BMC
+printf "\e[1;35m%b\e[0m" "   Reading CB info (BMC pins)\n"
+python3 ~/HJS/statlog/statlog.py S2LP-pins.-quotestar-EN_PG-starquote--void | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # PG from BMC
 
 # xlog
 printf "\e[1;35m%b\e[0m"  "   Reading xlog...\n"
