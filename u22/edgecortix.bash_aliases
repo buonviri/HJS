@@ -92,6 +92,7 @@ alias cfg="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/cfg.info && py
 alias enpg="python3 ~/HJS/statlog/statlog.py S2LP-pins.-quotestar-EN_PG-starquote-"
 alias s2do="python3 ~/HJS/statlog/statlog.py S2XX"
 alias s2i="source ~/HJS/u22/S2xx.sh"
+alias s2icb="source ~/HJS/u22/S2xx-cb.sh"
 alias s2s="mera --lssakura | tee ~/sak.info"
 alias s2env="cd ~/S2xx/install_mera && source start.sh && cd ~/S2xx && mera --lssakura"
 alias de="deactivate"
@@ -126,5 +127,5 @@ alias dma="source ~/HJS/u22/dma22.sh"
 alias dma1k="source ~/HJS/u22/dma1k.sh"
 alias dry="cd ~/S2LP/dna2_self_test_2_2_0/ && ./run_3pg.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v3.37\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.38\e[0m\n\n'"
 # EOF
