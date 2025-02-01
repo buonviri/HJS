@@ -89,7 +89,7 @@ alias xlog="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/zog.info && p
 alias xerr="cat ~/zog.info | grep -i -E 'pass|fail|errors|error'"
 alias xx="xlog && xerr"
 alias cfg="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/cfg.info && python3 ~/HJS/statlog/statlog.py S2XX-cfg-null | tee -a ~/cfg.info"
-alias enpg="python3 ~/HJS/statlog/statlog.py S2LP-pins.-quotestar-EN_PG-starquote-"
+alias enpg="python3 ~/HJS/statlog/statlog.py S2LP-pins.[QUOTE][STAR]EN_PG[STAR][QUOTE]"
 alias s2do="python3 ~/HJS/statlog/statlog.py S2XX"
 alias s2i="source ~/HJS/u22/S2xx.sh"
 alias s2icb="source ~/HJS/u22/S2xx-cb.sh"
@@ -130,5 +130,5 @@ alias dry3="cd ~/S2LP/dna2_self_test_2_2_0/ && ./run_3pg.sh 999"
 alias dry4="cd ~/S2LP/dna2_self_test_2_2_0/ && ./run_3pg.sh 9999"
 alias dry5="cd ~/S2LP/dna2_self_test_2_2_0/ && ./run_3pg.sh 99999"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v3.39\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.40\e[0m\n\n'"
 # EOF
