@@ -34,7 +34,7 @@ printf "\e[1;35m%b\e[0m" "   Reading OS info (lspci)\n"
 
 # enable CB/PG
 printf "\e[1;35m%b\e[0m" "   Reading CB info (BMC pins)\n"
-python3 ~/HJS/statlog/statlog.py S2LP-pins.-quotestar-EN_PG-starquote--void | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # PG from BMC
+python3 ~/HJS/statlog/statlog.py S2LP-pins.[QUOTE][STAR]EN_PG[STAR][QUOTE]-void | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # PG from BMC
 
 # xlog
 printf "\e[1;35m%b\e[0m"  "   Reading xlog...\n"
