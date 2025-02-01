@@ -118,7 +118,7 @@ alias lot="source ~/HJS/mfg/lot.sh"
 alias lots="ls -d ~/S2xx/prodtest/*/ | \\grep -E -o '/[0-9]{5}/' | sed 's/\///g'"
 
 alias ant="cd ~/S2LP/dna2_self_test && ./setup.sh ; echo ; echo Ensure that compute blocks 01 and 02 are enabled, then ./run.sh or ./run.sh 999"
-alias ant22="cd ~/S2LP/dna2_self_test_2_2_0/ && ./setup_3pg.sh ; echo ; echo Ensure that compute blocks 01 and 02 are enabled... verify power or use alias enpg... then ./run_3pg.sh or ./run_3pg.sh 999"
+alias ant22="cd ~/S2LP/dna2_self_test_2_2_0/ && ./setup_3pg.sh ; echo ; printf '\e[1;35m   Ensure that compute blocks 01 and 02 are enabled (verify power or use alias enpg) then ./run_3pg.sh or ./run_3pg.sh 999\e[0m\n\n'"
 alias d00="~/S2LP/dna2_self_test_2_2_0/dma_test 0 ddr0 1048576"
 alias d01="~/S2LP/dna2_self_test_2_2_0/dma_test 0 ddr1 1048576"
 alias d10="~/S2LP/dna2_self_test_2_2_0/dma_test 1 ddr0 1048576"
