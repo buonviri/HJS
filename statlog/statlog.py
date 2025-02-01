@@ -309,7 +309,7 @@ def filter(s):  # replace keywords with symbols
        '[SLASH]': '/',
        '[BACKSLASH]': '\\',
     }
-    for x in r:
+    for x in y:
        s = s.replace(x, y[x])
     return s
 # End
