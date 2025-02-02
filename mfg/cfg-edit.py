@@ -4,6 +4,8 @@ import os
 # info
 prefix = '@python.exe C:\\EdgeCortix\\HJS\\statlog\\statlog.py S2XX-cfg.[DASH]unlock+cfg.edit+'
 suffix = '+C-fast\n@timeout 60\n'
+plinux = '#!/bin/bash\npython3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.edit+'
+slinux = '+C-fast\n'
 foo = {
     'S2M2 v1.5 for BMC 1.0.x':  {
         'lotcodes': {
@@ -59,19 +61,24 @@ for config in foo:
     cfg = foo[config]  # this cfg's dictionary
     for lotcode in cfg['lotcodes']:
         checkdir(lotcode)  # create folder if missing
+        checkdir(lotcode + '\\linux')
         start = ''
+        end = ''
         for i in range(cfg['lotcodes'][lotcode][0], cfg['lotcodes'][lotcode][1] + 1):
             sn = '%03d' % i
-            fname = 'cfg-edit-' + lotcode + '-PAC' + sn + '.bat'
+            fname = 'cfg-edit-' + lotcode + '-PAC' + sn
             if len(start) == 0:
                 start = '    ' + fname
-            end = ' thru ' + fname
+            else:
+                end = ' thru ' + fname
             commands = []
             for parameter in cfg['parameters']:
                 # print('    ' + parameter + '=' + cfg['parameters'][parameter])
                 commands.append(cfg['parameters'][parameter].replace('[LOTCODE]', lotcode).replace('[SERIALNUMBER]', sn))
-            with open('.\\' + lotcode + '\\' + fname, 'w') as f:
+            with open('.\\' + lotcode + '\\' + fname  + '.bat', 'w') as f:
                 f.write(prefix + '+'.join(commands) + suffix)
+            with open('.\\' + lotcode + '\\linux\\' + fname  + '.sh', 'w') as f:
+                f.write(plinux + '+'.join(commands) + slinux)
         print(start + end)
 # EOF
 
