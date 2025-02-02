@@ -4,10 +4,10 @@ import os
 # info
 prefix = '@python.exe C:\\EdgeCortix\\HJS\\statlog\\statlog.py S2XX-cfg.[DASH]unlock+cfg.edit+'
 suffix = '+C-fast\n@timeout 60\n'
-plinux = '#!/bin/bash\npython3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.edit+'
-slinux = '+C-fast\n'
+plinux = 'python3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.edit+'
+slinux = '+C-fast'
 foo = {
-    'S2M2 v1.5 for BMC 1.0.x':  {
+    'S2M2-S16 v1.5 for BMC 1.0.x':  {
         'lotcodes': {
             '10014': (1,42),
             #  debug: '52461': (1,2),
@@ -15,8 +15,8 @@ foo = {
         'parameters': {
             'name': 'S2M2',
             'var': 'S16NFN',
-            'sntxt': '[LOTCODE][DASH]PAC[SERIALNUMBER]',
-            'sndec': '[LOTCODE][SERIALNUMBER]',
+            'sntxt': '[LOTCODE][DASH]PAC[SERIALNUMBER]',  # do not change
+            'sndec': '[LOTCODE][SERIALNUMBER]',  # do not change
             'rev': '1',
             'ecn': '5',
             'ddr': '0',
@@ -27,20 +27,84 @@ foo = {
             'p3v3': '0',
             'cblimit': '2',
             'pll': '800',
-            'pcie': '1',
+            'pcie': '1',  # x4
             'pmode': '0',
             'vcore': '550',
             'cba': '2',
-            'cbb': '0',
+            'cbb': '0',  # single
             'cbd': '1',
             'bmctemp': '99',
             'saktemp': '95',
-            'boardtemp': '85',
-            'pwren': '1',
-            'saken': '1',
+            'boardtemp': '85',  # 85 for M2 and 80 for LP
+            'pwren': '1',  # A only
+            'saken': '1',  # A only
         },
-    }
-}
+    },
+    'S2LP-D16 v1.5 for BMC 1.0.x':  {
+        'lotcodes': {
+            '52979': (14,28),
+        },
+        'parameters': {
+            'name': 'S2LP',
+            'var': 'D16BHN',
+            'sntxt': '[LOTCODE][DASH]PAC[SERIALNUMBER]',  # do not change
+            'sndec': '[LOTCODE][SERIALNUMBER]',  # do not change
+            'rev': '1',
+            'ecn': '5',
+            'ddr': '0',
+            'sak': '2[DOT]01',
+            'mfgdate': '20250117',
+            'ecndate': '20250123',
+            'p0v8': '1',
+            'p3v3': '0',
+            'cblimit': '2',
+            'pll': '800',
+            'pcie': '2',  # x8
+            'pmode': '0',
+            'vcore': '550',
+            'cba': '2',
+            'cbb': '2',  # dual
+            'cbd': '1',
+            'bmctemp': '99',
+            'saktemp': '95',
+            'boardtemp': '80',  # 85 for M2 and 80 for LP
+            'pwren': '3',  # A and B
+            'saken': '3',  # A and B
+        },
+    },
+    'S2LP-S16 v1.5 for BMC 1.0.x':  {
+        'lotcodes': {
+            '52980': (1,5),
+        },
+        'parameters': {
+            'name': 'S2LP',
+            'var': 'S16BHN',
+            'sntxt': '[LOTCODE][DASH]PAC[SERIALNUMBER]',  # do not change
+            'sndec': '[LOTCODE][SERIALNUMBER]',  # do not change
+            'rev': '1',
+            'ecn': '5',
+            'ddr': '0',
+            'sak': '2[DOT]01',
+            'mfgdate': '20250117',
+            'ecndate': '20250123',
+            'p0v8': '1',
+            'p3v3': '0',
+            'cblimit': '2',
+            'pll': '800',
+            'pcie': '2',  # x8
+            'pmode': '0',
+            'vcore': '550',
+            'cba': '2',
+            'cbb': '0',  # single
+            'cbd': '1',
+            'bmctemp': '99',
+            'saktemp': '95',
+            'boardtemp': '80',  # 85 for M2 and 80 for LP
+            'pwren': '1',  # A only
+            'saken': '1',  # A only
+        },
+    },
+}  # end of foo
 
 # end of info, start of functions
 
@@ -77,7 +141,7 @@ for config in foo:
                 commands.append(cfg['parameters'][parameter].replace('[LOTCODE]', lotcode).replace('[SERIALNUMBER]', sn))
             with open('.\\' + lotcode + '\\' + fname  + '.bat', 'w') as f:
                 f.write(prefix + '+'.join(commands) + suffix)
-            with open('.\\' + lotcode + '\\linux\\' + fname  + '.sh', 'w') as f:
+            with open('.\\' + lotcode + '\\linux\\' + lotcode + sn + '.sh', 'w') as f:
                 f.write(plinux + '+'.join(commands) + slinux)
         print(start + end)
 # EOF
