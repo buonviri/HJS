@@ -8,8 +8,6 @@
 
 import os
 
-separator = '_'
-
 # Template:
 
 template = """<?xml version="1.0" encoding="utf-16"?>
@@ -92,7 +90,7 @@ template = """<?xml version="1.0" encoding="utf-16"?>
 
 batch = ('@echo off\n'
          'echo SCAN and PROG\n'
-         '"C:\\Program Files (x86)\\FTDI\\FT_Prog\\FT_Prog-CmdLine.exe" SCAN PROG 0 C:\\EdgeCortix\\FTDI\\99999\\9876543210.xml\n'
+         '"C:\\Program Files (x86)\\FTDI\\FT_Prog\\FT_Prog-CmdLine.exe" SCAN PROG 0 C:\\EdgeCortix\\HW\\S2_BMC_Hex\\FTDI\\99999\\9876543210.xml\n'
          'echo SCAN and CYCL\n'
          '"C:\\Program Files (x86)\\FTDI\\FT_Prog\\FT_Prog-CmdLine.exe" SCAN CYCL 0\n'
          'echo DONE\n'
@@ -113,33 +111,54 @@ def get_limit():
     foolist = foo.split('.')
     if len(foolist) == 3:  # ftdi.n.py should have three objects
         try:
-            # sn limit as integer, length of limit string, prefix string
-            return int(foolist[1]), len(foolist), foolist[0]  
+            # sn min is always 1, sn max as integer, length of limit string, prefix string
+            return 1, int(foolist[1]), len(foolist[1]), foolist[0]  
         except:
-            return -1, 0, 'none'  # invalid entry
+            return -1, -1, 0, 'none'  # invalid entry
     else:
-        return -2, 0, 'none'  # wrong length
+        return -2, -2, 0, 'none'  # wrong length
 # End
 
 
-lot_code = get_container()
+# Read file info or use defaults
+try:  # all four must be defined for this to work
+    with open('.lot', 'r') as f:
+        lot_code = f.read().strip()
+    with open('.min', 'r') as f:
+        min_sn = int(f.read())
+    with open('.max', 'r') as f:
+        max_sn = int(f.read())
+    with open('.len', 'r') as f:
+        len_sn = int(f.read())
+    with open('.product', 'r') as f:
+        product = f.read().strip()
+    print('Overrides: ' + ' '.join( [lot_code, str(min_sn), str(max_sn), str(len_sn), product] ))
+except:
+    lot_code = get_container()  # use folder name
+    min_sn, max_sn, len_sn, product  = get_limit()  # read from file name
+try:  # check for separator
+    with open('.sep', 'r') as f:
+        separator = f.read().strip()
+except:
+    separator = '_'  # default
+
+sn_start = ''
 if len(lot_code) in [5,]:  # check if length is in the list of valid lot code lengths
-    max_sn, len_sn, product  = get_limit()
     if max_sn < 1:  # must be at least 1
         print('Invalid max serial number: ' + str(max_sn))
     else:
-        print('Generating ' + str(max_sn) + ' serial number(s), format "' + 'n' * len_sn + '", for ' + product + ' lot code: ' + lot_code)
-        for sn in range(max_sn):
-            str_sn = str(sn+1).rjust(len_sn, '0')  # loop value is zero to n-1, so add one, and pad with leading zeroes
-            if sn == 0:
+        print('Generating serial numbers in range ' + str(min_sn) + ':' + str(max_sn) + ', format "' + 'n' * len_sn + '", for ' + product + ' lot code: ' + lot_code)
+        for sn in range(min_sn, max_sn+1):
+            str_sn = str(sn).rjust(len_sn, '0')  # pad with leading zeroes
+            if sn_start == '':  # define both
                 sn_start = lot_code + separator + str_sn
                 sn_end = lot_code + separator + str_sn
-            else:
+            else:  # update ending sn
                 sn_end = lot_code + separator + str_sn
-            with open(lot_code + separator + str_sn + '.xml', 'w', encoding="utf-16") as f:  # filename contains separator
-                f.write(template.replace('ABCD', product).replace('9876543210', lot_code + str_sn).replace('99999', lot_code))  # programmed value does not
-            with open(lot_code + separator + str_sn + '.bat', 'w') as f:  # filename contains separator
-                f.write(batch.replace('ABCD', product).replace('9876543210', lot_code + separator + str_sn).replace('99999', lot_code))  # filename contains separator
+            with open(lot_code + str_sn + '.xml', 'w', encoding="utf-16") as f:  # xml is number
+                f.write(template.replace('ABCD', product).replace('9876543210', lot_code + str_sn).replace('99999', lot_code))  # programmed value is number
+            with open(lot_code + separator + str_sn + '.bat', 'w') as f:  # batch filename contains separator
+                f.write(batch.replace('ABCD', product).replace('9876543210', lot_code + str_sn).replace('99999', lot_code))  # filename pointer is number
         print(sn_start + ' thru ' + sn_end)
 else:
     print('Invalid lot code: ' + lot_code)
