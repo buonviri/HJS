@@ -163,7 +163,7 @@ if len(lot_code) in [5,]:  # check if length is in the list of valid lot code le
 else:
     print('Invalid lot code: ' + lot_code)
 
-# pause for user input
-os.system("PAUSE")
+# pause for user input, should be done in batch file instead
+# os.system("PAUSE")
 
 # EOF
