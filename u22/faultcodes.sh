@@ -1,4 +1,5 @@
 #!/bin/bash
+echo
 
 printf "POWER_FAULT_NONE        0          // power fault bit maps          \n"
 printf "POWER_FAULT_TEMP_SENSE  0x0001     // temp1075 > thresh             \n"
@@ -13,4 +14,5 @@ printf "POWER_FAULT_IO          0x0100     // error accessing power device  \n"
 printf "POWER_FAULT_OTHER       0x0200                                      \n"
 printf "POWER_FAULT_SHUTDOWN    0x8000     // power has been disabled       \n"
 
+echo
 # EOF
