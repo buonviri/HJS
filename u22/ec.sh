@@ -1,18 +1,21 @@
 #!/bin/bash
 
+# called by gnome section of a.sh
+
 cd
-mkdir -p S1LP/img  # -p creates parents and doesn't fail if some already exist
-mkdir -p S2LP/img  # -p creates parents and doesn't fail if some already exist
-mkdir -p S2M2/img  # -p creates parents and doesn't fail if some already exist
+# old folders removed on 2025.02.05
+# mkdir -p S1LP/img  # -p creates parents and doesn't fail if some already exist
+# mkdir -p S2LP/img  # -p creates parents and doesn't fail if some already exist
+# mkdir -p S2M2/img  # -p creates parents and doesn't fail if some already exist
 mkdir -p S2xx/img  # -p creates parents and doesn't fail if some already exist
-mkdir -p EC/img    # -p creates parents and doesn't fail if some already exist
-\cp -r ~/HJS/u22/img/* ~/EC/img  # slash uses non-alias version, -r is recursive
+# mkdir -p EC/img    # -p creates parents and doesn't fail if some already exist
+\cp -r ~/HJS/u22/img/* ~/Pictures  # slash uses non-alias version, -r is recursive
 
 # set dark mode and background/wallpaper
 echo dark mode and background:
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 gsettings get org.gnome.desktop.interface color-scheme
-gsettings set org.gnome.desktop.background picture-uri-dark file:///home/ec/EC/img/ecw.png
+gsettings set org.gnome.desktop.background picture-uri-dark file:///home/ec/Pictures/ecw.png
 gsettings get org.gnome.desktop.background picture-uri-dark
 
 # set screen timeout
@@ -44,6 +47,6 @@ cd "$OLDPWD"
 echo
 echo Setup complete. Sincerely, HJS
 # echo Set avatar to ~/S1LP/img/eca.jpg with bounding box set to max!
-printf "\n\e[1;35m  Set avatar to ~/EC/img/eca.jpg with bounding box set to max.\e[0m\n\n"  # needs to be at end of a.sh as well
+printf "\n\e[1;35m  Set avatar to ~/Pictures/eca.jpg with bounding box set to max.\e[0m\n\n"  # needs to be at end of a.sh as well
 
 # EOF
