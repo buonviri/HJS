@@ -48,7 +48,7 @@ bistfail=$(cat ~/.prodtest-$hexstamp | \grep -i "fail")
 if [ -n "$bistfail" ]; then  # check if not empty
   printf "\e[1;35m%b\e[0m"  "   ABORTED DUE TO BIST FAILURE\n"
 else
-  cd ~/S2LP/dna2_self_test_2_2_0/ > /dev/null  # setup must be run from the correct folder
+  cd ~/dna2_self_test_2_2_0/ > /dev/null  # setup must be run from the correct folder
   ./setup_3pg.sh > /dev/null 2>&1  # hide all of the spam
   cd - > /dev/null  # return to previous folder
   if [ "$dual" == "D16" ]; then
