@@ -9,13 +9,13 @@ else
 fi
 
 # show timestamp
-echo host time:
+printf "host time: "  # no newline
 date '+%H:%M:%S'
 
 # timestamp
 time_t=$(date +%s)
 hexstamp=$(printf "%x" $time_t)
-echo Filename suffix : $hexstamp
+echo Filename suffix: $hexstamp
 echo  # blank line
 
 printf "01) "
