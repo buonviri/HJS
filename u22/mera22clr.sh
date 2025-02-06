@@ -1,4 +1,5 @@
 #!/bin/bash
+echo
 
 # determine folder
 if [ -d ~/mera_package/ ]; then
@@ -19,7 +20,7 @@ echo  # blank line
 
 printf "01) "
 mv -v $mera/examples/detr/result.png $mera/examples/detr/result-$hexstamp.png 2>/dev/null || echo OK
-printf "02 "
+printf "02) "
 mv -v $mera/examples/efficient_net_demo/result.png $mera/examples/efficient_net_demo/result-$hexstamp.png 2>/dev/null || echo OK
 printf "03) "
 mv -v $mera/examples/resnet50/result.png $mera/examples/resnet50/result-$hexstamp.png 2>/dev/null || echo OK
@@ -40,4 +41,5 @@ mv -v $mera/examples/yolov7/result.png $mera/examples/yolov7/result-$hexstamp.pn
 printf "10) "
 mv -v $mera/examples/yolov8/result_1.png $mera/examples/yolov8/result_1-$hexstamp.png 2>/dev/null || echo OK  # filename contains underscore one!
 
+echo
 # EOF
