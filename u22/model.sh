@@ -7,6 +7,9 @@ else
 fi
 echo path is $mera
 echo arg is $1
-cd $mera/examples/$1 && chmod +x ./run.sh && ./run.sh
+fullpath=$mera/examples/$1
+cd fullpath
+chmod +x ./run.sh
+./run.sh
 
 # EOF
