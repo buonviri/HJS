@@ -40,33 +40,34 @@ alias bios="systemctl reboot --firmware-setup"
 # alias is obsolete
 alias hjs="cd ~/HJS/u22"
 alias snap="killall snap-store && snap refresh"
-alias mera16="cd ~/S1LP/install_mera/ && source start.sh && mera --version && mera --sakura1_start"
-alias camera="cd ~/S1LP/camera && ./RUN_DEMO2_FUSED.sh"
+# alias is obsolete (S1LP)
+# alias is obsolete (S1LP)
 alias sysinfo="cd ~/HJS/u22 && source info.sh"
-alias camera-setup="cd ~/Downloads/ && cp -v /media/ec/EC/camera/*.tar.gz . && tar xvzf fused_demo_sakura_novenv.tar.gz && mv fused_demo_sakura_novenv ~/S1LP/camera"
-alias mera-setup="cd ~/Downloads/ && cp -v /media/ec/EC/mera-1.6/*.tar.gz . && tar xvzf sakura-demo.tar.gz && cd sakura_demo && mv * ~/S1LP/ && cd ~/S1LP/install_mera/ && source install.sh && deactivate"
-alias numpy="pip install --force-reinstall -v numpy==1.26.4"
-alias deploy="cd ~/S1LP/latency_power_measurement/ && python download.py && python deploy.py --models models/"
-alias fym="cd ~/S1LP/demos/fused_yolov5m_monodepth/ && python deploy.py && python demo_model.py && eog *.png"
-alias mde="cd ~/S1LP/demos/monodepth_depth_estimation_demo/ && python deploy.py && python demo_model.py && eog *.png"
-alias yod="cd ~/S1LP/demos/yolov5_object_detection_demo/ && python deploy.py && python demo_model.py && eog *.png"
-alias ips="source ~/S1LP/inference/ips.sh"
-alias ips-setup="cd ~/S1LP && cp -v -r /media/ec/EC/hw-benchmarking/inference/ . && cd inference && cp -v -r /media/ec/EC/deployments/ . && mkdir log && python3 sjscan.py"
-alias sjlog="cd ~/S1LP/inference/ && python3 sjlog.py"
-alias meas="cd ~/S1LP/latency_power_measurement/ && python measure.py --model_path deployments/"
-alias measu="cd ~/S1LP/latency_power_measurement/ && MERA_MEASURE_POWER=3 python measure.py --model_path deployments/ --power"
-alias measur="cd ~/S1LP/latency_power_measurement/ && python measure.py --model_path precompiled/ --name precompiled"
-alias measure="cd ~/S1LP/latency_power_measurement/ && MERA_MEASURE_POWER=3 python measure.py --model_path precompiled/ --name precompiled --power"
-alias perf="source ~/S1LP/inference/perf.sh"
+# alias is obsolete (S1LP)
+# alias is obsolete (S1LP)
+# alias is obsolete (S1LP)
+# alias is obsolete (S1LP)
+# alias is obsolete (S1LP)
+# alias is obsolete (S1LP)
+# alias is obsolete (S1LP)
+# alias is obsolete (S1LP)
+# alias is obsolete (S1LP)
+# alias is obsolete (S1LP)
+# alias is obsolete (S1LP)
+# alias is obsolete (S1LP)
+# alias is obsolete (S1LP)
+# alias is obsolete (S1LP)
+# alias is obsolete (S1LP)
 alias pci="source ~/HJS/u22/pcie.sh"
 alias pcie="source ~/HJS/u22/pcie.sh"
 alias 1fdc="sudo lspci -vvv -d 1fdc: | \\grep -E '1fdc|Subsystem:|LnkSta:|Region 0:|Region 2:|Region 4:' | tee ~/pci.info"
-alias ravi="sudo lspci -vvv > ravi.txt"
+# alias is obsolete
 alias fans="sensors | grep fan | grep -v ':[ \\t]\\+0 RPM' || echo No fans detected."
 alias dimms="sudo dmidecode -t memory | grep -E 'Manufacturer:|Serial Number:|Part Number:|Volatile Size:.+GB' | grep -v -E 'Unknown|Not Specified' | awk '{\$1=\$1;print}' | tee ~/mem.info"
 alias temps="sensors | \grep ':.*+.*C'"
 alias aspm="source ~/HJS/u22/aspm.sh"
 alias us="cd ~/HJS/u22 && git pull && source ./us.sh"
+alias us2them="cd ~/HJS/u22 && git pull && source ./them.sh"
 # alias is obsolete
 # alias is obsolete
 # alias is obsolete
