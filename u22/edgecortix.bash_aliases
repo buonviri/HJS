@@ -99,7 +99,7 @@ alias s2do="python3 ~/HJS/statlog/statlog.py S2XX"
 alias s2i="source ~/HJS/u22/S2xx.sh"
 alias s2icb="source ~/HJS/u22/S2xx-cb.sh"
 alias s2s="mera --lssakura | tee ~/sak.info"
-alias s2env="cd ~/S2xx/install_mera && source start.sh && cd ~/S2xx && mera --lssakura"
+alias s2env="source ~/HJS/u22/S2env.sh"
 alias de="deactivate"
 # End of S2 utils, start of S2 models
 alias models="printf '\n\e[1;35m   detr effnet resnet\n   hf1 hf2 hf3 hf4\n   yolov5 yolov7 yolov8\e[0m\n\n'"
