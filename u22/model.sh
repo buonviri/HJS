@@ -8,6 +8,7 @@ fi
 echo path is $mera
 echo arg is $1
 fullpath=$mera/examples/$1
+echo fullpath
 cd fullpath
 chmod +x ./run.sh
 ./run.sh
