@@ -1,12 +1,12 @@
 #!/bin/bash
 
 if [ -d ~/mera_package/ ]; then
-  mera="~/mera_package"
+  mera="/home/ec/mera_package"
 else
-  mera="~/S2xx"
+  mera="/home/ec/S2xx"
 fi
-echo $mera
-echo $1
+echo path is $mera
+echo arg is $1
 cd $mera/examples/$1 && chmod +x ./run.sh && ./run.sh
 
 # EOF
