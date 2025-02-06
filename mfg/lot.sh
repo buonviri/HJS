@@ -18,7 +18,7 @@ if [ $# == 2 ]; then  # expects two args
   fi
 
   for i in "${foo[@]}"; do
-    echo "HJS WAS HERE" > "$HOME/S2xx/prodtest/$lotcode/$lotcode$i-xxx.tmp"  # these files could be deleted at the end
+    echo "HJS WAS HERE" > "$HOME/prodtest/$lotcode/$lotcode$i-xxx.tmp"  # these files could be deleted at the end
     zeroruns=$(sn "$lotcode" "$i" | grep -a "Log count: 0")  # look for log count of zero
     if [ -z "$zeroruns" ]; then  # if result is empty, log count is non-zero
       sn "$lotcode" "$i" | awk NF  # run the serial number script then format+print

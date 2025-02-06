@@ -2,7 +2,7 @@
 echo
 
 if [ $# == 2 ]; then
-  foo=$(printf "$HOME/S2xx/prodtest/%s/" "$1" )
+  foo=$(printf "$HOME/prodtest/%s/" "$1" )
   bar=$(printf "%s%s" "$1" "$2")
   star=-*
   # echo "DEBUG: $foo $bar"
