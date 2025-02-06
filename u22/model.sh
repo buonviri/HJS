@@ -6,7 +6,7 @@ model=$1
 if [ -d ~/mera_package/ ]; then
   mera="/home/ec/mera_package"
 else
-  mera="/home/ec/S2xx"
+  mera="/home/ec/S2xx"  # this is only here to support legacy installations
 fi
 
 # calculate path and display info
