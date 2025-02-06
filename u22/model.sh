@@ -11,7 +11,7 @@ fi
 
 # calculate path and display info
 fullpath=$mera/examples/$model
-printf "Running \e[1;32m%s\e[0m in [%s]\n\n" "$1" "$fullpath"
+printf "\nRunning \e[1;32m%s\e[0m in [%s]\n\n" "$1" "$fullpath"
 
 # run
 cd $fullpath
