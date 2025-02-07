@@ -7,7 +7,7 @@ sudo add-apt-repository ppa:ubuntu-toolchain-r/test && sudo apt update && sudo a
 sudo ldconfig
 
 printf "\n\nAdditional instructions:\n\n"
-printf "Copy tar file to Home folder\n"
+printf "Copy tar file to Home folder and remove any letter suffix, e.g. 2_2_0b -> 2_2_0\n"
 printf "Copy and paste the following lines in Terminal and hit enter:\n"
 printf "cd && tar xvzf dna2_self_test_2_2_0.tar.gz && cd dna2_self_test_2_2_0\n"
 printf "chmod +x ./setup_3pg.sh && ./setup_3pg.sh\n"
