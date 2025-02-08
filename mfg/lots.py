@@ -9,6 +9,7 @@ info = {}  # blank dict for all lot code and serial number info
 
 print()  # start with newline
 print('Searching: ' + location)
+print()  # separate with newline
 for dirname, dirnames, filenames in os.walk(location):
     for filename in filenames:
         # print(filename)
