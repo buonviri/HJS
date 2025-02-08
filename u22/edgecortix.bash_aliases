@@ -39,6 +39,7 @@ alias bios="systemctl reboot --firmware-setup"
 # alias is obsolete
 # alias is obsolete
 alias hjs="cd ~/HJS/u22"
+alias mfg="cd ~/HJS/mfg"
 alias snap="killall snap-store && snap refresh"
 # alias is obsolete (S1LP)
 # alias is obsolete (S1LP)
