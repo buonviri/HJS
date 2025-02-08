@@ -7,7 +7,8 @@ location = '~/prodtest/'  # make this OS dependent eventually
 print('Searching: ' + location)
 for dirname, dirnames, filenames in os.walk(location):
     for filename in filenames:
+        print(filename)
         if filename.endswith('.txt'):
-            print(filename)
+            print('Good" + filename)
 # EOF
         
