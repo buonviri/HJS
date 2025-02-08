@@ -32,8 +32,8 @@ for dirname, dirnames, filenames in os.walk(location):
                 info[lot][sn] = 1  # start with counter of one
 for lot in info:
     print(lot + ' ' + str(info[lot]['min']) + ' to ' + str(info[lot]['max']))  # print lot with min/max
-    del info[lot['min']]  # remove min
-    del info[lot['max']]  # remove max
+    del info[lot]['min']  # remove min
+    del info[lot]['max']  # remove max
     sns = []
     for sn in info[lot]:
         sns.append('  ' + sn + ' (runs=' + str(info[lot][sn]) + ')')  # store sn and count
