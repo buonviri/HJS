@@ -32,9 +32,9 @@ for dirname, dirnames, filenames in os.walk(location):
 for lot in info:
     print()  # start with newline
     if info[lot]['min'] == info[lot]['max']:  # min/max are same
-        print(lot + ' ' + "%03d" % info[lot]['min'])  # print lot with min=max
+        print(lot + ' [' + "%03d" % info[lot]['min'] + ']')  # print lot with min=max
     else:
-        print(lot + ' ' + "%03d" % info[lot]['min'] + ' to ' + "%03d" % info[lot]['max'])  # print lot with min/max
+        print(lot + ' [' + "%03d" % info[lot]['min'] + ' to ' + "%03d" % info[lot]['max'] + ']')  # print lot with min/max
     del info[lot]['min']  # remove min
     del info[lot]['max']  # remove max
     sns = []
