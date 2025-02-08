@@ -9,6 +9,6 @@ for dirname, dirnames, filenames in os.walk(location):
     for filename in filenames:
         print(filename)
         if filename.endswith('.txt'):
-            print('Good" + filename)
+            print('Good' + filename)
 # EOF
         
