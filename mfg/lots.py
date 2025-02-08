@@ -28,13 +28,13 @@ for dirname, dirnames, filenames in os.walk(location):
                 info[lot][sn] = 1  # start with counter of one
 for lot in info:
     print(lot, end='')  # print lot without newline
-    sns = ''
+    sns = []
     for sn in info[lot]:
-        sns = sns + '  ' + sn + ' (runs=' + str(info[lot][sn]) + ')' + '\n'  # store sn and count
+        sns.append('  ' + sn + ' (runs=' + str(info[lot][sn]) + ')')  # store sn and count
     print(' [LOT RANGE]')
     print(info[lot]['min'])
     print(' to ', end='')
     print(info[lot]['max'])
-    print(sns)
+    print('\n'.join(sns))
 
 # EOF
