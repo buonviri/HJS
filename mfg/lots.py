@@ -7,6 +7,7 @@ location = '/home/ec/prodtest/'  # make this OS dependent eventually
 prodtest = '^[0-9]{8}-.*\.txt$'  # must start with eight digits and a dash, then any random chars, with .txt extension at the end
 info = {}  # blank dict for all lot code and serial number info
 
+print()  # start with newline
 print('Searching: ' + location)
 for dirname, dirnames, filenames in os.walk(location):
     for filename in filenames:
@@ -28,4 +29,5 @@ for lot in info:
         sns = sns + '  ' + sn + ' (' + str(info[lot][sn]) + ')' + '\n'  # store sn and count
     print('[LOT RANGE]')
     print(sns)
+
 # EOF
