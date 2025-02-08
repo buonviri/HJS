@@ -9,7 +9,6 @@ info = {}  # blank dict for all lot code and serial number info
 
 print()  # start with newline
 print('Searching: ' + location)
-print()  # separate with newline
 for dirname, dirnames, filenames in os.walk(location):
     for filename in filenames:
         # print(filename)
@@ -31,10 +30,11 @@ for dirname, dirnames, filenames in os.walk(location):
             except:
                 info[lot][sn] = 1  # start with counter of one
 for lot in info:
-    if info[lot]['min'] == info[lot]['min']:  # min/max are same
-        print(lot + ' ' + str(info[lot]['min']))  # print lot with min=max
+    print()  # start with newline
+    if info[lot]['min'] == info[lot]['max']:  # min/max are same
+        print(lot + ' ' + "%03d" % info[lot]['min'])  # print lot with min=max
     else:
-        print(lot + ' ' + str(info[lot]['min']) + ' to ' + str(info[lot]['max']))  # print lot with min/max
+        print(lot + ' ' + "%03d" % info[lot]['min'] + ' to ' + "%03d" % info[lot]['max'])  # print lot with min/max
     del info[lot]['min']  # remove min
     del info[lot]['max']  # remove max
     sns = []
