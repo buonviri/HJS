@@ -32,8 +32,8 @@ for lot in info:
     for sn in info[lot]:
         sns = sns + '  ' + sn + ' (' + str(info[lot][sn]) + ')' + '\n'  # store sn and count
     print(' [LOT RANGE]')
-    print(info[lot]['min']
-    print(info[lot]['max']
+    print(info[lot]['min'])
+    print(info[lot]['max'])
     print(sns)
 
 # EOF
