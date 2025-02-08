@@ -29,7 +29,14 @@ for dirname, dirnames, filenames in os.walk(location):
                     info[lot]['max'] = snval
             except:
                 info[lot][sn] = 1  # start with counter of one
+
+lotlist = []  # blank lot list for sorting
 for lot in info:
+    lotlist.append(lot)
+lotlist.sort()  # sort in place
+
+for lot in lotlist:
+
     print()  # start with newline
     if info[lot]['min'] == info[lot]['max']:  # min/max are same
         print(lot + ' [' + "%03d" % info[lot]['min'] + ']')  # print lot with min=max
