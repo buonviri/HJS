@@ -23,7 +23,11 @@ for dirname, dirnames, filenames in os.walk(location):
                 info[lot]['min'] = snval
                 info[lot]['max'] = snval
             try:
-                info[lot][sn] = info[lot][sn] + 1  # attempt to increment counter
+                info[lot][sn] = info[lot][sn] + 1  # attempt to increment counter then check min/max
+                if snval < info[lot]['min']:
+                    info[lot]['min'] = snval
+                if snval > info[lot]['max']:
+                    info[lot]['max'] = snval
             except:
                 info[lot][sn] = 1  # start with counter of one
 for lot in info:
@@ -35,6 +39,6 @@ for lot in info:
     print(info[lot]['min'])
     print(' to ', end='')
     print(info[lot]['max'])
-    print('\n'.join(sns))
+    print('\n'.join(sorted(sns)))
 
 # EOF
