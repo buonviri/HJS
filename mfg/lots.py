@@ -24,5 +24,5 @@ for dirname, dirnames, filenames in os.walk(location):
 for lot in info:
     print(lot)  # print lot
     for sn in info[lot]:
-        print(sn + ' ' + str(lot[info][sn])  # print sn and count
+        print(sn + ' ' + str(lot[info][sn]))  # print sn and count
 # EOF
