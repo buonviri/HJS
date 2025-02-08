@@ -11,5 +11,5 @@ for dirname, dirnames, filenames in os.walk(location):
     for filename in filenames:
         # print(filename)
         if re.match(prodtest, filename):
-            print(' ' + filename, end='')
+            print('lot = ' + filename[0:5] + ' sn = ' + filename[5:8])
 # EOF
