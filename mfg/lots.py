@@ -16,9 +16,12 @@ for dirname, dirnames, filenames in os.walk(location):
         if re.match(prodtest, filename):
             lot = filename[0:5]
             sn = filename[5:8]
+            snval = int(sn)
             # debug: print('lot = ' + lot + ' sn = ' + sn)
             if lot not in info:
                 info[lot] = {}  # add empty dict
+                info[lot]['min'] = snval
+                info[lot]['max'] = snval
             try:
                 info[lot][sn] = info[lot][sn] + 1  # attempt to increment counter
             except:
@@ -28,7 +31,9 @@ for lot in info:
     sns = ''
     for sn in info[lot]:
         sns = sns + '  ' + sn + ' (' + str(info[lot][sn]) + ')' + '\n'  # store sn and count
-    print('[LOT RANGE]')
+    print(' [LOT RANGE]')
+    print(info[lot]['min']
+    print(info[lot]['max']
     print(sns)
 
 # EOF
