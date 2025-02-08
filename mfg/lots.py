@@ -22,7 +22,10 @@ for dirname, dirnames, filenames in os.walk(location):
             except:
                 info[lot][sn] = 1  # start with counter of one
 for lot in info:
-    print(lot)  # print lot
+    print(lot, end='')  # print lot without newline
+    sns = ''
     for sn in info[lot]:
-        print('  ' + sn + ' (' + str(info[lot][sn]) + ')')  # print sn and count
+        sns = sns + '  ' + sn + ' (' + str(info[lot][sn]) + ')') + '\n'  # store sn and count
+    print('[LOT RANGE]')
+    print(sns)
 # EOF
