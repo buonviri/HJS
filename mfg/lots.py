@@ -14,12 +14,15 @@ for dirname, dirnames, filenames in os.walk(location):
         if re.match(prodtest, filename):
             lot = filename[0:5]
             sn = filename[5:8]
-            print('lot = ' + lot + ' sn = ' + sn)
+            # debug: print('lot = ' + lot + ' sn = ' + sn)
             if lot not in info:
                 info[lot] = {}  # add empty dict
             try:
                 info[lot][sn] = info[lot][sn] + 1  # attempt to increment counter
             except:
                 info[lot][sn] = 1  # start with counter of one
-print(info)
+for lot in info:
+    print(lot)  # print lot
+    for sn in info[lot]:
+        print(sn + ' ' + str(lot[info][sn])  # print sn and count
 # EOF
