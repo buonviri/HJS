@@ -8,7 +8,7 @@ prodtest = '^[0-9]{8}-.*\.txt$'  # must start with eight digits and a dash, then
 info = {}  # blank dict for all lot code and serial number info
 
 print()  # start with newline
-print('Searching: ' + location + ' (always do ptcommit first!)')
+print('Searching: ' + location + ' (always do ptsync first!)')
 for dirname, dirnames, filenames in os.walk(location):
     for filename in filenames:
         # print(filename)
