@@ -121,7 +121,7 @@ alias s2res="\cp -v ~/HJS/u22/results-mera22.html ~/S2xx/examples/results.html ;
 alias prodtest="source ~/HJS/mfg/prodtest.sh"
 alias pt="source ~/HJS/mfg/prodtest.sh"
 alias prodtestn="source ~/HJS/mfg/prodtestn.sh"
-alias ptcommit="source ~/HJS/mfg/ptcommit.sh"
+alias ptsync="source ~/HJS/mfg/ptsync.sh"
 alias sn="source ~/HJS/mfg/sn.sh"
 alias lot="source ~/HJS/mfg/lot.sh"
 alias lots="python3 ~/HJS/mfg/lots.py"
@@ -138,5 +138,5 @@ alias dry3="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 999"
 alias dry4="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 9999"
 alias dry5="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 99999"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v3.49\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.50\e[0m\n\n'"
 # EOF
