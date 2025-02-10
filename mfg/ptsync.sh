@@ -8,23 +8,23 @@
 host=$(hostname)  # get hostname
 printf "\nStoring prodtest files for: %s\n" "$host"
 
-printf "\n\e[1;35m%b\e[0m\n" "Move to prodtest:"
+printf "\nNavigate to prodtest:\n"
 cd ~/prodtest
 echo Status $?
 
-printf "\n\e[1;35m%b\e[0m\n" "Update from github:"
+printf "\nUpdate from github:\n"
 git pull
 echo Status $?
 
-printf "\n\e[1;35m%b\e[0m\n" "Add new files:"
+printf "\nAdd new files:\n" 
 git add .
 echo Status $?
 
-printf "\n\e[1;35m%b\e[0m\n" "Commit:"
+printf "\nCommit:\n"
 git commit -m "$host"
 echo Status $?
 
-printf "\n\e[1;35m%b\e[0m\n" "Push to github:"
+printf "\nPush to github:\n"
 git push
 echo Status $?
 
