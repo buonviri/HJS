@@ -16,36 +16,36 @@ if [ $foo -ne 0 ]; then
 else
   echo "   Done"
   printf "\nUpdate from github:\n"
-  git pull
+  git pullx
   foo=$?
   if [ $foo -ne 0 ]; then
     printf "   \e[1;31m[ERROR CODE $foo]\e[0m\n"
   else
     echo "   Done"
-  fi
-  printf "\nAdd new files:\n" 
-  git add .
-  foo=$?
-  if [ $foo -ne 0 ]; then
-    printf "   \e[1;31m[ERROR CODE $foo]\e[0m\n"
-  else
-    echo "   Done"
-  fi
-  printf "\nCommit:\n"
-  git commit -m "$host"
-  foo=$?
-  if [ $foo -ne 0 ]; then
-    printf "   \e[1;31m[ERROR CODE $foo]\e[0m\n"
-  else
-    echo "   Done"
-  fi
-  printf "\nPush to github:\n"
-  git push
-  foo=$?
-  if [ $foo -ne 0 ]; then
-    printf "   \e[1;31m[ERROR CODE $foo]\e[0m\n"
-  else
-    echo "   Done"
+    printf "\nAdd new files:\n" 
+    git add .
+    foo=$?
+    if [ $foo -ne 0 ]; then
+      printf "   \e[1;31m[ERROR CODE $foo]\e[0m\n"
+    else
+      echo "   Done"
+    fi
+    printf "\nCommit:\n"
+    git commit -m "$host"
+    foo=$?
+    if [ $foo -ne 0 ]; then
+      printf "   \e[1;31m[ERROR CODE $foo]\e[0m\n"
+    else
+      echo "   Done"
+    fi
+    printf "\nPush to github:\n"
+    git push
+    foo=$?
+    if [ $foo -ne 0 ]; then
+      printf "   \e[1;31m[ERROR CODE $foo]\e[0m\n"
+    else
+      echo "   Done"
+    fi
   fi
 fi
 
