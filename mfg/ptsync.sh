@@ -1,7 +1,9 @@
 #!/bin/bash
 
-set -euo pipefail
-IFS=$'\n\t'
+# too many things can't handle this:
+# set -euo pipefail
+# IFS=$'\n\t'
+# user has to pay attention to outcome!
 
 host=$(hostname)  # get hostname
 printf "\nStoring prodtest files for: %s\n\n" "$host"
