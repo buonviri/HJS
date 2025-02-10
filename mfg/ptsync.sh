@@ -23,7 +23,7 @@ else
   else
     echo "   Done"
     printf "\nAdd new files:\n" 
-    git addx .  # ------------------------------- add
+    git add .  # ------------------------------- add
     foo=$?
     if [ $foo -ne 0 ]; then
       printf "   \e[1;31m[ERROR CODE $foo]\e[0m\n"
