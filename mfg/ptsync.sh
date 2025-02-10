@@ -30,21 +30,21 @@ else
     else
       echo "   Done"
       printf "\nCommit:\n"
-      git commit -m "$host"
+      git commit -m "$host"  # ----------------- commit
       foo=$?
       if [ $foo -ne 0 ]; then
         printf "   \e[1;31m[ERROR CODE $foo]\e[0m\n"
       else
         echo "   Done"
-      fi
-      printf "\nPush to github:\n"
-      git push
-      foo=$?
-      if [ $foo -ne 0 ]; then
-        printf "   \e[1;31m[ERROR CODE $foo]\e[0m\n"
-      else
-        echo "   Done"
-      fi  # end ?
+        printf "\nPush to github:\n"
+        git pushx  # ---------------------------- push
+        foo=$?
+        if [ $foo -ne 0 ]; then
+          printf "   \e[1;31m[ERROR CODE $foo]\e[0m\n"
+        else
+          echo "   Done"
+        fi  # end push
+      fi  # end commit
     fi  # end add
   fi  # end pull
 fi  # end cd
