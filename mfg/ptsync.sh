@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -euo pipefail
+IFS=$'\n\t'
+
 host=$(hostname)  # get hostname
 printf "\nStoring prodtest files for: %s\n\n" "$host"
 
