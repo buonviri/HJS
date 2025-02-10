@@ -10,23 +10,43 @@ printf "\nStoring prodtest files for: %s\n" "$host"
 
 printf "\nNavigate to prodtest:\n"
 cd ~/prodtest
-echo Status $?
+if [ $? -ne 0 ]; then
+  echo "   [error code $?]"
+else
+  echo "   Done"
+fi
 
 printf "\nUpdate from github:\n"
 git pull
-echo Status $?
+if [ $? -ne 0 ]; then
+  echo "   [error code $?]"
+else
+  echo "   Done"
+fi
 
 printf "\nAdd new files:\n" 
 git add .
-echo Status $?
+if [ $? -ne 0 ]; then
+  echo "   [error code $?]"
+else
+  echo "   Done"
+fi
 
 printf "\nCommit:\n"
 git commit -m "$host"
-echo Status $?
+if [ $? -ne 0 ]; then
+  echo "   [error code $?]"
+else
+  echo "   Done"
+fi
 
 printf "\nPush to github:\n"
 git push
-echo Status $?
+if [ $? -ne 0 ]; then
+  echo "   [error code $?]"
+else
+  echo "   Done"
+fi
 
 echo
 # EOF
