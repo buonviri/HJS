@@ -14,35 +14,35 @@ foo=$?
 if [ $foo -ne 0 ]; then
   printf "   \e[1;31m[ERROR CODE $foo]\e[0m\n"
 else
-  echo "   Done"
+  echo "   [Done]"
   printf "\nUpdate from github:\n"
   git pull  # ---------------------------------- pull
   foo=$?
   if [ $foo -ne 0 ]; then
     printf "   \e[1;31m[ERROR CODE $foo]\e[0m\n"
   else
-    echo "   Done"
+    echo "   [Done]"
     printf "\nAdd new files:\n" 
     git add .  # ------------------------------- add
     foo=$?
     if [ $foo -ne 0 ]; then
       printf "   \e[1;31m[ERROR CODE $foo]\e[0m\n"
     else
-      echo "   Done"
+      echo "   [Done]"
       printf "\nCommit:\n"
       git commit -m "$host"  # ----------------- commit
       foo=$?
       if [ $foo -ne 0 ]; then
         printf "   \e[1;31m[ERROR CODE $foo]\e[0m\n"
       else
-        echo "   Done"
+        echo "   [Done]"
         printf "\nPush to github:\n"
         git push  # ---------------------------- push
         foo=$?
         if [ $foo -ne 0 ]; then
           printf "   \e[1;31m[ERROR CODE $foo]\e[0m\n"
         else
-          echo "   Done"
+          echo "   [Done]"
         fi  # end push
       fi  # end commit
     fi  # end add
