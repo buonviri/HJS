@@ -17,8 +17,9 @@ usbsn | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  #  USB serial number
 
 # BMC: serial, version, PCIe
 printf "\e[1;35m%b\e[0m"  "   Reading BMC serial number / version / PCIe status (info and srread 0xC008C)\n"
-python3 ~/HJS/statlog/statlog.py S2XX-info-void > ~/.bmc  # write BMC serial and version to file
-python3 ~/HJS/statlog/statlog.py S2XX-srread.a.0xC008C+srread.b.0xC008C-void >> ~/.bmc  # append PCIe info
+bmc > ~/.bmc  # store bmc alias result in text file
+# python3 ~/HJS/statlog/statlog.py S2XX-info-void > ~/.bmc  # write BMC serial and version to file
+# python3 ~/HJS/statlog/statlog.py S2XX-srread.a.0xC008C+srread.b.0xC008C-void >> ~/.bmc  # append PCIe info
 cat ~/.bmc | grep -i -E "variant|revision|c008c" | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  #  variants and revisions
 
 # get serial number and card name
