@@ -32,7 +32,7 @@ dual=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board:.*variant \K...")  # shoul
 printf "\e[1;35m%b\e[0m" "   Reading OS info (lspci)\n"
 1fdc | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # PCIe without leading spaces
 
-# enable CB/PG
+# verify CB/PG
 printf "\e[1;35m%b\e[0m" "   Reading CB info (BMC pins)\n"
 enpg | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # PG from BMC
 
