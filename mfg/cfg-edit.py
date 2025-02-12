@@ -75,6 +75,9 @@ foo = {
     'S2LP-S16 v1.5 for BMC 1.0.x':  {
         'lotcodes': {
             '52980': (1,5),
+            '52979': (15,15),  # dual -> single
+            '52979+': (17,17),  # dual -> single
+            '52979++': (23,23),  # dual -> single
         },
         'parameters': {
             'name': 'S2LP',
@@ -123,12 +126,13 @@ def checkdir(dirname):
 for config in foo:
     print('Generating files for: ' + config)
     cfg = foo[config]  # this cfg's dictionary
-    for lotcode in cfg['lotcodes']:
+    for rawlotcode in cfg['lotcodes']:
+        lotcode = rawlotcode.strip('+')  # plus sign may be used to add to lotcode
         checkdir(lotcode)  # create folder if missing
         checkdir(lotcode + '\\linux')
         start = ''
         end = ''
-        for i in range(cfg['lotcodes'][lotcode][0], cfg['lotcodes'][lotcode][1] + 1):
+        for i in range(cfg['lotcodes'][rawlotcode][0], cfg['lotcodes'][rawlotcode][1] + 1):
             sn = '%03d' % i
             fname = 'cfg-edit-' + lotcode + '-PAC' + sn
             if len(start) == 0:
