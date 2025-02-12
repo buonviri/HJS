@@ -11,9 +11,9 @@ else
 fi
 
 if [ $# == 2 ]; then 
-  query="--input_txt '$2'"  # set query to arg
+  query="--input_txt \"$2\""  # set query to arg
 else
-  query="--input_txt 'Tell me about Trump.'"  # default LOL
+  query="--input_txt \"Tell me about Trump.\""  # default LOL
 fi
 
 for (( i=0; i<$count; i++ )); do
