@@ -5,6 +5,15 @@
 #   use nnn... to control the desired number of leading zeroes
 #   example: myproduct.099.py will create 001 through 099
 #   leading underscore may be added for sorting purposes
+# override dot files: lot min max len product sep
+# examples:
+#   lot = 12345
+#   min = 1
+#   max = 99
+#   len = 3 (001 to 099)
+#   product = S2M2 or S2LP
+#   sep = -PAC
+# todo: add prefix? or just use 12345-AET001
 
 import os
 
