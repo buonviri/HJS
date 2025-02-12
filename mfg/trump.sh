@@ -27,5 +27,6 @@ de
 cd
 echo
 s2
+printf "\n\e[1;32mCompleted $i queries.\e[0m\n\n"
 
 # EOF
