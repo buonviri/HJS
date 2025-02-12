@@ -90,7 +90,9 @@ alias bmc="info | tee ~/bmc.info && printf '\nBoth should be 0x18 on dual cards\
 alias fault="source ~/HJS/u22/faultcodes.sh"
 alias info="python3 ~/HJS/statlog/statlog.py S2XX-info-void"
 alias c008c="python3 ~/HJS/statlog/statlog.py S2LP-srread.a.0xC008C+srread.b.0xC008C-void"
-alias xlog="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/zog.info && python3 ~/HJS/statlog/statlog.py S2XX-xlog-slow | tee -a ~/zog.info"
+alias xlog="xlogver | tee ~/zog.info && xlogslow | tee -a ~/zog.info"
+alias xlogver="python3 ~/HJS/statlog/statlog.py S2XX-ver-null"
+alias xlogslow="python3 ~/HJS/statlog/statlog.py S2XX-xlog-slow"
 alias xxlog="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/zog.info && python3 ~/HJS/statlog/statlog.py S2XX-xlog-wait | tee -a ~/zog.info"
 alias xerr="cat ~/zog.info | grep -i -E 'pass|fail|errors|error|fault'"
 alias xx="xlog && echo Pass/Fail/Error/Fault && xerr"
@@ -141,5 +143,5 @@ alias dry3="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 999"
 alias dry4="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 9999"
 alias dry5="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 99999"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v3.53\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.54\e[0m\n\n'"
 # EOF

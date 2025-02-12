@@ -38,8 +38,8 @@ enpg | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # PG from BMC
 
 # xlog
 printf "\e[1;35m%b\e[0m"  "   Reading xlog...\n"
-python3 ~/HJS/statlog/statlog.py S2XX-ver-null > ~/zog.info  # first half of xlog alias
-python3 ~/HJS/statlog/statlog.py S2XX-xlog-slow >> ~/zog.info  # second half of xlog alias
+xlogver > ~/zog.info  # first half of xlog alias
+xlogslow >> ~/zog.info  # second half of xlog alias
 xerr | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # xlog pass/fail/error lines without leading spaces
 
 # ant22 and dma
