@@ -1,12 +1,13 @@
 #!/bin/bash
 echo
 
-# get timestamp and hexstamp
+# get timestamp, hexstamp, and hostname
 time_t=$(date +%s)
 hexstamp=$(printf "%x" $time_t)  # echo "[DEBUG] timestamp: $hexstamp"
+hostname=$(hostname)
 
 # write timestamp
-sudo echo "[ProdTest UTC=0x$hexstamp] -> ~/.prodtest-$hexstamp" > ~/.prodtest-$hexstamp  # forces root login
+sudo echo "[ProdTest on $hostname at UTC=0x$hexstamp] -> ~/.prodtest-$hexstamp" > ~/.prodtest-$hexstamp  # forces root login
 
 # get serial number from FTDI
 if [ -f ~/ftdi.info ]; then
