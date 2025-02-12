@@ -30,7 +30,7 @@ s2
 if [ $count == 1 ]; then
   printf "\n\e[1;32mCompleted 1 query.\e[0m\n\n"
 else
-  printf "\n\e[1;32mCompleted (($i+1)) queries.\e[0m\n\n"
+  printf "\n\e[1;32mCompleted $i queries.\e[0m\n\n"
 fi
 
 # EOF
