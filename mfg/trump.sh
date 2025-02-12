@@ -11,16 +11,16 @@ else
 fi
 
 if [ $# == 2 ]; then 
-  query=" --input_txt '$2' "  # set query to arg
+  query="--input_txt \"$2\""  # set query to arg
 else
-  query=" --input_txt 'Tell me about Trump.' "  # default LOL
+  query="--input_txt \"Tell me about Trump.\""  # default
 fi
 
 for (( i=0; i<$count; i++ )); do
   echo
   printf "\e[1;32mi = $i\e[0m\n"
   echo
-  python3 demo_model.py "$query"
+  echo "$query" | xargs python3 demo_model.py
 done
 
 de
