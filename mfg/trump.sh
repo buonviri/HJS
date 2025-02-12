@@ -12,7 +12,7 @@ fi
 
 for (( i=0; i<$count; i++ )); do
   echo
-  printf "\e[1;32mLoop = $i\e[0m\n"
+  printf "\e[1;32mi = $i\e[0m\n"
   echo
   python3 demo_model.py
 done
