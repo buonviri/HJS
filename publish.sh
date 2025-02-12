@@ -21,9 +21,12 @@ else
 fi
 cd "/home/ec/hjs/"
 
+printf "\nAliases:\n"
 foo="./.bash_aliases"  # new alias file
 printf "# %s [%s]\n" "$(date)" "$(hostname)" > $foo  # start with date/time and hostname
 cat "/home/ec/HJS/u22/edgecortix.bash_aliases" | grep -E ' s2i=| bios=| usbsn=| ver=| prodtest=| pt=| xerr=| 1fdc=| s2=| info=| c008c=| dmadual=| dmasingle=' | sed 's/\/HJS\//\/hjs\//g' | tee -a $foo
+
+printf "\nScripts:\n"
 yes | \cp -v /home/ec/HJS/u22/S2xx.sh ./u22/
 yes | \cp -v /home/ec/HJS/u22/dma00d.sh ./u22/
 yes | \cp -v /home/ec/HJS/u22/dma00s.sh ./u22/
