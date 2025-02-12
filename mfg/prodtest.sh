@@ -34,7 +34,7 @@ printf "\e[1;35m%b\e[0m" "   Reading OS info (lspci)\n"
 
 # enable CB/PG
 printf "\e[1;35m%b\e[0m" "   Reading CB info (BMC pins)\n"
-python3 ~/HJS/statlog/statlog.py S2LP-pins.[QUOTE][STAR]EN_PG[STAR][QUOTE]-void | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # PG from BMC
+enpg | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # PG from BMC
 
 # xlog
 printf "\e[1;35m%b\e[0m"  "   Reading xlog...\n"
@@ -52,9 +52,9 @@ else
   ./setup_3pg.sh > /dev/null 2>&1  # hide all of the spam
   cd - > /dev/null  # return to previous folder
   if [ "$dual" == "D16" ]; then
-    source ~/HJS/u22/dma00d.sh >> ~/.prodtest-$hexstamp  # run all DMA tests using version with minimal spam, dual, S2LP
+    dmadual >> ~/.prodtest-$hexstamp  # run all DMA tests using version with minimal spam, dual, S2LP
   else
-    source ~/HJS/u22/dma00s.sh >> ~/.prodtest-$hexstamp  # run all DMA tests using version with minimal spam, single, S2LP or S2M2
+    dmasingle >> ~/.prodtest-$hexstamp  # run all DMA tests using version with minimal spam, single, S2LP or S2M2
   fi
 fi
 
