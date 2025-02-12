@@ -29,8 +29,10 @@ yes | \cp -v /home/ec/HJS/u22/dma00d.sh ./u22/
 yes | \cp -v /home/ec/HJS/u22/dma00s.sh ./u22/
 yes | \cp -v /home/ec/HJS/statlog/statlog.py ./statlog/
 yes | \cp -v /home/ec/HJS/mfg/prodtest.sh ./mfg/
-sed -i 's/\/HJS\//\/hjs\//g w /dev/stdout' "./mfg/prodtest.sh"  # this script contains some paths
-cd "/home/ec/HJS/"  # return to folder where this script exists
 
+# no longer needed
+# sed -i 's/\/HJS\//\/hjs\//g w /dev/stdout' "./mfg/prodtest.sh"  # this script contains some paths
+
+cd "/home/ec/HJS/"  # return to folder where this script exists
 echo
 # EOF
