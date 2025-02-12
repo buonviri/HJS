@@ -15,7 +15,7 @@ size="1048576"  # 1k * 1k * 1k
 size="262144"  # set to 256k
 
 # echo
-# printf "\e[1;31m   Hopefully you already typed 'ant22' !!!\e[0m\n"
+# printf "\e[1;31m   Hopefully you already typed 'dryi' !!!\e[0m\n"
 
 echo Testing Device 0, DDR0...
 ~/dna2_self_test_2_2_0/dma_test 0 ddr0 $size &> ~/.dma00

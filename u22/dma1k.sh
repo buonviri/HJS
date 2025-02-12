@@ -5,7 +5,7 @@ size="1048576"  # 1k * 1k * 1k
 size="1024"  # 1k * 1k
 
 echo
-printf "\e[1;31m   Hopefully you already typed 'ant22' !!!\e[0m\n"
+printf "\e[1;31m   Hopefully you already typed 'dryi' !!!\e[0m\n"
 
 echo
 echo Testing Device 0, DDR0...

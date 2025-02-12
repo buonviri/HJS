@@ -42,7 +42,7 @@ xlogver > ~/zog.info  # first half of xlog alias
 xlogslow >> ~/zog.info  # second half of xlog alias
 xerr | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # xlog pass/fail/error lines without leading spaces
 
-# ant22 and dma
+# ant22/dryi and dma
 printf "\e[1;35m%b\e[0m"  "   Running all DMA tests...\n"
 bistfail=$(cat ~/.prodtest-$hexstamp | \grep -i "fail")
 if [ -n "$bistfail" ]; then  # check if not empty
