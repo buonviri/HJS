@@ -134,10 +134,12 @@ alias d10="~/dna2_self_test_2_2_0/dma_test 1 ddr0 1048576"
 alias d11="~/dna2_self_test_2_2_0/dma_test 1 ddr1 1048576"
 alias dma="source ~/HJS/u22/dma22.sh"
 alias dma1k="source ~/HJS/u22/dma1k.sh"
+alias dmadual="source ~/HJS/u22/dma00d.sh"
+alias dmasingle="source ~/HJS/u22/dma00s.sh"
 alias dry="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh"
 alias dry3="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 999"
 alias dry4="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 9999"
 alias dry5="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 99999"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v3.52\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.53\e[0m\n\n'"
 # EOF
