@@ -40,8 +40,10 @@ for lot in lotlist:
     print()  # start with newline
     if info[lot]['min'] == info[lot]['max']:  # min/max are same
         print(lot + ' [' + "%03d" % info[lot]['min'] + ']')  # print lot with min=max
+        print('bash: lot ' + lot + ' ' + info[lot]['max'])
     else:
         print(lot + ' [' + "%03d" % info[lot]['min'] + '...' + "%03d" % info[lot]['max'] + ']')  # print lot with min/max
+        print('bash: lot ' + lot + ' ' + info[lot]['max'])
     del info[lot]['min']  # remove min
     del info[lot]['max']  # remove max
     sns = []
