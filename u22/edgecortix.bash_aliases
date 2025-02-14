@@ -130,7 +130,7 @@ alias lot="source ~/HJS/mfg/lot.sh"
 alias lots="python3 ~/HJS/mfg/lots.py"
 
 alias ant22="printf 'This alias is obsolete. Use dryi (dry init) instead.\n'"
-alias dryi="sudo echo 'dry init...' && cd ~/dna2_self_test_2_2_0/ && ./setup_3pg.sh ; echo ; printf '\e[1;35m   Ensure that compute blocks 01 and 02 are enabled (verify power or use alias enpg) then ./run_3pg.sh or ./run_3pg.sh 999\e[0m\n\n' ; enpg"
+alias dryi="sudo echo 'dry init with dma_test:' && cd ~/dna2_self_test_2_2_0/ && ./setup_3pg.sh ; echo ; printf '\e[1;35m   Ensure that compute blocks 01 and 02 are enabled (verify power or use alias enpg) then ./run_3pg.sh or ./run_3pg.sh 999\e[0m\n\n' ; enpg"
 alias d00="~/dna2_self_test_2_2_0/dma_test 0 ddr0 1048576"
 alias d01="~/dna2_self_test_2_2_0/dma_test 0 ddr1 1048576"
 alias d10="~/dna2_self_test_2_2_0/dma_test 1 ddr0 1048576"
@@ -145,5 +145,5 @@ alias dry4="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 9999"
 alias dry5="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 99999"
 alias trump="source ~/HJS/mfg/trump.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v3.57\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.58\e[0m\n\n'"
 # EOF
