@@ -82,35 +82,5 @@ fi
 #   exit 1
 # fi
 
-#
-# Enable all the power groups
-#
-if [[ -e "$SERIAL" ]]; then
-  echo "Found the serial device '$SERIAL'"
-else
-  echo "Cannot find serial device '$SERIAL'"
-  exit 1
-fi
-echo -e "\n\n"
-echo "Enable power groups of chip A"
-echo "Please copy-paste the next commands:"
-echo -e "\n#######################################"
-cat << EOF
-pins "M2EN_PG*"
-srread a 0x10100
-srwrite a 0x10100 0
-pin M2EN_PG1 set
-srread a 0x1001c
-srwrite a 0x1001c 4
-pin M2EN_PG2 set
-srread a 0x1001c
-srwrite a 0x1001c 0
-srwrite a 0x10100 1
-pins "M2EN_PG*"
-EOF
-echo -e "#######################################\n"
-echo -e "after copy-paste, PRESS CTRL-A followed by CTRL-X to EXIT\n\n"
-# sudo picocom -b "$RATE" -q -r -l -c --imap lfcrlf "$SERIAL"
-
 echo "SETUP DONE"
 exit 0
