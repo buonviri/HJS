@@ -32,7 +32,7 @@ else
       git commit -m "$host"  # ----------------- commit
       foo=$?
       if [ $foo -ne 0 ]; then
-        printf "   \e[1;31m[EXIT $foo]\e[0m\n"
+        printf "   \e[1;33m[EXIT $foo]\e[0m\n"  # YELLOW
       else
         green "   [DONE]\n"
         printf "\nPush to github:\n"
