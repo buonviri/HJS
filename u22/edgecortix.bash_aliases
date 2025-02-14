@@ -79,6 +79,7 @@ alias imdt="screen /dev/ttyUSB0 115200"
 alias jam="source ~/HJS/u22/jam.sh"
 alias mem="free -m"
 alias catinfo="tail -n +1 ~/*.info"
+alias epoch="source ~/HJS/u22/epoch.sh"
 # Start of S2 utils
 alias maxfan="python3 ~/HJS/statlog/statlog.py S2LP-fan.a.100+fan-void"
 alias minfan="python3 ~/HJS/statlog/statlog.py S2LP-fan.a.40+fan-void"
@@ -145,5 +146,5 @@ alias dry4="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 9999"
 alias dry5="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 99999"
 alias trump="source ~/HJS/mfg/trump.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v3.58\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.59\e[0m\n\n'"
 # EOF
