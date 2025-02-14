@@ -5,7 +5,7 @@ function green () {
 }
 
 host=$(hostname)  # get hostname
-printf "\nStoring prodtest files for: %s\n" "$host"
+printf "\nStoring prodtest files for: \e[1;35m%s\e[0m\n" "$host"
 
 printf "\nNavigate to prodtest:\n"
 cd ~/prodtest  # ------------------------------- cd
