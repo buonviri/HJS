@@ -12,5 +12,7 @@ yes | \cp -v ~/HJS/mfg/setup_3pg_one.sh .
 chmod +x ./setup_3pg_one.sh
 yes | \cp -v ~/HJS/mfg/setup_3pg_zero.sh .
 chmod +x ./setup_3pg_zero.sh
+yes | \cp -v ~/HJS/mfg/run_3pg.sh .
+chmod +x ./run_3pg.sh
 
 # EOF
