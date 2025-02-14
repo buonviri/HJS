@@ -55,6 +55,17 @@ if [ $# == 2 ]; then
     done <<< "$rd"
     echo "${my_array[@]}"
 
+    my_array=("T-SAK:")
+    t=$(cat $foobar$star | grep -o -P 'MAX,.*,.*,.*,\s+\K.+,' | sed "s/\.00,//g")
+    while read line; do
+      if [[ ! " ${my_array[@]} " =~ " ${line} " ]]; then
+        my_array+=("${line}")
+      fi
+    done <<< "$t"
+    echo "${my_array[@]}"
+
+
+cat .prodtest* | grep -o -P "MAX,.*,.*,\s+\K.+,"
   fi
 else  # wrong number of args
   printf "Usage:\n   Enter the lot code and serial number as parameters.\nExample:\n   sn 12345 001\n"
