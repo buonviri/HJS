@@ -130,7 +130,7 @@ alias lot="source ~/HJS/mfg/lot.sh"
 alias lots="python3 ~/HJS/mfg/lots.py"
 
 alias ant22="printf 'This alias is obsolete. Use dryi (dry init) instead.\n'"
-alias dryi="cd ~/dna2_self_test_2_2_0/ && ./setup_3pg.sh ; echo ; printf '\e[1;35m   Ensure that compute blocks 01 and 02 are enabled (verify power or use alias enpg) then ./run_3pg.sh or ./run_3pg.sh 999\e[0m\n\n' ; enpg"
+alias dryi="sudo echo 'dry init...' && cd ~/dna2_self_test_2_2_0/ && ./setup_3pg.sh ; echo ; printf '\e[1;35m   Ensure that compute blocks 01 and 02 are enabled (verify power or use alias enpg) then ./run_3pg.sh or ./run_3pg.sh 999\e[0m\n\n' ; enpg"
 alias d00="~/dna2_self_test_2_2_0/dma_test 0 ddr0 1048576"
 alias d01="~/dna2_self_test_2_2_0/dma_test 0 ddr1 1048576"
 alias d10="~/dna2_self_test_2_2_0/dma_test 1 ddr0 1048576"
