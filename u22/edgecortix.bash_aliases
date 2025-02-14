@@ -21,11 +21,11 @@ alias r="grep HugePages_ /proc/meminfo; printf '\n\e[1;35m   Confirm 4/4/0/0.\e[
 alias s="sensors; printf '\e[1;35m   Confirm fan and temp sensors.\e[0m\n\n'"
 alias t="sudo lspci | grep -i 1fdc:.... || echo Device not found: 1fdc:nnnn;printf '\n\e[1;35m   Confirm xx:00.0 is Co-processor with Device ID 1fdc:nnnn.\e[0m\n\n'"
 alias u="sudo lspci -vvv -d 1fdc: | grep -E 'Subsystem:|LnkSta:|Region 0:|Region 2:|Region 4:'  | awk '{\$1=\$1;print}' && printf '\n\e[1;35m   Confirm 8M/8M/8M/8GT/x16.\e[0m\n\n'"
-alias v="sudo apt update -y && sudo apt upgrade -y"
-alias w="printf '\n\e[1;35m   Downgrade numpy:\n   pip install --force-reinstall -v numpy==1.26.4\e[0m\n\n'"
-alias x="printf '\n\e[1;35m   The End\e[0m\n\n'"
-alias y="printf '\n\e[1;35m   mera-setup camera-setup ips-setup\n   mera16 numpy deploy\e[0m\n\n'"
-alias z="printf '\n\e[1;35m   sysinfo mera16 camera\n   fym mde yod\n   meas measu measur measure\n   sjlog ips perf\e[0m\n\n'"
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
+# alias is obsolete
 alias uu="sudo apt update -y && sudo apt upgrade -y"
 alias ar="sudo apt autoremove -y"
 alias 00="poweroff"
@@ -145,5 +145,5 @@ alias dry4="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 9999"
 alias dry5="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 99999"
 alias trump="source ~/HJS/mfg/trump.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v3.56\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.57\e[0m\n\n'"
 # EOF
