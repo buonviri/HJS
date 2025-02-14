@@ -2,6 +2,7 @@
 
 mydate=$1
 echo Converting $mydate...
-date -u -d +@$mydate
+decimal=$(printf "%x" "$mydate")
+date -u -d +@$decimal
 
 # EOF
