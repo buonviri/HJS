@@ -50,7 +50,7 @@ if [ -n "$bistfail" ]; then  # check if not empty
   printf "\e[1;35m%b\e[0m"  "   ABORTED DUE TO BIST FAILURE\n"
 else
   cd ~/dna2_self_test_2_2_0/ > /dev/null  # setup must be run from the correct folder
-  ./setup_3pg.sh > /dev/null 2>&1  # hide all of the spam
+  ./setup_3pg_none.sh > /dev/null 2>&1  # hide all of the spam, now skips dma_test
   cd - > /dev/null  # return to previous folder
   if [ "$dual" == "D16" ]; then
     dmadual >> ~/.prodtest-$hexstamp  # run all DMA tests using version with minimal spam, dual, S2LP
