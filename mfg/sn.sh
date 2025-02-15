@@ -12,7 +12,8 @@ if [ $# == 2 ]; then
   else
     printf "Summary for serial number %s%s" "$1" "$2" # start of summary line
     foobar=$(printf "%s%s" "$foo" "$bar")
-    printf " in \e[1;35m$foobar%s\e[0m\n" "$star" # finish the previous line
+    # printf " in \e[1;35m$foobar%s\e[0m\n" "$star" # finish the previous line
+    printf "\n" # finish the previous line, short version
 
     printf "Log count: "
     cat $foobar$star | grep -o -i 'board.*edgecortix' | wc -l
