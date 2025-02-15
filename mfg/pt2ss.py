@@ -18,12 +18,14 @@ else:
 # containers
 foo = {}  # good info
 bar = {}  # todo list
+sns = []  # list of serial numbers to sort and iterate
 
 # FUNCTIONS
 
 def summarize(lines, filename):
     global foo
     global bar
+    global sns
     ser = 'error'
     tsak = 'error'
     for rawline in lines:
@@ -52,6 +54,7 @@ def summarize(lines, filename):
                 foo[ser[4:]].append(tsak)  # try to append to existing list
             except:
                 foo[ser[4:]] = [tsak]  # make new list with current entry
+                sns.append(ser[4:])  # list to be sorted later
 # End
 
 # END FUNCTIONS
@@ -63,8 +66,9 @@ for dirname, dirnames, filenames in os.walk(ptpath):  # get info from prodtest f
             with open(os.path.join(dirname,filename), 'r') as f:
                 summarize(f.readlines(), filename)
 # pprint.pprint(foo)
+sorted_sns = sorted(sns)
 with open ('pt.tsv', 'w') as f:
-    for ser in foo:
+    for ser in sorted_sns:
         sorted_tsak = sorted(foo[ser], reverse=True)
         f.write(ser + '\t' + '\t'.join(sorted_tsak) + '\n')
         
