@@ -41,11 +41,15 @@ def summarize(lines, dirname, filename):
         elif line.startswith('Board: '):
             x = line.split(',')
             if len(x) == 4:
-                ser = x[2].strip()  # index 2 is serial number
+                ser = x[2].strip()[4:]  # index 2 is serial number, remove 'ser ' prefix
+                prod = x[0][-4:]  # last four are product name
+                key = ser + ' (' + prod + ')'
             else:
                 print('In ' + filename)
                 print('Wrong token count: ' + line)
-                ser = 'ser XXXXX-PACYYY'
+                ser = 'XXXXX-PACYYY'
+                prod = 'ZZZZ'
+                key = ser + ' (' + prod + ')'
         elif line.startswith('BMC Software:'):  # BMC?
             pass
         elif line.startswith('[') and '->' in line:  # statlog?
@@ -109,10 +113,10 @@ def summarize(lines, dirname, filename):
                 print('Wrong token count: ' + line)
                 tsak = '-1'
             try:
-                foo[ser[4:]].append(tsak)  # try to append to existing list
+                foo[key].append(tsak)  # try to append to existing list
             except:
-                foo[ser[4:]] = [tsak]  # make new list with current entry
-                sns.append(ser[4:])  # list to be sorted later
+                foo[key] = [tsak]  # make new list with current entry
+                sns.append(key)  # list to be sorted later
         elif 'BIST: sakura A' in line:  # BIST?
             pass
         elif 'BIST: sakura B' in line:  # BIST?
