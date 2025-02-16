@@ -5,6 +5,7 @@ import pprint
 # pseudo #defines
 WINDOWS = os.name == 'nt'
 LINUX = os.name == 'posix'
+do_pause = True
 
 # set path based on OS
 if WINDOWS:
@@ -26,7 +27,11 @@ def summarize(lines, dirname, filename):
     global foo
     global bar
     global sns
+    prod = 'error'
+    var = 'error'
     ser = 'error'
+    rev = 'error'
+    key = 'error'
     tsak = 'error'
     for rawline in lines:
         line = rawline.strip()
@@ -41,15 +46,19 @@ def summarize(lines, dirname, filename):
         elif line.startswith('Board: '):
             x = line.split(',')
             if len(x) == 4:
-                ser = x[2].strip()[4:]  # index 2 is serial number, remove 'ser ' prefix
                 prod = x[0][-4:]  # last four are product name
-                key = ser + ' (' + prod + ')'
+                var = x[1].strip()[8:]  # index 1 is variant, remove 'variant ' prefix
+                ser = x[2].strip()[4:]  # index 2 is serial number, remove 'ser ' prefix
+                rev = x[3].strip()[4:]  # index 3 is rev number, remove 'rev ' prefix
             else:
                 print('In ' + filename)
                 print('Wrong token count: ' + line)
-                ser = 'XXXXX-PACYYY'
                 prod = 'ZZZZ'
-                key = ser + ' (' + prod + ')'
+                var = 'ABCDEF'
+                ser = 'XXXXX-PACYYY'
+                rev = 'GHI'
+            key = ser + ' (' + prod + '-' + var + ' rev' + rev + ')'
+            # print(ser + ' ' + prod + ' ' + var + ' ' + rev)
         elif line.startswith('BMC Software:'):  # BMC?
             pass
         elif line.startswith('[') and '->' in line:  # statlog?
@@ -113,9 +122,10 @@ def summarize(lines, dirname, filename):
                 print('Wrong token count: ' + line)
                 tsak = '-1'
             try:
-                foo[key].append(tsak)  # try to append to existing list
+                foo[key]['tsak'].append(tsak)  # try to append to existing list
             except:
-                foo[key] = [tsak]  # make new list with current entry
+                foo[key] = {}  # new blank dict
+                foo[key]['tsak'] = [tsak,]  # make new list with current entry
                 sns.append(key)  # list to be sorted later
         elif 'BIST: sakura A' in line:  # BIST?
             pass
@@ -147,9 +157,11 @@ def summarize(lines, dirname, filename):
 # END FUNCTIONS
 
 # read all files
+filecount = 0
 for dirname, dirnames, filenames in os.walk(ptpath):  # get info from prodtest folder
     for filename in filenames:
         if filename.endswith('.txt') and '-0x' in filename:  # check extension and SN/TS separator
+            filecount = filecount + 1
             with open(os.path.join(dirname,filename), 'r') as f:
                 summarize(f.readlines(), dirname, filename)
 # pprint.pprint(foo)
@@ -159,10 +171,14 @@ with open ('pt.tsv', 'w') as f:
     for ser in sorted_sns:
         if ser[0:5] != last_ser[0:5]:  # compare lot codes
             f.write('\n')  # blank line if new lot code
-        sorted_tsak = sorted(foo[ser], reverse=True)
+        sorted_tsak = sorted(foo[ser]['tsak'], reverse=True)
         f.write(ser + '\t' + '\t'.join(sorted_tsak) + '\n')
         last_ser = ser  # save for next loop
-        
+
+print('\nFile count: ' + str(filecount))  # print file count
+if WINDOWS and do_pause:
+    os.system('timeout /t 3')  # windows only, keep window open, keystroke ends it instantly        
+
 # EOF
 
 # Notes
