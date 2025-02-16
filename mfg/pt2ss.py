@@ -23,6 +23,10 @@ sns = []  # list of serial numbers to sort and iterate
 
 # FUNCTIONS
 
+def GetKey(a, b, c, d):
+    return a + ' (' + b + '-' + c + ' rev' + d + ')'
+# End
+
 def summarize(lines, dirname, filename):
     global foo
     global bar
@@ -31,8 +35,10 @@ def summarize(lines, dirname, filename):
     var = 'error'
     ser = 'error'
     rev = 'error'
-    key = 'error'
+    key = GetKey(ser, prod, var, rev)
     tsak = 'error'
+    pri = 'Unk'
+    bmc = 'h.j.s'
     for rawline in lines:
         line = rawline.strip()
         if len(line) == 0:  # blank
@@ -47,9 +53,9 @@ def summarize(lines, dirname, filename):
             x = line.split(',')
             if len(x) == 4:
                 prod = x[0][-4:]  # last four are product name
-                var = x[1].strip()[8:]  # index 1 is variant, remove 'variant ' prefix
+                var = x[1].strip()[8:].ljust(6)  # index 1 is variant, remove 'variant ' prefix, force len=6
                 ser = x[2].strip()[4:]  # index 2 is serial number, remove 'ser ' prefix
-                rev = x[3].strip()[4:]  # index 3 is rev number, remove 'rev ' prefix
+                rev = x[3].strip()[4:].ljust(3)  # index 3 is rev, remove 'rev ' prefix, force len=3
             else:
                 print('In ' + filename)
                 print('Wrong token count: ' + line)
@@ -57,10 +63,16 @@ def summarize(lines, dirname, filename):
                 var = 'ABCDEF'
                 ser = 'XXXXX-PACYYY'
                 rev = 'GHI'
-            key = ser + ' (' + prod + '-' + var + ' rev' + rev + ')'
+            key = GetKey(ser, prod, var, rev)
             # print(ser + ' ' + prod + ' ' + var + ' ' + rev)
         elif line.startswith('BMC Software:'):  # BMC?
-            pass
+            pri = line[14:17]
+            x = line.split(',')
+            bmc = x[1].strip()[9:]  # middle token, stripped, starting after 'Revision '
+            if key.startswith('error'):
+                print(pri + ' | ' + bmc)  # bad key, print line
+            else:
+                key = key + ' [' + pri + ' ' + bmc + ']'
         elif line.startswith('[') and '->' in line:  # statlog?
             pass
         elif '[\'stats\']' in line:  # statlog called stats
@@ -177,7 +189,7 @@ with open ('pt.tsv', 'w') as f:
 
 print('\nFile count: ' + str(filecount))  # print file count
 if WINDOWS and do_pause:
-    os.system('timeout /t 3')  # windows only, keep window open, keystroke ends it instantly        
+    os.system('timeout /t 60')  # windows only, keep window open, keystroke ends it instantly        
 
 # EOF
 
