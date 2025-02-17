@@ -80,7 +80,7 @@ alias jam="source ~/HJS/u22/jam.sh"
 alias mem="free -m"
 alias catinfo="tail -n +1 ~/*.info"
 alias epoch="source ~/HJS/u22/epoch.sh"
-alias e2="sudo -i && ~/.local/share/renesas/e2_studio/eclipse/e2studio&"
+alias e2="printf '\nsudo -i\n~/.local/share/renesas/e2_studio/eclipse/e2studio&\n\n'"
 # Start of S2 utils
 alias maxfan="python3 ~/HJS/statlog/statlog.py S2LP-fan.a.100+fan-void"
 alias minfan="python3 ~/HJS/statlog/statlog.py S2LP-fan.a.40+fan-void"
