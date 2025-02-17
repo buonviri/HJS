@@ -17,6 +17,8 @@ info = [
     ['102',        '.py',     """s2_bmc_1_0_2_secondary.hex"""],
     ['104',        '.py',     """s2_bmc_1_0_4_secondary.hex"""],
     ['110',        '.py',     """s2_bmc_1_1_0_secondary.hex"""],
+    ['SWindows',   '.py',     """SW.hex"""],
+    ['SLinux',     '.py',     """SL.hex"""],
     ['first search term', 'second search term or ".py" if none required', 'clipboard image or filename']]
 
 
@@ -48,7 +50,7 @@ else:
                 z = readfile(z)
             pyperclip.copy(z)  # place image on clipboard
             break
-    print('Clipboard image is now accessible. Script exiting in three seconds...')
-    time.sleep(3)
+    print('Clipboard image is now accessible, assuming search terms matched. Script exiting in five seconds...')
+    time.sleep(5)
 
 # End
