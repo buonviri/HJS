@@ -23,8 +23,12 @@ sns = []  # list of serial numbers to sort and iterate
 
 # FUNCTIONS
 
-def GetKey(a, b, c, d):
-    return a + ' (' + b + '-' + c + ' rev' + d + ')'
+def GetKey(a, b, c, d, e):
+    return a + '.' + b + ' (' + c + '-' + d + ' rev' + e + ')'
+# End
+
+def ModKey(key, node):
+    return key[0:13] + node + key[14:]
 # End
 
 def summarize(lines, dirname, filename):
@@ -34,8 +38,9 @@ def summarize(lines, dirname, filename):
     prod = 'error'
     var = 'error'
     ser = 'error'
+    node = 'error'
     rev = 'error'
-    key = GetKey(ser, prod, var, rev)
+    key = GetKey(ser, node, prod, var, rev)
     tsak = 'error'
     pri = 'Unk'
     bmc = 'h.j.s'
@@ -55,6 +60,7 @@ def summarize(lines, dirname, filename):
                 prod = x[0][-4:]  # last four are product name
                 var = x[1].strip()[8:].ljust(6)  # index 1 is variant, remove 'variant ' prefix, force len=6
                 ser = x[2].strip()[4:]  # index 2 is serial number, remove 'ser ' prefix
+                node = 'A'
                 rev = x[3].strip()[4:].ljust(3)  # index 3 is rev, remove 'rev ' prefix, force len=3
             else:
                 print('In ' + filename)
@@ -62,8 +68,9 @@ def summarize(lines, dirname, filename):
                 prod = 'ZZZZ'
                 var = 'ABCDEF'
                 ser = 'XXXXX-PACYYY'
+                node = '?'
                 rev = 'GHI'
-            key = GetKey(ser, prod, var, rev)
+            key = GetKey(ser, node, prod, var, rev)
             # print(ser + ' ' + prod + ' ' + var + ' ' + rev)
         elif line.startswith('BMC Software:'):  # BMC?
             pri = line[14:17]
@@ -116,7 +123,13 @@ def summarize(lines, dirname, filename):
         elif line.startswith('0:'):  # xlog?
             pass
         elif line.startswith('VAL,'):
-            pass
+            if 'T_SAKA' in line:  # LP, A
+                node = 'A'
+            elif 'T_SAKB' in line:  # LP, B
+                node = 'B'
+            elif 'T_SAK' in line:  # M2, A
+                node = 'A'
+            key = ModKey(key, node)  # modify key
         elif line.startswith('LAST,'):
             pass
         elif line.startswith('MEAN,'):
