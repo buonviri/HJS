@@ -2,7 +2,6 @@
 
 import os
 import re
-import pprint
 
 location = '/home/ec/prodtest/'  # make this OS dependent eventually
 prodtest = '^[0-9]{8}-.*\.txt$'  # must start with eight digits and a dash, then any random chars, with .txt extension at the end
@@ -50,7 +49,7 @@ for lot in lotlist:
     sns = []
     for sn in info[lot]:
         sns.append('  ' + sn + ' (x' + str(info[lot][sn]) + ')')  # store sn and count
-    pprint.pprint('\n'.join(sorted(sns)))
+    print(' '.join(sorted(sns)))
 print()
 
 # EOF
