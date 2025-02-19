@@ -48,7 +48,7 @@ for lot in lotlist:
     del info[lot]['max']  # remove max
     sns = []
     for sn in info[lot]:
-        s = ' (' + str(info[lot][sn].rjust(4)) + ')'
+        s = ' (' + str(info[lot][sn]).rjust(4) + ')'
         sns.append('  ' + sn + s)  # store sn and count
     my_sns = sorted(sns)
     i = -1  # start with (negative first) 5th item
