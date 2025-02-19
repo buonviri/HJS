@@ -99,7 +99,7 @@ template = """<?xml version="1.0" encoding="utf-16"?>
 
 batch = ('@echo off\n'
          'echo SCAN and PROG\n'
-         '"C:\\Program Files (x86)\\FTDI\\FT_Prog\\FT_Prog-CmdLine.exe" SCAN PROG 0 C:\\EdgeCortix\\HW\\S2_BMC_Hex\\FTDI\\99999\\9876543210.xml\n'
+         '"C:\\Program Files (x86)\\FTDI\\FT_Prog\\FT_Prog-CmdLine.exe" SCAN PROG 0 C:\\EdgeCortix\\hex-ftdi-cfg\\ftdi\\99999\\9876543210.xml\n'
          'echo SCAN and CYCL\n'
          '"C:\\Program Files (x86)\\FTDI\\FT_Prog\\FT_Prog-CmdLine.exe" SCAN CYCL 0\n'
          'echo DONE\n'
