@@ -53,6 +53,7 @@ for lot in lotlist:
     i = 4  # start with 5th item
     while i < len(my_sns):  # loop over entire length
         try:
+            i = i + 5  # skip to next 5th item
             my_sns[i] = my_sns[i] + '\n'
         except:
             pass
