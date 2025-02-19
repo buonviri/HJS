@@ -75,7 +75,8 @@ foo = {
     'S2LP-S16 v1.5 for BMC 1.0.x':  {
         'lotcodes': {
             '52980': (1,5),
-            '52979': (15,15),  # dual -> single
+            # '52979': (15,15),  # dual -> single
+            # 2025.02.19 converted back to dual for MR25 testing
             '52979+': (17,17),  # dual -> single
             '52979++': (23,23),  # dual -> single
         },
