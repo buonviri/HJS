@@ -51,7 +51,7 @@ for lot in lotlist:
         sns.append('  ' + sn + '  (' + str(info[lot][sn]).rjust(5) + ')')  # store sn and count
     my_sns = sorted(sns)
     i = -1  # start with (negative first) 5th item
-    while i < len(my_sns):  # loop over entire length
+    while i < len(my_sns)-1:  # loop over entire length, minus one to avoid double newline
         try:
             i = i + 5  # skip to next 5th item
             my_sns[i] = my_sns[i] + '\n'  # add newline after five chars
