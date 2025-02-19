@@ -49,7 +49,14 @@ for lot in lotlist:
     sns = []
     for sn in info[lot]:
         sns.append('  ' + sn + ' (x' + str(info[lot][sn]) + ')')  # store sn and count
-    print(' '.join(sorted(sns)))
+    my_sns = sorted(sns)
+    i = 4  # start with 5th item
+    while i < len(mysns):  # loop over entire length
+        try:
+            my_sns[i] = my_sns[i] + '\n'
+        except:
+            pass
+    print(' '.join(my_sns))
 print()
 
 # EOF
