@@ -50,7 +50,7 @@ for lot in lotlist:
     for sn in info[lot]:
         sns.append('  ' + sn + ' (x' + str(info[lot][sn]) + ')')  # store sn and count
     my_sns = sorted(sns)
-    i = 4  # start with 5th item
+    i = -1  # start with (negative first) 5th item
     while i < len(my_sns):  # loop over entire length
         try:
             i = i + 5  # skip to next 5th item
