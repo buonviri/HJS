@@ -48,10 +48,11 @@ for lot in lotlist:
     del info[lot]['max']  # remove max
     sns = []
     for sn in info[lot]:
-        sns.append('  ' + sn + '  (' + str(info[lot][sn]).rjust(5) + ')')  # store sn and count
+        s = ' (' + str(info[lot][sn].rjust(4)) + ')'
+        sns.append('  ' + sn + s)  # store sn and count
     my_sns = sorted(sns)
     i = -1  # start with (negative first) 5th item
-    while i < len(my_sns)-1:  # loop over entire length, minus one to avoid double newline
+    while i < len(my_sns):  # loop over entire length, generates extra newline if len is mulitple of five
         try:
             i = i + 5  # skip to next 5th item
             my_sns[i] = my_sns[i] + '\n'  # add newline after five chars
