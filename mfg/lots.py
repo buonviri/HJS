@@ -54,7 +54,7 @@ for lot in lotlist:
     i = -1  # start with (negative first) item
     while i < len(my_sns):  # loop over entire length, generates extra newline if len is mulitple of max_per_line
         try:
-            i = i + 8  # skip to nth item
+            i = i + 5  # skip to nth item
             my_sns[i] = my_sns[i] + '\n'  # add newline after five chars
             my_sns[i+1] = my_sns[i+1][1:]  # remove leading char
         except:
