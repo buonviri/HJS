@@ -60,7 +60,7 @@ for lot in lotlist:
         except:
             pass
     if my_sns[-1].endswith('\n'):  # check last item
-        my_sns = my_sns[:-1]  # strip last char
+        my_sns[-1] = my_sns[-1][:-1]  # strip last char
     print(' '.join(my_sns))
 print()
 
