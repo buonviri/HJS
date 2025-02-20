@@ -1,11 +1,11 @@
 #!/bin/bash
 
 s2i  # initialize MERA
-cd ~/m.2_power_test
+cd ~/mera_package/examples/chatbot/
 printf "\e[1;35minit complete\e[0m -HJS\n"
 
 if [ $# -gt 0 ]; then  # one or more args passed
-  count=$1  # set count to first arg
+  count=$1  # set count equal to first arg
 else
   count=1  # default to 1
 fi
