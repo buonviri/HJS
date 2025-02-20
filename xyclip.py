@@ -11,8 +11,6 @@ except:
 info = [
     ['jam',        'zoom',    """https://us02web.zoom.us/j/7034311136?pwd%3DcVRib2RwTk9HcTBuQXZvcUpNb3ZuZz09&sa=D&source=calendar&ust=1731178891129279&usg=AOvVaw193s4XvVVrFYkVRRfDVcf7"""],
     ['.hex2clip',  '.py',     """ SPECIAL CASE """],
-    ['SWindows',   '.py',     """SW.hex"""],
-    ['SLinux',     '.py',     """SL.hex"""],
     ['first search term', 'second search term or ".py" if none required', 'clipboard image or filename']]
 
 
