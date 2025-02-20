@@ -10,13 +10,7 @@ except:
 
 info = [
     ['jam',        'zoom',    """https://us02web.zoom.us/j/7034311136?pwd%3DcVRib2RwTk9HcTBuQXZvcUpNb3ZuZz09&sa=D&source=calendar&ust=1731178891129279&usg=AOvVaw193s4XvVVrFYkVRRfDVcf7"""],
-    ['040',        '.py',     """s2lp-s2m2_0p4p0x1.hex"""],
-    ['04LDO',      '.py',     """s2lp-s2m2_0p4p0_DIS-P0V8-LDO_X1.hex"""],
-    ['071',        '.py',     """s2_bmc_0_7_1_secondary.hex"""],
-    ['101',        '.py',     """s2_bmc_1_0_1_secondary.hex"""],
-    ['102',        '.py',     """s2_bmc_1_0_2_secondary.hex"""],
-    ['104',        '.py',     """s2_bmc_1_0_4_secondary.hex"""],
-    ['110',        '.py',     """s2_bmc_1_1_0_secondary.hex"""],
+    ['.hex2clip',  '.py',     """ SPECIAL CASE """],
     ['SWindows',   '.py',     """SW.hex"""],
     ['SLinux',     '.py',     """SL.hex"""],
     ['first search term', 'second search term or ".py" if none required', 'clipboard image or filename']]
@@ -46,8 +40,9 @@ else:
         z = searchlist[2]
         if x in thisfile and y in thisfile:
             print('Found search terms: ' + x + ' & ' + y)
-            if 'hex2clip' in thisfile:  # could add other keywords that cause readfile to happen
-                z = readfile(z)
+            if thisfile.endswith('.hex2clip.py'):  # special case for hexfiles
+                targetfile = thisfile[:-8]  # remove '2clip.py' leaving proper filename
+                z = readfile(targetfile)
             pyperclip.copy(z)  # place image on clipboard
             break
     print('Clipboard image is now accessible, assuming search terms matched. Script exiting in five seconds...')
