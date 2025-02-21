@@ -160,9 +160,13 @@ def summarize(lines, dirname, filename):
             pass
         elif 'BIST: Sakura B' in line:  # BIST? cap S
             pass
-        elif 'sakuraDriver wait' in line or 'sakuraDriver read' in line:  # ignore these errors
+        elif 'sakuraDriver wait' in line or 'sakuraDriver read' in line or 'sakuraDriver write' in line:  # ignore these errors
             pass
         elif 'maxInit U26' in line or 'maxInit U30' in line or 'maxInit U46' in line or 'maxInit U50' in line:  # ignore these errors
+            pass
+        elif 'powerUpS2LP: error' in line or 'powerUpS2M2: error' in line:  # ignore these errors
+            pass
+        elif 'powerDownS2LP fault code' in line or 'powerDownS2M2 fault code' in line:  # ignore these errors
             pass
         elif 'srread error -1' in line:  # ignore these errors
             pass
