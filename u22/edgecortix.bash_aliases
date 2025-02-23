@@ -83,6 +83,7 @@ alias epoch="source ~/HJS/u22/epoch.sh"
 alias e2="printf '\nsudo -i\n~/.local/share/renesas/e2_studio/eclipse/e2studio&\n\n'"
 alias avatar="pactl get-sink-volume @DEFAULT_SINK@ | grep Volume ; eog /var/lib/AccountsService/icons/ec"
 alias catme="cat ~/EC*.info"
+alias m22="s2res ; cd ~/mera_package/install_mera && source install_all_steps.sh"
 # Start of S2 utils
 alias maxfan="python3 ~/HJS/statlog/statlog.py S2LP-fan.a.100+fan-void"
 alias minfan="python3 ~/HJS/statlog/statlog.py S2LP-fan.a.40+fan-void"
