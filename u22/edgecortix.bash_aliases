@@ -81,7 +81,7 @@ alias mem="free -m"
 alias catinfo="tail -n +1 ~/*.info"
 alias epoch="source ~/HJS/u22/epoch.sh"
 alias e2="printf '\nsudo -i\n~/.local/share/renesas/e2_studio/eclipse/e2studio&\n\n'"
-alias avatar="eog /var/lib/AccountsService/icons/ec"
+alias avatar="pactl get-sink-volume @DEFAULT_SINK@ | grep Volume ; eog /var/lib/AccountsService/icons/ec"
 alias catme="cat ~/EC*.info"
 # Start of S2 utils
 alias maxfan="python3 ~/HJS/statlog/statlog.py S2LP-fan.a.100+fan-void"
