@@ -125,12 +125,13 @@ def checkdir(dirname):
 # end of functions, start of script
 
 for config in foo:
-    print('Generating files for: ' + config)
+    print('\nGenerating files for: ' + config)
     cfg = foo[config]  # this cfg's dictionary
     for rawlotcode in cfg['lotcodes']:
         lotcode = rawlotcode.strip('+')  # plus sign may be used to add to lotcode
         checkdir(lotcode)  # create folder if missing
         checkdir(lotcode + '\\linux')
+        checkdir(lotcode + '\\plain_text')
         start = ''
         end = ''
         for i in range(cfg['lotcodes'][rawlotcode][0], cfg['lotcodes'][rawlotcode][1] + 1):
@@ -147,6 +148,8 @@ for config in foo:
             with open('.\\' + lotcode + '\\' + fname  + '.bat', 'w') as f:
                 f.write(prefix + '+'.join(commands) + suffix)
             with open('.\\' + lotcode + '\\linux\\' + lotcode + sn + '.sh', 'w') as f:
+                f.write(plinux + '+'.join(commands) + slinux)
+            with open('.\\' + lotcode + '\\plain_text\\' + lotcode + sn + '.sh', 'w') as f:
                 f.write(plinux + '+'.join(commands) + slinux)
         print(start + end)
 # EOF
