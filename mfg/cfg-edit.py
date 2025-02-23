@@ -112,7 +112,6 @@ foo = {
 
 # end of info, start of functions
 
-
 def checkdir(dirname):
     try:
         os.mkdir(dirname)  # attempt to add folder
@@ -121,6 +120,11 @@ def checkdir(dirname):
         print('  Folder exists: ' + dirname)
 # End
 
+def bracketreplace(s):
+    s = s.replace('[DASH]', '-')
+    s = s.replace('[DOT]', '.')
+    return s
+# End
 
 # end of functions, start of script
 
@@ -149,8 +153,8 @@ for config in foo:
                 f.write(prefix + '+'.join(commands) + suffix)
             with open('.\\' + lotcode + '\\linux\\' + lotcode + sn + '.sh', 'w') as f:
                 f.write(plinux + '+'.join(commands) + slinux)
-            with open('.\\' + lotcode + '\\plain_text\\' + lotcode + sn + '.sh', 'w') as f:
-                f.write(plinux + '+'.join(commands) + slinux)
+            with open('.\\' + lotcode + '\\plain_text\\' + lotcode + sn + '.txt', 'w') as f:
+                f.write(prefix + '\n\n' + bracketreplace('\n'.join(commands)) + '\n\n' + suffix)  # extra newlines
         print(start + end)
 # EOF
 
