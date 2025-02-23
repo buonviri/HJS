@@ -145,10 +145,12 @@ alias dma1k="source ~/HJS/u22/dma1k.sh"
 alias dmadual="source ~/HJS/u22/dma00d.sh"
 alias dmasingle="source ~/HJS/u22/dma00s.sh"
 alias dry="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh"
+alias dry1="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 9"
+alias dry2="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 99"
 alias dry3="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 999"
 alias dry4="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 9999"
 alias dry5="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 99999"
 alias trump="source ~/HJS/mfg/trump.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v3.60\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.61\e[0m\n\n'"
 # EOF
