@@ -5,7 +5,7 @@ import pprint
 # pseudo #defines
 WINDOWS = os.name == 'nt'
 LINUX = os.name == 'posix'
-do_pause = True
+do_pause = True  # for timer at end
 
 # set path based on OS
 if WINDOWS:
