@@ -54,6 +54,10 @@ def summarize(lines, dirname, filename):
             pass
         elif 'Failed to open' in line:  # serial port not connected during prodtest
             pass
+        elif 'powerDownS2LP fault code' in line or 'powerDownS2M2: fault' in line:  # store in tsv
+            print(line)
+            with open ('fault.tsv', 'a') as f:  # append log
+                f.write(line + '\n')
         elif line.startswith('Board: '):
             x = line.split(',')
             if len(x) == 4:
@@ -120,8 +124,6 @@ def summarize(lines, dirname, filename):
             pass
         elif '[QUOTE][STAR]' in line or 'Name Pin Pfs Mode Val Drive' in line or '-quotestar-' in line:  # BMC spam
             pass
-        elif line.startswith('0:'):  # xlog?
-            pass
         elif line.startswith('VAL,'):
             if 'T_SAKA' in line:  # LP, A
                 node = 'A'
@@ -166,13 +168,13 @@ def summarize(lines, dirname, filename):
             pass
         elif 'powerUpS2LP: error' in line or 'powerUpS2M2: error' in line:  # ignore these errors
             pass
-        elif 'powerDownS2LP fault code' in line or 'powerDownS2M2 fault code' in line:  # ignore these errors
-            pass
         elif 'srread error -1' in line:  # ignore these errors
             pass
         elif 'eeprom init failed' in line:  # ignore these errors
             pass
         elif 'sakuraStart: status 0, PASS' in line:  # legacy
+            pass
+        elif line.startswith('0:'):  # xlog?
             pass
         elif line[0].isprintable:  # check if start char is printable
             print('In: ' + dirname + ' in ' + filename)
@@ -184,6 +186,10 @@ def summarize(lines, dirname, filename):
 # End
 
 # END FUNCTIONS
+
+# prep fault code file
+with open ('fault.tsv', 'w') as f:
+    f.write('Fault Codes\n')
 
 # read all files
 filecount = 0
