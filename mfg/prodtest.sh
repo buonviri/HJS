@@ -30,7 +30,8 @@ id_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board: EdgeCortix \K....")
 dual=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board:.*variant \K...")  # should be D16 or S16
 
 # cfg edit string
-cfg > /dev/null
+cfga > /dev/null
+cfgb > /dev/null
 cfg4pt >> ~/.prodtest-$hexstamp
 
 # 1FDC:xxxx
