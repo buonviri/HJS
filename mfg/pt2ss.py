@@ -55,9 +55,12 @@ def summarize(lines, dirname, filename):
         elif 'Failed to open' in line:  # serial port not connected during prodtest
             pass
         elif 'powerDownS2LP fault code' in line or 'powerDownS2M2: fault' in line:  # store in tsv
-            print(line)
-            with open ('fault.tsv', 'a') as f:  # append log
+            with open ('zzfault.tsv', 'a') as f:  # append log
                 f.write(line + '\n')
+        elif line.startswith('cfg.edit'):  # store in tsv
+            with open ('zzcfg.tsv', 'a') as f:  # append log
+                f.write('  ' + key + '\n')
+                f.write('    ' + line + '\n')
         elif line.startswith('Board: '):
             x = line.split(',')
             if len(x) == 4:
@@ -187,9 +190,11 @@ def summarize(lines, dirname, filename):
 
 # END FUNCTIONS
 
-# prep fault code file
-with open ('fault.tsv', 'w') as f:
+# prep junk files
+with open ('zzfault.tsv', 'w') as f:
     f.write('Fault Codes\n')
+with open ('zzcfg.tsv', 'w') as f:
+    f.write('cfg-edit\n')
 
 # read all files
 filecount = 0
@@ -201,7 +206,7 @@ for dirname, dirnames, filenames in os.walk(ptpath):  # get info from prodtest f
                 summarize(f.readlines(), dirname, filename)
 # pprint.pprint(foo)
 sorted_sns = sorted(sns)
-with open ('pt.tsv', 'w') as f:
+with open ('zzpt.tsv', 'w') as f:
     last_ser = ''
     for ser in sorted_sns:
         if ser[0:5] != last_ser[0:5]:  # compare lot codes
