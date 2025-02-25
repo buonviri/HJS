@@ -12,6 +12,10 @@ size="131072"
 size="262144"
 size="524288"
 size="1048576"  # 1k * 1k * 1k
+size="2097152" # two
+size="4194304" # four
+size="8388608" # eight
+size="16777216" # sixteen (2^24)
 size="262144"  # set to 256k
 
 # echo
