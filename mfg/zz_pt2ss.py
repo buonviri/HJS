@@ -116,7 +116,7 @@ def summarize(lines, dirname, filename):
             with open ('zzxlog.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
         # end of tsv files, start of dict
-        elif line.startswith('Board: '):
+        elif line.startswith('Board: '):  # generates key
             x = line.split(',')
             if len(x) == 4:
                 prod = x[0][-4:]  # last four are product name
@@ -134,7 +134,7 @@ def summarize(lines, dirname, filename):
                 rev = 'GHI'
             key = GetKey(ser, node, prod, var, rev)
             # print(ser + ' ' + prod + ' ' + var + ' ' + rev)
-        elif line.startswith('BMC Software:'):  # BMC?
+        elif line.startswith('BMC Software:'):  # BMC info, expands key
             pri = line[14:17]
             x = line.split(',')
             bmc = x[1].strip()[9:]  # middle token, stripped, starting after 'Revision '
@@ -142,7 +142,7 @@ def summarize(lines, dirname, filename):
                 print(pri + ' | ' + bmc)  # bad key, print line
             else:
                 key = key + ' [' + pri + ' ' + bmc + ']'
-        elif line.startswith('VAL,'):
+        elif line.startswith('VAL,'):  # node info, expands key
             if 'T_SAKA' in line:  # LP, A
                 node = 'A'
             elif 'T_SAKB' in line:  # LP, B
@@ -150,7 +150,7 @@ def summarize(lines, dirname, filename):
             elif 'T_SAK' in line:  # M2, A
                 node = 'A'
             key = ModKey(key, node)  # modify key
-        elif line.startswith('MAX,'):
+        elif line.startswith('MAX,'):  # dict info
             x = line.split(',')
             if len(x) == 6:
                 tsak = x[4].strip()  # index 4 is sakura temperature on M.2
