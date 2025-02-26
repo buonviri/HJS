@@ -1,10 +1,10 @@
-# pt2ss generates a dictionary, webpage???, and spreadsheet(s) from all of the prodtest files
+# pt2ss generates a dictionary, webpage (eventually), and spreadsheet(s) based on all of the prodtest files in the repo
 import os
 
 # pseudo #defines
 WINDOWS = os.name == 'nt'
 LINUX = os.name == 'posix'
-do_pause = True  # for timer at end
+DO_PAUSE = True  # for timer at end
 
 # set path based on OS
 if WINDOWS:
@@ -233,7 +233,7 @@ with open ('zzpt.tsv', 'w') as f:
         last_ser = ser  # save for next loop
 
 print('\nFile count: ' + str(filecount))  # print file count
-if WINDOWS and do_pause:
+if WINDOWS and DO_PAUSE:
     os.system('timeout /t 60')  # windows only, keep window open, keystroke ends it instantly        
 
 # EOF
