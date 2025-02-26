@@ -74,6 +74,9 @@ def summarize(lines, dirname, filename):
         elif line.startswith('idVendor') or line.startswith('idProduct') or line.startswith('iManufacturer') or line.startswith('iProduct') or line.startswith('iSerial'):  # five FTDI prefixes
             with open ('zzftdi.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
+        elif 'srread a 0xC008C' in line:  # PCIe status
+            with open ('zzpciestatus.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
         elif line.startswith('Board: '):
             x = line.split(',')
             if len(x) == 4:
@@ -111,8 +114,6 @@ def summarize(lines, dirname, filename):
         elif line.startswith('FAILED - device'):  # dma_test?
             pass
         elif line.startswith('ERROR: One or more DMA tests failed'):  # dma_test?
-            pass
-        elif 'srread a 0xC008C' in line:  # PCIe?
             pass
         elif line.startswith('AEN_PG') or line.startswith('BEN_PG') or line.startswith('M2EN_PG'):  # BMC pins?
             pass
@@ -192,6 +193,8 @@ with open ('zzstatlog.tsv', 'w') as f:
     f.write('statlog:\n')
 with open ('zzftdi.tsv', 'w') as f:
     f.write('ftdi:\n')
+with open ('zzpciestatus.tsv', 'w') as f:
+    f.write('PCIe status:\n')
 
 # read all files
 filecount = 0
