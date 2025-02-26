@@ -74,6 +74,12 @@ def summarize(lines, dirname, filename):
         elif 'Co-processor: Device' in line:  # 1fdc, store in tsv
             with open ('zz1fdc.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
+        elif line.startswith('[') and '->' in line:  # statlog, first line in prodtest log
+            with open ('zzstatlog.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
+        elif '[\'stats\']' in line:  # statlog called stats
+            with open ('zzstatlog.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
         elif line.startswith('Board: '):
             x = line.split(',')
             if len(x) == 4:
@@ -100,10 +106,6 @@ def summarize(lines, dirname, filename):
                 print(pri + ' | ' + bmc)  # bad key, print line
             else:
                 key = key + ' [' + pri + ' ' + bmc + ']'
-        elif line.startswith('[') and '->' in line:  # statlog?
-            pass
-        elif '[\'stats\']' in line:  # statlog called stats
-            pass
         elif line.startswith('Trial'):  # dma_test?
             pass
         elif line.startswith('ALL DMA'):  # dma_test?
@@ -197,11 +199,13 @@ def summarize(lines, dirname, filename):
 
 # prep junk files
 with open ('zzfault.tsv', 'w') as f:
-    f.write('fault [Fault Codes]\n')
+    f.write('fault [Fault Codes]:\n')
 with open ('zzcfg.tsv', 'w') as f:
-    f.write('cfg-edit\n')
+    f.write('cfg-edit:\n')
 with open ('zz1fdc.tsv', 'w') as f:
-    f.write('1fdc\n')
+    f.write('1fdc:\n')
+with open ('zzstatlog.tsv', 'w') as f:
+    f.write('statlog:\n')
 
 # read all files
 filecount = 0
