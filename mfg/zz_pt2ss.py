@@ -77,6 +77,10 @@ def summarize(lines, dirname, filename):
         elif 'srread a 0xC008C' in line:  # PCIe status
             with open ('zzpciestatus.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
+        elif line.startswith('AEN_PG') or line.startswith('BEN_PG') or line.startswith('M2EN_PG'):  # BMC pins
+            with open ('zzpbmcpins.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
+        # end of tsv files, start of dict
         elif line.startswith('Board: '):
             x = line.split(',')
             if len(x) == 4:
@@ -103,6 +107,8 @@ def summarize(lines, dirname, filename):
                 print(pri + ' | ' + bmc)  # bad key, print line
             else:
                 key = key + ' [' + pri + ' ' + bmc + ']'
+        # end of dict
+
         elif line.startswith('Trial'):  # dma_test?
             pass
         elif line.startswith('ALL DMA'):  # dma_test?
@@ -114,8 +120,6 @@ def summarize(lines, dirname, filename):
         elif line.startswith('FAILED - device'):  # dma_test?
             pass
         elif line.startswith('ERROR: One or more DMA tests failed'):  # dma_test?
-            pass
-        elif line.startswith('AEN_PG') or line.startswith('BEN_PG') or line.startswith('M2EN_PG'):  # BMC pins?
             pass
         elif '[QUOTE][STAR]' in line or 'Name Pin Pfs Mode Val Drive' in line or '-quotestar-' in line:  # BMC spam
             pass
@@ -195,6 +199,8 @@ with open ('zzftdi.tsv', 'w') as f:
     f.write('ftdi:\n')
 with open ('zzpciestatus.tsv', 'w') as f:
     f.write('PCIe status:\n')
+with open ('zzpbmcpins.tsv', 'w') as f:
+    f.write('BMC pins:\n')
 
 # read all files
 filecount = 0
