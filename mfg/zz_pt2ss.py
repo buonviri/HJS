@@ -1,4 +1,4 @@
-# pt2ss generates a dictionary, webpage, and spreadsheet from prodtest files
+# pt2ss generates a dictionary, webpage???, and spreadsheet from prodtest files
 import os
 import pprint
 
@@ -80,6 +80,12 @@ def summarize(lines, dirname, filename):
         elif line.startswith('AEN_PG') or line.startswith('BEN_PG') or line.startswith('M2EN_PG'):  # BMC pins
             with open ('zzpbmcpins.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
+        elif line.startswith('LAST,'):
+            with open ('zzlast.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
+        elif line.startswith('MEAN,'):
+            with open ('zzmean.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
         # end of tsv files, start of dict
         elif line.startswith('Board: '):
             x = line.split(',')
@@ -131,10 +137,6 @@ def summarize(lines, dirname, filename):
             elif 'T_SAK' in line:  # M2, A
                 node = 'A'
             key = ModKey(key, node)  # modify key
-        elif line.startswith('LAST,'):
-            pass
-        elif line.startswith('MEAN,'):
-            pass
         elif line.startswith('MAX,'):
             x = line.split(',')
             if len(x) == 6:
@@ -201,6 +203,10 @@ with open ('zzpciestatus.tsv', 'w') as f:
     f.write('PCIe status:\n')
 with open ('zzpbmcpins.tsv', 'w') as f:
     f.write('BMC pins:\n')
+with open ('zzplast.tsv', 'w') as f:
+    f.write('LAST:\n')
+with open ('zzpmean.tsv', 'w') as f:
+    f.write('MEAN:\n')
 
 # read all files
 filecount = 0
