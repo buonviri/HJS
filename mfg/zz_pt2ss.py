@@ -62,25 +62,16 @@ def summarize(lines, dirname, filename):
             with open ('zzcfg.tsv', 'a') as f:  # append log
                 f.write('  ' + key + '\n')
                 f.write('    ' + line + '\n')
-        elif line.startswith('Subsystem:'):  # 1fdc, store in tsv
+        elif line.startswith('Subsystem:') or line.startswith('Region ') or line.startswith('LnkSta:') or 'Co-processor: Device' in line:  # 1fdc, store in tsv
             with open ('zz1fdc.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
-        elif line.startswith('Region '):  # 1fdc, store in tsv
-            with open ('zz1fdc.tsv', 'a') as f:
-                f.write(line + '\n')  # append log
-        elif line.startswith('LnkSta:'):  # 1fdc, store in tsv
-            with open ('zz1fdc.tsv', 'a') as f:
-                f.write(line + '\n')  # append log
-        elif 'Co-processor: Device' in line:  # 1fdc, store in tsv
-            with open ('zz1fdc.tsv', 'a') as f:
-                f.write(line + '\n')  # append log
-        elif line.startswith('[') and '->' in line:  # statlog, first line in prodtest log
+        elif line.startswith('[') and '->' in line:  # statlog type 1, first line in prodtest log
             with open ('zzstatlog.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
-        elif '[\'stats\']' in line:  # statlog called stats
+        elif '[\'stats\']' in line:  # statlog type 2, called stats
             with open ('zzstatlog.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
-        elif line.startswith('idVendor') or line.startswith('idProduct') or line.startswith('iManufacturer') or line.startswith('iProduct') or line.startswith('iSerial'):  # FTDI
+        elif line.startswith('idVendor') or line.startswith('idProduct') or line.startswith('iManufacturer') or line.startswith('iProduct') or line.startswith('iSerial'):  # five FTDI prefixes
             with open ('zzftdi.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
         elif line.startswith('Board: '):
