@@ -86,17 +86,11 @@ def summarize(lines, dirname, filename):
         elif line.startswith('MEAN,'):
             with open ('zzmean.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
-        elif 'BIST: sakura A' in line:  # BIST
+        elif 'BIST: sakura A' in line or 'BIST: sakura B' in line or 'BIST: Sakura A' in line or 'BIST: Sakura B' in line:  # BIST
             with open ('zzbist.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
-        elif 'BIST: sakura B' in line:  # BIST?
-            with open ('zzbist.tsv', 'a') as f:
-                f.write(line + '\n')  # append log
-        elif 'BIST: Sakura A' in line:  # BIST? cap S
-            with open ('zzbist.tsv', 'a') as f:
-                f.write(line + '\n')  # append log
-        elif 'BIST: Sakura B' in line:  # BIST? cap S
-            with open ('zzbist.tsv', 'a') as f:
+        elif line.startswith('Trial') or line.startswith('ALL DMA') or line.startswith('Testing Device') or line.startswith('PASSED - device') or line.startswith('FAILED - device') or line.startswith('ERROR: One or more DMA tests failed'):  # dma_test
+            with open ('zzdma_test.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
         # end of tsv files, start of dict
         elif line.startswith('Board: '):
@@ -127,18 +121,6 @@ def summarize(lines, dirname, filename):
                 key = key + ' [' + pri + ' ' + bmc + ']'
         # end of dict
 
-        elif line.startswith('Trial'):  # dma_test?
-            pass
-        elif line.startswith('ALL DMA'):  # dma_test?
-            pass
-        elif line.startswith('Testing Device'):  # dma_test?
-            pass
-        elif line.startswith('PASSED - device'):  # dma_test?
-            pass
-        elif line.startswith('FAILED - device'):  # dma_test?
-            pass
-        elif line.startswith('ERROR: One or more DMA tests failed'):  # dma_test?
-            pass
         elif '[QUOTE][STAR]' in line or 'Name Pin Pfs Mode Val Drive' in line or '-quotestar-' in line:  # BMC spam
             pass
         elif line.startswith('VAL,'):
@@ -192,7 +174,7 @@ def summarize(lines, dirname, filename):
 
 # END FUNCTIONS
 
-# prep junk files
+# prep dump files
 with open ('zzfault.tsv', 'w') as f:
     f.write('fault [Fault Codes]:\n')
 with open ('zzcfg.tsv', 'w') as f:
@@ -213,6 +195,8 @@ with open ('zzmean.tsv', 'w') as f:
     f.write('MEAN:\n')
 with open ('zzbist.tsv', 'w') as f:
     f.write('BIST:\n')
+with open ('zzdmatest.tsv', 'w') as f:
+    f.write('DMA test:\n')
 
 # read all files
 filecount = 0
@@ -222,7 +206,7 @@ for dirname, dirnames, filenames in os.walk(ptpath):  # get info from prodtest f
             filecount = filecount + 1
             if filecount % 10 == 0:  # add dot every 10
                 print('.', end='')
-            if filecount % 500 == 0:  # add newline every 50 dots
+            if filecount % 100 == 0:  # add newline every 100
                 print()
             with open(os.path.join(dirname,filename), 'r') as f:
                 summarize(f.readlines(), dirname, filename)
