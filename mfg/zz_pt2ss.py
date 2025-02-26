@@ -86,6 +86,18 @@ def summarize(lines, dirname, filename):
         elif line.startswith('MEAN,'):
             with open ('zzmean.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
+        elif 'BIST: sakura A' in line:  # BIST
+            with open ('zzbist.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
+        elif 'BIST: sakura B' in line:  # BIST?
+            with open ('zzbist.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
+        elif 'BIST: Sakura A' in line:  # BIST? cap S
+            with open ('zzbist.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
+        elif 'BIST: Sakura B' in line:  # BIST? cap S
+            with open ('zzbist.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
         # end of tsv files, start of dict
         elif line.startswith('Board: '):
             x = line.split(',')
@@ -155,14 +167,6 @@ def summarize(lines, dirname, filename):
                 foo[key] = {}  # new blank dict
                 foo[key]['tsak'] = [tsak,]  # make new list with current entry
                 sns.append(key)  # list to be sorted later
-        elif 'BIST: sakura A' in line:  # BIST?
-            pass
-        elif 'BIST: sakura B' in line:  # BIST?
-            pass
-        elif 'BIST: Sakura A' in line:  # BIST? cap S
-            pass
-        elif 'BIST: Sakura B' in line:  # BIST? cap S
-            pass
         elif 'sakuraDriver wait' in line or 'sakuraDriver read' in line or 'sakuraDriver write' in line:  # ignore these errors
             pass
         elif 'maxInit U26' in line or 'maxInit U30' in line or 'maxInit U46' in line or 'maxInit U50' in line:  # ignore these errors
@@ -201,12 +205,14 @@ with open ('zzftdi.tsv', 'w') as f:
     f.write('ftdi:\n')
 with open ('zzpciestatus.tsv', 'w') as f:
     f.write('PCIe status:\n')
-with open ('zzpbmcpins.tsv', 'w') as f:
+with open ('zzbmcpins.tsv', 'w') as f:
     f.write('BMC pins:\n')
-with open ('zzplast.tsv', 'w') as f:
+with open ('zzlast.tsv', 'w') as f:
     f.write('LAST:\n')
-with open ('zzpmean.tsv', 'w') as f:
+with open ('zzmean.tsv', 'w') as f:
     f.write('MEAN:\n')
+with open ('zzbist.tsv', 'w') as f:
+    f.write('BIST:\n')
 
 # read all files
 filecount = 0
