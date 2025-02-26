@@ -35,6 +35,7 @@ filename=$(printf "%s.info" "$hostname")  # generate filename
 printf "\n%s: %s\n" "$(date)" "$hostname" >> $filename  # append file with timestamp
 
 # each step must have an id with NO SPACES
+# version for VMs: cd && sudo apt install git && git clone https://github.com/buonviri/HJS.git
 
 id="apt-install"
 ((n++))

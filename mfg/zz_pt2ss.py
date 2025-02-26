@@ -35,15 +35,15 @@ def summarize(lines, dirname, filename):
     global foo
     global bar
     global sns
-    prod = 'error'
-    var = 'error'
-    ser = 'error'
-    node = 'error'
-    rev = 'error'
-    key = GetKey(ser, node, prod, var, rev)
-    tsak = 'error'
-    pri = 'Unk'
-    bmc = 'h.j.s'
+    prod = 'error'  # Board parameter
+    var = 'error'  # Board parameter
+    ser = 'error'  # Board parameter
+    node = 'error'  # Board parameter
+    rev = 'error'  # Board parameter
+    key = GetKey(ser, node, prod, var, rev)  # default key, overwritten by fn call later
+    tsak = 'error'  # sakura temperature
+    pri = 'Unk'  # BMC Software parameter, Pri or Sec
+    bmc = 'h.j.s'  # BMC Software parameter
     for rawline in lines:
         line = rawline.strip()
         if len(line) == 0:  # blank
@@ -54,13 +54,26 @@ def summarize(lines, dirname, filename):
             pass
         elif 'Failed to open' in line:  # serial port not connected during prodtest
             pass
-        elif 'powerDownS2LP fault code' in line or 'powerDownS2M2: fault' in line:  # store in tsv
+        # start of tsv files
+        elif 'powerDownS2LP fault code' in line or 'powerDownS2M2: fault' in line:  # store in tsv, text format may change!
             with open ('zzfault.tsv', 'a') as f:  # append log
                 f.write(line + '\n')
-        elif line.startswith('cfg.edit'):  # store in tsv
+        elif line.startswith('cfg.edit'):  # cfg edit, store in tsv
             with open ('zzcfg.tsv', 'a') as f:  # append log
                 f.write('  ' + key + '\n')
                 f.write('    ' + line + '\n')
+        elif line.startswith('Subsystem:'):  # 1fdc, store in tsv
+            with open ('zz1fdc.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
+        elif line.startswith('Region '):  # 1fdc, store in tsv
+            with open ('zz1fdc.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
+        elif line.startswith('LnkSta:'):  # 1fdc, store in tsv
+            with open ('zz1fdc.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
+        elif 'Co-processor: Device' in line:  # 1fdc, store in tsv
+            with open ('zz1fdc.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
         elif line.startswith('Board: '):
             x = line.split(',')
             if len(x) == 4:
@@ -90,14 +103,6 @@ def summarize(lines, dirname, filename):
         elif line.startswith('[') and '->' in line:  # statlog?
             pass
         elif '[\'stats\']' in line:  # statlog called stats
-            pass
-        elif line.startswith('Subsystem:'):  # 1fdc?
-            pass
-        elif line.startswith('Region '):  # 1fdc?
-            pass
-        elif line.startswith('LnkSta:'):  # 1fdc?
-            pass
-        elif 'Co-processor: Device' in line:  # 1fdc?
             pass
         elif line.startswith('Trial'):  # dma_test?
             pass
@@ -192,9 +197,11 @@ def summarize(lines, dirname, filename):
 
 # prep junk files
 with open ('zzfault.tsv', 'w') as f:
-    f.write('Fault Codes\n')
+    f.write('fault [Fault Codes]\n')
 with open ('zzcfg.tsv', 'w') as f:
     f.write('cfg-edit\n')
+with open ('zz1fdc.tsv', 'w') as f:
+    f.write('1fdc\n')
 
 # read all files
 filecount = 0
@@ -202,6 +209,10 @@ for dirname, dirnames, filenames in os.walk(ptpath):  # get info from prodtest f
     for filename in filenames:
         if filename.endswith('.txt') and '-0x' in filename:  # check extension and SN/TS separator
             filecount = filecount + 1
+            if filecount % 10 == 0:  # add dot every 10
+                print('.', end='')
+            if filecount % 500 == 0:  # add newline every 50 dots
+                print()
             with open(os.path.join(dirname,filename), 'r') as f:
                 summarize(f.readlines(), dirname, filename)
 # pprint.pprint(foo)
