@@ -40,6 +40,38 @@ foo = {
             'saken': '1',  # A only
         },
     },
+    'S2M2-S16 v1.5 for BMC 1.1.x':  {  # added 6-13 on 2025.02.26
+        'lotcodes': {
+            '10015': (1,28),
+        },
+        'parameters': {
+            'name': 'S2M2',
+            'var': 'S16NFN',
+            'sntxt': '[LOTCODE][DASH]PAC[SERIALNUMBER]',  # do not change
+            'sndec': '[LOTCODE][SERIALNUMBER]',  # do not change
+            'rev': '1',
+            'ecn': '5',
+            'ddr': '0',
+            'sak': '2[DOT]01',
+            'mfgdate': '20250226',
+            'ecndate': '20250226',
+            'p0v8': '1',
+            'p3v3': '0',
+            'cblimit': '2',
+            'pll': '800',
+            'pcie': '1',  # x4
+            'pmode': '0',
+            'vcore': '550',
+            'cba': '2',
+            'cbb': '0',  # single
+            'cbd': '1',
+            'bmctemp': '99',
+            'saktemp': '95',
+            'boardtemp': '85',  # 85 for M2 and 80 for LP
+            'pwren': '1',  # A only
+            'saken': '1',  # A only
+        },
+    },
     'S2LP-D16 v1.5 for BMC 1.0.x':  {
         'lotcodes': {
             '52979': (14,28),
@@ -91,6 +123,38 @@ foo = {
             'sak': '2[DOT]01',
             'mfgdate': '20250117',
             'ecndate': '20250123',
+            'p0v8': '1',
+            'p3v3': '0',
+            'cblimit': '2',
+            'pll': '800',
+            'pcie': '2',  # x8
+            'pmode': '0',
+            'vcore': '550',
+            'cba': '2',
+            'cbb': '0',  # single
+            'cbd': '1',
+            'bmctemp': '99',
+            'saktemp': '95',
+            'boardtemp': '80',  # 85 for M2 and 80 for LP
+            'pwren': '1',  # A only
+            'saken': '1',  # A only
+        },
+    },
+    'S2LP-S16 v1.5 for BMC 1.1.x':  {
+        'lotcodes': {
+            '52980': (6,13),  # added on 2025.02.26
+        },
+        'parameters': {
+            'name': 'S2LP',
+            'var': 'S16BHN',
+            'sntxt': '[LOTCODE][DASH]PAC[SERIALNUMBER]',  # do not change
+            'sndec': '[LOTCODE][SERIALNUMBER]',  # do not change
+            'rev': '1',
+            'ecn': '5',
+            'ddr': '0',
+            'sak': '2[DOT]01',
+            'mfgdate': '20250226',
+            'ecndate': '20250226',
             'p0v8': '1',
             'p3v3': '0',
             'cblimit': '2',
