@@ -95,8 +95,30 @@ def summarize(lines, dirname, filename):
         elif '[QUOTE][STAR]' in line or 'Name Pin Pfs Mode Val Drive' in line or '-quotestar-' in line:  # BMC spam
             with open ('zzbmcspam.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
+        elif 'sakuraDriver wait' in line or 'sakuraDriver read' in line or 'sakuraDriver write' in line:  # ignore these errors, send to bugs
+            with open ('zzbugs.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
+        elif 'maxInit U26' in line or 'maxInit U30' in line or 'maxInit U46' in line or 'maxInit U50' in line:  # ignore these errors, send to bugs
+            with open ('zzbugs.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
+        elif 'powerUpS2LP: error' in line or 'powerUpS2M2: error' in line:  # ignore these errors, send to bugs
+            with open ('zzbugs.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
+        elif 'srread error -1' in line:  # ignore these errors, send to bugs
+            with open ('zzbugs.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
+        elif 'eeprom init failed' in line:  # ignore these errors, send to bugs
+            with open ('zzbugs.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
+        elif 'sakuraStart: status 0, PASS' in line:  # legacy, send to bugs
+            with open ('zzbugs.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
+        elif line.startswith('0:'):  # xlog?
+            with open ('zzxlog.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
 
         # end of tsv files, start of dict
+
         elif line.startswith('Board: '):
             x = line.split(',')
             if len(x) == 4:
@@ -123,8 +145,6 @@ def summarize(lines, dirname, filename):
                 print(pri + ' | ' + bmc)  # bad key, print line
             else:
                 key = key + ' [' + pri + ' ' + bmc + ']'
-        # end of dict
-
         elif line.startswith('VAL,'):
             if 'T_SAKA' in line:  # LP, A
                 node = 'A'
@@ -151,20 +171,9 @@ def summarize(lines, dirname, filename):
                 foo[key] = {}  # new blank dict
                 foo[key]['tsak'] = [tsak,]  # make new list with current entry
                 sns.append(key)  # list to be sorted later
-        elif 'sakuraDriver wait' in line or 'sakuraDriver read' in line or 'sakuraDriver write' in line:  # ignore these errors
-            pass
-        elif 'maxInit U26' in line or 'maxInit U30' in line or 'maxInit U46' in line or 'maxInit U50' in line:  # ignore these errors
-            pass
-        elif 'powerUpS2LP: error' in line or 'powerUpS2M2: error' in line:  # ignore these errors
-            pass
-        elif 'srread error -1' in line:  # ignore these errors
-            pass
-        elif 'eeprom init failed' in line:  # ignore these errors
-            pass
-        elif 'sakuraStart: status 0, PASS' in line:  # legacy
-            pass
-        elif line.startswith('0:'):  # xlog?
-            pass
+
+        # end of dict
+
         elif line[0].isprintable:  # check if start char is printable
             print('In: ' + dirname + ' in ' + filename)
             print('badline: [' + line + ']')
@@ -201,6 +210,10 @@ with open ('zzdmatest.tsv', 'w') as f:
     f.write('DMA test:\n')
 with open ('zzbmcspam.tsv', 'w') as f:
     f.write('BMC spam:\n')
+with open ('zzbugs.tsv', 'w') as f:
+    f.write('Bugs:\n')
+with open ('zzxlog.tsv', 'w') as f:
+    f.write('XLOGs:\n')
 
 # read all files
 filecount = 0
