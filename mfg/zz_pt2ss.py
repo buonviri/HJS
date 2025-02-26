@@ -92,6 +92,10 @@ def summarize(lines, dirname, filename):
         elif line.startswith('Trial') or line.startswith('ALL DMA') or line.startswith('Testing Device') or line.startswith('PASSED - device') or line.startswith('FAILED - device') or line.startswith('ERROR: One or more DMA tests failed'):  # dma_test
             with open ('zzdma_test.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
+        elif '[QUOTE][STAR]' in line or 'Name Pin Pfs Mode Val Drive' in line or '-quotestar-' in line:  # BMC spam
+            with open ('zzbmcspam.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
+
         # end of tsv files, start of dict
         elif line.startswith('Board: '):
             x = line.split(',')
@@ -121,8 +125,6 @@ def summarize(lines, dirname, filename):
                 key = key + ' [' + pri + ' ' + bmc + ']'
         # end of dict
 
-        elif '[QUOTE][STAR]' in line or 'Name Pin Pfs Mode Val Drive' in line or '-quotestar-' in line:  # BMC spam
-            pass
         elif line.startswith('VAL,'):
             if 'T_SAKA' in line:  # LP, A
                 node = 'A'
@@ -197,6 +199,8 @@ with open ('zzbist.tsv', 'w') as f:
     f.write('BIST:\n')
 with open ('zzdmatest.tsv', 'w') as f:
     f.write('DMA test:\n')
+with open ('zzbmcspam.tsv', 'w') as f:
+    f.write('BMC spam:\n')
 
 # read all files
 filecount = 0
