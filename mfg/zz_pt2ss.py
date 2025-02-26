@@ -46,13 +46,13 @@ def summarize(lines, dirname, filename):
     bmc = 'h.j.s'  # BMC Software parameter
     for rawline in lines:
         line = rawline.strip()
-        if len(line) == 0:  # blank
+        if len(line) == 0:  # blank, discard
             pass
-        elif line.startswith("\0"):  # starts with null char
+        elif line.startswith("\0"):  # starts with null char, discard
             pass
-        elif line.startswith('WTF'):  # line that was manually edited by HJS
+        elif line.startswith('WTF'):  # line that was manually edited by HJS, discard
             pass
-        elif 'Failed to open' in line:  # serial port not connected during prodtest
+        elif 'Failed to open' in line:  # serial port not connected during prodtest, discard
             pass
         # start of tsv files
         elif 'powerDownS2LP fault code' in line or 'powerDownS2M2: fault' in line:  # store in tsv, text format may change!
@@ -116,9 +116,7 @@ def summarize(lines, dirname, filename):
         elif line.startswith('0:'):  # xlog?
             with open ('zzxlog.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
-
         # end of tsv files, start of dict
-
         elif line.startswith('Board: '):
             x = line.split(',')
             if len(x) == 4:
@@ -171,14 +169,12 @@ def summarize(lines, dirname, filename):
                 foo[key] = {}  # new blank dict
                 foo[key]['tsak'] = [tsak,]  # make new list with current entry
                 sns.append(key)  # list to be sorted later
-
         # end of dict
-
-        elif line[0].isprintable:  # check if start char is printable
+        elif line[0].isprintable:  # check if start char is printable, report bad line
             print('In: ' + dirname + ' in ' + filename)
             print('badline: [' + line + ']')
             # print('-'.join([str(ord(character)) for character in line]) + '\n')
-        else:  # unprintable chars are discarded entirely
+        else:  # unprintable chars are discarded entirely, report bad line
             print('In: ' + dirname + ' in ' + filename)
             print('-'.join([str(ord(character)) for character in line]) + '\n')
 # End
