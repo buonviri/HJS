@@ -80,6 +80,9 @@ def summarize(lines, dirname, filename):
         elif '[\'stats\']' in line:  # statlog called stats
             with open ('zzstatlog.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
+        elif line.startswith('idVendor') or line.startswith('idProduct') or line.startswith('iManufacturer') or line.startswith('iProduct') or line.startswith('iSerial'):  # FTDI
+            with open ('zzftdi.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
         elif line.startswith('Board: '):
             x = line.split(',')
             if len(x) == 4:
@@ -119,16 +122,6 @@ def summarize(lines, dirname, filename):
         elif line.startswith('ERROR: One or more DMA tests failed'):  # dma_test?
             pass
         elif 'srread a 0xC008C' in line:  # PCIe?
-            pass
-        elif line.startswith('idVendor'):  # FTDI
-            pass
-        elif line.startswith('idProduct'):  # FTDI
-            pass
-        elif line.startswith('iManufacturer'):  # FTDI
-            pass
-        elif line.startswith('iProduct'):  # FTDI
-            pass
-        elif line.startswith('iSerial'):  # FTDI
             pass
         elif line.startswith('AEN_PG') or line.startswith('BEN_PG') or line.startswith('M2EN_PG'):  # BMC pins?
             pass
@@ -206,6 +199,8 @@ with open ('zz1fdc.tsv', 'w') as f:
     f.write('1fdc:\n')
 with open ('zzstatlog.tsv', 'w') as f:
     f.write('statlog:\n')
+with open ('zzftdi.tsv', 'w') as f:
+    f.write('ftdi:\n')
 
 # read all files
 filecount = 0
