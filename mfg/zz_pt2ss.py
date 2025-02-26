@@ -1,6 +1,5 @@
-# pt2ss generates a dictionary, webpage???, and spreadsheet from prodtest files
+# pt2ss generates a dictionary, webpage???, and spreadsheet(s) from all of the prodtest files
 import os
-import pprint
 
 # pseudo #defines
 WINDOWS = os.name == 'nt'
@@ -223,7 +222,6 @@ for dirname, dirnames, filenames in os.walk(ptpath):  # get info from prodtest f
                 print()
             with open(os.path.join(dirname,filename), 'r') as f:
                 summarize(f.readlines(), dirname, filename)
-# pprint.pprint(foo)
 sorted_sns = sorted(sns)
 with open ('zzpt.tsv', 'w') as f:
     last_ser = ''
