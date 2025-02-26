@@ -77,7 +77,7 @@ def summarize(lines, dirname, filename):
             with open ('zzpciestatus.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
         elif line.startswith('AEN_PG') or line.startswith('BEN_PG') or line.startswith('M2EN_PG'):  # BMC pins
-            with open ('zzpbmcpins.tsv', 'a') as f:
+            with open ('zzbmcpins.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
         elif line.startswith('LAST,'):
             with open ('zzlast.tsv', 'a') as f:
@@ -201,7 +201,7 @@ with open ('zzmean.tsv', 'w') as f:
     f.write('MEAN:\n')
 with open ('zzbist.tsv', 'w') as f:
     f.write('BIST:\n')
-with open ('zzdmatest.tsv', 'w') as f:
+with open ('zzdma_test.tsv', 'w') as f:
     f.write('DMA test:\n')
 with open ('zzbmcspam.tsv', 'w') as f:
     f.write('BMC spam:\n')
