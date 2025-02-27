@@ -5,7 +5,7 @@ function purple () {
 }
 
 echo
-purple "This process may take up to a minute. Do not access the serial port until it completes."
+purple "This process may take up to a minute. Do not access the serial port until it completes.\n"
 echo
 
 # set up picocom
