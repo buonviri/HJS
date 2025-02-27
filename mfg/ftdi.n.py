@@ -112,7 +112,7 @@ all = """@echo off
 :start
 
 echo.
-echo Connect the Renesas Programmer
+echo Connect the Renesas Programmer.
 PAUSE 
 echo.
 
@@ -124,7 +124,8 @@ echo %cd%
 call PRIMARY-cli.bat
 
 echo.
-echo Cycle power.
+echo Disconnect the Renesas Programmer 5x2.
+echo Cycle power and wait for the LED to blink.
 PAUSE
 echo.
 
