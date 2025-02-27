@@ -179,9 +179,9 @@ foo = {
 def checkdir(dirname):
     try:
         os.mkdir(dirname)  # attempt to add folder
-        print('  Created folder: ' + dirname)
+        print('| ' + dirname + ' created ', end='')
     except:
-        print('  Folder exists: ' + dirname)
+        print('| ' + dirname + ' exists ', end='')
 # End
 
 def bracketreplace(s):
@@ -197,16 +197,18 @@ for config in foo:
     cfg = foo[config]  # this cfg's dictionary
     for rawlotcode in cfg['lotcodes']:
         lotcode = rawlotcode.strip('+')  # plus sign may be used to add to lotcode
+        print('Folders ', end='')  # prefix
         checkdir(lotcode)  # create folder if missing
-        checkdir(lotcode + '\\linux')
-        checkdir(lotcode + '\\plain_text')
+        checkdir(lotcode + '\\linux')  # create folder if missing
+        checkdir(lotcode + '\\plain_text')  # create folder if missing
+        print()  # suffix
         start = ''
         end = ''
         for i in range(cfg['lotcodes'][rawlotcode][0], cfg['lotcodes'][rawlotcode][1] + 1):
             sn = '%03d' % i
             fname = 'cfg-edit-' + lotcode + '-PAC' + sn
             if len(start) == 0:
-                start = '    ' + fname
+                start = '  ' + fname
             else:
                 end = ' thru ' + fname
             commands = []
