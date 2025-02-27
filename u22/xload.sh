@@ -1,6 +1,11 @@
 #!/bin/bash
 
-echo This process  may take up to a minute. Do not access the serial port until it completes.
+function purple () {
+  printf "\e[1;35m%b\e[0m" "$1"
+}
+
+echo
+purple "This process may take up to a minute. Do not access the serial port until it completes."
 echo
 
 # set up picocom
@@ -10,7 +15,9 @@ picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0
 echo "xload 1" | picocom -qrix 1000 /dev/ttyUSB0
 
 # send hex file
+echo
 echo Sending hex file...
+echo
 cat ./S112.hex | picocom -qrix 1000 /dev/ttyUSB0
 
 echo
