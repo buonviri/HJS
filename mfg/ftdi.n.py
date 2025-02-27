@@ -13,6 +13,7 @@
 #   len = 3 (001 to 099)
 #   product = S2M2 or S2LP
 #   sep = -PAC
+# also attempts to populate the 'all' folder with multipurpose batch files
 # todo: add prefix? or just use 12345-AET001
 
 import os
@@ -102,10 +103,60 @@ batch = ('@echo off\n'
          '"C:\\Program Files (x86)\\FTDI\\FT_Prog\\FT_Prog-CmdLine.exe" SCAN PROG 0 C:\\EdgeCortix\\hex-ftdi-cfg\\ftdi\\99999\\9876543210.xml\n'
          'echo SCAN and CYCL\n'
          '"C:\\Program Files (x86)\\FTDI\\FT_Prog\\FT_Prog-CmdLine.exe" SCAN CYCL 0\n'
-         'echo DONE\n'
-         'timeout 10\n')
+         'echo DONE\n')
+         # removed: 'timeout 10\n')
 
-# End of batch file
+# End of batch file, start of all
+
+all = """@echo off
+:start
+
+
+echo.
+echo Connect the Renesas Programmer
+PAUSE 
+echo.
+
+:hex
+cd..
+cd..
+cd hex
+echo %cd%
+call PRIMARY-cli.bat
+
+echo.
+echo Cycle power.
+PAUSE
+echo.
+
+:ftdi
+cd..
+cd ftdi
+cd 99999
+echo %cd%
+call 99999-PACZZZ.bat
+color 07
+
+echo.
+echo Cycle power.
+PAUSE
+echo.
+
+:cfg
+cd..
+cd..
+cd cfg-edit
+cd 99999
+echo %cd%
+call cfg-edit-99999-PACZZZ.bat
+
+echo.
+echo THE END
+
+:end
+timeout 60"""
+
+# End of all
 
 
 def get_container():
@@ -152,6 +203,7 @@ except:
     separator = '_'  # default
 
 sn_start = ''
+missing_folder = False
 if len(lot_code) in [5,]:  # check if length is in the list of valid lot code lengths
     if max_sn < 1:  # must be at least 1
         print('Invalid max serial number: ' + str(max_sn))
@@ -168,11 +220,46 @@ if len(lot_code) in [5,]:  # check if length is in the list of valid lot code le
                 f.write(template.replace('ABCD', product).replace('9876543210', lot_code + str_sn).replace('99999', lot_code))  # programmed value is number
             with open(lot_code + separator + str_sn + '.bat', 'w') as f:  # batch filename contains separator
                 f.write(batch.replace('ABCD', product).replace('9876543210', lot_code + str_sn).replace('99999', lot_code))  # filename pointer is number
+            try:
+                with open('..\\..\\all\\' + lot_code + '\\' + lot_code + separator + str_sn + '.bat', 'w') as f:  # batch filename contains separator
+                    f.write(all.replace('PRIMARY', 'P112').replace('99999', lot_code).replace('ZZZ', str_sn))
+            except:
+                missing_folder = True
         print(sn_start + ' thru ' + sn_end)
 else:
     print('Invalid lot code: ' + lot_code)
+
+if missing_folder:  # \all\lotcode is missing
+    print('\nCould not find "\\all\\' + lot_code + '\\" folder.')
 
 # pause for user input, should be done in batch file instead
 # os.system("PAUSE")
 
 # EOF
+
+"""
+:start
+echo Press a key (A, B, or C):
+set /p input=
+if "%input%"=="A" goto label_a
+if "%input%"=="B" goto label_b
+if "%input%"=="C" goto label_c
+echo Invalid input. Please try again.
+goto start
+
+:label_a
+echo You pressed A!
+goto end
+
+:label_b
+echo You pressed B!
+goto end
+
+:label_c
+echo You pressed C!
+goto end
+
+:end
+echo Program finished.
+pause
+"""

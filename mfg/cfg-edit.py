@@ -3,7 +3,7 @@ import os
 
 # info
 prefix = '@python.exe C:\\EdgeCortix\\HJS\\statlog\\statlog.py S2XX-cfg.[DASH]unlock+cfg.edit+'
-suffix = '+C-fast\n@timeout 60\n'
+suffix = '+C-fast\n'  # removed for better all batch file performance: @timeout 60\n
 plinux = 'python3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.edit+'
 slinux = '+C-fast'
 foo = {
