@@ -19,7 +19,7 @@ echo "xload 1" | picocom -qrix 1000 /dev/ttyUSB0
 echo
 echo "[Sending hex file]"
 echo
-cat ./S112.hex | picocom -qrix 1000 /dev/ttyUSB0
+cat /home/ec/Downloads/S112.hex | picocom -qrix 1000 /dev/ttyUSB0
 
 # requires poweroff
 echo
