@@ -111,7 +111,6 @@ batch = ('@echo off\n'
 all = """@echo off
 :start
 
-
 echo.
 echo Connect the Renesas Programmer
 PAUSE 
