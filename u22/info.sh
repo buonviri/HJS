@@ -14,8 +14,8 @@ echo -n "" > ~/sys.info
 hostname | tee -a ~/sys.info
 cat /sys/devices/virtual/dmi/id/board_vendor | tee -a ~/sys.info
 cat /sys/devices/virtual/dmi/id/board_name | tee -a ~/sys.info
-cat /sys/devices/virtual/dmi/id/bios_release | tee -a ~/sys.info
 cat /sys/devices/virtual/dmi/id/bios_version | tee -a ~/sys.info
+cat /sys/devices/virtual/dmi/id/bios_release | tee -a ~/sys.info
 lscpu | grep -Po 'Model name:\s+\K.*' | tee -a ~/sys.info
 lsb_release -d | grep -Po 'Description:\s+\K.*' | tee -a ~/sys.info
 uname -r | tee -a ~/sys.info
