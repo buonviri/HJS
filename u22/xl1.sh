@@ -3,7 +3,7 @@
 if [ $# == 1 ]; then  # one arg was passed
   hexver="$1"  # set to arg
 else
-  hexver="112"  # default
+  hexver="S112"  # default
 fi
 
 function purple () {
@@ -23,9 +23,12 @@ echo "xload 1" | picocom -qrix 1000 /dev/ttyUSB0
 
 # send hex file
 echo
-echo "[Sending hex file S$hexver.hex]"
+echo "[Sending hex file $hexver.hex]"
 echo
 cat /home/ec/Downloads/S$hexver.hex | picocom -qrix 1000 /dev/ttyUSB0
+
+# play sound
+aplay /home/ec/Music/440.wav --quiet
 
 # requires poweroff
 echo
