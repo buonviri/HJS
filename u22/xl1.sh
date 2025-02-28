@@ -19,7 +19,7 @@ echo "xload 1" | picocom -qrix 1000 /dev/ttyUSB0
 
 # send hex file
 echo
-echo "[Sending hex file S$hexver]"
+echo "[Sending hex file S$hexver.hex]"
 echo
 cat /home/ec/Downloads/S$hexver.hex | picocom -qrix 1000 /dev/ttyUSB0
 
