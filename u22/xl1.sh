@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ver="112"
+
 function purple () {
   printf "\e[1;35m%b\e[0m" "$1"
 }
@@ -19,7 +21,7 @@ echo "xload 1" | picocom -qrix 1000 /dev/ttyUSB0
 echo
 echo "[Sending hex file]"
 echo
-cat /home/ec/Downloads/S112.hex | picocom -qrix 1000 /dev/ttyUSB0
+cat /home/ec/Downloads/S$ver.hex | picocom -qrix 1000 /dev/ttyUSB0
 
 # requires poweroff
 echo
