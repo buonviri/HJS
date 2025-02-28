@@ -19,10 +19,10 @@ function check_code () {
   printf "  \e[1;35m#%02d:\e[0m %s\n" "$2" "$3"
   if [ $1 -eq 0 ]; then
     green "  Success [$1]\n\n"
-    printf "\e[1;32m[Success]\e[0m #%02d: %s\n" "$2" "$3" >> $filename
+    printf "[\e[1;32mSuccess\e[0m] #%02d: %s\n" "$2" "$3" >> $filename
   else
     red "  Failure [$1]\n\n"
-    printf "[Failure] #%02d: %s\n" "$2" "$3" >> $filename
+    printf "[\e[1;31mFailure\e[0m] #%02d: %s\n" "$2" "$3" >> $filename
   fi
 }
 
