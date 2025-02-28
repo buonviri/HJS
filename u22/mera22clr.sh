@@ -1,5 +1,5 @@
 #!/bin/bash
-echo
+sudo echo  # force root login, not needed for this script but imrpoves the 'ten' alias
 
 # determine folder
 if [ -d ~/mera_package/ ]; then
