@@ -2,9 +2,9 @@
 
 # compare timestamps
 printf "\e[1;35mLocal and NIST time (UTC):\e[0m\n"
-date --utc '+%H:%M:%S'
+date --utc '+%H:%M:%S' | xargs printf "%s (local)\n"
 cat </dev/tcp/time.nist.gov/13 | grep -o '[0-2][0-9]:[0-5][0-9]:[0-5][0-9]' | xargs printf "%s (NIST)\n"
-date --utc '+%H:%M:%S'
+date --utc '+%H:%M:%S' | xargs printf "%s (local)\n"
 printf "\e[1;35m--------\e[0m\n"
 
 # create new file or empty existing one
