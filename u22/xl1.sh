@@ -1,6 +1,10 @@
 #!/bin/bash
 
-hexver="112"
+if [ $# == 1 ]; then  # one arg was passed
+  hexver="$1"  # set to arg
+else
+  hexver="112"  # default
+fi
 
 function purple () {
   printf "\e[1;35m%b\e[0m" "$1"
