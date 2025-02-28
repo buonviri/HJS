@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # compare timestamps
-printf "\e[1;35mL]local/NIST/local (UTC):\e[0m\n"
+printf "\e[1;35mUTC:\e[0m\n"
 date --utc '+%H:%M:%S' | xargs printf "%s (local)\n"
 cat </dev/tcp/time.nist.gov/13 | grep -o '[0-2][0-9]:[0-5][0-9]:[0-5][0-9]' | xargs printf "%s (NIST)\n"
 date --utc '+%H:%M:%S' | xargs printf "%s (local)\n"
