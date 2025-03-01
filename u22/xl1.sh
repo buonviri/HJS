@@ -25,9 +25,9 @@ echo "xload 1" | picocom -qrix 1000 /dev/ttyUSB0
 echo
 echo "[Sending hex file $hexver.hex]"
 echo
-start="date +%s"
+start=$(date +%s)
 cat /home/ec/Downloads/$hexver.hex | picocom -qrix 1000 /dev/ttyUSB0
-end="date +%s"
+end=$(date +%s)
 elapsed=$((end-start))
 
 # play sound

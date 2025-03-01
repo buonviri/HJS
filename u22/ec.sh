@@ -10,6 +10,7 @@ cd
 # mkdir -p S2xx/img  # -p creates parents and doesn't fail if some already exist
 # mkdir -p EC/img    # -p creates parents and doesn't fail if some already exist
 \cp -r ~/HJS/u22/img/* ~/Pictures  # slash uses non-alias version, -r is recursive
+\cp -r ~/HJS/u22/wav/* ~/Music  # slash uses non-alias version, -r is recursive
 
 # set dark mode and background/wallpaper
 echo dark mode and background:
