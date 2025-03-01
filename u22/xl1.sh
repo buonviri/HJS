@@ -33,14 +33,14 @@ cat /home/ec/Downloads/$hexver.hex | picocom -qrix 1000 /dev/ttyUSB0
 end=$(date +%s)
 elapsed=$((end-start))
 
-# requires poweroff
+# change baud rate, requires br3x suffix
 echo
+python3 ~/HJS/statlog/statlog.py S2XX-baud.1-br3x | \grep "baud "  # >> /dev/null
 echo "Transfer time = $elapsed s"
+
+# requires poweroff
 echo Cycle power to boot the new image.
 echo
-
-# change baud rate, requires br3x suffix
-python3 ~/HJS/statlog/statlog.py S2XX-baud.1-br3x | \grep "baud "  # >> /dev/null
 
 # play sound
 aplay /home/ec/Music/440.wav --quiet
