@@ -15,6 +15,9 @@ echo
 purple "This process may take up to a minute. Do not access the serial port until it completes.\n"
 echo
 
+# change baud rate
+python3 ~/HJS/statlog/statlog.py S2XX-baud.3-void >> /dev/null
+
 # set up picocom
 picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0
 
@@ -35,6 +38,9 @@ echo
 echo "Transfer time = $elapsed s"
 echo Cycle power to boot the new image.
 echo
+
+# change baud rate, requires br3x suffix
+python3 ~/HJS/statlog/statlog.py S2XX-baud.1-br3x >> /dev/null
 
 # play sound
 aplay /home/ec/Music/440.wav --quiet
