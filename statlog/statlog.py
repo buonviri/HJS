@@ -364,7 +364,11 @@ if verbose:  # have to wait until after filename is parsed to do first print che
     print(msg)
 
 # set up logging
-logfile = thisfile.replace(' ', '.') + '-' + hex(int(time.time()))[2:] + '.csv'  # epoch time in hex (minus the 0x prefix) with csv extension
+if do_stat:
+    logext = '.csv'  # statlog and statslog are csv
+else:
+    logext = '.txt'  # everything else is plain text
+logfile = thisfile.replace(' ', '.') + '-' + hex(int(time.time()))[2:] + logext  # epoch time in hex (minus the 0x prefix) with proper extension
 if verbose:
     print ('Logging to: ' + logfile + ' in ' + os.path.join(os.getcwd(), 'log'))
 checkdir('log')  # just in case it doesn't exist, add it
