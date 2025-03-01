@@ -30,6 +30,7 @@ do_null = False
 do_wait = False
 void_msg = ''  # if void flag is used, this stores the one message that gets printed
 # add new entries to flags() function as well, make sure these are global in GetCommand
+baud_mult = 1  # default
 
 # set product name, default is S1LP for historical purposes
 my_product = 'S1LP'
@@ -213,6 +214,7 @@ def GetCommand(fullfilename):
     global verbose
     global do_null
     global do_wait
+    global baud_mult
 
     # trim extension
     if fullfilename.endswith('.py'):
@@ -248,7 +250,6 @@ def GetCommand(fullfilename):
         thisfile = thisfile[:-5]  # trim suffix
         do_wait = True
 
-    baud_mult = 1  # default
     # strip -brnx suffix
     if thisfile.endswith('-br2x'):
         thisfile = thisfile[:-5]  # trim suffix
