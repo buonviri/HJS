@@ -405,7 +405,8 @@ if dostat:  # do not pause for input on the single commands, just the logging ve
     print(my_product + ' Serial Number = ' + sn_dec + ' (' + sn_hex + ')')
     input("Press <Enter> to initiate logging...")
     print()
-log('timestamp,' + my_product + ' SN ' + sn_dec + '...')  # header row
+    # moved inside if statement so it only works if doing statlog or statslog
+    log('timestamp,' + my_product + ' SN ' + sn_dec + '...')  # header row
 
 try:
     while True:
@@ -434,6 +435,7 @@ try:
                     print(s, end='')  # print result without newline
                 else:
                     print(s)  # print result
+                log(s)  # won't have same formatting as print
             if verbose == True:
                 print()  # in case last result had no newline
             elif do_null == True:
