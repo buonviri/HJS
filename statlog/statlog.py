@@ -248,6 +248,18 @@ def GetCommand(fullfilename):
         thisfile = thisfile[:-5]  # trim suffix
         do_wait = True
 
+    baud_mult = 1  # default
+    # strip -brnx suffix
+    if thisfile.endswith('-br2x'):
+        thisfile = thisfile[:-5]  # trim suffix
+        baud_mult = 2
+    elif thisfile.endswith('-br3x'):
+        thisfile = thisfile[:-5]  # trim suffix
+        baud_mult = 3
+    elif thisfile.endswith('-br4x'):
+        thisfile = thisfile[:-5]  # trim suffix
+        baud_mult = 4
+
     # strip product prefix, allow dash or space
     if thisfile.startswith('S1LP-') or thisfile.startswith('S1LP '):
         thisfile = thisfile[5:]  # trim prefix
@@ -360,7 +372,7 @@ csv_header = ['        ',]  # empty timestamp, gets completed in at the first re
 # configure serial port and open connection
 io = serial.Serial()
 io.port = GetBestPort(thisfile)  # get best port option
-io.baudrate = 115200
+io.baudrate = 115200 * baud_mult
 io.bytesize = 8
 io.parity = 'N'
 io.stopbits = 1
