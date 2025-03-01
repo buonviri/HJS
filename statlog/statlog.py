@@ -364,7 +364,7 @@ if verbose:  # have to wait until after filename is parsed to do first print che
     print(msg)
 
 # set up logging
-if do_stat:
+if dostat:
     logext = '.csv'  # statlog and statslog are csv
 else:
     logext = '.txt'  # everything else is plain text
