@@ -48,7 +48,7 @@ def summarize(lines, dirname, filename):
         if len(line) == 0:  # blank, discard
             pass
         elif line.startswith("\0"):  # starts with null char, discard
-            pass
+            print('NULL in ' + filename)
         elif line.startswith('WTF'):  # line that was manually edited by HJS, discard
             pass
         elif 'Failed to open' in line:  # serial port not connected during prodtest, discard
