@@ -50,7 +50,8 @@ def summarize(lines, dirname, filename):
         elif line.startswith("\0"):  # starts with null char, discard
             print('NULL in ' + filename)
         elif line.startswith('WTF'):  # line that was manually edited by HJS, discard
-            pass
+            with open ('zzwtf.tsv', 'a') as f:
+                f.write('...' + line[3:] + ' in ' + filename + '\n')
         elif 'Failed to open' in line:  # serial port not connected during prodtest, discard
             pass
         # start of tsv files
@@ -209,6 +210,8 @@ with open ('zzbugs.tsv', 'w') as f:
     f.write('Bugs:\n')
 with open ('zzxlog.tsv', 'w') as f:
     f.write('XLOGs:\n')
+with open ('zzwtf.tsv', 'w') as f:
+    f.write('WTF:\n')
 
 # read all files
 filecount = 0
