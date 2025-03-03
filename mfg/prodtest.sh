@@ -64,6 +64,9 @@ else
   fi
 fi
 
+# debug /00 issue
+echo "HJS WAS HERE [NULL CHAR ISSUE]" >> ~/.prodtest-$hexstamp
+
 # stats
 s2 >> ~/.prodtest-$hexstamp
 
