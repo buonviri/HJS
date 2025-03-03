@@ -51,7 +51,7 @@ def summarize(lines, dirname, filename):
             print('NULL in ' + filename)
         elif line.startswith('HJS WAS HERE'):  # line that was manually edited by HJS, discard
             with open ('zzhjs.tsv', 'a') as f:
-                f.write('...' + line[3:] + ' in ' + filename + '\n')
+                f.write('............' + line[12:] + ' in ' + filename + '\n')
         elif 'Failed to open' in line:  # serial port not connected during prodtest, discard
             pass
         # start of tsv files
