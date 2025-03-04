@@ -22,10 +22,15 @@ picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0  # q = quiet, 
 
 # send bist command, wait up to [delay] seconds for more data
 printf "Delay = $delay, n = $n\n"
+start=$(date +%s)
 echo "bist all errstop -n $n" | picocom -qrix $delay /dev/ttyUSB0  # q = quiet, r = no-reset, i = no-init, x = exit after [delay]
+end=$(date +%s)
+elapsed=$((end-start))
+rate=$((elapsed/n))
 
 # hopefully it finished!
 echo
+printf "%d iterations / %d seconds = %.2f iterations per second\n"  
 purple "Done. -HJS\n"
 echo
 
