@@ -17,14 +17,14 @@ purple "This process may take a while. Do not access the serial port until it co
 echo
 
 # set up picocom
-picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0
+picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0  # q = quiet, r = no-reset, X = exit immediately 
 
-# send bist command, wait up to 5 seconds for more data
+# send bist command, wait up to [delay] seconds for more data
 echo "Delay =" $delay
-echo "bist all errstop -n 0xffffffff" | picocom -qrix $delay /dev/ttyUSB0
+echo "bist all errstop -n 0xffffffff" | picocom -qrix $delay /dev/ttyUSB0  # q = quiet, r = no-reset, i = no-init, x = exit after [delay]
 
 # hopefully it finished!
-echo Done.
+purple "Done. -HJS\n"
 echo
 
 # End
