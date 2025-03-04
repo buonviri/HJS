@@ -21,10 +21,11 @@ echo
 picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0  # q = quiet, r = no-reset, X = exit immediately 
 
 # send bist command, wait up to [delay] seconds for more data
-echo "Delay = $delay, n = $n"
+printf "Delay = \e[1;32m$delay\e[0m, n = \e[1;32m$n\e[0m\n"
 echo "bist all errstop -n $n" | picocom -qrix $delay /dev/ttyUSB0  # q = quiet, r = no-reset, i = no-init, x = exit after [delay]
 
 # hopefully it finished!
+echo
 purple "Done. -HJS\n"
 echo
 
