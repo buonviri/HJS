@@ -21,11 +21,30 @@ picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0
 
 # send bist command, wait up to 5 seconds for more data
 echo "Delay =" $delay
-echo "bist a" | picocom -qrix $delay /dev/ttyUSB0
-echo "bist b" | picocom -qrix $delay /dev/ttyUSB0
+echo "bist all errstop -n 0xffffffff" | picocom -qrix $delay /dev/ttyUSB0
 
 # hopefully it finished!
 echo Done.
 echo
 
 # End
+
+# bist [a|b|ab|a0|a1|b0|b1|all] [mode] [test] [errstop] [-n 999] [-a 0x123]
+# 
+# Run DDR BIST now:
+#     Use A, B, or AB to test both ddr0 and ddr1.
+#     Use a0, a1, b0, or b1 to test ddr0 on A, ddr1 on A, etc.
+#     Use ALL to test A0, A1, B0, B1.
+# 
+#     [mode] is ctlr or pi.
+# 
+#     [test] is addr or data.
+# 
+#     [errstop] stops iterating when an error is encountered; otherwise BIST runs
+#     all n iterations.
+# 
+#     [-n 999] specifies the iteration count. The default is 1. The maximum value
+#     is 0xffffffff.
+# 
+#     [-a 0xNNN] specifies the address space used for the test; a missing
+#     value or a value of 0 selects the default address space.
