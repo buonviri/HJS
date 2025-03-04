@@ -20,16 +20,8 @@ echo
 picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0
 
 # send bist command
-echo "bist" | picocom -qrix 1000 /dev/ttyUSB0
-picocom -qrix 1000 /dev/ttyUSB0
-picocom -qrix 1000 /dev/ttyUSB0
-picocom -qrix 1000 /dev/ttyUSB0
-picocom -qrix 1000 /dev/ttyUSB0
-picocom -qrix 1000 /dev/ttyUSB0
-picocom -qrix 1000 /dev/ttyUSB0
-picocom -qrix 1000 /dev/ttyUSB0
-picocom -qrix 1000 /dev/ttyUSB0
-picocom -qrix 1000 /dev/ttyUSB0
+echo "bist" | picocom -qrix 500 /dev/ttyUSB0
+for i in {1..10} ; do picocom -qrix 500 /dev/ttyUSB0 ; done
 
 # hopefully it finished!
 echo Done.
