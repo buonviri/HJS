@@ -1,9 +1,9 @@
 #!/bin/bash
+echo
 
 if [ $# == 1 ]; then 
   count=$1
   for (( i=0; i<$count; i++ )); do
-    echo
     echo i=$i
     source ~/HJS/mfg/bist.sh 4000  # hopefully this is a good delay
   done
