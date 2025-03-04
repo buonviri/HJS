@@ -26,11 +26,11 @@ start=$(date +%s)
 echo "bist all errstop -n $n" | picocom -qrix $delay /dev/ttyUSB0  # q = quiet, r = no-reset, i = no-init, x = exit after [delay]
 end=$(date +%s)
 elapsed=$((end-start))
-rate=$((elapsed/n))
+rate=$(echo "$elapsed/$n" | bc -l)
 
 # hopefully it finished!
 echo
-printf "%d iterations / %d seconds = %.2f iterations per second\n" $n $elapsed $rate
+printf "%d seconds / %d iterations = %.1f seconds per iteration\n" $elapsed $n $rate
 purple "Done. -HJS\n"
 echo
 
