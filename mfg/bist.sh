@@ -6,7 +6,7 @@ if [ $# == 1 ]; then  # one arg was passed
 else
   n="10"  # default is 10 iterations
 fi
-delay="5000"  # default is five seconds to be safe
+delay="5000"  # UPDATE ELAPSED FORMULA IF THIS CHANGES! default is five seconds
 
 function purple () {
   printf "\e[1;35m%b\e[0m" "$1"
@@ -25,7 +25,7 @@ printf "Delay = $delay, n = $n\n"
 start=$(date +%s)
 echo "bist all errstop -n $n" | picocom -qrix $delay /dev/ttyUSB0  # q = quiet, r = no-reset, i = no-init, x = exit after [delay]
 end=$(date +%s)
-elapsed=$((end-start))
+elapsed=$((end-start-5))  # subtract the last wait timer
 rate=$(echo "$elapsed/$n" | bc -l)
 
 # hopefully it finished!
