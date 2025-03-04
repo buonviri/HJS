@@ -19,7 +19,7 @@ echo
 picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0
 
 # send bist command
-echo "bist" | picocom -qrix 3000 /dev/ttyUSB0
+echo "bist" | picocom -qrix 5000 /dev/ttyUSB0
 
 # requires poweroff
 echo Done.
