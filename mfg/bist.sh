@@ -2,11 +2,11 @@
 
 # determine wait timer
 if [ $# == 1 ]; then  # one arg was passed
-  delay="$1"  # set to arg
+  n="$1"  # set to arg
 else
-  delay="4000"  # default is four seconds
+  n="10"  # default is 10 iterations
 fi
-n="99"  # could be set by another arg
+delay="5000"  # default is five seconds to be safe
 
 function purple () {
   printf "\e[1;35m%b\e[0m" "$1"
