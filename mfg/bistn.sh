@@ -1,10 +1,16 @@
 #!/bin/bash
+
+function green () {
+  printf "\e[1;32m%b\e[0m" "$1"
+}
+
+# start with newline
 echo
 
 if [ $# == 1 ]; then 
   count=$1
   for (( i=0; i<$count; i++ )); do
-    echo i=$i
+    green "i=$i"
     source ~/HJS/mfg/bist.sh 4000  # hopefully this is a good delay
   done
 else
