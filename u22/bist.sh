@@ -20,51 +20,7 @@ echo
 picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0
 
 # send bist command
-echo "bist" | picocom -qrix 500 /dev/ttyUSB0
-bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
-echo $bist
-bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
-echo $bist
-bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
-echo $bist
-bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
-echo $bist
-bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
-echo $bist
-bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
-echo $bist
-bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
-echo $bist
-bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
-echo $bist
-bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
-echo $bist
-bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
-echo $bist
-bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
-echo $bist
-bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
-echo $bist
-bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
-echo $bist
-bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
-echo $bist
-bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
-echo $bist
-bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
-echo $bist
-bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
-echo $bist
-bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
-echo $bist
-bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
-echo $bist
-bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
-echo $bist
-bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
-echo $bist
-bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
-echo $bist
+echo "bist" | picocom -qrix 5000 /dev/ttyUSB0
 
 # hopefully it finished!
 echo Done.
