@@ -4,7 +4,7 @@
 if [ $# == 1 ]; then  # one arg was passed
   delay="$1"  # set to arg
 else
-  delay="5000"  # default
+  delay="4000"  # default is four seconds
 fi
 
 function purple () {
