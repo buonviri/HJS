@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# reserved for future use
 if [ $# == 1 ]; then  # one arg was passed
   hexver="$1"  # set to arg
 else
@@ -21,7 +22,7 @@ picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0
 # send bist command
 echo "bist" | picocom -qrix 5000 /dev/ttyUSB0
 
-# requires poweroff
+# hopefully it finished!
 echo Done.
 echo
 
