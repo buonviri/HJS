@@ -6,6 +6,7 @@ if [ $# == 1 ]; then  # one arg was passed
 else
   delay="4000"  # default is four seconds
 fi
+n="99"  # could be set by another arg
 
 function purple () {
   printf "\e[1;35m%b\e[0m" "$1"
@@ -20,8 +21,8 @@ echo
 picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0  # q = quiet, r = no-reset, X = exit immediately 
 
 # send bist command, wait up to [delay] seconds for more data
-echo "Delay = $delay"
-echo "bist all errstop -n 99" | picocom -qrix $delay /dev/ttyUSB0  # q = quiet, r = no-reset, i = no-init, x = exit after [delay]
+echo "Delay = $delay, n = $n"
+echo "bist all errstop -n $n" | picocom -qrix $delay /dev/ttyUSB0  # q = quiet, r = no-reset, i = no-init, x = exit after [delay]
 
 # hopefully it finished!
 purple "Done. -HJS\n"
