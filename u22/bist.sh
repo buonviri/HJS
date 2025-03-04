@@ -21,35 +21,49 @@ picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0
 
 # send bist command
 echo "bist" | picocom -qrix 500 /dev/ttyUSB0
-bist=$(picocom -qrix 500 /dev/ttyUSB0)
+bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
 echo $bist
-bist=$(picocom -qrix 500 /dev/ttyUSB0)
+bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
 echo $bist
-bist=$(picocom -qrix 500 /dev/ttyUSB0)
+bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
 echo $bist
-bist=$(picocom -qrix 500 /dev/ttyUSB0)
+bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
 echo $bist
-bist=$(picocom -qrix 500 /dev/ttyUSB0)
+bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
 echo $bist
-bist=$(picocom -qrix 500 /dev/ttyUSB0)
+bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
 echo $bist
-bist=$(picocom -qrix 500 /dev/ttyUSB0)
+bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
 echo $bist
-bist=$(picocom -qrix 500 /dev/ttyUSB0)
+bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
 echo $bist
-bist=$(picocom -qrix 500 /dev/ttyUSB0)
+bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
 echo $bist
-bist=$(picocom -qrix 500 /dev/ttyUSB0)
+bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
 echo $bist
-bist=$(picocom -qrix 500 /dev/ttyUSB0)
+bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
 echo $bist
-bist=$(picocom -qrix 500 /dev/ttyUSB0)
+bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
 echo $bist
-bist=$(picocom -qrix 500 /dev/ttyUSB0)
+bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
 echo $bist
-bist=$(picocom -qrix 500 /dev/ttyUSB0)
+bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
 echo $bist
-bist=$(picocom -qrix 500 /dev/ttyUSB0)
+bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
+echo $bist
+bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
+echo $bist
+bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
+echo $bist
+bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
+echo $bist
+bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
+echo $bist
+bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
+echo $bist
+bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
+echo $bist
+bist=$(echo "" | picocom -qrix 500 /dev/ttyUSB0)
 echo $bist
 
 # hopefully it finished!
