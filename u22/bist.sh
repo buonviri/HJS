@@ -20,7 +20,7 @@ echo
 picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0
 
 # send bist command, wait up to 5 seconds for more data
-echo "Delay = " $delay
+echo "Delay =" $delay
 echo "bist" | picocom -qrix $delay /dev/ttyUSB0
 
 # hopefully it finished!
