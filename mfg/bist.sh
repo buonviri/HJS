@@ -31,7 +31,7 @@ rate=$(echo "$elapsed/$n" | bc -l)
 
 # hopefully it finished!
 echo
-printf "%.1f seconds / %d iterations = %.1f seconds per iteration\n" $elapsed $n $rate
+printf "%.1f seconds / %d = %.1f seconds per iteration\n" $elapsed $n $rate
 purple "Done. -HJS\n"
 echo
 
