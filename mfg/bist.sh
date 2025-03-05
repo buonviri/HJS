@@ -13,6 +13,8 @@ delay="5000"  # wait for more serial data, default is five seconds
 function purple () {
   printf "\e[1;35m%b\e[0m" "$1"
 }
+$cyan="\e[1;36m"
+$none="\e[0m"
 
 # initial warning
 echo
@@ -33,7 +35,7 @@ rate=$(echo "$elapsed/$n" | bc -l)
 
 # hopefully it finished!
 echo
-printf "%.1f seconds / %d = %.1f seconds per iteration\n" $elapsed $n $rate
+printf "%.1f seconds / %d = $cyan%.1f$none seconds per iteration\n" $elapsed $n $rate
 purple "Done. -HJS\n"
 echo
 
