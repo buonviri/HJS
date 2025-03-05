@@ -1,5 +1,9 @@
 #!/bin/bash
 
+baud="115200"
+baudx="1"
+undo="br1x"
+
 if [ $# == 1 ]; then  # one arg was passed
   hexver="$1"  # set to arg
 else
@@ -16,10 +20,10 @@ purple "This process may take up to a minute. Do not access the serial port unti
 echo
 
 # change baud rate
-python3 ~/HJS/statlog/statlog.py S2XX-baud.3 | \grep "baud "  # >> /dev/null
+python3 ~/HJS/statlog/statlog.py S2XX-baud.$baudx | \grep "baud "  # >> /dev/null
 
 # set up picocom
-picocom -qrX -b 345600 --flow x --send-cmd ascii-xfr /dev/ttyUSB0
+picocom -qrX -b $baud --flow x --send-cmd ascii-xfr /dev/ttyUSB0
 
 # send xload 1 command
 echo "xload 1" | picocom -qrix 1000 /dev/ttyUSB0
@@ -35,7 +39,7 @@ elapsed=$((end-start))
 
 # change baud rate, requires br3x suffix
 echo
-python3 ~/HJS/statlog/statlog.py S2XX-baud.1-br3x | \grep "baud "  # >> /dev/null
+python3 ~/HJS/statlog/statlog.py S2XX-baud.1-$undo | \grep "baud "  # >> /dev/null
 echo "Transfer time = $elapsed s"
 
 # requires poweroff
