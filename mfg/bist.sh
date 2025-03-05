@@ -3,8 +3,10 @@
 # determine wait timer
 if [ $# == 1 ]; then  # one arg was passed
   n="$1"  # set to arg
+  help=""
 else
-  n="10"  # default is 10 iterations
+  n="1"  # default is 1 iteration
+  help=" Type 'bist n' to run n interations."
 fi
 delay="5000"  # wait for more serial data, default is five seconds
 
@@ -14,7 +16,7 @@ function purple () {
 
 # initial warning
 echo
-purple "This process may take a while. Do not access the serial port until it completes.\n"
+purple "This process may take a while. Do not access the serial port until it completes.$help\n"
 echo
 
 # set up picocom
