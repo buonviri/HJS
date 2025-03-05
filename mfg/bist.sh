@@ -26,7 +26,7 @@ start=$(date +%s%3N)
 echo "bist all errstop -n $n" | picocom -qrix $delay /dev/ttyUSB0  # q = quiet, r = no-reset, i = no-init, x = exit after [delay]
 end=$(date +%s%3N)
 elapsedms=$((end-start-5000))  # subtract the last wait timer
-elapsed=$(echo "elapsedms/1000" | bc -l)
+elapsed=$(echo "$elapsedms/1000" | bc -l)
 rate=$(echo "$elapsed/$n" | bc -l)
 
 # hopefully it finished!
