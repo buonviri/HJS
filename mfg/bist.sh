@@ -13,8 +13,8 @@ delay="5000"  # wait for more serial data, default is five seconds
 function purple () {
   printf "\e[1;35m%b\e[0m" "$1"
 }
-$cyan="\e[1;36m"
-$none="\e[0m"
+cyan="\e[1;36m"
+none="\e[0m"
 
 # initial warning
 echo
