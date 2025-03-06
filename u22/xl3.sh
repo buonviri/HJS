@@ -27,20 +27,20 @@ echo
 python3 ~/HJS/statlog/statlog.py S2XX-baud.$baudx | \grep "baud "  # >> /dev/null
 
 # set up picocom
-if [ -f /dev/ttyUSB0 ]; then
+if [ -e /dev/ttyUSB0 ]; then
   picocom -qrX -b $baud --flow x --send-cmd ascii-xfr /dev/ttyUSB0
 else
   red "/dev/ttyUSB0 is not connected"
 fi
 
 # send xload 1 command
-if [ -f /dev/ttyUSB0 ]; then
+if [ -e /dev/ttyUSB0 ]; then
   echo "xload 1" | picocom -qrix 1000 /dev/ttyUSB0
 fi
 
 # send hex file
 start=$(date +%s)
-if [ -f /dev/ttyUSB0 ]; then
+if [ -e /dev/ttyUSB0 ]; then
   echo
   echo "[Sending hex file $hexver.hex]"
   echo
@@ -55,7 +55,7 @@ python3 ~/HJS/statlog/statlog.py S2XX-baud.1-$undo | \grep "baud "  # >> /dev/nu
 echo "Transfer time = $elapsed s"
 
 # requires poweroff
-if [ -f /dev/ttyUSB0 ]; then
+if [ -e /dev/ttyUSB0 ]; then
   echo Cycle power to boot the new image.
 fi
 echo
