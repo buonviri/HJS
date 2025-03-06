@@ -286,7 +286,7 @@ def GetCommand(fullfilename):
 
 def flags():
     # returns formatted string of all flags
-    s = ''
+    s = '[x' + str(baud_mult) + ']'
     if do_pause == False:
         s = s + '[F]'
     if do_slow == True:
