@@ -33,7 +33,7 @@ echo
 echo "[Sending hex file $hexver.hex]"
 echo
 start=$(date +%s)
-cat /home/ec/Downloads/$hexver.hex | picocom -qrix 1000 /dev/ttyUSB0
+cat /home/ec/hex-ftdi-cfg/hex/$hexver.hex | picocom -qrix 1000 /dev/ttyUSB0
 end=$(date +%s)
 elapsed=$((end-start))
 
@@ -47,6 +47,6 @@ echo Cycle power to boot the new image.
 echo
 
 # play sound
-aplay /home/ec/Music/440.wav --quiet
+aplay /home/ec/HJS/u22/wav/440.wav --quiet
 
 # End
