@@ -251,7 +251,10 @@ def GetCommand(fullfilename):
         do_wait = True
 
     # strip -brnx suffix
-    if thisfile.endswith('-br2x'):
+    if thisfile.endswith('-br1x'):
+        thisfile = thisfile[:-5]  # trim suffix
+        baud_mult = 1
+    elif thisfile.endswith('-br2x'):
         thisfile = thisfile[:-5]  # trim suffix
         baud_mult = 2
     elif thisfile.endswith('-br3x'):
