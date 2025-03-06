@@ -10,6 +10,10 @@ else
   hexver="S112"  # default
 fi
 
+function red () {
+  printf "\e[1;31m%b\e[0m" "$1"
+}
+
 function purple () {
   printf "\e[1;35m%b\e[0m" "$1"
 }
@@ -23,17 +27,25 @@ echo
 python3 ~/HJS/statlog/statlog.py S2XX-baud.$baudx | \grep "baud "  # >> /dev/null
 
 # set up picocom
-picocom -qrX -b $baud --flow x --send-cmd ascii-xfr /dev/ttyUSB0
+if [ -f /dev/ttyUSB0 ]; then
+  picocom -qrX -b $baud --flow x --send-cmd ascii-xfr /dev/ttyUSB0
+else
+  red "/dev/ttyUSB0 is not connected"
+fi
 
 # send xload 1 command
-echo "xload 1" | picocom -qrix 1000 /dev/ttyUSB0
+if [ -f /dev/ttyUSB0 ]; then
+  echo "xload 1" | picocom -qrix 1000 /dev/ttyUSB0
+fi
 
 # send hex file
-echo
-echo "[Sending hex file $hexver.hex]"
-echo
 start=$(date +%s)
-cat /home/ec/hex-ftdi-cfg/hex/$hexver.hex | picocom -qrix 1000 /dev/ttyUSB0
+if [ -f /dev/ttyUSB0 ]; then
+  echo
+  echo "[Sending hex file $hexver.hex]"
+  echo
+  cat /home/ec/hex-ftdi-cfg/hex/$hexver.hex | picocom -qrix 1000 /dev/ttyUSB0
+fi
 end=$(date +%s)
 elapsed=$((end-start))
 
@@ -43,7 +55,9 @@ python3 ~/HJS/statlog/statlog.py S2XX-baud.1-$undo | \grep "baud "  # >> /dev/nu
 echo "Transfer time = $elapsed s"
 
 # requires poweroff
-echo Cycle power to boot the new image.
+if [ -f /dev/ttyUSB0 ]; then
+  echo Cycle power to boot the new image.
+fi
 echo
 
 # play sound
