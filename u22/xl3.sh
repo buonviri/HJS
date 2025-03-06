@@ -23,17 +23,29 @@ echo
 python3 ~/HJS/statlog/statlog.py S2XX-baud.$baudx | \grep "baud "  # >> /dev/null
 
 # set up picocom
-picocom -qrX -b $baud --flow x --send-cmd ascii-xfr /dev/ttyUSB0
+if [ -f /dev/ttyUSB0 ]; then
+  picocom -qrX -b $baud --flow x --send-cmd ascii-xfr /dev/ttyUSB0
+else
+  echo "/dev/ttyUSB0 is not connected"
+fi
 
 # send xload 1 command
-echo "xload 1" | picocom -qrix 1000 /dev/ttyUSB0
+if [ -f /dev/ttyUSB0 ]; then
+  echo "xload 1" | picocom -qrix 1000 /dev/ttyUSB0
+else
+  echo "/dev/ttyUSB0 is not connected"
+fi
 
 # send hex file
 echo
 echo "[Sending hex file $hexver.hex]"
 echo
 start=$(date +%s)
-cat /home/ec/hex-ftdi-cfg/hex/$hexver.hex | picocom -qrix 1000 /dev/ttyUSB0
+if [ -f /dev/ttyUSB0 ]; then
+  cat /home/ec/hex-ftdi-cfg/hex/$hexver.hex | picocom -qrix 1000 /dev/ttyUSB0
+else
+  echo "/dev/ttyUSB0 is not connected"
+fi
 end=$(date +%s)
 elapsed=$((end-start))
 
