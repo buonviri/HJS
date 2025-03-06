@@ -125,7 +125,7 @@ call PRIMARY-cli.bat
 
 echo.
 echo Disconnect the Renesas Programmer 5x2.
-echo Cycle power and wait for the LED to blink.
+echo Cycle power and wait for the LED(s) to illuminate.
 PAUSE
 echo.
 
