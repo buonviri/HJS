@@ -16,10 +16,9 @@ if [ -z "$sn_ftdi" ]; then
 fi
 
 # display info in terminal
-echo Writing to file...
-echo $hextime
-echo $sn_ftdi
-echo $jamlog
+echo "Writing to file: $hextime"
+echo "SN $sn_ftdi"
+echo "$jamlog"
 
 # check if file exists, create if not
 if [ ! -f ~/jam.info ]; then
