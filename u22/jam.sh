@@ -5,9 +5,16 @@ jamlog="$@"
 jamt=$(date +%s)
 jamhex=$(printf "%x" $jamt)
 
+# store SN
+sn_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iSerial 3 \K.*")  # copied from prodtest
+if [ -z "$sn_ftdi" ]; then
+  sn_ftdi="xxxxxyyy"
+fi
+
 # display info in terminal
 echo Writing to file...
 echo $jamhex
+echo $sn_ftdi
 echo $jamlog
 
 # check if file exists, create if not
@@ -16,6 +23,6 @@ if [ ! -f ~/jam.info ]; then
 fi
 
 # write info to file
-echo $jamhex $jamlog >> ~/jam.info
+echo $jamhex $sn_ftdi $jamlog >> ~/jam.info
 
 # EOF
