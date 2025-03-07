@@ -16,7 +16,7 @@ if [ -z "$sn_ftdi" ]; then
 fi
 
 # display info in terminal
-echo "Writing to file: $hextime"
+echo "Writing to file @$hextime"
 echo "SN $sn_ftdi"
 echo "$jamlog"
 
