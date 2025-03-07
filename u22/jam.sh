@@ -9,13 +9,15 @@ hextime=$(printf "%x" $dectime)
 if [ -f ~/ftdi.info ]; then  # if file exists
   rm ~/ftdi.info  # remove existing file to be safe
 fi
-usbsn > /dev/null  # writes USB serial number to file
-echo debug:
-cat ~/ftdi.info | grep iSerial
-sn_ftdi=$(cat ~/ftdi.info | \grep -o -P "iSerial.*3.*\K[0-9]{8}") 
-echo SN=$sn_ftdi
+usbsn > /dev/null  # writes USB serial number to file with no output
+
+# echo debug:
+# cat ~/ftdi.info | grep iSerial
+
+sn_ftdi=$(cat ~/ftdi.info | \grep -o -P "iSerial.*3.*\K[0-9]{8}")  # get eight digit decimal version
+# echo SN=$sn_ftdi
 if [ -z "$sn_ftdi" ]; then
-  sn_ftdi="xxxxxyyy"
+  sn_ftdi="xxxxxyyy"  # default value
 fi
 
 # display info in terminal
