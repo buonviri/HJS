@@ -11,7 +11,7 @@ if [ -f ~/ftdi.info ]; then  # if file exists
 fi
 usbsn > /dev/null  # writes USB serial number to file
 echo debug:
-cat ~/ftdi.info
+cat ~/ftdi.info | grep iSerial
 sn_ftdi=$(cat ~/ftdi.info | \grep -o -P "iSerial.*3.*\K[0-9]{8}") 
 echo SN=$sn_ftdi
 if [ -z "$sn_ftdi" ]; then
