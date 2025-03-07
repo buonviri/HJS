@@ -12,7 +12,7 @@ fi
 usbsn > /dev/null  # writes USB serial number to file
 echo debug:
 cat ~/ftdi.info
-sn_ftdi=$(cat ~/ftdi.info | \grep -o -P ".*iSerial.*3.*\K.*")
+sn_ftdi=$(cat ~/ftdi.info | \grep -o -P "iSerial.*3.*\K[0-9]{8}") 
 echo SN=$sn_ftdi
 if [ -z "$sn_ftdi" ]; then
   sn_ftdi="xxxxxyyy"
