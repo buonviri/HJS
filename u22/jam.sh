@@ -9,10 +9,11 @@ hextime=$(printf "%x" $dectime)
 if [ -f ~/ftdi.info ]; then  # if file exists
   rm ~/ftdi.info  # remove existing file to be safe
 fi
-usbsn  # writes USB serial number to file
-echo debug
+usbsn > /dev/null  # writes USB serial number to file
+echo debug:
 cat ~/ftdi.info
 sn_ftdi=$(cat ~/ftdi.info | \grep -o -P "iSerial 3 \K.*")
+echo SN=$sn_ftdi
 if [ -z "$sn_ftdi" ]; then
   sn_ftdi="xxxxxyyy"
 fi
