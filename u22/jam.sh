@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # store command sequence, timestamp, hex timestamp
-jamlog="$@"
-jamt=$(date +%s)
-hexstamp=$(printf "%x" $jamt)
+allargs="$@"
+dectime=$(date +%s)
+hextime=$(printf "%x" $dectime)
 
-# get serial number from FTDI, copied from prodtest
-if [ -f ~/ftdi.info ]; then
+# get serial number from FTDI
+if [ -f ~/ftdi.info ]; then  # if file exists
   rm ~/ftdi.info  # remove existing file to be safe
 fi
 usbsn  # writes USB serial number to file
@@ -17,7 +17,7 @@ fi
 
 # display info in terminal
 echo Writing to file...
-echo $hexstamp
+echo $hextime
 echo $sn_ftdi
 echo $jamlog
 
@@ -27,6 +27,6 @@ if [ ! -f ~/jam.info ]; then
 fi
 
 # write info to file
-echo $hexstamp $sn_ftdi $jamlog >> ~/jam.info
+echo $hextime $sn_ftdi $allargs >> ~/jam.info
 
 # EOF
