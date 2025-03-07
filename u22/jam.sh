@@ -10,6 +10,8 @@ if [ -f ~/ftdi.info ]; then  # if file exists
   rm ~/ftdi.info  # remove existing file to be safe
 fi
 usbsn  # writes USB serial number to file
+echo debug
+cat ~/ftdi.info
 sn_ftdi=$(cat ~/ftdi.info | \grep -o -P "iSerial 3 \K.*")
 if [ -z "$sn_ftdi" ]; then
   sn_ftdi="xxxxxyyy"
@@ -18,7 +20,7 @@ fi
 # display info in terminal
 echo "Writing to file @$hextime"
 echo "SN $sn_ftdi"
-echo "$jamlog"
+echo "$allargs"
 
 # check if file exists, create if not
 if [ ! -f ~/jam.info ]; then
