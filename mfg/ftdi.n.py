@@ -201,6 +201,11 @@ try:  # check for separator
         separator = f.read().strip()
 except:
     separator = '_'  # default
+try:  # check for suffiux
+    with open('.suf', 'r') as f:
+        suffix = f.read().strip()
+except:
+    suffix = ''  # default is none
 
 sn_start = ''
 missing_folder = False
@@ -221,7 +226,7 @@ if len(lot_code) in [5,]:  # check if length is in the list of valid lot code le
             with open(lot_code + separator + str_sn + '.bat', 'w') as f:  # batch filename contains separator
                 f.write(batch.replace('ABCD', product).replace('9876543210', lot_code + str_sn).replace('99999', lot_code))  # filename pointer is number
             try:
-                with open('..\\..\\all\\' + lot_code + '\\' + lot_code + separator + str_sn + '.bat', 'w') as f:  # batch filename contains separator
+                with open('..\\..\\all\\' + lot_code + suffix + '\\' + lot_code + separator + str_sn + '.bat', 'w') as f:  # batch filename contains separator
                     f.write(all.replace('PRIMARY', 'P112').replace('99999', lot_code).replace('ZZZ', str_sn))
             except:
                 missing_folder = True
