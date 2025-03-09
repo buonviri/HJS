@@ -1,5 +1,6 @@
 # generates all cfg edit strings and scripts
 import os
+import ast
 
 # info
 prefix = '@python.exe C:\\EdgeCortix\\HJS\\statlog\\statlog.py S2XX-cfg.[DASH]unlock+cfg.edit+'
@@ -7,39 +8,6 @@ suffix = '+C-fast\n'  # removed for better all batch file performance: @timeout 
 plinux = 'python3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.edit+'
 slinux = '+C-fast'
 foo = {
-    'S2M2-S16 v1.5 for BMC 1.0.x':  {
-        'lotcodes': {
-            '10014': (1,42),
-            #  debug: '52461': (1,2),
-        },
-        'parameters': {
-            'name': 'S2M2',
-            'var': 'S16NFN',
-            'sntxt': '[LOTCODE][DASH]PAC[SERIALNUMBER]',  # do not change
-            'sndec': '[LOTCODE][SERIALNUMBER]',  # do not change
-            'rev': '1',
-            'ecn': '5',
-            'ddr': '0',
-            'sak': '2[DOT]01',
-            'mfgdate': '20250117',
-            'ecndate': '20250123',
-            'p0v8': '1',
-            'p3v3': '0',
-            'cblimit': '2',
-            'pll': '800',
-            'pcie': '1',  # x4
-            'pmode': '0',
-            'vcore': '550',
-            'cba': '2',
-            'cbb': '0',  # single
-            'cbd': '1',
-            'bmctemp': '99',
-            'saktemp': '95',
-            'boardtemp': '85',  # 85 for M2 and 80 for LP
-            'pwren': '1',  # A only
-            'saken': '1',  # A only
-        },
-    },
     'S2M2-S16 v1.5 for BMC 1.1.x':  {  # added 6-13 on 2025.02.26
         'lotcodes': {
             '10015': (1,28),
@@ -223,6 +191,15 @@ def bracketreplace(s):
 # End
 
 # end of functions, start of script
+
+files = {
+    'S2M2-S16 v1.5 for BMC 1.0.x': '.10014.1.42',
+    }
+
+for key in files:  # check every key
+    with open(files[key], 'r') as f:  # open filename of key
+        val = ast.literal_eval(f.read())  # read contents into val
+        foo[key] = val
 
 for config in foo:
     print('\nGenerating files for: ' + config)
