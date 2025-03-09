@@ -7,175 +7,17 @@ prefix = '@python.exe C:\\EdgeCortix\\HJS\\statlog\\statlog.py S2XX-cfg.[DASH]un
 suffix = '+C-fast\n'  # removed for better all batch file performance: @timeout 60\n
 plinux = 'python3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.edit+'
 slinux = '+C-fast'
-foo = {
-    'S2M2-S16 v1.5 for BMC 1.1.x':  {  # added 6-13 on 2025.02.26
-        'lotcodes': {
-            '10015': (1,28),
-        },
-        'parameters': {
-            'name': 'S2M2',
-            'var': 'S16NFN',
-            'sntxt': '[LOTCODE][DASH]PAC[SERIALNUMBER]',  # do not change
-            'sndec': '[LOTCODE][SERIALNUMBER]',  # do not change
-            'rev': '1',
-            'ecn': '5',
-            'ddr': '0',
-            'sak': '2[DOT]01',
-            'mfgdate': '20250226',
-            'ecndate': '20250226',
-            'p0v8': '1',
-            'p3v3': '0',
-            'cblimit': '2',
-            'pll': '800',
-            'pcie': '1',  # x4
-            'pmode': '0',
-            'vcore': '550',
-            'cba': '2',
-            'cbb': '0',  # single
-            'cbd': '1',
-            'bmctemp': '99',
-            'saktemp': '95',
-            'boardtemp': '85',  # 85 for M2 and 80 for LP
-            'pwren': '1',  # A only
-            'saken': '1',  # A only
-        },
-    },
-    'S2LP-D16 v1.5 for BMC 1.0.x':  {
-        'lotcodes': {
-            '52979': (14,28),
-        },
-        'parameters': {
-            'name': 'S2LP',
-            'var': 'D16BHN',
-            'sntxt': '[LOTCODE][DASH]PAC[SERIALNUMBER]',  # do not change
-            'sndec': '[LOTCODE][SERIALNUMBER]',  # do not change
-            'rev': '1',
-            'ecn': '5',
-            'ddr': '0',
-            'sak': '2[DOT]01',
-            'mfgdate': '20250117',
-            'ecndate': '20250123',
-            'p0v8': '1',
-            'p3v3': '0',
-            'cblimit': '2',
-            'pll': '800',
-            'pcie': '2',  # x8
-            'pmode': '0',
-            'vcore': '550',
-            'cba': '2',
-            'cbb': '2',  # dual
-            'cbd': '1',
-            'bmctemp': '99',
-            'saktemp': '95',
-            'boardtemp': '80',  # 85 for M2 and 80 for LP
-            'pwren': '3',  # A and B
-            'saken': '3',  # A and B
-        },
-    },
-    'S2LP-S16 v1.5 for BMC 1.0.x':  {
-        'lotcodes': {
-            '52980': (1,5),
-            # '52979': (15,15),  # dual -> single
-            # 2025.02.19 converted back to dual for MR25 testing
-            '52979+': (17,17),  # dual -> single
-            '52979++': (23,23),  # dual -> single
-        },
-        'parameters': {
-            'name': 'S2LP',
-            'var': 'S16BHN',
-            'sntxt': '[LOTCODE][DASH]PAC[SERIALNUMBER]',  # do not change
-            'sndec': '[LOTCODE][SERIALNUMBER]',  # do not change
-            'rev': '1',
-            'ecn': '5',
-            'ddr': '0',
-            'sak': '2[DOT]01',
-            'mfgdate': '20250117',
-            'ecndate': '20250123',
-            'p0v8': '1',
-            'p3v3': '0',
-            'cblimit': '2',
-            'pll': '800',
-            'pcie': '2',  # x8
-            'pmode': '0',
-            'vcore': '550',
-            'cba': '2',
-            'cbb': '0',  # single
-            'cbd': '1',
-            'bmctemp': '99',
-            'saktemp': '95',
-            'boardtemp': '80',  # 85 for M2 and 80 for LP
-            'pwren': '1',  # A only
-            'saken': '1',  # A only
-        },
-    },
-    'S2LP-S16 v1.5 for BMC 1.1.x':  {
-        'lotcodes': {
-            '52980': (6,13),  # added on 2025.02.26
-        },
-        'parameters': {
-            'name': 'S2LP',
-            'var': 'S16BHN',
-            'sntxt': '[LOTCODE][DASH]PAC[SERIALNUMBER]',  # do not change
-            'sndec': '[LOTCODE][SERIALNUMBER]',  # do not change
-            'rev': '1',
-            'ecn': '5',
-            'ddr': '0',
-            'sak': '2[DOT]01',
-            'mfgdate': '20250226',
-            'ecndate': '20250226',
-            'p0v8': '1',
-            'p3v3': '0',
-            'cblimit': '2',
-            'pll': '800',
-            'pcie': '2',  # x8
-            'pmode': '0',
-            'vcore': '550',
-            'cba': '2',
-            'cbb': '0',  # single
-            'cbd': '1',
-            'bmctemp': '99',
-            'saktemp': '95',
-            'boardtemp': '80',  # 85 for M2 and 80 for LP
-            'pwren': '1',  # A only
-            'saken': '1',  # A only
-        },
-    },
-    'S2M2-S16 v1.5 for BMC 1.1.x':  {  # added 52+ in march
-        'lotcodes': {
-            '10015': (52,255),
-        },
-        'parameters': {
-            'name': 'S2M2',
-            'var': 'S16NFN',
-            'sntxt': '[LOTCODE][DASH]PAC[SERIALNUMBER]',  # do not change
-            'sndec': '[LOTCODE][SERIALNUMBER]',  # do not change
-            'rev': '1',
-            'ecn': '5',
-            'ddr': '0',
-            'sak': '2[DOT]01',
-            'mfgdate': '202503xx',
-            'ecndate': '202503xx',
-            'p0v8': '1',
-            'p3v3': '0',
-            'cblimit': '2',
-            'pll': '800',
-            'pcie': '1',  # x4
-            'pmode': '0',
-            'vcore': '550',
-            'cba': '2',
-            'cbb': '0',  # single
-            'cbd': '1',
-            'bmctemp': '99',
-            'saktemp': '95',
-            'boardtemp': '85',  # 85 for M2 and 80 for LP
-            'pwren': '1',  # A only
-            'saken': '1',  # A only
-        },
-    },
-}  # end of foo
+foo = {}  # empty dict to store imported file info
+files = {  # py extension allows auto-color, key is desc of range, val is filename
+    'S2LP-D16 v1.5 for BMC 1.0.x': '.52979.14.28.py',
+    'S2LP-S16 v1.5 for BMC 1.0.x': '.52980.1.5.py',  # also contains dual -> single overrides
+    'S2LP-S16 v1.5 for BMC 1.1.x': '.52980.6.13.py',
+    'S2M2-S16 v1.5 for BMC 1.0.x': '.10014.1.42.py',
+    'S2M2-S16 v1.5 for BMC 1.1.x-feb': '.10015.1.28.py',
+    'S2M2-S16 v1.5 for BMC 1.1.x-mar': '.10015.52.255.py',
+    }
 
 # end of info, start of functions
-
 def checkdir(dirname):
     try:
         os.mkdir(dirname)  # attempt to add folder
@@ -183,7 +25,6 @@ def checkdir(dirname):
     except:
         print('| ' + dirname + ' exists ', end='')
 # End
-
 def bracketreplace(s):
     s = s.replace('[DASH]', '-')
     s = s.replace('[DOT]', '.')
@@ -191,11 +32,6 @@ def bracketreplace(s):
 # End
 
 # end of functions, start of script
-
-files = {
-    'S2M2-S16 v1.5 for BMC 1.0.x': '.10014.1.42',
-    }
-
 for key in files:  # check every key
     with open(files[key], 'r') as f:  # open filename of key
         val = ast.literal_eval(f.read())  # read contents into val
