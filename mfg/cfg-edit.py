@@ -37,12 +37,14 @@ for key in files:  # check every key
         val = ast.literal_eval(f.read())  # read contents into val
         foo[key] = val
 
+count = 0
 for config in foo:
-    print('\nGenerating files for: ' + config)
+    count = count + 1
+    print('\n' + str(count) + ') Generating files for: ' + config)
     cfg = foo[config]  # this cfg's dictionary
     for rawlotcode in cfg['lotcodes']:
         lotcode = rawlotcode.strip('+')  # plus sign may be used to add to lotcode
-        print('Folders ', end='')  # prefix
+        print('   Folders ', end='')  # prefix, indent 3
         checkdir(lotcode)  # create folder if missing
         checkdir(lotcode + '\\linux')  # create folder if missing
         checkdir(lotcode + '\\plain_text')  # create folder if missing
@@ -53,7 +55,7 @@ for config in foo:
             sn = '%03d' % i
             fname = 'cfg-edit-' + lotcode + '-PAC' + sn
             if len(start) == 0:
-                start = '  ' + fname
+                start = '     ' + fname  # indent 5
             else:
                 end = ' thru ' + fname
             commands = []
