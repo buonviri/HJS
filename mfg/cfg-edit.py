@@ -172,6 +172,38 @@ foo = {
             'saken': '1',  # A only
         },
     },
+    'S2M2-S16 v1.5 for BMC 1.1.x':  {  # added 52+ in march
+        'lotcodes': {
+            '10015': (52,255),
+        },
+        'parameters': {
+            'name': 'S2M2',
+            'var': 'S16NFN',
+            'sntxt': '[LOTCODE][DASH]PAC[SERIALNUMBER]',  # do not change
+            'sndec': '[LOTCODE][SERIALNUMBER]',  # do not change
+            'rev': '1',
+            'ecn': '5',
+            'ddr': '0',
+            'sak': '2[DOT]01',
+            'mfgdate': '202503xx',
+            'ecndate': '202503xx',
+            'p0v8': '1',
+            'p3v3': '0',
+            'cblimit': '2',
+            'pll': '800',
+            'pcie': '1',  # x4
+            'pmode': '0',
+            'vcore': '550',
+            'cba': '2',
+            'cbb': '0',  # single
+            'cbd': '1',
+            'bmctemp': '99',
+            'saktemp': '95',
+            'boardtemp': '85',  # 85 for M2 and 80 for LP
+            'pwren': '1',  # A only
+            'saken': '1',  # A only
+        },
+    },
 }  # end of foo
 
 # end of info, start of functions

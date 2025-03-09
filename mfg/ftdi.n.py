@@ -13,6 +13,7 @@
 #   len = 3 (001 to 099)
 #   product = S2M2 or S2LP
 #   sep = -PAC
+#   suf = JAN
 # also attempts to populate the 'all' folder with multipurpose batch files
 # todo: add prefix? or just use 12345-AET001
 
@@ -181,7 +182,7 @@ def get_limit():
 
 
 # Read file info or use defaults
-try:  # all four must be defined for this to work
+try:  # all of these must be defined for this to work
     with open('.lot', 'r') as f:
         lot_code = f.read().strip()
     with open('.min', 'r') as f:
@@ -201,21 +202,31 @@ try:  # check for separator
         separator = f.read().strip()
 except:
     separator = '_'  # default
-try:  # check for suffiux
+try:  # check for suffix, only affects 'all' folder sentry
     with open('.suf', 'r') as f:
         suffix = f.read().strip()
 except:
     suffix = ''  # default is none
+try:  # check for done, SNs that have been completed
+    with open('.done', 'r') as f:
+        done = int(f.read())
+except:
+    done = 0  # default is none
 
 sn_start = ''
-missing_folder = False
+missing_folders = {}
 if len(lot_code) in [5,]:  # check if length is in the list of valid lot code lengths
     if max_sn < 1:  # must be at least 1
         print('Invalid max serial number: ' + str(max_sn))
     else:
         print('Generating serial numbers in range ' + str(min_sn) + ':' + str(max_sn) + ', format "' + 'n' * len_sn + '", for ' + product + ' lot code: ' + lot_code)
+        print('Done: ' + str(done))
         for sn in range(min_sn, max_sn+1):
             str_sn = str(sn).rjust(len_sn, '0')  # pad with leading zeroes
+            if sn > done:  # sn is not done
+                done_suffix = ''
+            else:
+                done_suffix = '-done'
             if sn_start == '':  # define both
                 sn_start = lot_code + separator + str_sn
                 sn_end = lot_code + separator + str_sn
@@ -225,17 +236,18 @@ if len(lot_code) in [5,]:  # check if length is in the list of valid lot code le
                 f.write(template.replace('ABCD', product).replace('9876543210', lot_code + str_sn).replace('99999', lot_code))  # programmed value is number
             with open(lot_code + separator + str_sn + '.bat', 'w') as f:  # batch filename contains separator
                 f.write(batch.replace('ABCD', product).replace('9876543210', lot_code + str_sn).replace('99999', lot_code))  # filename pointer is number
+            folder = lot_code + suffix + done_suffix
             try:
-                with open('..\\..\\all\\' + lot_code + suffix + '\\' + lot_code + separator + str_sn + '.bat', 'w') as f:  # batch filename contains separator
+                with open('..\\..\\all\\' + folder + '\\' + lot_code + separator + str_sn + '.bat', 'w') as f:  # batch filename contains separator
                     f.write(all.replace('PRIMARY', 'P112').replace('99999', lot_code).replace('ZZZ', str_sn))
             except:
-                missing_folder = True
+                missing_folders[folder] = 1
         print(sn_start + ' thru ' + sn_end)
 else:
     print('Invalid lot code: ' + lot_code)
 
-if missing_folder:  # \all\lotcode is missing
-    print('\nCould not find "\\all\\' + lot_code + '\\" folder.')
+for k in missing_folders:
+    print('\nCould not find "\\all\\' + k + '\\" folder.')
 
 # pause for user input, should be done in batch file instead
 # os.system("PAUSE")
