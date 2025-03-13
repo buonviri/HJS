@@ -29,7 +29,7 @@ if [ $# == 2 ]; then
     if [ "$total" != "0" ]; then
       printf "$total [$a0 $a1 $b0 $b1]\n"
     else
-      printf "-\n"
+      printf "\n"
     fi
 
     printf "DMA pass: "
@@ -43,7 +43,7 @@ if [ $# == 2 ]; then
     if [ "$total" != "0" ]; then
       printf "$total [$a0 $a1 $b0 $b1]\n"
     else
-      printf "-\n"
+      printf "\n"
     fi
 
     my_array=("Wr (GB/s):")
