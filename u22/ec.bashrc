@@ -18,6 +18,7 @@ echo "  \__,_|_.__/ \__,_|_| |_|\__|\__,_| 0x0003"
 echo
 
 if [ -e ~/.auto_prodtest ]; then  # check if regular file exists
+  echo "[Starting auto-prodtest, disable with pt-]"
   prodtest
 else
   echo "[Enable auto-prodtest with pt+]"
