@@ -80,7 +80,7 @@ if [ "${#sn_ftdi}" -eq 8 ] && [ "$sn_ftdi" == "$sn_bmc" ]; then
   mkdir -p ~/prodtest/"${sn_bmc:0:5}"
   printf "HJS "  # signature prefix
   mv -v ~/.prodtest-$hexstamp ~/prodtest/"${sn_bmc:0:5}"/"$sn_bmc"-0x"$hexstamp".txt  # rename file
-  echo "Display summary with sn ${sn_bmc:0:5} ${sn_bmc:5:8}"
+  printf "\nDisplay all stats with: sn ${sn_bmc:0:5} ${sn_bmc:5:8}\n"
 else
   printf "\e[1;31mLength of serial number is incorrect or there is a mismatch: FTDI=$sn_ftdi BMC=$sn_bmc\e[0m\n"
 fi
