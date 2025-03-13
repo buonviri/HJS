@@ -26,7 +26,11 @@ if [ $# == 2 ]; then
     a1=$(cat $foobar$star | grep -o -i 'bist.*sakura a.*ddr1.*fail' | wc -l)
     b0=$(cat $foobar$star | grep -o -i 'bist.*sakura b.*ddr0.*fail' | wc -l)
     b1=$(cat $foobar$star | grep -o -i 'bist.*sakura b.*ddr1.*fail' | wc -l)
-    printf "$total [$a0 $a1 $b0 $b1]\n"
+    if [ "$total" != "0" ]; then
+      printf "$total [$a0 $a1 $b0 $b1]\n"
+    else
+      printf "-\n"
+    fi
 
     printf "DMA pass: "
     cat $foobar$star | grep -o -i 'trial.*pass' | wc -l
@@ -36,7 +40,11 @@ if [ $# == 2 ]; then
     a1=$(cat $foobar$star | grep -o -i 'failed.*device ID = 0.*ddr1' | wc -l)
     b0=$(cat $foobar$star | grep -o -i 'failed.*device ID = 1.*ddr0' | wc -l)
     b1=$(cat $foobar$star | grep -o -i 'failed.*device ID = 1.*ddr1' | wc -l)
-    printf "$total [$a0 $a1 $b0 $b1]\n"
+    if [ "$total" != "0" ]; then
+      printf "$total [$a0 $a1 $b0 $b1]\n"
+    else
+      printf "-\n"
+    fi
 
     my_array=("Wr (GB/s):")
     wr=$(cat $foobar$star | grep -i -o -P 'write speed =\K [0-9]\.[0-9]' | sed "s/[[:space:]]//g")
