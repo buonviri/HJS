@@ -20,7 +20,8 @@ echo
 if [ -e ~/.auto_prodtest ]; then  # check if regular file exists
   prodtest
 else
-  echo "Enable auto-prodtest with pt+"
+  echo "[Enable auto-prodtest with pt+]"
+  echo
 fi
 
 # EOF
