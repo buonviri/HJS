@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo echo  # forces root login
+sudo echo "force sudo" # forces root login
 
 # get timestamp, hexstamp, and hostname
 time_t=$(date +%s)
@@ -35,8 +35,8 @@ cfgb > /dev/null
 cfg4pt >> ~/.prodtest-$hexstamp
 
 # 1FDC:xxxx
-printf "\e[1;35m%b\e[0m" "   Reading OS info (lspci)\n"
-1fdc | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # PCIe without leading spaces
+printf "\e[1;35m%b\e[0m" "   Reading OS info (lspci - requires sudo)\n"
+1fdc | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # PCIe without leading spaces, uses sudo
 
 # verify CB/PG
 printf "\e[1;35m%b\e[0m" "   Reading CB info (BMC pins)\n"
