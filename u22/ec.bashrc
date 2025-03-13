@@ -17,7 +17,7 @@ echo " | |_| | |_) | |_| | | | | |_| |_| | by HJS"
 echo "  \__,_|_.__/ \__,_|_| |_|\__|\__,_| 0x0003"
 echo
 
-if [ -e "~/.auto_prodtest" ]; then  # check if regular file exists
+if [ -e ~/.auto_prodtest ]; then  # check if regular file exists
   prodtest
 else
   echo "Enable auto-prodtest with pt+"
