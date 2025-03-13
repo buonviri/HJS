@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo echo "force sudo" # forces root login
+sudo echo # forces root login
 
 # get timestamp, hexstamp, and hostname
 time_t=$(date +%s)
