@@ -19,6 +19,7 @@ echo
 
 if [ -e ~/.auto_prodtest ]; then  # check if regular file exists
   echo "[Starting auto-prodtest, disable with pt-]"
+  echo  # newline before sudo entry
   prodtest
 else
   echo "[Enable auto-prodtest with pt+]"
