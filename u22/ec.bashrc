@@ -17,4 +17,15 @@ echo " | |_| | |_) | |_| | | | | |_| |_| | by HJS"
 echo "  \__,_|_.__/ \__,_|_| |_|\__|\__,_| 0x0002"
 echo
 
+if [ -f "~/.auto_prodtest" ]; then  # check if regular file exists
+  prodtest
+fi
+
 # EOF
+
+
+
+
+
+
+# MOAR
