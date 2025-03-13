@@ -38,8 +38,11 @@ printf "08) "
 mv -v $mera/examples/yolov5/result.png $mera/examples/yolov5/result-$hexstamp.png 2>/dev/null || echo OK
 printf "09) "
 mv -v $mera/examples/yolov7/result.png $mera/examples/yolov7/result-$hexstamp.png 2>/dev/null || echo OK
-printf "10) "
+
+printf "10a) "
 mv -v $mera/examples/yolov8/result_1.png $mera/examples/yolov8/result_1-$hexstamp.png 2>/dev/null || echo OK  # filename contains underscore one!
+printf "10b) "
+mv -v $mera/examples/yolov8/result.png $mera/examples/yolov8/result-$hexstamp.png 2>/dev/null || echo OK  # filename DOES NOT contain underscore one!
 
 echo
 # EOF
