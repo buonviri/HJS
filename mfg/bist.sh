@@ -39,6 +39,9 @@ printf "%.1f seconds / %d = $cyan%.1f$none seconds per iteration\n" $elapsed $n 
 purple "Done. -HJS\n"
 echo
 
+# play sound
+a440
+
 # End
 
 # bist [a|b|ab|a0|a1|b0|b1|all] [mode] [test] [errstop] [-n 999] [-a 0x123]
