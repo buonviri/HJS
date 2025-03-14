@@ -97,6 +97,7 @@ alias bmc="info | tee ~/bmc.info && printf '\nBoth should be 0x18 on dual cards\
 alias xl1="source ~/HJS/u22/xl1.sh"
 alias xl2="source ~/HJS/u22/xl2.sh"
 alias xl3="source ~/HJS/u22/xl3.sh"
+alias a440="aplay /home/ec/HJS/u22/wav/440.wav --quiet"
 alias fault="source ~/HJS/u22/faultcodes.sh"
 alias info="python3 ~/HJS/statlog/statlog.py S2XX-info-void"
 alias c008c="python3 ~/HJS/statlog/statlog.py S2LP-srread.a.0xC008C+srread.b.0xC008C-void"
@@ -167,5 +168,5 @@ alias dry4="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 9999"
 alias dry5="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 99999"
 alias trump="source ~/HJS/mfg/trump.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v3.73\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.74\e[0m\n\n'"
 # EOF

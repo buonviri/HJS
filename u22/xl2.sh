@@ -61,6 +61,6 @@ fi
 echo
 
 # play sound
-aplay /home/ec/HJS/u22/wav/440.wav --quiet
+a440
 
 # End
