@@ -14,13 +14,21 @@ echo "        _                 _         "
 echo "  _   _| |__  _   _ _ __ | |_ _   _ "
 echo " | | | | '_ \| | | | '_ \| __| | | |"
 echo " | |_| | |_) | |_| | | | | |_| |_| | by HJS"
-echo "  \__,_|_.__/ \__,_|_| |_|\__|\__,_| 0x0003"
+echo "  \__,_|_.__/ \__,_|_| |_|\__|\__,_| 0x0004"
 echo
 
 if [ -e ~/.auto_prodtest ]; then  # check if regular file exists
-  echo "[Starting auto-prodtest, disable with pt-]"
-  echo  # newline before sudo entry
-  prodtest
+  uptime=$(uptime --since)
+  cat ~/.auto_prodtest | grep "$uptime" > /dev/null  # check grep, discard result
+  if [ $? -eq 0 ]; then  # grep match
+    echo "[Skipping auto-prodtest]"
+    echo  # newline before prompt
+  else
+    echo "$uptime" > ~/.auto_prodtest  # write boot time to auto file
+    echo "[Starting auto-prodtest, disable with pt-]"
+    echo  # newline before sudo entry
+    prodtest
+  fi
 #else
 #  echo "[Enable auto-prodtest with pt+]"
 #  echo
