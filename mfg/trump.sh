@@ -21,7 +21,6 @@ start=$(date +%s%3N)
 
 # iterate
 for (( i=0; i<$count; i++ )); do
-  echo "bist all errstop -n $n" | picocom -qrix $delay /dev/ttyUSB0  # q = quiet, r = no-reset, i = no-init, x = exit after [delay]
   now=$(date +%s%3N)
   elapsedms=$((end-start))  # calc elapsed
   printf "\n\e[1;32mi = $i, t = $elapsedms\e[0m\n\n"
