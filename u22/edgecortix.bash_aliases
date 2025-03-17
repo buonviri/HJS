@@ -96,6 +96,7 @@ alias cb00="python3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.edit+[]+[
 alias stayon+="python3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.bist.stayon+C-fast"
 alias stayon-="python3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.bist.[DASH]stayon+C-fast"
 alias bmc="info | tee ~/bmc.info && printf '\nBoth should be 0x18 on dual cards\n' && c008c | tee -a ~/bmc.info"
+alias qbmc="~/mera_package/bmc GetBmcInfor"
 alias xl1="source ~/HJS/u22/xl1.sh"
 alias xl2="source ~/HJS/u22/xl2.sh"
 alias xl3="source ~/HJS/u22/xl3.sh"
@@ -171,5 +172,5 @@ alias dry4="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 9999"
 alias dry5="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 99999"
 alias trump="source ~/HJS/mfg/trump.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v3.74\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.75\e[0m\n\n'"
 # EOF
