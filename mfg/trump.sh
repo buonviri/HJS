@@ -22,8 +22,8 @@ start=$(date +%s%3N)
 # iterate
 for (( i=0; i<$count; i++ )); do
   now=$(date +%s%3N)
-  elapsedms=$((end-start))  # calc elapsed
-  printf "\n\e[1;32mi = $i, t = $elapsedms\e[0m\n\n"
+  elapsedms=$((now-start))  # calc elapsed
+  printf "\n\e[1;32mi = $i\nt = $elapsedms\e[0m\n\n"
   echo "$query" | xargs python3 demo_model.py
 done
 
@@ -31,10 +31,12 @@ de
 cd
 echo
 s2
+now=$(date +%s%3N)
+elapsedms=$((now-start))  # calc elapsed
 if [ $count == 1 ]; then
-  printf "\n\e[1;32mCompleted 1 query.\e[0m\n\n"
+  printf "\n\e[1;32mCompleted 1 query.\nt = $elapsedms\e[0m\n\n"
 else
-  printf "\n\e[1;32mCompleted $i queries.\e[0m\n\n"
+  printf "\n\e[1;32mCompleted $i queries.\nt = $elapsedms\e[0m\n\n"
 fi
 
 # EOF
