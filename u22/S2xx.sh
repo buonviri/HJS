@@ -18,7 +18,7 @@ echo
 # cb12  # now works for both cards
 # echo
 
-cd $mera/install_mera && source start.sh && cd $mera/initialize_sakura_ii && chmod +x ./setup.sh && ./setup.sh
+cd $mera/install_mera && source start.sh && cd $mera/initialize_sakura_ii && chmod +x ./setup_3pg_none.sh && ./setup_3pg_none.sh
 cd $mera
 
 echo
