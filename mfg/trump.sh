@@ -17,13 +17,13 @@ else
 fi
 
 # get start time
-start=$(date +%s%3N)
+start=$(date +%s%4N)
 
 # iterate
 for (( i=0; i<$count; i++ )); do
-  now=$(date +%s%3N)
+  now=$(date +%s%4N)
   elapsedms=$((now-start))  # calc elapsed
-  elapsed=$(echo "$elapsedms/1000" | bc -l)
+  elapsed=$(echo "$elapsedms/10000.0" | bc -l)
   printf "\n\e[1;32mi = $i\nt = %.3f s\e[0m\n\n" "$elapsed"
   echo "$query" | xargs python3 demo_model.py
 done
@@ -32,9 +32,9 @@ de
 cd
 echo
 s2
-now=$(date +%s%3N)
+now=$(date +%s%4N)
 elapsedms=$((now-start))  # calc elapsed
-elapsed=$(echo "$elapsedms/1000" | bc -l)
+elapsed=$(echo "$elapsedms/10000.0" | bc -l)
 if [ $count == 1 ]; then
   printf "\n\e[1;32mCompleted 1 query.\nt = %.3f s\e[0m\n\n" "$elapsed"
 else
