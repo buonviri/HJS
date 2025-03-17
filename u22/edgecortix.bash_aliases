@@ -123,6 +123,7 @@ alias s2do="python3 ~/HJS/statlog/statlog.py S2XX"
 alias s2i="source ~/HJS/u22/S2xx.sh"
 alias s2icb="source ~/HJS/u22/S2xx-cb.sh"
 alias s2s="mera --lssakura | tee ~/sak.info"
+alias qok="~/mera_package/bmc BoardStatusCmd"
 alias s2env="source ~/HJS/u22/S2env.sh"
 alias de="deactivate"
 # End of S2 utils, start of S2 models
@@ -173,5 +174,5 @@ alias dry4="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 9999"
 alias dry5="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 99999"
 alias trump="source ~/HJS/mfg/trump.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v3.75\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.76\e[0m\n\n'"
 # EOF
