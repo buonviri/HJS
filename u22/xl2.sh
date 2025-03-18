@@ -3,11 +3,15 @@
 baud="230400"
 baudx="2"
 undo="br2x"
+folder="hex"  # default, may get overwritten
+hexver="S112"  # default, update as needed
 
 if [ $# == 1 ]; then  # one arg was passed
-  hexver="$1"  # set to arg
-else
-  hexver="S112"  # default
+  hexver="$1"  # set to arg, overwrite default version
+  if "$hexver" == "-d" ]; then  # special case, debug
+    folder="hex-debug"
+    hexver="xload"
+  fi
 fi
 
 function red () {
@@ -44,7 +48,7 @@ if [ -e /dev/ttyUSB0 ]; then
   echo
   echo "[Sending hex file $hexver.hex]"
   echo
-  cat /home/ec/hex-ftdi-cfg/hex/$hexver.hex | picocom -qrix 1000 /dev/ttyUSB0
+  cat /home/ec/hex-ftdi-cfg/$folder/$hexver.hex | picocom -qrix 1000 /dev/ttyUSB0
 fi
 end=$(date +%s)
 elapsed=$((end-start))
