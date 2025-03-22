@@ -15,7 +15,7 @@ hostname | tee -a ~/sys.info
 foo=$(cat ~/sys.info | grep EC-RP)
 if [ $? -eq 0 ]; then  # found RP
   cat /proc/device-tree/model | tee -a ~/sys.info
-  echo " \\n" | tee -a ~/sys.info  # rpi version has no newline
+  echo " [EOL]" | tee -a ~/sys.info  # rpi version has no newline
 else
   cat /sys/devices/virtual/dmi/id/board_vendor | tee -a ~/sys.info
   printf " -> " | tee -a ~/sys.info  # indent
@@ -26,6 +26,7 @@ else
 fi
 lscpu | grep -Po 'Model name:\s+\K.*' | tee -a ~/sys.info
 lsb_release -d | grep -Po 'Description:\s+\K.*' | tee -a ~/sys.info
+printf " -> " | tee -a ~/sys.info  # indent
 uname -r | tee -a ~/sys.info
 # doesn't work in 20.04, suppress error
 powerprofilesctl get 2> /dev/null | tee -a ~/sys.info
