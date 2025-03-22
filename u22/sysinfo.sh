@@ -14,7 +14,7 @@ echo -n "" > ~/sys.info
 hostname | tee -a ~/sys.info
 foo=$(cat ~/sys.info | grep EC-RP)
 if [ $? -eq 0 ]; then
-  cat /proc/device-tree/model
+  cat /proc/device-tree/model | tee -a ~/sys.info
 else
   cat /sys/devices/virtual/dmi/id/board_vendor | tee -a ~/sys.info
   cat /sys/devices/virtual/dmi/id/board_name | tee -a ~/sys.info
