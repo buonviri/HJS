@@ -12,10 +12,15 @@ echo -n "" > ~/sys.info
 
 # append lines with system info
 hostname | tee -a ~/sys.info
-cat /sys/devices/virtual/dmi/id/board_vendor | tee -a ~/sys.info
-cat /sys/devices/virtual/dmi/id/board_name | tee -a ~/sys.info
-cat /sys/devices/virtual/dmi/id/bios_version | tee -a ~/sys.info
-cat /sys/devices/virtual/dmi/id/bios_release | tee -a ~/sys.info
+foo=$(cat ~/sys.info | grep EC-RP)
+if [ $? -eq 0 ]; then
+  cat /proc/device-tree/model
+else
+  cat /sys/devices/virtual/dmi/id/board_vendor | tee -a ~/sys.info
+  cat /sys/devices/virtual/dmi/id/board_name | tee -a ~/sys.info
+  cat /sys/devices/virtual/dmi/id/bios_version | tee -a ~/sys.info
+  cat /sys/devices/virtual/dmi/id/bios_release | tee -a ~/sys.info
+fi
 lscpu | grep -Po 'Model name:\s+\K.*' | tee -a ~/sys.info
 lsb_release -d | grep -Po 'Description:\s+\K.*' | tee -a ~/sys.info
 uname -r | tee -a ~/sys.info
