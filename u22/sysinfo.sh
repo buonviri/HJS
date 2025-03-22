@@ -13,8 +13,9 @@ echo -n "" > ~/sys.info
 # append lines with system info
 hostname | tee -a ~/sys.info
 foo=$(cat ~/sys.info | grep EC-RP)
-if [ $? -eq 0 ]; then
+if [ $? -eq 0 ]; then  # found RP
   cat /proc/device-tree/model | tee -a ~/sys.info
+  echo "..." | tee -a ~/sys.info  # rpi version has no newline
 else
   cat /sys/devices/virtual/dmi/id/board_vendor | tee -a ~/sys.info
   cat /sys/devices/virtual/dmi/id/board_name | tee -a ~/sys.info
