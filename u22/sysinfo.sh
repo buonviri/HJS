@@ -47,4 +47,6 @@ else  # terminal only, not stored in sys.info
     echo No S2XX found.
 fi
 
+cd
+
 # EOF
