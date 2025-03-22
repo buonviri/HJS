@@ -14,8 +14,7 @@ echo -n "" > ~/sys.info
 hostname | tee -a ~/sys.info
 foo=$(cat ~/sys.info | grep EC-RP)
 if [ $? -eq 0 ]; then  # found RP
-  cat /proc/device-tree/model | sed '$a\' | tee -a ~/sys.info
-  # echo " [EOL]" | tee -a ~/sys.info  # rpi version has no newline
+  cat /proc/device-tree/model | sed '$a\' | tee -a ~/sys.info  # rpi version has no newline
 else
   cat /sys/devices/virtual/dmi/id/board_vendor | tee -a ~/sys.info
   printf " -> " | tee -a ~/sys.info  # indent
