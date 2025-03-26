@@ -4,7 +4,7 @@ baud="230400"
 baudx="2"
 undo="br2x"
 folder="hex"  # default, may get overwritten
-hexver="S112"  # default, update as needed
+hexver="S115"  # default, update as needed
 
 if [ $# == 1 ]; then  # one arg was passed
   hexver="$1"  # set to arg, overwrite default version
