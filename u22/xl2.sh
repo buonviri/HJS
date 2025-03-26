@@ -15,10 +15,14 @@ if [ $# == 1 ]; then  # one arg was passed
   elif [ "$hexver" == "-L" ]; then  # special case, linux-compiled
     folder="hex-validation"
     hexver="SL"
+  elif [ "$hexver" == "-W" ]; then  # special case, windows-compiled
+    folder="hex-validation"
+    hexver="SW"
   elif [ "$hexver" == "-h" ]; then  # special case, help
     echo "  -d: debug version"
     echo "  -h: this file"
     echo "  -L: secondary Linux validation"
+    echo "  -W: secondary Windows validation"
     help="1"
   fi
 fi
