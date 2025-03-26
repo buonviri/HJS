@@ -16,9 +16,9 @@ if [ $# == 1 ]; then  # one arg was passed
     folder="hex-validation"
     hexver="SL"
   elif [ "$hexver" == "-h" ]; then  # special case, help
-    echo "-d: debug version"
-    echo "-h: this file"
-    echo "-L: Linux validation"
+    echo "  -d: debug version"
+    echo "  -h: this file"
+    echo "  -L: Linux validation"
     help="1"
   fi
 fi
