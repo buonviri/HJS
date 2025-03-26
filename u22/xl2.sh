@@ -5,6 +5,7 @@ baudx="2"
 undo="br2x"
 folder="hex"  # default, may get overwritten
 hexver="S115"  # default, update as needed
+help="0"  # default, didn't ask for help
 
 if [ $# == 1 ]; then  # one arg was passed
   hexver="$1"  # set to arg, overwrite default version
@@ -17,7 +18,7 @@ if [ $# == 1 ]; then  # one arg was passed
   elif [ "$hexver" == "-h" ]; then  # special case, help
     echo "-d: debug version"
     echo "-L: Linux validation"
-    exit 0
+    help="1"
   fi
 fi
 
