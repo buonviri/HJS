@@ -14,6 +14,10 @@ if [ $# == 1 ]; then  # one arg was passed
   elif [ "$hexver" == "-L" ]; then  # special case, linux-compiled
     folder="hex-validation"
     hexver="SL"
+  elif [ "$hexver" == "-h" ]; then  # special case, help
+    echo "-d: debug version"
+    echo "-L: Linux validation"
+    exit 0
   fi
 fi
 
