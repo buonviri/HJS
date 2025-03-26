@@ -31,12 +31,13 @@ function purple () {
 }
 
 # initial warning
-echo
-purple "This process may take up to a minute. Do not access the serial port until it completes.\n"
-echo
-
-# change baud rate
-python3 ~/HJS/statlog/statlog.py S2XX-baud.$baudx | \grep "baud "  # >> /dev/null
+if [ "$help" == "0" ]; then 
+  echo
+  purple "This process may take up to a minute. Do not access the serial port until it completes.\n"
+  echo
+  # change baud rate
+  python3 ~/HJS/statlog/statlog.py S2XX-baud.$baudx | \grep "baud "  # >> /dev/null
+fi
 
 # set up picocom
 if [ -e /dev/ttyUSB0 ]; then
