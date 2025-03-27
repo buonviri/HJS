@@ -176,7 +176,7 @@ alias dry4="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 9999"
 alias dry5="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 99999"
 alias trump="source ~/HJS/mfg/trump.sh"
 # RPI5
-alias pi="picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0"
+alias pi="source ~/HJS/u22/pi.sh"
 alias pinfo="echo 'info' | picocom -qrix 500 /dev/ttyUSB0"
 alias pstats="echo 'stats' | picocom -qrix 500 /dev/ttyUSB0"
 alias pver="echo 'ver' | picocom -qrix 500 /dev/ttyUSB0"
