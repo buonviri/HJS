@@ -177,10 +177,6 @@ alias dry5="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 99999"
 alias trump="source ~/HJS/mfg/trump.sh"
 # RPI5
 alias pi="source ~/HJS/u22/pi.sh"
-alias pinfo="echo 'info' | picocom -qrix 500 /dev/ttyUSB0"
-alias pstats="echo 'stats' | picocom -qrix 500 /dev/ttyUSB0"
-alias pver="echo 'ver' | picocom -qrix 500 /dev/ttyUSB0"
-alias pxlog="echo 'xlog' | picocom -qrix 500 /dev/ttyUSB0"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v3.79\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.80\e[0m\n\n'"
 # EOF
