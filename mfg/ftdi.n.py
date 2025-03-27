@@ -19,6 +19,8 @@
 
 import os
 
+primary = 'P115'  # set revision of primary BMC hex file
+
 # Template:
 
 template = """<?xml version="1.0" encoding="utf-16"?>
@@ -239,7 +241,7 @@ if len(lot_code) in [5,]:  # check if length is in the list of valid lot code le
             folder = lot_code + suffix + done_suffix
             try:
                 with open('..\\..\\all\\' + folder + '\\' + lot_code + separator + str_sn + '.bat', 'w') as f:  # batch filename contains separator
-                    f.write(all.replace('PRIMARY', 'P112').replace('99999', lot_code).replace('ZZZ', str_sn))
+                    f.write(all.replace('PRIMARY', primary).replace('99999', lot_code).replace('ZZZ', str_sn))
             except:
                 missing_folders[folder] = 1
         print(sn_start + ' thru ' + sn_end)
