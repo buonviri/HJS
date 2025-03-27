@@ -67,7 +67,7 @@ alias fans="sensors | grep fan | grep -v ':[ \\t]\\+0 RPM' || echo No fans detec
 alias dimms="sudo dmidecode -t memory | grep -E 'Manufacturer:|Serial Number:|Part Number:|Volatile Size:.+GB' | grep -v -E 'Unknown|Not Specified' | awk '{\$1=\$1;print}' | tee ~/mem.info"
 alias temps="sensors | \grep ':.*+.*C'"
 alias aspm="source ~/HJS/u22/aspm.sh"
-alias lab="us ; we ; ptsync ; uu"
+alias lab="sudo echo 'Running us we ptsync uu:' ; us ; we ; ptsync ; uu"
 alias us="cd ~/HJS/u22 && git pull && source ./us.sh"
 alias we="cd ~/hex-ftdi-cfg && git pull"
 alias us2them="cd ~/HJS/u22 && git pull && source ./them.sh"
@@ -176,5 +176,5 @@ alias dry4="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 9999"
 alias dry5="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 99999"
 alias trump="source ~/HJS/mfg/trump.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v3.78\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.79\e[0m\n\n'"
 # EOF
