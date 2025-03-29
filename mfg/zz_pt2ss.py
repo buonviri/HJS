@@ -107,13 +107,19 @@ def summarize(lines, dirname, filename):
         elif 'srread error -1' in line:  # ignore these errors, send to bugs
             with open ('zzbugs.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
+        elif 'ihex parse error' in line:  # ignore these errors, send to bugs
+            with open ('zzbugs.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
         elif 'eeprom init failed' in line:  # ignore these errors, send to bugs
             with open ('zzbugs.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
         elif 'sakuraStart: status 0, PASS' in line:  # legacy, send to bugs
             with open ('zzbugs.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
-        elif line.startswith('0:'):  # xlog?
+        elif line.startswith('0:') or line.startswith('1:') or line.startswith('2:') or line.startswith('3:') or line.startswith('4:'):  # xlog?
+            with open ('zzxlog.tsv', 'a') as f:
+                f.write(line + '\n')  # append log
+        elif line.startswith('5:') or line.startswith('6:') or line.startswith('7:') or line.startswith('8:') or line.startswith('9:'):  # xlog?
             with open ('zzxlog.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
         # end of tsv files, start of dict

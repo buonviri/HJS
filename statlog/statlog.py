@@ -39,7 +39,7 @@ my_product = 'S1LP'
 def bmc_cmd(dev, cmd):
     dev.write(bytes(cmd + '\n', 'utf-8'))
     val = dev.read(99999)
-    return val.decode('utf-8').rstrip()  # 2025.01.29 test - replaced strip with rstrip
+    return val.decode('utf-8').rstrip().replace('\x00','')  # 2025.01.29 test - replaced strip with rstrip, 2025.03.28 removed all null chars
 # End
 
 
