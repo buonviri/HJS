@@ -223,7 +223,7 @@ with open ('zzhjs.tsv', 'w') as f:
 filecount = 0
 for dirname, dirnames, filenames in os.walk(ptpath):  # get info from prodtest folder
     for filename in filenames:
-        if filename.endswith('.txt') and '-0x' in filename:  # check extension and SN/TS separator
+        if filename.endswith('.txt') and '-0x' in filename and filename.startswith('10015'):  # check extension, SN/TS separator, lotcode
             filecount = filecount + 1
             if filecount % 10 == 0:  # add dot every 10
                 print('.', end='')

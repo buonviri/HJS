@@ -75,7 +75,7 @@ if [ "$help" == "0" ]; then
 
   # requires poweroff
   if [ -e /dev/ttyUSB0 ]; then
-    echo Cycle power to boot the new image.
+    echo Run prodtest to verify the hardware. Cycle power to boot the new image.
   fi
   echo
 
