@@ -84,6 +84,7 @@ if [ "${#sn_ftdi}" -eq 8 ] && [ "$sn_ftdi" == "$sn_bmc" ]; then
   sn_command=$(printf "sn %s %s" "${sn_bmc:0:5}" "${sn_bmc:5:8}")  # store serial number command
   printf "\nDisplay all stats using command: %s (SHIFT-CTRL-V ENTER)\n" "$sn_command"
   echo $sn_command | xsel -b  # copy to clipboard
+  echo $sn_command > ~/.last_sn  # write to hidden file
 else
   printf "\e[1;31mLength of serial number is incorrect or there is a mismatch: FTDI=$sn_ftdi BMC=$sn_bmc\e[0m\n"
 fi
