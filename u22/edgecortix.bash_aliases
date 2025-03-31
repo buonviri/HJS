@@ -154,6 +154,7 @@ alias bist="source ~/HJS/mfg/bist.sh"
 # alias is obsolete
 alias b8="printf '\n\e[1;31mRun xxf to summarize failures...\e[0m\n' && bist 8"
 alias sn="source ~/HJS/mfg/sn.sh"
+alias last="source ~/.last_sn"
 alias ptas="prodtest && printf '\e[1;35m->\e[0m\n' && ptsync"
 alias lot="source ~/HJS/mfg/lot.sh"
 alias lots="python3 ~/HJS/mfg/lots.py"
@@ -178,5 +179,5 @@ alias trump="source ~/HJS/mfg/trump.sh"
 # RPI5
 alias pi="source ~/HJS/u22/pi.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v3.80\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v3.81\e[0m\n\n'"
 # EOF
