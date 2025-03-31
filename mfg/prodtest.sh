@@ -21,6 +21,8 @@ printf "\e[1;35m%b\e[0m"  "   Reading BMC serial number / version / PCIe status 
 info > ~/bmc.info
 c008c >> ~/bmc.info
 cat ~/bmc.info | grep -i -E "variant|revision|c008c" | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  #  variants and revisions
+printf "     "  # indent
+cat ~/bmc.info | \grep -i -o -E "primary|secondary"
 
 # get serial number and card name
 sn_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iSerial 3 \K.*")
