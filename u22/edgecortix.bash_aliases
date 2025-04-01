@@ -62,7 +62,6 @@ alias sysinfo="cd ~/HJS/u22 && source sysinfo.sh"
 alias pci="source ~/HJS/u22/pcie.sh"
 alias pcie="source ~/HJS/u22/pcie.sh"
 alias 1fdc="sudo lspci -vvv -d 1fdc: | \\grep -E '1fdc|Subsystem:|LnkSta:|Region 0:|Region 2:|Region 4:' | tee ~/pci.info"
-# alias is obsolete
 alias fans="sensors | grep fan | grep -v ':[ \\t]\\+0 RPM' || echo No fans detected."
 alias dimms="sudo dmidecode -t memory | grep -E 'Manufacturer:|Serial Number:|Part Number:|Volatile Size:.+GB' | grep -v -E 'Unknown|Not Specified' | awk '{\$1=\$1;print}' | tee ~/mem.info"
 alias temps="sensors | \grep ':.*+.*C'"
