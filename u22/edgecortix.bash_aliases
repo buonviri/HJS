@@ -119,7 +119,6 @@ alias prodtest="source ~/HJS/mfg/prodtest.sh"
 alias pt="source ~/HJS/mfg/prodtest.sh"
 alias pt+="echo 'enabling auto-prodtest' ; echo 'The world is a vampire' > ~/.auto_prodtest"
 alias pt-="printf 'disabling auto-prodtest: ' ; rm -v ~/.auto_prodtest 2>&1 | \grep removed || echo 'already disabled'"
-alias ptd="pt dual"
 alias prodtestn="source ~/HJS/mfg/prodtestn.sh"
 alias ptsync="source ~/HJS/mfg/ptsync.sh"
 alias bist="source ~/HJS/mfg/bist.sh"
@@ -151,5 +150,5 @@ alias trump="source ~/HJS/mfg/trump.sh"
 # RPI5
 alias pi="source ~/HJS/u22/pi.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v4.01\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v4.02\e[0m\n\n'"
 # EOF

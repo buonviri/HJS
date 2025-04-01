@@ -19,13 +19,15 @@ usbsn | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  #  USB serial number
 # BMC: serial, version, PCIe
 printf "\e[1;35m%b\e[0m"  "   Reading BMC serial number / version / PCIe status (info and srread 0xC008C) - "
 info > ~/bmc.info
-if [ $# == 1 ]; then  # any single arg works
-  c008c-dual >> ~/bmc.info
-else
-  c008c >> ~/bmc.info
-fi
+# now in xlog:
+# if [ $# == 1 ]; then  # any single arg works
+#   c008c-dual >> ~/bmc.info
+# else
+#   c008c >> ~/bmc.info
+# fi
 
-cat ~/bmc.info | grep -i -E "variant|revision|c008c" | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  #  variants and revisions
+# removed '|c008c' from first grep since it's now part of xlog
+cat ~/bmc.info | grep -i -E "variant|revision" | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  #  variants and revisions
 cat ~/bmc.info | \grep -i -o -E "primary|secondary" || echo "Unknown"  # print one of three outcomes
 
 # get serial number and card name
