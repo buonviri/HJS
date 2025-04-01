@@ -75,7 +75,8 @@ alias xl3="source ~/HJS/u22/xl3.sh"
 alias a440="aplay /home/ec/HJS/u22/wav/440.wav --quiet"
 alias fault="source ~/HJS/u22/faultcodes.sh"
 alias info="python3 ~/HJS/statlog/statlog.py S2XX-info-void"
-alias c008c="python3 ~/HJS/statlog/statlog.py S2LP-srread.a.0xC008C+srread.b.0xC008C-void"
+alias c008c="python3 ~/HJS/statlog/statlog.py S2LP-srread.a.0xC008C-void"
+alias c008c-dual="python3 ~/HJS/statlog/statlog.py S2LP-srread.a.0xC008C+srread.b.0xC008C-void"
 alias xlog="xlogver | tee ~/zog.info && xlogslow | tee -a ~/zog.info"
 alias qxlog="~/mera_package/bmc RetrieveXlogData"
 alias xlogver="python3 ~/HJS/statlog/statlog.py S2XX-ver-null"
@@ -149,5 +150,5 @@ alias trump="source ~/HJS/mfg/trump.sh"
 # RPI5
 alias pi="source ~/HJS/u22/pi.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v4.00\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v4.01\e[0m\n\n'"
 # EOF
