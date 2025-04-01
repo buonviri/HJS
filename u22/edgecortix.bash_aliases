@@ -1,22 +1,5 @@
 
 # ubuntu aliases by HJS
-# alias is obsolete
-# alias is obsolete
-# alias is obsolete
-# alias is obsolete
-# alias is obsolete
-# alias is obsolete
-# alias is obsolete
-# alias is obsolete
-# alias is obsolete
-# alias is obsolete
-# alias is obsolete
-# alias is obsolete
-# alias is obsolete
-# alias is obsolete
-# alias is obsolete
-# alias is obsolete
-# alias is obsolete
 alias r="grep HugePages_ /proc/meminfo; printf '\n\e[1;35m   Confirm 4/4/0/0.\e[0m\n\n'"
 alias s="sensors; printf '\e[1;35m   Confirm fan and temp sensors.\e[0m\n\n'"
 alias t="sudo lspci | grep -i 1fdc:.... || echo Device not found: 1fdc:nnnn;printf '\n\e[1;35m   Confirm xx:00.0 is Co-processor with Device ID 1fdc:nnnn.\e[0m\n\n'"
