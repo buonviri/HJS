@@ -9,13 +9,6 @@ alias ar="sudo apt autoremove -y"
 alias 00="poweroff"
 alias 01="reboot"
 alias bios="systemctl reboot --firmware-setup"
-# alias is obsolete
-# alias is obsolete
-# alias is obsolete
-# alias is obsolete
-# alias is obsolete
-# alias is obsolete
-# alias is obsolete
 alias hjs="cd ~/HJS/u22"
 alias mfg="cd ~/HJS/mfg"
 alias snap="killall snap-store && snap refresh"
