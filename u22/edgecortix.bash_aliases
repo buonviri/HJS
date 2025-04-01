@@ -147,8 +147,10 @@ alias dry3="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 999"
 alias dry4="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 9999"
 alias dry5="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 99999"
 alias trump="source ~/HJS/mfg/trump.sh"
+alias d3="dryi ; dry3"
+alias t6="trump 6"
 # RPI5
 alias pi="source ~/HJS/u22/pi.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v4.02\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v4.03\e[0m\n\n'"
 # EOF
