@@ -44,7 +44,7 @@ alias fans="sensors | grep fan | grep -v ':[ \\t]\\+0 RPM' || echo No fans detec
 alias dimms="sudo dmidecode -t memory | grep -E 'Manufacturer:|Serial Number:|Part Number:|Volatile Size:.+GB' | grep -v -E 'Unknown|Not Specified' | awk '{\$1=\$1;print}' | tee ~/mem.info"
 alias temps="sensors | \grep ':.*+.*C'"
 alias aspm="source ~/HJS/u22/aspm.sh"
-alias lab="echo && sudo echo 'Running us-we-ptsync-uu' && echo ; us ; we ; ptsync ; uu"
+alias lab="echo && sudo echo 'Running us-we-ptsync-uu' && echo ; us ; we ; ptsync ; uu ; cd"
 alias us="cd ~/HJS/u22 && git pull && source ./us.sh"
 alias we="cd ~/hex-ftdi-cfg && git pull"
 alias us2them="cd ~/HJS/u22 && git pull && source ./them.sh"
