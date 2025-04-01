@@ -123,7 +123,7 @@ alias prodtestn="source ~/HJS/mfg/prodtestn.sh"
 alias ptsync="source ~/HJS/mfg/ptsync.sh"
 alias bist="source ~/HJS/mfg/bist.sh"
 # alias is obsolete
-alias b8="printf '\n\e[1;31mRun xxf to summarize failures...\e[0m\n' && bist 8"
+alias b8="printf '\n\e[1;35mRun xxf to summarize failures...\e[0m\n' && bist 8"
 alias sn="source ~/HJS/mfg/sn.sh"
 alias last="source ~/.last_sn"
 alias ptas="prodtest && printf '\e[1;35m->\e[0m\n' && ptsync"
