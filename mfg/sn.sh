@@ -65,7 +65,11 @@ if [ $# == 2 ]; then
     echo "${my_array[@]}"
 
     my_array=("T-SAK:")
-    t=$(cat $foobar$star | grep -o -P 'MAX,.*,.*,.*,\s+\K.+,' | sed "s/\.00,//g")
+    if [ "$1" == "52979" ] || [ "$1" == "52980" ] ; then  # LP card, need to fix
+      t="n/a"
+    else
+      t=$(cat $foobar$star | grep -o -P 'MAX,.*,.*,.*,\s+\K.+,' | sed "s/\.00,//g")
+    fi
     while read line; do
       if [[ ! " ${my_array[@]} " =~ " ${line} " ]]; then
         my_array+=("${line}")
