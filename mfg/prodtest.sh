@@ -30,17 +30,18 @@ info > ~/bmc.info
 cat ~/bmc.info | grep -i -E "variant|revision" | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  #  variants and revisions
 cat ~/bmc.info | \grep -i -o -E "primary|secondary" || echo "Unknown"  # print one of three outcomes
 
+# cfg edit string
+cfga > /dev/null
+cfgb > /dev/null
+cfg4pt >> ~/.prodtest-$hexstamp
+
 # get serial number and card name
 sn_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iSerial 3 \K.*")
 sn_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P ".....-PAC..." | sed "s/-PAC//g")  # SNSEP
 id_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iProduct 2 FT230X on \K.*")
 id_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board: EdgeCortix \K....")
 dual=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board:.*variant \K...")  # should be D16 or S16
-
-# cfg edit string
-cfga > /dev/null
-cfgb > /dev/null
-cfg4pt >> ~/.prodtest-$hexstamp
+missing=$(cat ~/.prodtest-$hexstamp | \grep "MISSING")  # should not be found
 
 # 1FDC:xxxx
 printf "\e[1;35m%b\e[0m" "   Reading OS info (lspci - requires sudo)\n"
@@ -82,7 +83,9 @@ echo  # results
 cat ~/.prodtest-$hexstamp
 
 # rename based on serial number
-if [ "${#sn_ftdi}" -eq 8 ] && [ "$sn_ftdi" == "$sn_bmc" ]; then
+if [ -n "$missing" ]; then  # check if not empty
+  printf "\e[1;31mSerial Failure\e[0m\n"
+elif [ "${#sn_ftdi}" -eq 8 ] && [ "$sn_ftdi" == "$sn_bmc" ]; then
   printf "\e[1;32mVerify %s == %s \u2611\e[0m\n" $sn_ftdi $sn_bmc
   # printf "Lot Code: ${sn_bmc:0:5}\n"
   mkdir -p ~/prodtest/"${sn_bmc:0:5}"
