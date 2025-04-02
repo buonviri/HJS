@@ -149,8 +149,9 @@ alias dry5="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 99999"
 alias trump="source ~/HJS/mfg/trump.sh"
 alias d3="dryi ; dry3"
 alias t6="trump 6"
+alias 2dot02="cat ~/prodtest/10015/*.txt | \grep -o '10015[0-9][0-9][0-9]+1+5+1066+2\[DOT\]02.*1+98' | sed 's/+/ /g' | sed 's/10015/10015-/g'"
 # RPI5
 alias pi="source ~/HJS/u22/pi.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v4.03\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v4.04\e[0m\n\n'"
 # EOF
