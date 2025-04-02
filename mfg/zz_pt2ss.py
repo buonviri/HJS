@@ -136,7 +136,7 @@ def summarize(lines, dirname, filename):
                 print('Wrong token count: ' + line)
                 prod = 'ZZZZ'
                 var = 'ABCDEF'
-                ser = 'XXXXX-PACYYY'
+                ser = 'XXXXX-PACYYY'  # SNSEP
                 node = '?'
                 rev = 'GHI'
             key = GetKey(ser, node, prod, var, rev)

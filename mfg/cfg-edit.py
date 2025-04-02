@@ -2,6 +2,8 @@
 import os
 import ast
 
+separator = '-PAC'  # SNSEP
+
 # info
 prefix = '@python.exe C:\\EdgeCortix\\HJS\\statlog\\statlog.py S2XX-cfg.[DASH]unlock+cfg.edit+'
 suffix = '+C-fast\n'  # removed for better all batch file performance: @timeout 60\n
@@ -54,7 +56,7 @@ for config in foo:
         end = ''
         for i in range(cfg['lotcodes'][rawlotcode][0], cfg['lotcodes'][rawlotcode][1] + 1):
             sn = '%03d' % i
-            fname = 'cfg-edit-' + lotcode + '-PAC' + sn
+            fname = 'cfg-edit-' + lotcode + separator + sn
             if len(start) == 0:
                 start = '     ' + fname  # indent 5
             else:

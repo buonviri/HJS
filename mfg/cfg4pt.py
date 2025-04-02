@@ -105,33 +105,3 @@ if WINDOWS and do_pause:
     os.system('timeout /t 60')  # windows only, keep window open, keystroke ends it instantly        
 
 # EOF
-
-"""
-             S2M2
-             S16NFN
-             10014-PAC005
-             10014005
-             1
-             5
-             0
-             2.01
-             2025.01.17
-            2025.01.23
-             1
-             0
-             2
-             800
-             1 (x4)
-             0
-             550
-             2
-             0
-             1
-             99 C
-             95 C
-             85 C
-             1 (A)
-             1 (A)
-            a0 a1
-             a0 a1 ctlr pi addr
-"""

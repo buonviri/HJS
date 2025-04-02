@@ -109,7 +109,7 @@ batch = ('@echo off\n'
          'echo DONE\n')
          # removed: 'timeout 10\n')
 
-# End of batch file, start of all
+# End of batch file, start of all, contains SNSEP
 
 all = """@echo off
 :start
