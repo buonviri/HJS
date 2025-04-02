@@ -150,8 +150,10 @@ alias trump="source ~/HJS/mfg/trump.sh"
 alias d3="dryi ; dry3"
 alias t6="trump 6"
 alias 2dot02="cat ~/prodtest/10015/*.txt | \grep -o '10015[0-9][0-9][0-9]+1+5+1066+2\[DOT\]02.*1+98' | sed 's/+/ /g' | sed 's/10015/10015-/g'"
+alias t988585="python3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.edit+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+98+85+85+[]+[]+C-fast"
+alias t988580="python3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.edit+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+98+85+80+[]+[]+C-fast"
 # RPI5
 alias pi="source ~/HJS/u22/pi.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v4.04\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v4.05\e[0m\n\n'"
 # EOF
