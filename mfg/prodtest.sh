@@ -19,6 +19,7 @@ usbsn | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  #  USB serial number
 # BMC: serial, version, PCIe
 printf "\e[1;35m%b\e[0m"  "   Reading BMC serial number / version / PCIe status (info and srread 0xC008C) - "
 info > ~/bmc.info
+qbmc > ~/.qbmc
 # now in xlog:
 # if [ $# == 1 ]; then  # any single arg works
 #   c008c-dual >> ~/bmc.info
@@ -82,6 +83,8 @@ s2 >> ~/.prodtest-$hexstamp
 
 echo  # results
 cat ~/.prodtest-$hexstamp
+printf "./bmc -> "
+cat ~/.qbmc | \grep -i "bmcrevision" || echo "BMC Revision failure in qbmc"  # print result or error message
 
 # rename based on serial number
 if [ -n "$cfg4pt_fail" ]; then  # check if not empty
