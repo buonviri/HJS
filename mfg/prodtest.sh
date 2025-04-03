@@ -34,6 +34,7 @@ cat ~/bmc.info | \grep -i -o -E "primary|secondary" || echo "Unknown"  # print o
 cfga > /dev/null
 cfgb > /dev/null
 cfg4pt >> ~/.prodtest-$hexstamp
+cfg4pt_fail=$(cat ~/.prodtest-$hexstamp | \grep "MISSING")  # should be empty, matches indicate serial failure
 
 # get serial number and card name
 sn_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iSerial 3 \K.*")
@@ -41,7 +42,6 @@ sn_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P ".....-PAC..." | sed "s/-PAC//g
 id_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iProduct 2 FT230X on \K.*")
 id_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board: EdgeCortix \K....")
 dual=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board:.*variant \K...")  # should be D16 or S16
-missing=$(cat ~/.prodtest-$hexstamp | \grep "MISSING")  # should not be found, result of cfg4pt failing serial
 
 # 1FDC:xxxx
 printf "\e[1;35m%b\e[0m" "   Reading OS info (lspci - requires sudo)\n"
@@ -50,6 +50,7 @@ printf "\e[1;35m%b\e[0m" "   Reading OS info (lspci - requires sudo)\n"
 # verify CB/PG
 printf "\e[1;35m%b\e[0m" "   Reading CB info (BMC pins)\n"
 enpg | \grep -E 'AEN|BEN|M2EN' | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # PG from BMC with only enable lines printed
+enpg_fail=$(cat ~/.prodtest-$hexstamp | \grep -E 'AEN|BEN|M2EN')  # should not be empty
 
 # xlog
 printf "\e[1;35m%b\e[0m"  "   Reading xlog...\n"
@@ -83,8 +84,10 @@ echo  # results
 cat ~/.prodtest-$hexstamp
 
 # rename based on serial number
-if [ -n "$missing" ]; then  # check if not empty
-  printf "\e[1;31mSerial Failure\e[0m\n"
+if [ -n "$cfg4pt_fail" ]; then  # check if not empty
+  printf "\e[1;31mSerial Failure during cfg4pt\e[0m\n"
+elif [ -z "$enpg_fail" ]; then  # check if empty
+  printf "\e[1;31mSerial Failure during enpg\e[0m\n"
 elif [ "${#sn_ftdi}" -eq 8 ] && [ "$sn_ftdi" == "$sn_bmc" ]; then
   printf "\e[1;32mVerify %s == %s \u2611\e[0m\n" $sn_ftdi $sn_bmc
   # printf "Lot Code: ${sn_bmc:0:5}\n"
