@@ -85,9 +85,9 @@ cat ~/.prodtest-$hexstamp
 
 # rename based on serial number
 if [ -n "$cfg4pt_fail" ]; then  # check if not empty
-  printf "\e[1;31mSerial Failure during cfg4pt\e[0m\n"
+  printf "\n\e[1;31mSerial Failure during cfg4pt\e[0m\n"
 elif [ -z "$enpg_fail" ]; then  # check if empty
-  printf "\e[1;31mSerial Failure during enpg\e[0m\n"
+  printf "\n\e[1;31mSerial Failure during enpg\e[0m\n"
 elif [ "${#sn_ftdi}" -eq 8 ] && [ "$sn_ftdi" == "$sn_bmc" ]; then
   printf "\e[1;32mVerify %s == %s \u2611\e[0m\n" $sn_ftdi $sn_bmc
   # printf "Lot Code: ${sn_bmc:0:5}\n"
@@ -99,7 +99,7 @@ elif [ "${#sn_ftdi}" -eq 8 ] && [ "$sn_ftdi" == "$sn_bmc" ]; then
   echo $sn_command | xsel -b  # copy to clipboard
   echo $sn_command > ~/.last_sn  # write to hidden file
 else
-  printf "\e[1;31mLength of serial number is incorrect or there is a mismatch: FTDI=$sn_ftdi BMC=$sn_bmc\e[0m\n"
+  printf "\n\e[1;31mLength of serial number is incorrect or there is a mismatch: FTDI=$sn_ftdi BMC=$sn_bmc\e[0m\n"
 fi
 
 echo
