@@ -13,8 +13,10 @@ echo "[ProdTest on $hostname at UTC=0x$hexstamp] -> ~/.prodtest-$hexstamp" > ~/.
 if [ -f ~/ftdi.info ]; then
   rm ~/ftdi.info  # remove existing file to be safe
 fi
-printf "\e[1;35m%b\e[0m" "   Reading FTDI serial number (lsusb)\n"
 usbsn | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  #  USB serial number
+sn_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iSerial 3 \K.*" | echo "Unknown")  # get serial number from OS
+printf "\e[1;35m%b\e[0m" "   Reading FTDI serial number (lsusb) - "
+echo $sn_ftdi
 
 # BMC: serial, version, PCIe
 printf "\e[1;35m%b\e[0m"  "   Reading BMC serial number / version / PCIe status (info and srread 0xC008C) - "
@@ -41,7 +43,6 @@ cfg4pt >> ~/.prodtest-$hexstamp
 cfg4pt_fail=$(cat ~/.prodtest-$hexstamp | \grep "MISSING")  # should be empty, matches indicate serial failure
 
 # get serial number and card name
-sn_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iSerial 3 \K.*")
 sn_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P ".....-PAC..." | sed "s/-PAC//g")  # SNSEP
 id_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iProduct 2 FT230X on \K.*")
 id_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board: EdgeCortix \K....")
