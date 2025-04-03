@@ -34,7 +34,7 @@ cat ~/bmc.info | \grep -i -o -E "primary|secondary" || echo "Unknown"  # print o
 cfga > /dev/null
 cfgb > /dev/null
 cfg4pt >> ~/.prodtest-$hexstamp
-cfg4pt_fail=$(cat ~/.prodtest-$hexstamp | \grep "DASH")  # should be empty, matches indicate serial failure
+cfg4pt_fail=$(cat ~/.prodtest-$hexstamp | \grep "MISSING")  # should be empty, matches indicate serial failure
 
 # get serial number and card name
 sn_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iSerial 3 \K.*")
