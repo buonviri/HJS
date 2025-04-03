@@ -65,7 +65,7 @@ if [ "$help" == "0" ]; then
     echo "[Sending file $folder/$hexver.hex]"
     echo "$stats\n" > ~/.xload  # send to file with extra newline
     cat /home/ec/hex-ftdi-cfg/$folder/$hexver.hex | picocom -qrix 1000 /dev/ttyUSB0 >> ~/.xload  # append file
-    cat ~/.xload | GREP_COLORS='ms=01;32' grep --color=auto -E "12631|201840|$"
+    cat ~/.xload | GREP_COLORS='ms=01;32' grep --color=auto -E " S115| 12631| 201840| 198| 0x00080000| 0x000b146f|$"
   fi
   end=$(date +%s)
   elapsed=$((end-start))
