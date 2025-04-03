@@ -61,7 +61,7 @@ xerr | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # xlog pass/fail/error line
 printf "\e[1;35m%b\e[0m"  "   Running all DMA tests...\n"
 bistfail=$(cat ~/.prodtest-$hexstamp | \grep -i "fail")
 if [ -n "$bistfail" ]; then  # check if not empty
-  printf "\e[1;31m%b\e[0m"  "   ABORTED DUE TO BIST FAILURE\n"
+  printf "\e[1;31m%b\e[0m"  "   ABORTED DUE TO BOOT OR BIST FAILURE\n"
 else
   cd ~/dna2_self_test_2_2_0/ > /dev/null  # setup must be run from the correct folder
   ./setup_3pg_none.sh > /dev/null 2>&1  # hide all of the spam, now skips dma_test
