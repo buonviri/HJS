@@ -92,7 +92,7 @@ def summarize(lines, dirname, filename):
         elif line.startswith('Trial') or line.startswith('ALL DMA') or line.startswith('Testing Device') or line.startswith('PASSED - device') or line.startswith('FAILED - device') or line.startswith('ERROR: One or more DMA tests failed'):  # dma_test
             with open ('zzdma_test.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
-        elif '[QUOTE][STAR]' in line or 'Name Pin Pfs Mode Val Drive' in line or '-quotestar-' in line:  # BMC spam
+        elif '[QUOTE][STAR]' in line or 'Name Pin Pfs Mode Val Drive' in line or '-quotestar-' in line or line.startswith('bmc bin ->'):  # BMC spam
             with open ('zzbmcspam.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
         elif 'sakuraDriver wait' in line or 'sakuraDriver read' in line or 'sakuraDriver write' in line:  # ignore these errors, send to bugs
