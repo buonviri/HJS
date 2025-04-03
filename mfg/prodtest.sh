@@ -30,6 +30,9 @@ qbmc > ~/.qbmc
 # removed '|c008c' from first grep since it's now part of xlog
 cat ~/bmc.info | grep -i -E "variant|revision" | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  #  variants and revisions
 cat ~/bmc.info | \grep -i -o -E "primary|secondary" || echo "Unknown"  # print one of three outcomes
+qbmc_result=$(cat ~/.qbmc | \grep -i "bmcXrevision" || echo "Failed to read BMC Revision")  # either read string or report error
+printf "bmc bin -> $qbmc_result\n" >> ~/.prodtest-$hexstamp
+  # print result or error message
 
 # cfg edit string
 cfga > /dev/null
@@ -83,8 +86,6 @@ s2 >> ~/.prodtest-$hexstamp
 
 echo  # results
 cat ~/.prodtest-$hexstamp
-printf "./bmc -> "
-cat ~/.qbmc | \grep -i "bmcrevision" || echo "BMC Revision failure in qbmc"  # print result or error message
 
 # rename based on serial number
 if [ -n "$cfg4pt_fail" ]; then  # check if not empty
