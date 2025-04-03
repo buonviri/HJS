@@ -41,7 +41,7 @@ sn_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P ".....-PAC..." | sed "s/-PAC//g
 id_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iProduct 2 FT230X on \K.*")
 id_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board: EdgeCortix \K....")
 dual=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board:.*variant \K...")  # should be D16 or S16
-missing=$(cat ~/.prodtest-$hexstamp | \grep "MISSING")  # should not be found
+missing=$(cat ~/.prodtest-$hexstamp | \grep "MISSING")  # should not be found, result of cfg4pt failing serial
 
 # 1FDC:xxxx
 printf "\e[1;35m%b\e[0m" "   Reading OS info (lspci - requires sudo)\n"
