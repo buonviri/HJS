@@ -5,7 +5,7 @@ baudx="2"
 undo="br2x"
 folder="hex"  # default, may get overwritten
 hexver="S115"  # default, update as needed
-stats="Expected stats for S115: 12631 201840 198 0"  # stats displayed by BMC after xload completes
+stats="Expected stats for S115 -> 12631 201840 198 0"  # stats displayed by BMC after xload completes
 help="0"  # default, didn't ask for help
 
 if [ $# == 1 ]; then  # one arg was passed
