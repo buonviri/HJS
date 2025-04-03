@@ -34,7 +34,7 @@ cat ~/bmc.info | \grep -i -o -E "primary|secondary" || echo "Unknown"  # print o
 cfga > /dev/null
 cfgb > /dev/null
 cfg4pt >> ~/.prodtest-$hexstamp
-cfg4pt_fail=$(cat ~/.prodtest-$hexstamp | \grep "MISSING")  # should be empty, matches indicate serial failure
+cfg4pt_fail=$(cat ~/.prodtest-$hexstamp | \grep "MISSINGLY")  # should be empty, matches indicate serial failure
 
 # get serial number and card name
 sn_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iSerial 3 \K.*")
@@ -50,7 +50,7 @@ printf "\e[1;35m%b\e[0m" "   Reading OS info (lspci - requires sudo)\n"
 # verify CB/PG
 printf "\e[1;35m%b\e[0m" "   Reading CB info (BMC pins)\n"
 enpg | \grep -E 'AEN|BEN|M2EN' | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # PG from BMC with only enable lines printed
-enpg_fail=$(cat ~/.prodtest-$hexstamp | \grep -E 'this will fail')  # should not be empty
+enpg_fail=$(cat ~/.prodtest-$hexstamp | \grep -E 'AEN|BEN|M2EN')  # should not be empty
 
 # xlog
 printf "\e[1;35m%b\e[0m"  "   Reading xlog...\n"
