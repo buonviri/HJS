@@ -95,7 +95,7 @@ elif [ "${#sn_ftdi}" -eq 8 ] && [ "$sn_ftdi" == "$sn_bmc" ]; then
   printf "HJS "  # signature prefix
   mv -v ~/.prodtest-$hexstamp ~/prodtest/"${sn_bmc:0:5}"/"$sn_bmc"-0x"$hexstamp".txt  # rename file
   sn_command=$(printf "sn %s %s" "${sn_bmc:0:5}" "${sn_bmc:5:8}")  # store serial number command
-  printf "\nDisplay all stats using command: %s (SHIFT-CTRL-V ENTER)\n" "$sn_command"
+  printf "\nDisplay all stats using command: %s (SHIFT-CTRL-V ENTER) or the alias \"last\"\n" "$sn_command"
   echo $sn_command | xsel -b  # copy to clipboard
   echo $sn_command > ~/.last_sn  # write to hidden file
 else
