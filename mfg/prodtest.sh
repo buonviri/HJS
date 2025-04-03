@@ -14,7 +14,7 @@ if [ -f ~/ftdi.info ]; then
   rm ~/ftdi.info  # remove existing file to be safe
 fi
 usbsn | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  #  USB serial number
-sn_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iSerial 3 \K.*" | echo "Unknown")  # get serial number from OS
+sn_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iSerial 3 \K.*" || echo "Unknown")  # get serial number from OS
 printf "\e[1;35m%b\e[0m" "   Reading FTDI serial number (lsusb) - "
 echo $sn_ftdi
 
