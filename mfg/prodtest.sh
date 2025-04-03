@@ -50,7 +50,7 @@ printf "\e[1;35m%b\e[0m" "   Reading OS info (lspci - requires sudo)\n"
 # verify CB/PG
 printf "\e[1;35m%b\e[0m" "   Reading CB info (BMC pins)\n"
 enpg | \grep -E 'AEN|BEN|M2EN' | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # PG from BMC with only enable lines printed
-enpg_fail=$(cat ~/.prodtest-$hexstamp | \grep -E 'AEN|BEN|M2EN')  # should not be empty
+enpg_fail=$(cat ~/.prodtest-$hexstamp | \grep -E 'this will fail')  # should not be empty
 
 # xlog
 printf "\e[1;35m%b\e[0m"  "   Reading xlog...\n"
