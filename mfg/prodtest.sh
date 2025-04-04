@@ -45,8 +45,10 @@ id_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board: EdgeCortix \K....")
 dual=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board:.*variant \K...")  # should be D16 or S16
 
 # 1FDC:xxxx
-printf "\e[1;35m%b\e[0m" "   Reading OS info (lspci - requires sudo)\n"
-1fdc | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # PCIe without leading spaces, uses sudo
+printf "\e[1;35m%b\e[0m" "   Reading OS info (lspci - requires sudo) - "
+1fdc | awk '{$1=$1;print}' > ~/.1fdc
+cat ~/.1fdc | grep -i '1fdc' || echo "Unknown"
+cat ~/.1fdc >> ~/.prodtest-$hexstamp  # PCIe without leading spaces, requires sudo
 
 # verify CB/PG
 printf "\e[1;35m%b\e[0m" "   Reading CB info (BMC pins)\n"
