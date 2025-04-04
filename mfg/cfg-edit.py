@@ -18,6 +18,7 @@ files = {  # py extension allows auto-color, key is desc of range, val is filena
     'S2M2-S16 v1.5 for BMC 1.1.x-feb': '.10015.1.28.py',
     'S2M2-S16 v1.5 for BMC 1.1.x-mar': '.10015.46.255.py',
     'S2LP-S16 v1.5 for BMC 1.1.x-mar': '.52980.14.53.py',
+    'S2LP-D16 v1.5 for BMC 1.1.x-mar': '.52979.29.255.py',
     }
 
 # end of info, start of functions
