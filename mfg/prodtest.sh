@@ -78,7 +78,7 @@ fi
 # ./bmc test, requires driver to be installed
 qbmc > ~/.qbmc
 qbmc_result=$(cat ~/.qbmc | \grep -i "bmcrevision" || echo "Failed to read BMC Revision")  # either read string or report error
-printf "bmc bin -> $qbmc_result\n" >> ~/.prodtest-$hexstamp
+printf "./bmc [bin] -> $qbmc_result\n" >> ~/.prodtest-$hexstamp
 
 # debug /00 issue
 echo "HJS WAS HERE [NULL CHAR ISSUE]" >> ~/.prodtest-$hexstamp
