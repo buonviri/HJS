@@ -115,6 +115,8 @@ all = """@echo off
 :start
 
 echo.
+echo Target: 99999-PACZZZ
+echo.
 echo Connect the Renesas Programmer.
 PAUSE 
 echo.
