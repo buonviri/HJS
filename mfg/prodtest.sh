@@ -21,7 +21,6 @@ echo $sn_ftdi
 # BMC: serial, version, PCIe
 printf "\e[1;35m%b\e[0m"  "   Reading BMC serial number / version / PCIe status (info and srread 0xC008C) - "
 info > ~/bmc.info
-qbmc > ~/.qbmc
 # now in xlog:
 # if [ $# == 1 ]; then  # any single arg works
 #   c008c-dual >> ~/bmc.info
@@ -32,9 +31,6 @@ qbmc > ~/.qbmc
 # removed '|c008c' from first grep since it's now part of xlog
 cat ~/bmc.info | grep -i -E "variant|revision" | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  #  variants and revisions
 cat ~/bmc.info | \grep -i -o -E "primary|secondary" || echo "Unknown"  # print one of three outcomes
-qbmc_result=$(cat ~/.qbmc | \grep -i "bmcrevision" || echo "Failed to read BMC Revision")  # either read string or report error
-printf "bmc bin -> $qbmc_result\n" >> ~/.prodtest-$hexstamp
-  # print result or error message
 
 # cfg edit string
 cfga > /dev/null
@@ -78,6 +74,11 @@ else
     dmasingle >> ~/.prodtest-$hexstamp  # run all DMA tests using version with minimal spam, single, S2LP or S2M2
   fi
 fi
+
+# ./bmc test, requires driver to be installed
+qbmc > ~/.qbmc
+qbmc_result=$(cat ~/.qbmc | \grep -i "bmcrevision" || echo "Failed to read BMC Revision")  # either read string or report error
+printf "bmc bin -> $qbmc_result\n" >> ~/.prodtest-$hexstamp
 
 # debug /00 issue
 echo "HJS WAS HERE [NULL CHAR ISSUE]" >> ~/.prodtest-$hexstamp
