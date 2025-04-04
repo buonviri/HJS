@@ -53,7 +53,8 @@ cat ~/.1fdc >> ~/.prodtest-$hexstamp  # PCIe without leading spaces, requires su
 # verify CB/PG
 printf "\e[1;35m%b\e[0m" "   Reading CB info (BMC pins) - "
 enpg > ~/.enpg
-cat ~/.enpg | \grep -i -o -P ' 1 ' || echo "Unknown"
+enpg_states=$(cat ~/.enpg | \grep -i -o -P ' 1 ' || echo "Unknown")
+echo $enpg_states
 cat ~/.enpg | \grep -E 'AEN|BEN|M2EN' | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # PG from BMC with only enable lines printed
 enpg_fail=$(cat ~/.prodtest-$hexstamp | \grep -E 'AEN|BEN|M2EN')  # should not be empty
 
