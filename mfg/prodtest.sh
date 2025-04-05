@@ -26,7 +26,6 @@ cat ~/prodtest/bin/bar-info >> ~/.prodtest-$hexstamp
 cfga > /dev/null
 cfgb > /dev/null
 cfg4pt >> ~/.prodtest-$hexstamp
-cfg4pt_fail=$(cat ~/.prodtest-$hexstamp | \grep "MISSING")  # should be empty, matches indicate serial failure
 
 # get serial number and card name
 sn_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P ".....-PAC..." | sed "s/-PAC//g")  # SNSEP
@@ -43,9 +42,6 @@ cat ~/prodtest/bin/bar-pcie >> ~/.prodtest-$hexstamp  # PCIe without leading spa
 cben=$(source ./cben.sh)
 printf "\e[1;35m%b\e[0m%s\n" "   CBEN: " "$cben"
 cat ~/prodtest/bin/bar-cben >> ~/.prodtest-$hexstamp  # compute blocks
-
-# temp
-enpg_fail=$(cat ~/.prodtest-$hexstamp | \grep -E 'AEN|BEN|M2EN')  # should not be empty
 
 # xlog
 printf "\e[1;35m%b\e[0m"  "   Reading xlog...\n"
@@ -84,6 +80,8 @@ echo  # results
 cat ~/.prodtest-$hexstamp
 
 # rename based on serial number
+cfg4pt_fail=$(cat ~/.prodtest-$hexstamp | \grep "MISSING")  # should be empty, matches indicate serial failure
+enpg_fail=$(cat ~/.prodtest-$hexstamp | \grep -E 'AEN|BEN|M2EN')  # should not be empty
 if [ -n "$cfg4pt_fail" ]; then  # check if not empty
   printf "\n\e[1;31mSerial Failure during cfg4pt\e[0m\n"
 elif [ -z "$enpg_fail" ]; then  # check if empty
