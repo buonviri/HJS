@@ -15,10 +15,12 @@ cd ~/prodtest/bin/
 # get serial number from FTDI
 ftdi=$(source ./ftdi.sh)
 printf "\e[1;35m%b\e[0m%s\n" "   FTDI: " "$ftdi"
+cat ~/prodtest/bin/bar-ftdi >> ~/.prodtest-$hexstamp
 
 # get image location from BMC
 nbmc=$(source ./info.sh)
 printf "\e[1;35m%b\e[0m%s\n" "   nBMC: " "$nbmc"
+cat ~/prodtest/bin/bar-info >> ~/.prodtest-$hexstamp
 
 # cfg edit string
 cfga > /dev/null
