@@ -18,9 +18,10 @@ cd ~/prodtest/bin/
 #fi
 #usbsn | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  #  USB serial number
 #sn_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iSerial 3 \K.*" || echo "Unknown")  # get serial number from OS
-#printf "\e[1;35m%b\e[0m" "   Reading FTDI serial number (lsusb) - "
 #echo $sn_ftdi
+printf "\e[1;35m%b\e[0m" "   FTDI: "
 ftdi=$(source ./ftdi.sh)
+echo $ftdi
 
 # BMC: serial, version, PCIe
 printf "\e[1;35m%b\e[0m"  "   Reading BMC serial number / version / PCIe status (info and srread 0xC008C) - "
