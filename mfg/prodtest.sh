@@ -13,18 +13,11 @@ echo "[ProdTest on $hostname at UTC=0x$hexstamp] -> ~/.prodtest-$hexstamp" > ~/.
 cd ~/prodtest/bin/
 
 # get serial number from FTDI
-#if [ -f ~/ftdi.info ]; then
-#  rm ~/ftdi.info  # remove existing file to be safe
-#fi
-#usbsn | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  #  USB serial number
-#sn_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iSerial 3 \K.*" || echo "Unknown")  # get serial number from OS
-#echo $sn_ftdi
-printf "\e[1;35m%b\e[0m" "   FTDI: "
 ftdi=$(source ./ftdi.sh)
-echo $ftdi
+printf "\e[1;35m%b\e[0m%s\n" "   FTDI: " "$ftdi"
 
 # BMC: serial, version, PCIe
-printf "\e[1;35m%b\e[0m"  "   Reading BMC serial number / version / PCIe status (info and srread 0xC008C) - "
+printf "\e[1;35m%b\e[0m"  "   nBMC: "
 info > ~/bmc.info
 # now in xlog:
 # if [ $# == 1 ]; then  # any single arg works
