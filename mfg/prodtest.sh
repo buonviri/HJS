@@ -35,11 +35,12 @@ id_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board: EdgeCortix \K....")
 dual=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board:.*variant \K...")  # should be D16 or S16
 
 # 1FDC:xxxx
-printf "\e[1;35m%b\e[0m" "   Reading OS info (lspci - requires sudo) - "
-1fdc | awk '{$1=$1;print}' > ~/.1fdc
-pcie_status=$(cat ~/.1fdc | \grep -i -o -P 'Speed.*' || echo "Unknown")
-echo $pcie_status | sed "s/) /) - /g" | sed "s/),/)/g"  # print after replacing some chars
-cat ~/.1fdc >> ~/.prodtest-$hexstamp  # PCIe without leading spaces, requires sudo
+pcie=$(source ./pcie.sh)
+printf "\e[1;35m%b\e[0m%s\n" "   PCIe: " "$pcie"
+#1fdc | awk '{$1=$1;print}' > ~/.1fdc
+#pcie_status=$(cat ~/.1fdc | \grep -i -o -P 'Speed.*' || echo "Unknown")
+#echo $pcie_status | sed "s/) /) - /g" | sed "s/),/)/g"  # print after replacing some chars
+cat ~/prodtest/bin/bar-pcie >> ~/.prodtest-$hexstamp  # PCIe without leading spaces, requires sudo
 
 # verify CB/PG
 printf "\e[1;35m%b\e[0m" "   Reading CB info (BMC pins) - "
