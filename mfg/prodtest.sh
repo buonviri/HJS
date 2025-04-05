@@ -9,14 +9,18 @@ hostname=$(hostname)
 # write timestamp
 echo "[ProdTest on $hostname at UTC=0x$hexstamp] -> ~/.prodtest-$hexstamp" > ~/.prodtest-$hexstamp
 
+# change to prodtest bin
+cd ~/prodtest/bin/
+
 # get serial number from FTDI
-if [ -f ~/ftdi.info ]; then
-  rm ~/ftdi.info  # remove existing file to be safe
-fi
-usbsn | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  #  USB serial number
-sn_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iSerial 3 \K.*" || echo "Unknown")  # get serial number from OS
-printf "\e[1;35m%b\e[0m" "   Reading FTDI serial number (lsusb) - "
-echo $sn_ftdi
+#if [ -f ~/ftdi.info ]; then
+#  rm ~/ftdi.info  # remove existing file to be safe
+#fi
+#usbsn | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  #  USB serial number
+#sn_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iSerial 3 \K.*" || echo "Unknown")  # get serial number from OS
+#printf "\e[1;35m%b\e[0m" "   Reading FTDI serial number (lsusb) - "
+#echo $sn_ftdi
+ftdi=$(source ./ftdi.sh)
 
 # BMC: serial, version, PCIe
 printf "\e[1;35m%b\e[0m"  "   Reading BMC serial number / version / PCIe status (info and srread 0xC008C) - "
@@ -40,7 +44,7 @@ cfg4pt_fail=$(cat ~/.prodtest-$hexstamp | \grep "MISSING")  # should be empty, m
 
 # get serial number and card name
 sn_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P ".....-PAC..." | sed "s/-PAC//g")  # SNSEP
-id_ftdi=$(cat ~/.prodtest-$hexstamp | \grep -o -P "iProduct 2 FT230X on \K.*")
+id_ftdi=$(cat ~/prodtest/bar-ftdi" | \grep -o -P "iProduct 2 FT230X on \K.*")
 id_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board: EdgeCortix \K....")
 dual=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board:.*variant \K...")  # should be D16 or S16
 
@@ -100,8 +104,8 @@ if [ -n "$cfg4pt_fail" ]; then  # check if not empty
   printf "\n\e[1;31mSerial Failure during cfg4pt\e[0m\n"
 elif [ -z "$enpg_fail" ]; then  # check if empty
   printf "\n\e[1;31mSerial Failure during enpg\e[0m\n"
-elif [ "${#sn_ftdi}" -eq 8 ] && [ "$sn_ftdi" == "$sn_bmc" ]; then
-  printf "\e[1;32mVerify %s == %s \u2611\e[0m\n" $sn_ftdi $sn_bmc
+elif [ "${#ftdi}" -eq 8 ] && [ "$ftdi" == "$sn_bmc" ]; then
+  printf "\e[1;32mVerify %s == %s \u2611\e[0m\n" $ftdi $sn_bmc
   # printf "Lot Code: ${sn_bmc:0:5}\n"
   mkdir -p ~/prodtest/"${sn_bmc:0:5}"
   printf "HJS "  # signature prefix
@@ -111,7 +115,7 @@ elif [ "${#sn_ftdi}" -eq 8 ] && [ "$sn_ftdi" == "$sn_bmc" ]; then
   echo $sn_command | xsel -b  # copy to clipboard
   echo $sn_command > ~/.last_sn  # write to hidden file
 else
-  printf "\n\e[1;31mLength of serial number is incorrect or there is a mismatch: FTDI=$sn_ftdi BMC=$sn_bmc\e[0m\n"
+  printf "\n\e[1;31mLength of serial number is incorrect or there is a mismatch: FTDI=$ftdi BMC=$sn_bmc\e[0m\n"
 fi
 
 echo
