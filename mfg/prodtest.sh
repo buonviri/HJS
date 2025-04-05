@@ -40,9 +40,9 @@ printf "\e[1;35m%b\e[0m%s\n" "   PCIe: " "$pcie"
 cat ~/prodtest/bin/bar-pcie >> ~/.prodtest-$hexstamp  # PCIe without leading spaces, requires sudo
 
 # verify CB/PG
-cben=$(source ./en.sh)
+cben=$(source ./cben.sh)
 printf "\e[1;35m%b\e[0m%s\n" "   CBEN: " "$cben"
-cat ~/prodtest/bin/bar-en >> ~/.prodtest-$hexstamp  # compute blocks
+cat ~/prodtest/bin/bar-cben >> ~/.prodtest-$hexstamp  # compute blocks
 
 # temp
 enpg_fail=$(cat ~/.prodtest-$hexstamp | \grep -E 'AEN|BEN|M2EN')  # should not be empty
