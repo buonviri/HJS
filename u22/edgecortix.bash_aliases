@@ -38,6 +38,7 @@ alias dimms="sudo dmidecode -t memory | grep -E 'Manufacturer:|Serial Number:|Pa
 alias temps="sensors | \grep ':.*+.*C'"
 alias aspm="source ~/HJS/u22/aspm.sh"
 alias lab="echo && sudo echo 'Running us-we-ptsync-uu' && echo ; us ; we ; ptsync ; uu ; cd"
+alias lab-="echo && sudo echo 'Running us-we-ptsync' && echo ; us ; we ; ptsync ; cd"
 alias us="cd ~/HJS/u22 && git pull && source ./us.sh"
 alias we="cd ~/hex-ftdi-cfg && git pull"
 alias us2them="cd ~/HJS/u22 && git pull && source ./them.sh"
@@ -158,5 +159,5 @@ alias t988580="python3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.edit+[
 # RPI5
 alias pi="source ~/HJS/u22/pi.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v4.06\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v4.07\e[0m\n\n'"
 # EOF
