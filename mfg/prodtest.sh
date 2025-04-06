@@ -86,7 +86,7 @@ cat ~/.prodtest-$hexstamp
 cfg4pt_fail=$(cat ~/.prodtest-$hexstamp | \grep "MISSING")  # should be empty, matches indicate serial failure
 enpg_fail=$(cat ~/.prodtest-$hexstamp | \grep -E 'AEN|BEN|M2EN')  # should not be empty
 if [ -n "$cfg4pt_fail" ]; then  # check if not empty
-  printf "\n\e[1;31mSerial Failure during cfg4pt\e[0m\n"
+  printf "\n\e[1;31mSerial Failure during cfge\e[0m\n"
 elif [ -z "$enpg_fail" ]; then  # check if empty
   printf "\n\e[1;31mSerial Failure during enpg\e[0m\n"
 elif [ "${#ftdi}" -eq 8 ] && [ "$ftdi" == "$sn_bmc" ]; then
