@@ -67,8 +67,8 @@ else
 fi
 
 # ./bmc test, requires driver to be installed
-~/mera_package/bmc GetBmcInfor > ~/.qbmc
-qbmc_result=$(cat ~/.qbmc | \grep -i "bmcrevision" || echo "Failed to read BMC Revision")  # either read string or report error
+~/prodtest/bin/bmc GetBmcInfor > ~/prodtest/bin/foo-qbmc
+qbmc_result=$(cat ~/prodtest/bin/foo-qbmc | \grep -i "bmcrevision" || echo "Failed to read BMC Revision")  # either read string or report error
 printf "./bmc [bin] -> $qbmc_result\n" >> ~/.prodtest-$hexstamp
 
 # debug /00 issue
