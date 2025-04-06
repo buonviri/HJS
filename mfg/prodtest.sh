@@ -67,6 +67,7 @@ else
 fi
 
 # ./bmc test, requires driver to be installed
+chmod +x ~/prodtest/bin/bmc
 ~/prodtest/bin/bmc GetBmcInfor > ~/prodtest/bin/foo-qbmc
 qbmc_result=$(cat ~/prodtest/bin/foo-qbmc | \grep -i "bmcrevision" || echo "Failed to read BMC Revision")  # either read string or report error
 printf "./bmc [bin] -> $qbmc_result\n" >> ~/.prodtest-$hexstamp
