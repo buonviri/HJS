@@ -46,7 +46,7 @@ cat ~/prodtest/bin/bar-xlog >> ~/.prodtest-$hexstamp  # xlog noteworthy lines
 
 # get serial number and card name
 id_ftdi=$(cat ~/prodtest/bin/bar-ftdi | \grep -o -P "iProduct 2 FT230X on \K.*")  # unused
-sn_bmc=$(cat ~/prodtest/bin/bar-info | \grep -o -P ".....-PAC..." | sed "s/-PAC//g")  # SN for comparison with FTDI
+sn_bmc=$(cat ~/prodtest/bin/bar-info | \grep -o -E ".....(-PAC|-EC-)..." | sed "s/-PAC//g" | sed "s/-EC-//g")  # SN for comparison with FTDI, allows -PAC and -EC- formats
 id_bmc=$(cat ~/prodtest/bin/bar-info | \grep -o -P "Board: EdgeCortix \K....")  # unused
 dual=$(cat ~/prodtest/bin/bar-info | \grep -o -P "Board:.*variant \K...")  # should be D16 or S16, determines dma version
 
