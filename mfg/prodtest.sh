@@ -106,11 +106,5 @@ else
   printf "\n\e[1;31mLength of serial number is incorrect or there is a mismatch: FTDI=$ftdi BMC=$sn_bmc\e[0m\n"
 fi
 
-echo temp:
-echo $sn_bmc
-echo $id_ftdi
-echo $id_bmc
-echo $dual
-
 echo
 # EOF
