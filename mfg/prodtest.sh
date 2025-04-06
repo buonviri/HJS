@@ -23,10 +23,10 @@ nbmc=$(source ./info.sh)
 purple_info "nBMC" "$nbmc"
 cat ~/prodtest/bin/bar-info >> ~/.prodtest-$hexstamp
 
-# cfg edit string - needs work
-cfga > /dev/null
-cfgb > /dev/null
-cfg4pt >> ~/.prodtest-$hexstamp
+# cfg edit string
+cfge=$(source ./cfge.sh)
+purple_info "CFGe" "$cfge"
+cat ~/prodtest/bin/bar-cfge >> ~/.prodtest-$hexstamp
 
 # get serial number and card name
 sn_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P ".....-PAC..." | sed "s/-PAC//g")  # SNSEP
