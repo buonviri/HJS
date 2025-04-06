@@ -2,8 +2,6 @@
 import os
 import ast
 
-separator = '-PAC'  # SNSEP
-
 # info
 prefix = '@python.exe C:\\EdgeCortix\\HJS\\statlog\\statlog.py S2XX-cfg.[DASH]unlock+cfg.edit+'
 suffix = '+C-fast\n'  # removed for better all batch file performance: @timeout 60\n
@@ -20,6 +18,7 @@ files = {  # py extension allows auto-color, key is desc of range, val is filena
     'S2LP-S16 v1.5 for BMC 1.1.x-mar': '.52980.14.53.py',
     'S2LP-D16 v1.5 for BMC 1.1.x-mar': '.52979.29.255.py',
     'S2LP-D16 v1.5 for BMC 1.1.x-apr': '.53287.1.255.py',
+    'S2M2-S16 for -EC- test': '.10015.4.5.py',
     }
 
 # end of info, start of functions
@@ -58,7 +57,7 @@ for config in foo:
         end = ''
         for i in range(cfg['lotcodes'][rawlotcode][0], cfg['lotcodes'][rawlotcode][1] + 1):
             sn = '%03d' % i
-            fname = 'cfg-edit-' + lotcode + separator + sn
+            fname = 'cfg-edit-' + lotcode + cfg['separator'] + sn
             if len(start) == 0:
                 start = '     ' + fname  # indent 5
             else:
