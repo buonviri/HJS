@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function purple_info () {  # converts parameter name and result to 'purple: white'
+function purple_info () {  # converts parameter name and result to 'purple: white' and add section header
   printf "\e[1;35m%s: \e[0m%s\n" "$1" "$2"
   echo "[[$1]]" >> ~/.prodtest-$hexstamp
 }
@@ -17,17 +17,17 @@ echo "[ProdTest on $hostname at UTC=0x$hexstamp] -> ~/.prodtest-$hexstamp" > ~/.
 # get serial number from FTDI
 ftdi=$(source ./ftdi.sh)
 purple_info "FTDI" "$ftdi"
-cat ~/prodtest/bin/bar-ftdi >> ~/.prodtest-$hexstamp
+cat ~/prodtest/bin/bar-ftdi >> ~/.prodtest-$hexstamp  # decimal SN
 
 # get image location from BMC
 nbmc=$(source ./info.sh)
 purple_info "nBMC" "$nbmc"
-cat ~/prodtest/bin/bar-info >> ~/.prodtest-$hexstamp
+cat ~/prodtest/bin/bar-info >> ~/.prodtest-$hexstamp  # Primary or Secondary
 
 # cfg edit string
 cfge=$(source ./cfge.sh)
 purple_info "CFGe" "$cfge"
-cat ~/prodtest/bin/bar-cfge >> ~/.prodtest-$hexstamp
+cat ~/prodtest/bin/bar-cfge >> ~/.prodtest-$hexstamp  # reconstituted cfg edit string
 
 # 1FDC:xxxx
 pcie=$(source ./pcie.sh)
@@ -45,8 +45,8 @@ purple_info "XLOG" "$xlog"
 cat ~/prodtest/bin/bar-xlog >> ~/.prodtest-$hexstamp  # xlog noteworthy lines
 
 # get serial number and card name
-sn_bmc=$(cat ~/prodtest/bin/bar-info | \grep -o -P ".....-PAC..." | sed "s/-PAC//g")  # SN for comparison with FTDI
 id_ftdi=$(cat ~/prodtest/bin/bar-ftdi | \grep -o -P "iProduct 2 FT230X on \K.*")  # unused
+sn_bmc=$(cat ~/prodtest/bin/bar-info | \grep -o -P ".....-PAC..." | sed "s/-PAC//g")  # SN for comparison with FTDI
 id_bmc=$(cat ~/prodtest/bin/bar-info | \grep -o -P "Board: EdgeCortix \K....")  # unused
 dual=$(cat ~/prodtest/bin/bar-info | \grep -o -P "Board:.*variant \K...")  # should be D16 or S16, determines dma version
 
