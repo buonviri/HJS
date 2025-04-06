@@ -29,12 +29,6 @@ cfge=$(source ./cfge.sh)
 purple_info "CFGe" "$cfge"
 cat ~/prodtest/bin/bar-cfge >> ~/.prodtest-$hexstamp
 
-# get serial number and card name
-sn_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P ".....-PAC..." | sed "s/-PAC//g")  # SNSEP
-id_ftdi=$(cat ~/prodtest/bin/bar-ftdi | \grep -o -P "iProduct 2 FT230X on \K.*")  # unused
-id_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board: EdgeCortix \K....")
-dual=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board:.*variant \K...")  # should be D16 or S16
-
 # 1FDC:xxxx
 pcie=$(source ./pcie.sh)
 purple_info "PCIe" "$pcie"
@@ -50,9 +44,11 @@ xlog=$(source ./xlog.sh)
 purple_info "XLOG" "$xlog"
 cat ~/prodtest/bin/bar-xlog >> ~/.prodtest-$hexstamp  # xlog noteworthy lines
 
-#xlogver > ~/zog.info  # first half of xlog alias
-#xlogslow >> ~/zog.info  # second half of xlog alias
-#xerr | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # xlog pass/fail/error lines without leading spaces
+# get serial number and card name
+sn_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P ".....-PAC..." | sed "s/-PAC//g")  # SN for comparison with FTDI
+id_ftdi=$(cat ~/prodtest/bin/bar-ftdi | \grep -o -P "iProduct 2 FT230X on \K.*")  # unused
+id_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board: EdgeCortix \K....")  # unused
+dual=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board:.*variant \K...")  # should be D16 or S16, determines dma version
 
 # ant22/dryi and dma
 printf "\e[1;35m%b\e[0m"  "   Running all DMA tests...\n"
