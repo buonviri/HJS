@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function purple_info () {
+function purple_info () {  # converts parameter name and result to 'purple: white'
   printf "\e[1;35m%s: \e[0m%s\n" "$1" "$2"
 }
 
