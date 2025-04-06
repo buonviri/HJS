@@ -23,7 +23,7 @@ nbmc=$(source ./info.sh)
 purple_info "nBMC" "$nbmc"
 cat ~/prodtest/bin/bar-info >> ~/.prodtest-$hexstamp
 
-# cfg edit string
+# cfg edit string - needs work
 cfga > /dev/null
 cfgb > /dev/null
 cfg4pt >> ~/.prodtest-$hexstamp
@@ -36,17 +36,17 @@ dual=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board:.*variant \K...")  # shoul
 
 # 1FDC:xxxx
 pcie=$(source ./pcie.sh)
-printf "\e[1;35m%b\e[0m%s\n" "   PCIe: " "$pcie"
+purple_info "PCIe" "$pcie"
 cat ~/prodtest/bin/bar-pcie >> ~/.prodtest-$hexstamp  # PCIe without leading spaces, requires sudo
 
 # verify CB/PG
 cben=$(source ./cben.sh)
-printf "\e[1;35m%b\e[0m%s\n" "   CBEN: " "$cben"
+purple_info "CBEN" "$cben"
 cat ~/prodtest/bin/bar-cben >> ~/.prodtest-$hexstamp  # compute blocks
 
 # xlog
 xlog=$(source ./xlog.sh)
-printf "\e[1;35m%b\e[0m%s\n" "   XLOG: " "$xlog"
+purple_info "XLOG" "$xlog"
 cat ~/prodtest/bin/bar-xlog >> ~/.prodtest-$hexstamp  # xlog noteworthy lines
 
 #xlogver > ~/zog.info  # first half of xlog alias
