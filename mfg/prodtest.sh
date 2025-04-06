@@ -1,4 +1,9 @@
 #!/bin/bash
+
+function purple_info () {
+  printf "\e[1;35m%s: \e[0m%s\n" "$1" "$2"
+}
+
 sudo echo # forces root login
 
 # get timestamp, hexstamp, and hostname
@@ -14,7 +19,7 @@ cd ~/prodtest/bin/
 
 # get serial number from FTDI
 ftdi=$(source ./ftdi.sh)
-printf "\e[1;35m%b\e[0m%s\n" "   FTDI: " "$ftdi"
+purple_info "FTDI" "$ftdi"
 cat ~/prodtest/bin/bar-ftdi >> ~/.prodtest-$hexstamp
 
 # get image location from BMC
