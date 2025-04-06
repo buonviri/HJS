@@ -5,17 +5,13 @@ function purple_info () {
 }
 
 sudo echo # forces root login
+cd ~/prodtest/bin/  # change to prodtest bin
 
 # get timestamp, hexstamp, and hostname
 time_t=$(date +%s)
 hexstamp=$(printf "%x" $time_t)  # echo "[DEBUG] timestamp: $hexstamp"
 hostname=$(hostname)
-
-# write timestamp
-echo "[ProdTest on $hostname at UTC=0x$hexstamp] -> ~/.prodtest-$hexstamp" > ~/.prodtest-$hexstamp
-
-# change to prodtest bin
-cd ~/prodtest/bin/
+echo "[ProdTest on $hostname at UTC=0x$hexstamp] -> ~/.prodtest-$hexstamp" > ~/.prodtest-$hexstamp  # write timestamp
 
 # get serial number from FTDI
 ftdi=$(source ./ftdi.sh)
@@ -24,7 +20,7 @@ cat ~/prodtest/bin/bar-ftdi >> ~/.prodtest-$hexstamp
 
 # get image location from BMC
 nbmc=$(source ./info.sh)
-printf "\e[1;35m%b\e[0m%s\n" "   nBMC: " "$nbmc"
+purple_info "nBMC" "$nbmc"
 cat ~/prodtest/bin/bar-info >> ~/.prodtest-$hexstamp
 
 # cfg edit string
