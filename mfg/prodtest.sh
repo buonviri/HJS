@@ -45,10 +45,10 @@ purple_info "XLOG" "$xlog"
 cat ~/prodtest/bin/bar-xlog >> ~/.prodtest-$hexstamp  # xlog noteworthy lines
 
 # get serial number and card name
-sn_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P ".....-PAC..." | sed "s/-PAC//g")  # SN for comparison with FTDI
+sn_bmc=$(cat ~/prodtest/bin/bar-info | \grep -o -P ".....-PAC..." | sed "s/-PAC//g")  # SN for comparison with FTDI
 id_ftdi=$(cat ~/prodtest/bin/bar-ftdi | \grep -o -P "iProduct 2 FT230X on \K.*")  # unused
-id_bmc=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board: EdgeCortix \K....")  # unused
-dual=$(cat ~/.prodtest-$hexstamp | \grep -o -P "Board:.*variant \K...")  # should be D16 or S16, determines dma version
+id_bmc=$(cat ~/prodtest/bin/bar-info | \grep -o -P "Board: EdgeCortix \K....")  # unused
+dual=$(cat ~/prodtest/bin/bar-info | \grep -o -P "Board:.*variant \K...")  # should be D16 or S16, determines dma version
 
 # ant22/dryi and dma
 printf "\e[1;35m%b\e[0m"  "   Running all DMA tests...\n"
