@@ -44,10 +44,13 @@ printf "\e[1;35m%b\e[0m%s\n" "   CBEN: " "$cben"
 cat ~/prodtest/bin/bar-cben >> ~/.prodtest-$hexstamp  # compute blocks
 
 # xlog
-printf "\e[1;35m%b\e[0m"  "   Reading xlog...\n"
-xlogver > ~/zog.info  # first half of xlog alias
-xlogslow >> ~/zog.info  # second half of xlog alias
-xerr | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # xlog pass/fail/error lines without leading spaces
+xlog=$(source ./xlog.sh)
+printf "\e[1;35m%b\e[0m%s\n" "   XLOG: " "$xlog"
+cat ~/prodtest/bin/bar-xlog >> ~/.prodtest-$hexstamp  # xlog noteworthy lines
+
+#xlogver > ~/zog.info  # first half of xlog alias
+#xlogslow >> ~/zog.info  # second half of xlog alias
+#xerr | awk '{$1=$1;print}' >> ~/.prodtest-$hexstamp  # xlog pass/fail/error lines without leading spaces
 
 # ant22/dryi and dma
 printf "\e[1;35m%b\e[0m"  "   Running all DMA tests...\n"
