@@ -98,7 +98,7 @@ elif [ "${#ftdi}" -eq 8 ] && [ "$ftdi" == "$sn_bmc" ]; then
   sn_command=$(printf "sn %s %s" "${sn_bmc:0:5}" "${sn_bmc:5:8}")  # store serial number command
   printf "\nDisplay all stats using command: %s (SHIFT-CTRL-V ENTER) or the alias \"last\"\n" "$sn_command"
   if [[ -n "$SSH_CLIENT" || -n "$SSH_TTY" ]]; then  #SSH
-    echo "[SSH: \"$sn_command\" not copied to clipboard]"
+    echo "[SSH detected - \"$sn_command\" not copied to clipboard]"
   else
     echo $sn_command | xsel -b  # copy to clipboard
   fi
