@@ -65,7 +65,7 @@ else
   fi
   cat ~/prodtest/bin/bar-dma >> ~/.prodtest-$hexstamp
 fi
-purple_info "DMAx" $dma
+purple_info "DMAx" "$dma"
 
 # ./bmc test, requires driver to be installed
 chmod +x ~/prodtest/bin/bmc
