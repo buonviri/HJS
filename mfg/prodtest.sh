@@ -51,7 +51,6 @@ id_bmc=$(cat ~/prodtest/bin/bar-info | \grep -o -P "Board: EdgeCortix \K....")  
 dual=$(cat ~/prodtest/bin/bar-info | \grep -o -P "Board:.*variant \K...")  # should be D16 or S16, determines dma version
 
 # ant22/dryi and dma
-purple_info "DMAx" "..."
 bistfail=$(cat ~/.prodtest-$hexstamp | \grep -i "fail")  # check for failures
 if [ -n "$bistfail" ]; then  # check if not empty
   printf "\e[1;31m%b\e[0m"  "ABORTED DUE TO BOOT/BIST/TEST FAILURE\n"
@@ -66,6 +65,7 @@ else
   fi
   cat ~/prodtest/bin/bar-dma >> ~/.prodtest-$hexstamp
 fi
+purple_info "DMAx" $dma
 
 # ./bmc test, requires driver to be installed
 chmod +x ~/prodtest/bin/bmc
