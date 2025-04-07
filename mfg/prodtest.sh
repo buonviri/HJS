@@ -60,10 +60,11 @@ else
   ./setup_3pg_none.sh > /dev/null 2>&1  # hide all of the spam, now skips dma_test
   cd - > /dev/null  # return to previous folder
   if [ "$dual" == "D16" ]; then
-    dmadual >> ~/.prodtest-$hexstamp  # run all DMA tests using version with minimal spam, dual, S2LP
+    dma=$(source ./dmad.sh)
   else
-    dmasingle >> ~/.prodtest-$hexstamp  # run all DMA tests using version with minimal spam, single, S2LP or S2M2
+    dma=$(source ./dmas.sh)
   fi
+  cat ~/prodtest/bin/bar-dma >> ~/.prodtest-$hexstamp
 fi
 
 # ./bmc test, requires driver to be installed
