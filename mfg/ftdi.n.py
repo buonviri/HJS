@@ -130,7 +130,7 @@ call PRIMARY-cli.bat
 
 echo.
 echo Disconnect the Renesas Programmer 5x2.
-echo Cycle power and wait for the LED(s) to illuminate AND THEN COUNT FIVE MISSISSIPPI !!!
+echo Optional: Cycle power, wait for the LED(s) to illuminate, and wait five more seconds.
 PAUSE
 echo.
 
@@ -143,7 +143,7 @@ call 99999-SEPZZZ.bat
 color 07
 
 echo.
-echo Cycle power.
+echo Optional: Cycle power.
 PAUSE
 echo.
 
