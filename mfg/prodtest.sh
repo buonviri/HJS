@@ -3,7 +3,7 @@
 #purple
 function purple_info () {  # converts parameter name and result to 'purple: white' and add section header
   printf "\e[1;35m%s: \e[0m%s\n" "$1" "$2"
-  echo "[[$1]]" >> ~/.prodtest-$hexstamp  # temp, should be removed eventually
+  # echo "[[$1]]" >> ~/.prodtest-$hexstamp  # debug only
 }
 
 # setup
