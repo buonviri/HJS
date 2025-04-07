@@ -1,4 +1,4 @@
-# ASSUMNES WINDOWS OS
+# ASSUMES WINDOWS OS
 # rename this script abcd.n.py where:
 #   abcd is the product name
 #   n is the number of serialized objects
@@ -12,7 +12,7 @@
 #   max = 99
 #   len = 3 (001 to 099)
 #   product = S2M2 or S2LP
-#   sep = -PAC
+#   sep = -PAC or -EC-
 #   suf = JAN
 # also attempts to populate the 'all' folder with multipurpose batch files
 # todo: add prefix? or just use 12345-AET001
@@ -115,7 +115,7 @@ all = """@echo off
 :start
 
 echo.
-echo Target: 99999-PACZZZ
+echo Target: 99999-SEPZZZ
 echo.
 echo Connect the Renesas Programmer.
 PAUSE 
@@ -139,7 +139,7 @@ cd..
 cd ftdi
 cd 99999
 echo %cd%
-call 99999-PACZZZ.bat
+call 99999-SEPZZZ.bat
 color 07
 
 echo.
@@ -153,7 +153,7 @@ cd..
 cd cfg-edit
 cd 99999
 echo %cd%
-call cfg-edit-99999-PACZZZ.bat
+call cfg-edit-99999-SEPZZZ.bat
 
 echo.
 echo THE END
@@ -243,7 +243,7 @@ if len(lot_code) in [5,]:  # check if length is in the list of valid lot code le
             folder = lot_code + suffix + done_suffix
             try:
                 with open('..\\..\\all\\' + folder + '\\' + lot_code + separator + str_sn + '.bat', 'w') as f:  # batch filename contains separator
-                    f.write(all.replace('PRIMARY', primary).replace('99999', lot_code).replace('ZZZ', str_sn))
+                    f.write(all.replace('PRIMARY', primary).replace('99999', lot_code).replace('ZZZ', str_sn).replace('-SEP', separator))  # assumes separator is four chars
             except:
                 missing_folders[folder] = 1
         print(sn_start + ' thru ' + sn_end)
