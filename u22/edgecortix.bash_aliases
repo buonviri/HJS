@@ -124,7 +124,7 @@ alias pt+="echo 'enabling auto-prodtest' ; echo 'The world is a vampire' > ~/.au
 alias pt-="printf 'disabling auto-prodtest: ' ; rm -v ~/.auto_prodtest 2>&1 | \grep removed || echo 'already disabled'"
 # alias is obsolete
 alias ptsync="source ~/prodtest/bin/ptsync.sh"
-alias bist="source ~/HJS/mfg/bist.sh"
+alias bist="source ~/prodtest/bin/bist.sh"
 # alias is obsolete
 alias b8="printf '\n\e[1;35mRun xxf to summarize failures...\e[0m\n' && bist 8"
 alias sn="source ~/HJS/mfg/sn.sh"
