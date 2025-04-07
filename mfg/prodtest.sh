@@ -78,7 +78,7 @@ printf "./bmc [bin] -> $qbmc_result\n" >> ~/.prodtest-$hexstamp
 
 # stats
 stats=$(source ./stats.sh)
-purple_info "STATS" "$stats"
+purple_info "TPIV" "$stats"
 cat ~/prodtest/bin/bar-stats >> ~/.prodtest-$hexstamp
 
 echo  # results
