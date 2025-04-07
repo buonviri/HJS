@@ -118,12 +118,12 @@ alias ten="s2clr ; s2i && detr && effnet && resnet && hf1 && hf2 && hf3 && hf4 &
 alias res="eog result*.png"
 alias s2clr="source ~/HJS/u22/mera22clr.sh"
 alias s2res="\cp -v ~/HJS/u22/results-mera22.html ~/mera_package/examples/results.html ; \cp -v ~/HJS/u22/img/eci.svg ~/mera_package/examples/eci.svg; \cp -v ~/HJS/mfg/setup_none.sh ~/mera_package/initialize_sakura_ii/setup_none.sh"
-alias prodtest="source ~/HJS/mfg/prodtest.sh"
-alias pt="source ~/HJS/mfg/prodtest.sh"
+alias prodtest="source ~/prodtest/bin/prodtest.sh"
+alias pt="source ~/prodtest/bin/prodtest.sh"
 alias pt+="echo 'enabling auto-prodtest' ; echo 'The world is a vampire' > ~/.auto_prodtest"
 alias pt-="printf 'disabling auto-prodtest: ' ; rm -v ~/.auto_prodtest 2>&1 | \grep removed || echo 'already disabled'"
-alias prodtestn="source ~/HJS/mfg/prodtestn.sh"
-alias ptsync="source ~/HJS/mfg/ptsync.sh"
+# alias is obsolete
+alias ptsync="source ~/prodtest/bin/ptsync.sh"
 alias bist="source ~/HJS/mfg/bist.sh"
 # alias is obsolete
 alias b8="printf '\n\e[1;35mRun xxf to summarize failures...\e[0m\n' && bist 8"
@@ -161,5 +161,5 @@ alias t988580="python3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.edit+[
 # RPI5
 alias pi="source ~/HJS/u22/pi.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v4.07\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v4.09\e[0m\n\n'"
 # EOF
