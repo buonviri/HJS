@@ -1,18 +1,18 @@
 #!/bin/bash
 
+#purple
 function purple_info () {  # converts parameter name and result to 'purple: white' and add section header
   printf "\e[1;35m%s: \e[0m%s\n" "$1" "$2"
   echo "[[$1]]" >> ~/.prodtest-$hexstamp
 }
 
+# setup
 sudo echo # forces root login
 cd ~/prodtest/bin/  # change to prodtest bin
-
-# get timestamp, hexstamp, and hostname
-time_t=$(date +%s)
-hexstamp=$(printf "%x" $time_t)  # echo "[DEBUG] timestamp: $hexstamp"
-hostname=$(hostname)
-echo "[ProdTest on $hostname at UTC=0x$hexstamp] -> ~/.prodtest-$hexstamp" > ~/.prodtest-$hexstamp  # write timestamp
+time_t=$(date +%s)  # get timestamp
+hexstamp=$(printf "%x" $time_t)  # get hexstamp
+hostname=$(hostname)  # get hostname
+echo "[ProdTest on $hostname at UTC=0x$hexstamp] -> ~/.prodtest-$hexstamp" > ~/.prodtest-$hexstamp  # write timestamp to new log
 
 # get serial number from FTDI
 ftdi=$(source ./ftdi.sh)
@@ -51,10 +51,10 @@ id_bmc=$(cat ~/prodtest/bin/bar-info | \grep -o -P "Board: EdgeCortix \K....")  
 dual=$(cat ~/prodtest/bin/bar-info | \grep -o -P "Board:.*variant \K...")  # should be D16 or S16, determines dma version
 
 # ant22/dryi and dma
-printf "\e[1;35m%b\e[0m"  "   Running all DMA tests...\n"
-bistfail=$(cat ~/.prodtest-$hexstamp | \grep -i "fail")
+purple_info "DMAx" "..."
+bistfail=$(cat ~/.prodtest-$hexstamp | \grep -i "fail")  # check for failures
 if [ -n "$bistfail" ]; then  # check if not empty
-  printf "\e[1;31m%b\e[0m"  "   ABORTED DUE TO BOOT/BIST/TEST FAILURE\n"
+  printf "\e[1;31m%b\e[0m"  "ABORTED DUE TO BOOT/BIST/TEST FAILURE\n"
 else
   cd ~/dna2_self_test_2_2_0/ > /dev/null  # setup must be run from the correct folder
   ./setup_3pg_none.sh > /dev/null 2>&1  # hide all of the spam, now skips dma_test
