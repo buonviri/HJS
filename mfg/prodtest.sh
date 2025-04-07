@@ -3,7 +3,7 @@
 #purple
 function purple_info () {  # converts parameter name and result to 'purple: white' and add section header
   printf "\e[1;35m%s: \e[0m%s\n" "$1" "$2"
-  echo "[[$1]]" >> ~/.prodtest-$hexstamp
+  echo "[[$1]]" >> ~/.prodtest-$hexstamp  # temp, should be removed eventually
 }
 
 # setup
@@ -77,7 +77,9 @@ printf "./bmc [bin] -> $qbmc_result\n" >> ~/.prodtest-$hexstamp
 # seems to be fixed with python script /00 replacement
 
 # stats
-s2 >> ~/.prodtest-$hexstamp
+stats=$(source ./stats.sh)
+purple_info "STATS" "$stats"
+cat ~/prodtest/bin/bar-stats >> ~/.prodtest-$hexstamp
 
 echo  # results
 cat ~/.prodtest-$hexstamp
