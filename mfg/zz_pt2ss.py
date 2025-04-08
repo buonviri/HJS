@@ -52,7 +52,7 @@ def summarize(lines, dirname, filename):
         elif line.startswith('HJS WAS HERE'):  # line that was manually edited by HJS, discard
             with open ('zzhjs.tsv', 'a') as f:
                 f.write('............' + line[12:] + ' in ' + filename + '\n')
-        elif line.startswith('[['):  # debug section header, discard completely
+        elif line.startswith('Mon Apr  ') or line.startswith('[['):  # debug timestamp or debug section header, discard completely
             pass
         elif 'Failed to open' in line:  # serial port not connected during prodtest, discard
             pass
@@ -225,7 +225,9 @@ with open ('zzhjs.tsv', 'w') as f:
 filecount = 0
 for dirname, dirnames, filenames in os.walk(ptpath):  # get info from prodtest folder
     for filename in filenames:
-        if filename.endswith('.txt') and '-0x' in filename and filename.startswith('10015'):  # check extension, SN/TS separator, lotcode
+        if filename.startswith('52461') or filename.startswith('52505'):
+            pass  # ignore lot codes
+        elif filename.endswith('.txt') and '-0x' in filename:  # check extension, SN/TS separator, lotcode [and filename.startswith('10015')]
             filecount = filecount + 1
             if filecount % 10 == 0:  # add dot every 10
                 print('.', end='')
