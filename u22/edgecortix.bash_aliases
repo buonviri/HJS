@@ -56,7 +56,7 @@ alias epoch="source ~/HJS/u22/epoch.sh"
 alias e2="printf '\nsudo -i\n~/.local/share/renesas/e2_studio/eclipse/e2studio&\n\n'"
 alias avatar="pactl get-sink-volume @DEFAULT_SINK@ | grep Volume ; eog /var/lib/AccountsService/icons/ec"
 alias catme="cat ~/EC*.info"
-alias m22="s2res ; cd ~/mera_package/install_mera && source install_all_steps.sh"
+alias m22="s2res ; cd ~/mera_package/install_mera && source install_all_steps.sh && mera --version"
 alias a22="source ~/HJS/u22/a22.sh"
 # Start of S2 utils
 alias maxfan="python3 ~/HJS/statlog/statlog.py S2LP-fan.a.100+fan-void"
@@ -77,7 +77,7 @@ alias xl2="source ~/hex-ftdi-cfg/hex/xl2.sh"
 # alias is obsolete
 alias a440="aplay /home/ec/HJS/u22/wav/440.wav --quiet"
 alias fault="source ~/HJS/u22/faultcodes.sh"
-alias info="python3 ~/HJS/statlog/statlog.py S2XX-info-void"
+alias info="picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0 && echo "info" | picocom -qrix 100 /dev/ttyUSB0"
 alias c008c="python3 ~/HJS/statlog/statlog.py S2LP-srread.a.0xC008C-void"
 alias c008c-dual="python3 ~/HJS/statlog/statlog.py S2LP-srread.a.0xC008C+srread.b.0xC008C-void"
 alias xlog="xlogver | tee ~/zog.info && xlogslow | tee -a ~/zog.info"
@@ -162,5 +162,5 @@ alias t988580="python3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.edit+[
 # RPI5
 alias pi="source ~/HJS/u22/pi.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v4.10\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v4.11\e[0m\n\n'"
 # EOF
