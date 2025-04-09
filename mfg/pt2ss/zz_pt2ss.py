@@ -27,7 +27,7 @@ def GetKey(a, b, c, d, e):
 # End
 
 def ModKey(key, node):
-    return key[0:13] + node + key[14:]
+    return key[0:10] + node + key[11:]  # depends on serial length
 # End
 
 def summarize(lines, dirname, filename):
@@ -126,9 +126,13 @@ def summarize(lines, dirname, filename):
                 f.write(line + '\n')  # append log
         # end of tsv files, start of dict
         elif line.startswith('Board: '):  # generates key
+            # print()
+            # print(line)
             x = line.split(',')
             if len(x) == 4:
-                prod = x[0][-4:]  # last four are product name
+                # print('__test'  + x[0] + 'test__')
+                prod = x[0][-4:]  # last four chars of index 0 are product name
+                # print(prod)
                 var = x[1].strip()[8:].ljust(6)  # index 1 is variant, remove 'variant ' prefix, force len=6
                 ser = x[2].strip()[4:]  # index 2 is serial number, remove 'ser ' prefix
                 node = 'A'
@@ -141,7 +145,7 @@ def summarize(lines, dirname, filename):
                 ser = 'XXXXX-sepYYY'  # SNSEP resolved
                 node = '?'
                 rev = 'GHI'
-            key = GetKey(ser, node, prod, var, rev)
+            key = GetKey(ser.replace('-PAC', '-').replace('-EC-', '-'), node, prod, var, rev)  # replace separators with dash
             # print(ser + ' ' + prod + ' ' + var + ' ' + rev)
         elif line.startswith('BMC Software:'):  # BMC info, expands key
             pri = line[14:17]
@@ -158,7 +162,7 @@ def summarize(lines, dirname, filename):
                 node = 'B'
             elif 'T_SAK' in line:  # M2, A
                 node = 'A'
-            key = ModKey(key, node)  # modify key
+            key = ModKey(key, node)  # modify key based on serial length
         elif line.startswith('MAX,'):  # dict info
             x = line.split(',')
             if len(x) == 6:
