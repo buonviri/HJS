@@ -142,8 +142,8 @@ alias d10="~/dna2_self_test_2_2_0/dma_test 1 ddr0 1048576"
 alias d11="~/dna2_self_test_2_2_0/dma_test 1 ddr1 1048576"
 alias dma="source ~/HJS/u22/dma22.sh"
 alias dma1k="source ~/HJS/u22/dma1k.sh"
-alias dmadual="source ~/HJS/u22/dma00d.sh"
-alias dmasingle="source ~/HJS/u22/dma00s.sh"
+# alias is obsolete
+# alias is obsolete
 alias dry="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh"
 # alias is obsolete
 # alias is obsolete
@@ -156,6 +156,7 @@ alias d3="dryi ; dry3"
 alias d3b="drybi ; dry3b"
 alias t6="trump 6"
 alias 2dot02="cat ~/prodtest/10015/*.txt | \grep -o '10015[0-9][0-9][0-9]+1+5+1066+2\[DOT\]02.*1+98' | sed 's/+/ /g' | sed 's/10015/10015-/g'"
+alias 2dot02b="cat ~/prodtest/10000/*.txt | \grep -o '10000[0-9][0-9][0-9]+1+5+1066+2\[DOT\]02.*1+98' | sed 's/+/ /g' | sed 's/10000/10000-/g'"
 alias t988585="python3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.edit+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+98+85+85+[]+[]+C-fast"
 alias t988580="python3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.edit+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+98+85+80+[]+[]+C-fast"
 # RPI5
