@@ -73,7 +73,7 @@ alias stayon-="python3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.bist.[
 alias bmc="info | tee ~/bmc.info && printf '\nBoth should be 0x18 on dual cards\n' && c008c | tee -a ~/bmc.info"
 alias qbmc="~/mera_package/bmc GetBmcInfor"
 # alias is obsolete
-alias xl2="source ~/hex-ftdi-cfg/hex/xl2.sh ; echo '...' ; pt ; printf 'Cycle Power (00)...\n\n'"
+alias xl2="source ~/hex-ftdi-cfg/hex/xl2.sh ; echo 'Running prodtest after xload' ; pt ; printf 'Cycle Power (00)...\n\n'"
 # alias is obsolete
 alias a440="aplay /home/ec/HJS/u22/wav/440.wav --quiet"
 alias fault="source ~/HJS/u22/faultcodes.sh"
