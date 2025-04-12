@@ -122,6 +122,7 @@ alias prodtest="source ~/prodtest/bin/prodtest.sh"
 alias pt="source ~/prodtest/bin/prodtest.sh"
 alias pt+="echo 'enabling auto-prodtest' ; echo 'The world is a vampire' > ~/.auto_prodtest"
 alias pt-="printf 'disabling auto-prodtest: ' ; rm -v ~/.auto_prodtest 2>&1 | \grep removed || echo 'already disabled'"
+alias ptv="python3 ~/prodtest/bin/ptverify.py"
 # alias is obsolete
 alias ptsync="source ~/prodtest/bin/ptsync.sh"
 alias bist="source ~/prodtest/bin/bist.sh"
