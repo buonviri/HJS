@@ -64,7 +64,7 @@ def summarize(lines, dirname, filename):
             with open ('zzcfg.tsv', 'a') as f:  # append log
                 f.write('  ' + key + '\n')
                 f.write('    ' + line + '\n')
-        elif line.startswith('Subsystem:') or line.startswith('Region ') or line.startswith('LnkSta:') or 'Co-processor: Device' in line:  # 1fdc, store in tsv
+        elif line.startswith('Subsystem:') or line.startswith('Region ') or line.startswith('LnkSta:') or line.startswith('A.LnkSta:') or line.startswith('B.LnkSta:') or 'Co-processor: Device' in line:  # 1fdc, store in tsv
             with open ('zz1fdc.tsv', 'a') as f:
                 f.write(line + '\n')  # append log
         elif line.startswith('[') and '->' in line:  # statlog type 1, first line in prodtest log
