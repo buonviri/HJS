@@ -1,15 +1,15 @@
 @echo off
 
-read8.py 12345678
-read8.py 12345-EC-678
+read.py 12345678
+read.py 12345-EC-678
 
-read8.py 00345678
-read8.py 02345678
-read8.py 1234567X
-read8.py 12345-PAC678
-read8.py 1234X-EC-678
-read8.py 12345-EC-67X
-read8.py 123
+read.py 00345678
+read.py 02345678
+read.py 1234567X
+read.py 12345-PAC678
+read.py 1234X-EC-678
+read.py 12345-EC-67X
+read.py 123
 
 echo.
 echo Done.
