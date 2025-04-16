@@ -71,7 +71,7 @@ alias cb22="python3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.edit+[]+[
 alias stayon+="python3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.bist.stayon+C-fast"
 alias stayon-="python3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.bist.[DASH]stayon+C-fast"
 alias bmc="info | tee ~/bmc.info && printf '\nBoth should be 0x18 on dual cards\n' && c008c | tee -a ~/bmc.info"
-alias qbmc="~/mera_package/bmc GetBmcInfor"
+alias qbmc="~/prodtest/bin/bmc GetBmcInfor"
 # alias is obsolete
 alias xl2="source ~/hex-ftdi-cfg/hex/xl2.sh ; echo '[Running prodtest after xload]' ; pt ; printf 'Cycle Power NOW (00)...\n\n'"
 # alias is obsolete
@@ -81,7 +81,7 @@ alias info="picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0 &&
 alias c008c="python3 ~/HJS/statlog/statlog.py S2LP-srread.a.0xC008C-void"
 alias c008c-dual="python3 ~/HJS/statlog/statlog.py S2LP-srread.a.0xC008C+srread.b.0xC008C-void"
 alias xlog="xlogver | tee ~/zog.info && xlogslow | tee -a ~/zog.info"
-alias qxlog="~/mera_package/bmc RetrieveXlogData"
+alias qxlog="~/prodtest/bin/bmc RetrieveXlogData"
 alias xlogver="picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0 && echo 'ver' | picocom -qrix 100 /dev/ttyUSB0"
 alias xlogslow="picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0 && echo 'xlog' | picocom -qrix 500 /dev/ttyUSB0"
 alias xxlog="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/zog.info && python3 ~/HJS/statlog/statlog.py S2XX-xlog-wait | tee -a ~/zog.info"
@@ -99,7 +99,7 @@ alias s2do="python3 ~/HJS/statlog/statlog.py S2XX"
 alias s2i="source ~/HJS/u22/S2xx.sh"
 alias s2icb="source ~/HJS/u22/S2xx-cb.sh"
 alias s2s="mera --lssakura | tee ~/sak.info"
-alias qok="~/mera_package/bmc BoardStatusCmd"
+alias qok="~/prodtest/bin/bmc BoardStatusCmd"
 alias s2env="source ~/HJS/u22/S2env.sh"
 alias de="deactivate"
 # End of S2 utils, start of S2 models
@@ -166,5 +166,5 @@ alias tt="source ~/prodtest/bin/time.sh"
 # RPI5
 alias pi="source ~/HJS/u22/pi.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v4.14\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v4.15\e[0m\n\n'"
 # EOF
