@@ -2,6 +2,7 @@ import sys
 import msvcrt
 
 separator = '-EC-'
+write_files = False  # write files
 
 def getbarcode():
     bc = ""
@@ -48,11 +49,24 @@ bcerror = validate(barcode)
 if bcerror == '':  # no error
     if len(barcode) == 8:
         print('Writing files for: ' + barcode[0:5] + separator + barcode[5:8])
+        write_files = True
     elif len(barcode) == 12:
         print('Writing files for: ' + barcode)
+        write_files = True
     else:
         print('Invalid barcode length')
 else:  # returned error
     print('Invalid input (' + barcode + ') | ' + bcerror)
+
+if write_files:
+    if barcode[0] == '2':
+        card = 'S2M2-S16'
+    elif barcode[0] == '3':
+        card = 'S2LP-S16'
+    elif barcode[0] == '4':
+        card = 'S2LP-D16'
+    else:
+        card = 'Invalid'
+    print('Card: ' + card)
 
 # EOF
