@@ -59,11 +59,11 @@ else:  # returned error
     print('Invalid input (' + barcode + ') | ' + bcerror)
 
 if write_files:
-    if barcode[0] == '2':
+    if barcode[0] == '2':  # 2xxx_xxxx
         card = 'S2M2-S16'
-    elif barcode[0] == '3':
+    elif barcode[0] == '3':  # 3xxx_xxxx
         card = 'S2LP-S16'
-    elif barcode[0] == '4':
+    elif barcode[0] == '4':  # 4xxx_xxxx
         card = 'S2LP-D16'
     else:
         card = 'Invalid'
