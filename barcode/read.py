@@ -59,7 +59,9 @@ else:  # returned error
     print('Invalid input (' + barcode + ') | ' + bcerror)
 
 if write_files:
-    if barcode[0] == '2':  # 2xxx_xxxx
+    if barcode[0] == '1' or barcode[0] == '5':  # 1xxx_xxxx or 5xxx_xxxx
+        card = 'Proto, use hex-ftdi-cfg instead'
+    elif barcode[0] == '2':  # 2xxx_xxxx
         card = 'S2M2-S16'
     elif barcode[0] == '3':  # 3xxx_xxxx
         card = 'S2LP-S16'
