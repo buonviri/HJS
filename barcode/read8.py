@@ -5,14 +5,14 @@ separator = '-EC-'
 
 def getbarcode():
     bc = ""
-    n = 8
+    n = 8  # default length
     while len(bc) < n:
         c = msvcrt.getwch() # reads one unicode char at a time
-        bc += c
-        if len(bc) == 6:
+        bc += c  # add to string
+        if len(bc) == 6:  # the sixth char might be special
             if bc[5].isdigit():
                 n = 8
-            elif bc[5] in '-_':  # separators for n=12, typically dash or underscore
+            elif bc[5] in '-_':  # separators for n=12, dash or underscore
                 n = 12
             else:
                 pass  # could add more checks
@@ -54,4 +54,5 @@ if bcerror == '':  # no error
         print('Invalid barcode length')
 else:  # returned error
     print('Invalid input (' + barcode + ') | ' + bcerror)
-# print()  # blank line
+
+# EOF
