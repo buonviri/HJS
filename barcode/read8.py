@@ -50,6 +50,8 @@ if bcerror == '':  # no error
         print('Writing files for: ' + barcode[0:5] + separator + barcode[5:8])
     elif len(barcode) == 12:
         print('Writing files for: ' + barcode)
-else:
+    else:
+        print('Invalid barcode length')
+else:  # returned error
     print('Invalid input (' + barcode + ') | ' + bcerror)
 # print()  # blank line

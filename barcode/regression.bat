@@ -9,6 +9,7 @@ read8.py 1234567X
 read8.py 12345-PAC678
 read8.py 1234X-EC-678
 read8.py 12345-EC-67X
+read8.py 123
 
 echo.
 echo Done.
