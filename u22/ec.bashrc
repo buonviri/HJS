@@ -29,9 +29,6 @@ if [ -e ~/.auto_prodtest ]; then  # check if regular file exists
     echo  # newline before sudo entry
     prodtest
   fi
-#else
-#  echo "[Enable auto-prodtest with pt+]"
-#  echo
 fi
 
 # EOF
