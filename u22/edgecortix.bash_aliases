@@ -74,7 +74,8 @@ alias stayon-="python3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.bist.[
 alias bmc="info | tee ~/bmc.info && printf '\nBoth should be 0x18 on dual cards\n' && c008c | tee -a ~/bmc.info"
 alias qbmc="~/prodtest/bin/bmc GetBmcInfor"
 # alias is obsolete
-alias xl2="source ~/hex-ftdi-cfg/hex/xl2.sh ; echo '[Running prodtest after xload]' ; pt ; printf 'Cycle Power NOW (00)...\n\n'"
+alias xl2="source ~/prodtest/bin/xl2.sh ; echo '[Running prodtest after xload]' ; pt ; printf 'Cycle Power NOW (00)...\n\n'"
+alias x2="source ~/prodtest/bin/xl2.sh ; echo '[Running prodtest after xload]' ; pt ; printf 'Cycle Power NOW (00)...\n\n'"
 # alias is obsolete
 alias a440="aplay /home/ec/HJS/u22/wav/440.wav --quiet"
 alias fault="source ~/HJS/u22/faultcodes.sh"
@@ -168,5 +169,5 @@ alias tt="source ~/prodtest/bin/time.sh"
 # RPI5
 alias pi="source ~/HJS/u22/pi.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v4.15\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v4.16\e[0m\n\n'"
 # EOF
