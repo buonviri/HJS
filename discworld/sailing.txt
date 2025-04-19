@@ -16,6 +16,7 @@ alias decantb
 decant full water tank here into buckets
 bury empty water tank
 
+decantf
 emergency
 decant full water tank here onto fire;bury empty water tank
 
@@ -39,3 +40,18 @@ Lilin tells you: alias wrangle frimble
  alias decantb decant full water tank here into buckets then bury empty tank -- 
  group say FOR BIG FIRE: 
  alias decantf decant water tank here on fire then bury tank (same as 3 buckets)
+
+sscircle: put my swamp dragon in circle $*$
+ssdragon: check dragons status;l dials here $*$
+ssharp: get harpoon;hold harpoon;throw harpoon at kraken $*$
+ssnaptime: nosoul hold control rod; $ifarg:nosoul hit $1$ over the head with control rod$else$nosoul hit dragon 1 over the head with control rod; nosoul hit dragon 2 over the head with control rod$endif$
+ssa: steal money from sailor $*$        ssplay1: throw ball $*$
+ssfeed1: feed coal to dragon $*$        ssplay2: squeeze squeaky toy $*$
+ssfeed2: feed tin to dragon $*$         sspour: pour full buckets on fire $*$
+ssfire: stamp out fire $*$              sss: sell sausages $*$
+ssd: ssdragon $*$   ssf: ssfire $*$     ssp: sspour $*$
+
+prep A/B/C - sslj
+search whatever
+
+tell lilin my main problem on that sail was buckets. i could never find them and fill them. i think gznang handled that the first time i sailed
