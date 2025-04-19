@@ -1,0 +1,41 @@
+canteen
+bottles
+cloth
+
+alias p put $*$ in medicine bag
+pf
+alias refill 
+fill boiler here from full water tank here
+bury empty water tank
+group say refilled
+
+drag tank to aft
+l dials
+
+alias decantb
+decant full water tank here into buckets
+bury empty water tank
+
+emergency
+decant full water tank here onto fire;bury empty water tank
+
+pour buckets on fire
+pour full buckets on fire
+stamp out fire
+
+check dragons status;l dials here
+
+alias naptime nosoul hold control rod;
+$ifarg:nosoul hit $1$ over the head with control rod$else$nosoul hit dragon 1 over the head with control rod; nosoul hit dragon 2 over the head with control rod$endif$
+
+alias circle put my swamp dragon in circle;group say heating
+
+
+Lilin tells you: alias wrangle frimble
+ FILL BOILER: fill boiler from water tank here then bury water tank -- 
+ START ENGINE: circle/circle DRAGONNAME, STOP ENGINE: 
+ naptime/naptime DRAGONNAME -- PLAY: playtime, FEED: food -- 
+ FIRE: alias x pour buckets on fire, REFILL 3 BUCKETS: 
+ alias decantb decant full water tank here into buckets then bury empty tank -- 
+ group say FOR BIG FIRE: 
+ alias decantf decant water tank here on fire then bury tank (same as 3 buckets)
