@@ -90,7 +90,7 @@ alias xlogver="picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0
 alias xlogslow="picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0 && echo 'xlog' | picocom -qrix 500 /dev/ttyUSB0"
 alias xxlog="python3 ~/HJS/statlog/statlog.py S2XX-ver-null | tee ~/zog.info && python3 ~/HJS/statlog/statlog.py S2XX-xlog-wait | tee -a ~/zog.info"
 alias xerr="cat ~/zog.info | grep -i -E 'pass|fail|errors|error|fault'"
-alias xerrf="cat ~/zog.info | grep -i -E 'fail|errors|error|fault' || printf '\e[1;31mNone\e[0m\n'"
+alias xerrf="cat ~/zog.info | grep -i -E 'fail|errors|error|fault' || printf '\e[1;32mNone\e[0m\n'"
 alias xx="xlog && echo 'Pass | Fail | Error | Fault' && xerr"
 alias xxf="xlog && echo 'Fail | Error | Fault' && xerrf"
 alias xxx="xxlog && echo 'Pass | Fail | Error | Fault' && xerr"
@@ -170,5 +170,5 @@ alias tt="source ~/prodtest/bin/time.sh"
 # RPI5
 alias pi="source ~/HJS/u22/pi.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v4.18\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v4.19\e[0m\n\n'"
 # EOF
