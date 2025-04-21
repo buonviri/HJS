@@ -1,6 +1,8 @@
 #!/bin/bash
 
-sudo echo  # password will be required later, ask for it up front
+echo
+sudo echo "Version 1.1"  # password will be required later, ask for it up front
+echo
 
 echo "Testing for four pages (should pass) ..."
 expected="4"
