@@ -73,6 +73,7 @@ alias stayon+="python3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.bist.s
 alias stayon-="python3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.bist.[DASH]stayon+C-fast"
 alias bmc="info | tee ~/bmc.info && printf '\nBoth should be 0x18 on dual cards\n' && c008c | tee -a ~/bmc.info"
 alias qbmc="~/prodtest/bin/bmc GetBmcInfor"
+alias ce="source ~/prodtest/bin/ce.sh"
 # alias is obsolete
 alias xl2="source ~/prodtest/bin/xl2.sh ; echo '[Running prodtest after xload]' ; pt ; printf 'Cycle Power NOW (00)...\n\n'"
 alias x2="source ~/prodtest/bin/xl2.sh ; echo '[Running prodtest after xload]' ; pt ; printf 'Cycle Power NOW (00)...\n\n'"
@@ -99,7 +100,7 @@ alias cfgb="picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0 &&
 alias cfg4pt="python3 ~/HJS/mfg/cfg4pt.py"
 alias enpg="python3 ~/HJS/statlog/statlog.py S2LP-pins.[QUOTE][STAR]EN_PG[STAR][QUOTE]-void"
 alias s2do="python3 ~/HJS/statlog/statlog.py S2XX"
-alias s2i="source ~/HJS/u22/S2xx.sh"
+alias s2i="source ~/prodtest/bin/S2init.sh"
 alias s2icb="source ~/HJS/u22/S2xx-cb.sh"
 alias s2s="mera --lssakura | tee ~/sak.info"
 alias qok="~/prodtest/bin/bmc BoardStatusCmd"
@@ -169,5 +170,5 @@ alias tt="source ~/prodtest/bin/time.sh"
 # RPI5
 alias pi="source ~/HJS/u22/pi.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v4.16\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v4.18\e[0m\n\n'"
 # EOF
