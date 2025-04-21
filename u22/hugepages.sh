@@ -40,7 +40,7 @@ echo
 
 echo "Testing for pt (should pass) ..."
 expected="pt"
-n=$(sudo dmesg | \grep -i -o -P "kernel command line.*iommu=\K[a-z][a-z]")
+n=$(sudo dmesg | \grep -i -o -P "kernel command line.*iommu=\K[a-z][a-z]")  # get two letters after iommu=
 if [ "$n" == "$expected" ]; then
   printf "iommu = %s \e[1;32m(OK)\e[0m\n" "$n"
 else
@@ -49,7 +49,7 @@ fi
 echo
 echo "Testing for xx (should fail) ..."
 expected="xx"
-n=$(sudo dmesg | \grep -i -o -P "kernel command line.*iommu=\K[a-z][a-z]")
+n=$(sudo dmesg | \grep -i -o -P "kernel command line.*iommu=\K[a-z][a-z]")  # get two letters after iommu=
 if [ "$n" == "$expected" ]; then
   printf "iommu = %s \e[1;32m(OK)\e[0m\n" "$n"
 else
