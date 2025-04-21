@@ -37,6 +37,7 @@ else
 fi
 
 echo
+echo "dmesg:"
 sudo dmesg | GREP_COLORS='ms=01;32' grep --color=auto -i -E "pcie_aspm=|kernel command line:|command line:|default_hugepagesz=|hugepagesz=|hugepages=|iommu="
 echo
 
