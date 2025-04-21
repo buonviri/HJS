@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo
+sudo echo  # password will be required later, ask for it up front
 
 echo "Testing for four pages (should pass) ..."
 expected="4"
