@@ -1,4 +1,4 @@
-#!/bin/basdh
+#!/bin/bash
 
 if [ "$#" -ne 1 ]; then
   echo "Usage: epoch [hextimestamp]"
