@@ -39,7 +39,7 @@ printf "\n%s: %s\n" "$(date)" "$hostname" >> $filename  # append file with times
 
 id="apt-install"
 ((n++))
-sudo apt install git xsel ntpdate python3-pip lm-sensors -y  # install new applications
+sudo apt install git xsel ntpdate python3-pip lm-sensors picocom -y  # install new applications
 check_code $? $n $id
 
 id="pip-install"
