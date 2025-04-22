@@ -12,24 +12,7 @@ alias bios="systemctl reboot --firmware-setup"
 alias hjs="cd ~/HJS/u22"
 alias mfg="cd ~/HJS/mfg"
 alias snap="killall snap-store && snap refresh"
-# alias is obsolete (S1LP)
-# alias is obsolete (S1LP)
 alias sysinfo="cd ~/HJS/u22 && source sysinfo.sh"
-# alias is obsolete (S1LP)
-# alias is obsolete (S1LP)
-# alias is obsolete (S1LP)
-# alias is obsolete (S1LP)
-# alias is obsolete (S1LP)
-# alias is obsolete (S1LP)
-# alias is obsolete (S1LP)
-# alias is obsolete (S1LP)
-# alias is obsolete (S1LP)
-# alias is obsolete (S1LP)
-# alias is obsolete (S1LP)
-# alias is obsolete (S1LP)
-# alias is obsolete (S1LP)
-# alias is obsolete (S1LP)
-# alias is obsolete (S1LP)
 alias pci="source ~/HJS/u22/pcie.sh"
 alias pcie="source ~/HJS/u22/pcie.sh"
 alias huge="sudo dmesg | grep -i -E 'pcie_aspm=|kernel command line:|command line:|default_hugepagesz=|hugepagesz=|hugepages=|iommu=' ; grep HugePages_ /proc/meminfo; printf '\n\e[1;35m   Confirm 4/4/0/0.\e[0m\n\n'"
@@ -43,10 +26,6 @@ alias lab-="echo && echo 'Running us-we-ptsync' && echo ; us ; we ; ptsync ; cd"
 alias us="cd ~/HJS/u22 && git pull && source ./us.sh"
 alias we="cd ~/hex-ftdi-cfg && git pull"
 alias us2them="cd ~/HJS/u22 && git pull && source ./them.sh"
-# alias is obsolete
-# alias is obsolete
-# alias is obsolete
-# alias is obsolete
 alias usb="python3 ~/HJS/u22/lsusb.py | tee ~/usb.info"
 alias usbsn="lsusb -v -d 0403: 2> /dev/null > ~/ftdi.info && cat ~/ftdi.info | \\grep -E 'idVendor|idProduct|iManufacturer|iProduct|iSerial'"
 alias imdt="screen /dev/ttyUSB0 115200"
@@ -74,10 +53,8 @@ alias stayon-="python3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.bist.[
 alias bmc="info | tee ~/bmc.info && printf '\nBoth should be 0x18 on dual cards\n' && c008c | tee -a ~/bmc.info"
 alias qbmc="~/prodtest/bin/bmc GetBmcInfor"
 alias ce="source ~/prodtest/bin/ce.sh"
-# alias is obsolete
 alias xl2="source ~/prodtest/bin/xl2.sh ; echo '[Running prodtest after xload]' ; pt ; printf 'Cycle Power NOW (00)...\n\n'"
 alias x2="source ~/prodtest/bin/xl2.sh ; echo '[Running prodtest after xload]' ; pt ; printf 'Cycle Power NOW (00)...\n\n'"
-# alias is obsolete
 alias a440="aplay /home/ec/HJS/u22/wav/440.wav --quiet"
 alias fault="source ~/HJS/u22/faultcodes.sh"
 alias info="picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0 && echo 'info' | picocom -qrix 100 /dev/ttyUSB0"
@@ -127,10 +104,8 @@ alias pt="source ~/prodtest/bin/prodtest.sh"
 alias pt+="echo 'enabling auto-prodtest' ; echo 'The world is a vampire' > ~/.auto_prodtest"
 alias pt-="printf 'disabling auto-prodtest: ' ; rm -v ~/.auto_prodtest 2>&1 | \grep removed || echo 'already disabled'"
 alias ptv="python3 ~/prodtest/bin/ptverify.py"
-# alias is obsolete
 alias ptsync="source ~/prodtest/bin/ptsync.sh"
 alias bist="source ~/prodtest/bin/bist.sh"
-# alias is obsolete
 alias b8="printf '\n\e[1;35mRun xxf to summarize failures...\e[0m\n' && bist 8"
 alias sn="source ~/prodtest/bin/sn.sh"
 alias last="source ~/.last_sn"
@@ -148,11 +123,7 @@ alias d10="~/dna2_self_test_2_2_0/dma_test 1 ddr0 1048576"
 alias d11="~/dna2_self_test_2_2_0/dma_test 1 ddr1 1048576"
 alias dma="source ~/HJS/u22/dma22.sh"
 alias dma1k="source ~/HJS/u22/dma1k.sh"
-# alias is obsolete
-# alias is obsolete
 alias dry="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh"
-# alias is obsolete
-# alias is obsolete
 alias dry3="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 999"
 alias dry3b="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 999 1"
 alias dry4="cd ~/dna2_self_test_2_2_0/ && ./run_3pg.sh 9999"
@@ -170,5 +141,5 @@ alias tt="source ~/prodtest/bin/time.sh"
 # RPI5
 alias pi="source ~/HJS/u22/pi.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v4.19\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v4.20\e[0m\n\n'"
 # EOF
