@@ -45,6 +45,7 @@ alias s2="picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0 && e
 alias stats="picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0 && echo 'stats' | picocom -qrix 100 /dev/ttyUSB0"
 alias statslog="cd && python3 ~/HJS/statlog/statlog.py S2XX-statslog"
 alias s2+="source ~/prodtest/bin/statsn.sh"
+alias csv="picocom -qrX -b 115200 --flow x --send-cmd ascii-xfr /dev/ttyUSB0 && echo 'pwr show a' | picocom -qrix 2000 /dev/ttyUSB0"
 alias cb12="cd ~/HJS/statlog && source ./CB12.sh"
 alias cb00="python3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.edit+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+0+0+[]+[]+[]+[]+[]+[]+C-fast"
 alias cb20="python3 ~/HJS/statlog/statlog.py S2XX-cfg.[DASH]unlock+cfg.edit+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+[]+2+0+[]+[]+[]+[]+[]+[]+C-fast"
@@ -106,6 +107,8 @@ alias pt+="echo 'enabling auto-prodtest' ; echo 'The world is a vampire' > ~/.au
 alias pt-="printf 'disabling auto-prodtest: ' ; rm -v ~/.auto_prodtest 2>&1 | \grep removed || echo 'already disabled'"
 alias ptv="python3 ~/prodtest/bin/ptverify.py"
 alias ptsync="source ~/prodtest/bin/ptsync.sh"
+alias tape="source ~/prodtest/bin/tape.sh"
+alias git+="git pull && printf '\nLast commit message:\n' && git log -1 --pretty=%B"
 alias bist="source ~/prodtest/bin/bist.sh"
 alias b8="printf '\n\e[1;35mRun xxf to summarize failures...\e[0m\n' && bist 8"
 alias sn="source ~/prodtest/bin/sn.sh"
@@ -142,5 +145,5 @@ alias tt="source ~/prodtest/bin/time.sh"
 # RPI5
 alias pi="source ~/HJS/u22/pi.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v4.20\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v4.22\e[0m\n\n'"
 # EOF
