@@ -1,9 +1,10 @@
 #!/bin/bash
 
-# edited by HJS to separate sections more clearly, removed everything but yolo
-# cd ~/dna2_self_test_2_2_0/ chmod +x ./run_3pg_yolo.sh
-# run using: dryi && cd ~/dna2_self_test_2_2_0/ && ./run_3pg_yolo.sh 999
-# dryi && cd ~/dna2_self_test_2_2_0/ && ./run_3pg_yolo.sh 999
+# removed everything but yolo
+# setup:
+# cd ~/dna2_self_test_2_2_0/ && chmod +x ./run_3pg_yolo.sh
+# run using:
+# dryi && cd ~/dna2_self_test_2_2_0/ && ./run_3pg_yolo.sh 99999
 
 NTIMES="${1:-2}"
 DEVICE_ID="${2:-0}"
