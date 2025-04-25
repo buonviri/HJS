@@ -14,11 +14,11 @@ echo "        _                 _         "
 echo "  _   _| |__  _   _ _ __ | |_ _   _ "
 echo " | | | | '_ \| | | | '_ \| __| | | |"
 echo " | |_| | |_) | |_| | | | | |_| |_| | by HJS"
-echo "  \__,_|_.__/ \__,_|_| |_|\__|\__,_| 0x0005"
+echo "  \__,_|_.__/ \__,_|_| |_|\__|\__,_| 0x0006"
 echo
 
 if [ -e ~/.auto_prodtest ]; then  # check if file exists
-  uptime=$(uptime --since)  # get boot timestamp
+  uptime=$(date -d "`cut -f1 -d. /proc/uptime` seconds ago" -u)  # get boot timestamp
   cat ~/.auto_prodtest | grep "$uptime" > /dev/null  # check grep, discard result
   if [ $? -eq 0 ]; then  # grep match
     echo "[Skipping auto-prodtest]"
