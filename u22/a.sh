@@ -135,8 +135,8 @@ us  # copy aliases to Home
 purple "   Set avatar to ~/Pictures/eca.jpg with bounding box set to max.\n\n"  # same as in ec.sh
 purple "The End ($n)\n\n"
 
-echo 'Hit any key to reboot (not yet implemented - try typing 01 instead)...'  # TODO fix this
-echo 'After reboot, resume with aliases r/s/t/u'
+echo 'Type 01 to reboot when ready...'  # TODO fix this
+echo 'After reboot, confirm hugepages'
 
 # snippets:
 

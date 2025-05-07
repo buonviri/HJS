@@ -17,7 +17,7 @@ alias deb="cat /etc/debian_version"
 alias dmesgnow="date | sudo tee /dev/kmsg"
 alias pci="source ~/HJS/u22/pcie.sh"
 alias pcie="source ~/HJS/u22/pcie.sh"
-alias huge="sudo dmesg | grep -i -E 'pcie_aspm=|kernel command line:|command line:|default_hugepagesz=|hugepagesz=|hugepages=|iommu=' ; grep HugePages_ /proc/meminfo; printf '\n\e[1;35m   Confirm 4/4/0/0.\e[0m\n\n'"
+alias huge="sudo dmesg | GREP_COLORS='ms=01;32' grep -i -E 'pcie_aspm=|kernel command line:|command line:|default_hugepagesz=|hugepagesz=|hugepages=|iommu=' ; GREP_COLORS='ms=01;32' grep HugePages_ /proc/meminfo; printf '\n\e[1;35m   Confirm 4/4/0/0.\e[0m\n\n'"
 alias 1fdc="sudo lspci -vvv -d 1fdc: | \\grep -E '1fdc|Subsystem:|LnkSta:|Region 0:|Region 2:|Region 4:' | tee ~/pci.info"
 alias hexdump="sudo lspci -xxx -d 1fdc:"
 alias fans="sensors | grep fan | grep -v ':[ \\t]\\+0 RPM' || echo No fans detected."
@@ -152,5 +152,5 @@ alias tt="source ~/prodtest/bin/time.sh"
 # RPI5
 alias pi="source ~/HJS/u22/pi.sh"
 # Version
-alias ver="printf '\n\e[1;35m   HJS aliases v4.27\e[0m\n\n'"
+alias ver="printf '\n\e[1;35m   HJS aliases v4.28\e[0m\n\n'"
 # EOF
