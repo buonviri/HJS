@@ -33,7 +33,7 @@ alias circle put my swamp dragon in circle;group say heating
 
 
 Lilin tells you: alias wrangle frimble
- FILL BOILER: fill boiler from water tank here then bury water tank -- 
+ FILL BOILER: fill boiler from water tank here ; bury water tank -- 
  START ENGINE: circle/circle DRAGONNAME, STOP ENGINE: 
  naptime/naptime DRAGONNAME -- PLAY: playtime, FEED: food -- 
  FIRE: alias x pour buckets on fire, REFILL 3 BUCKETS: 
@@ -50,6 +50,9 @@ ssfeed1: feed coal to dragon $*$        ssplay2: squeeze squeaky toy $*$
 ssfeed2: feed tin to dragon $*$         sspour: pour full buckets on fire $*$
 ssfire: stamp out fire $*$              sss: sell sausages $*$
 ssd: ssdragon $*$   ssf: ssfire $*$     ssp: sspour $*$
+alias ssfeed noalias feed $arg:coal & tin & lemon & brown bottle$ to dragon
+
+tie 1 untied crate down with ropes
 
 prep A/B/C - sslj
 search whatever
