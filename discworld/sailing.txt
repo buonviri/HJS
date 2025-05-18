@@ -1,37 +1,35 @@
-canteen
-bottles
-cloth
+canteen, bottle, cloth strips (or use box), sailing set, PAY QUOTA
 
-alias p put $*$ in medicine bag
-pf
-alias refill 
-fill boiler here from full water tank here
-bury empty water tank
-group say refilled
-
-drag tank to aft
-l dials
-
-alias decantb
-decant full water tank here into buckets
-bury empty water tank
-
-decantf
-emergency
-decant full water tank here onto fire;bury empty water tank
-
-pour buckets on fire
-pour full buckets on fire
-stamp out fire
-
-check dragons status;l dials here
+sscircle: put my swamp dragon in circle $*$
+sscut: hold axe;cut player free;cut player 2 free;cut player 3 free $*$
+ssdecant: decant full water tank here into buckets;bury empty water tank $*$
+ssdragon: check dragons status;l dials here $*$
+ssfeed: noalias feed $arg:coal & tin & lemon & brown bottle$ to dragon
+ssff: get full buckets;pour buckets on fire;stamp out fire $*$
+ssfff: decant full water tank here onto fire;bury empty water tank;stamp out fire $*$
+ssharp: get harpoon;hold harpoon;throw harpoon at serpent $*$
+ssharpk: get harpoon;hold harpoon;throw harpoon at kraken $*$
+ssnaptime: nosoul hold control rod; $ifarg:nosoul hit $1$ over the head with control rod$else$nosoul hit dragon 1 over the head with control rod; nosoul hit dragon 2 over the head with control rod$endif$
+ssrefill: fill boiler here from full water tank here;bury empty water tank;group say refilled $*$
+sstie: tie 1 untied crate down with ropes $*$
+sswep: g hammer and control rod;hold hammer;hold control rod $*$
+ssbury: bury empty water tank $*$
+ssec: exa crates $*$
+ssfeed1: feed coal to dragon $*$
+ssfeed2: feed tin to dragon $*$
+ssfill: fill boiler from water tank $*$
+ssfire: stamp out fire $*$
+ssplay: ssplay1;ssplay2 $*$
+ssplay1: throw ball $*$
+ssplay2: squeeze squeaky toy $*$
+sspour: pour full buckets on fire $*$
+sss: sell sausages $*$
+ssx: search axe;search harpoon $*$
+ssc: sscircle $*$         ssf: ssfire $*$           sslj: look junk $*$
+ssd: ssdragon $*$         ssg: get dragon $*$       ssp: sspour $*$
 
 alias naptime nosoul hold control rod;
 $ifarg:nosoul hit $1$ over the head with control rod$else$nosoul hit dragon 1 over the head with control rod; nosoul hit dragon 2 over the head with control rod$endif$
-
-alias circle put my swamp dragon in circle;group say heating
-
-
 Lilin tells you: alias wrangle frimble
  FILL BOILER: fill boiler from water tank here ; bury water tank -- 
  START ENGINE: circle/circle DRAGONNAME, STOP ENGINE: 
@@ -43,18 +41,41 @@ Lilin tells you: alias wrangle frimble
 
 sscircle: put my swamp dragon in circle $*$
 ssdragon: check dragons status;l dials here $*$
-ssharp: get harpoon;hold harpoon;throw harpoon at kraken $*$
+ssfeed: noalias feed $arg:coal & tin & lemon & brown bottle$ to dragon
+ssharp: get harpoon;hold harpoon;throw harpoon at serpent $*$
 ssnaptime: nosoul hold control rod; $ifarg:nosoul hit $1$ over the head with control rod$else$nosoul hit dragon 1 over the head with control rod; nosoul hit dragon 2 over the head with control rod$endif$
-ssa: steal money from sailor $*$        ssplay1: throw ball $*$
-ssfeed1: feed coal to dragon $*$        ssplay2: squeeze squeaky toy $*$
-ssfeed2: feed tin to dragon $*$         sspour: pour full buckets on fire $*$
-ssfire: stamp out fire $*$              sss: sell sausages $*$
-ssd: ssdragon $*$   ssf: ssfire $*$     ssp: sspour $*$
-alias ssfeed noalias feed $arg:coal & tin & lemon & brown bottle$ to dragon
-
-tie 1 untied crate down with ropes
+ssrefill: decant full water tank here into buckets; bury empty tank; gsay refilled
+alias ssrefill fill boiler here from full water tank here;bury empty water tank;group say refilled
+sstie: tie 1 untied crate down with ropes $*$
+sswep: g hammer and control rod;hold hammer;hold control rod $*$
+ssbury: bury empty water tank $*$
+ssec: exa crates $*$
+ssfeed1: feed coal to dragon $*$
+ssfeed2: feed tin to dragon $*$
+ssfill: fill boiler from water tank $*$
+ssfire: stamp out fire $*$
+ssplay: ssplay1;ssplay2 $*$
+ssplay1: throw ball $*$
+ssplay2: squeeze squeaky toy $*$
+sspour: pour full buckets on fire $*$
+sss: sell sausages $*$
+ssx: search axe;search harpoon $*$
+ssc: sscircle $*$         ssf: ssfire $*$           sslj: look junk $*$
+ssd: ssdragon $*$         ssg: get dragon $*$       ssp: sspour $*$
+A total of 26 aliases in 1 category.
 
 prep A/B/C - sslj
 search whatever
+
+not needed if using minimap
+alias p put $*$ in medicine bag AND pf (removed)
+
+now in alias
+alias refill 
+fill boiler here from full water tank here
+bury empty water tank
+group say refilled
+drag tank to aft
+l dials
 
 tell lilin my main problem on that sail was buckets. i could never find them and fill them. i think gznang handled that the first time i sailed
