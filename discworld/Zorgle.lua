@@ -141,8 +141,10 @@ for key, value in pairs(t) do
          short_list = short_list .. " BAN[" .. numeral[n] .. "]"
       end
       if itemcount < maxcount then -- set max lines
-         if string.sub(value,0,4) == "five" or string.sub(value,0,3) == "six" or string.sub(value,0,4) == "some" or string.sub(value,0,5) == "seven" or string.sub(value,0,8) == "one pint" or string.sub(value,0,9) == "two pints" then
-            formatted_list = formatted_list .. " - " .. value .. ending -- add indent for five/six/seven/some/pint
+--       if string.sub(value,0,4) == "five" or string.sub(value,0,3) == "six" or string.sub(value,0,4) == "some" or string.sub(value,0,5) == "seven" or string.sub(value,0,8) == "one pint" or string.sub(value,0,9) == "two pints" then
+--          formatted_list = formatted_list .. " - " .. value .. ending -- add indent for five/six/seven/some/pint (removed 2025-05-19)
+         if string.sub(value,0,12) == "a smuggler's" or string.sub(value,0,12) == "some smuggle" or string.sub(value,0,12) == "a pair of sm" or string.sub(value,0,12) == "a gold neckl" then
+            formatted_list = formatted_list .. " " .. value .. ending -- smuggler's set and permalight, indent one
          else
             formatted_list = formatted_list .. value .. ending -- no indent
          end
