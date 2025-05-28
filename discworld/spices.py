@@ -27,6 +27,8 @@ for line in handfuls:
         print('END: ' + line)
     elif len(line) < 2:
         pass  # blank line
+    elif line.startswith('Queued'):
+        pass  # meaningless line
     else:
         filtered.append(line.strip())
         print(line)
