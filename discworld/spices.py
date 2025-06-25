@@ -15,6 +15,8 @@ clip = clip.replace('handful ', '***HANDFUL*** ')
 print(clip)
 clip = clip.replace('pinch', '***PINCH***')
 print(clip)
+clip = clip.replace('item.', 'item,')
+print(clip)
 clip = clip.replace('items.', 'items,')
 print(clip)
 clip = clip.replace('\n', ',')
@@ -22,7 +24,7 @@ print(clip)
 
 handfuls = clip.split(',')
 for line in handfuls:
-    if line.endswith('items'):
+    if line.endswith('items') or line.endswith('item'):
         discard.append(line.strip())
         print('END: ' + line)
     elif len(line) < 2:
