@@ -5,9 +5,10 @@ function printmylist(x)
 -- set max count to be displayed
 maxcount = 40
 
--- get string between colon and period
+-- get string between colon and period, replace strings with spaces
 csv = x
 csv = string.gsub(csv,"gold and mahogany","gold-and-mahogany")
+csv = string.gsub(csv,"gold and red","gold-and-red")
 
 -- convert to table and get count
 t = utils.split (csv, ",")
@@ -38,7 +39,8 @@ short =
    ["a rasher of extra-crispy bacon"]      = "WEP",
    ["two jagged coral dirks"]              = "WEP WEP",
    ["two rashers of extra-crispy bacon"]   = "WEP WEP",
-   ["a gold-and-mahogany ring"]            = "NIK",
+   ["a gold-and-mahogany ring"]            = "NIKa",
+   ["a gold-and-red coral ring"]           = "NIKb",
    ["a pair of iron gauntlets"]            = "STR",
    ["a crowbar"]                           = "JOB",
    ["a brass feather"]                     = "HAT",
