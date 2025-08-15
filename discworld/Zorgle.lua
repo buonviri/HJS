@@ -70,6 +70,8 @@ short =
 -- list of coin strings
 coins =
    {
+   ["elian ras"] = "ra",
+   ["jelian ra"] = "ra",
    ["rk royals"] = "royal",
    ["ork royal"] = "royal",
    ["lf-dollar"] = "half",
