@@ -52,6 +52,7 @@ short =
    ["a ribboned baton"]                    = "HAT",
    ["a set of prayer beads"]               = "HAT",
    ["a ribbon charm bracelet"]             = "HAT",
+   ["a tinsel charm bracelet"]             = "HAT",
 
    ["a black velvet bag"]                  = "BAG",
    ["a turnip sack"]                       = "BAG",
