@@ -17,8 +17,9 @@ for n in range(words):
         clip = clip + word_list[randint(0, word_list_max)]
     clip = clip + sep_list[randint(0, sep_list_max)]
 
-pyperclip.copy(clip[:-1])
-print(clip[:-1])
+clip = clip[:-1]  # remove last char (trailing separator)
+pyperclip.copy(clip)
+print(clip)
 
 os.system('timeout /t 3')  # wait a few seconds
 # os.system('PAUSE')  # wait forever
