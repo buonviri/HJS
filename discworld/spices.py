@@ -34,7 +34,15 @@ for line in handfuls:
     else:
         filtered.append(line.strip())
         print(line)
-pyperclip.copy('\n'.join(filtered) + '\n' + '\n'.join(discard))
+# skip for text-only version
+# pyperclip.copy('\n'.join(filtered) + '\n' + '\n'.join(discard))
+
+print()  # blank line to separate warnings and/or pause
+for f in filtered:
+    if '-one handfuls' in f or '-two handfuls' in f or '-three handfuls' in f or '-four handfuls' in f or '-five handfuls' in f or '-six handfuls' in f:
+        pass  # prevent next line from triggering if QTY is 20+
+    elif 'one handful' in f or 'two handfuls' in f or 'three handfuls' in f or 'four handfuls' in f or 'five handfuls' in f or 'six handfuls' in f:
+        print('Warning: ' + f[6:-26])  # remove leading 'about' and trailing 'wardrobe'
 
 os.system("PAUSE")
 
