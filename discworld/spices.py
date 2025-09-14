@@ -4,6 +4,32 @@ import pyperclip
 filtered = []
 discard = []
 clip = pyperclip.paste()
+required = {
+    # 'sorrel': True,
+    'catnip': True,
+    # 'marjoram': True,
+    'curry powder': True,
+    'oregano': True,
+    'thyme': True,
+    'cloves': True,
+    'caraway': True,
+    'ginger': True,
+    'parsley': True,
+    'turmeric': True,
+    'fennel': True,
+    'saffron': True,
+    'cardamom': True,
+    'methi': True,
+    'sumac': True,
+    'garlic': True,
+    'sea salt': True,
+    'cumin': True,
+    'black pepper': True,
+    'basil': True,
+    'cinnamon': True,
+    'sage': True,
+    'coriander': True,
+}
 
 clip = clip.replace('You count', '')
 print(clip)
@@ -39,10 +65,22 @@ for line in handfuls:
 
 print()  # blank line to separate warnings and/or pause
 for f in filtered:
-    if '-one handfuls' in f or '-two handfuls' in f or '-three handfuls' in f or '-four handfuls' in f or '-five handfuls' in f or '-six handfuls' in f:
+    if ('-one handfuls' in f or '-two handfuls' in f or '-three handfuls' in f or '-four handfuls' in f or 
+        '-five handfuls' in f or '-six handfuls' in f or '-seven handfuls' in f or '-eight handfuls' in f):
         pass  # prevent next line from triggering if QTY is 20+
-    elif 'one handful' in f or 'two handfuls' in f or 'three handfuls' in f or 'four handfuls' in f or 'five handfuls' in f or 'six handfuls' in f:
+    elif ('one handful' in f or 'two handfuls' in f or 'three handfuls' in f or 'four handfuls' in f or
+          'five handfuls' in f or 'six handfuls' in f or 'seven handfuls' in f or 'eight handfuls' in f):
         print('Warning: ' + f[6:-26])  # remove leading 'about' and trailing 'wardrobe'
+    for k in required:
+        if k in f:
+            del required[k]
+            break
+missing = 'Missing:'
+for k in required:
+    missing = missing + ' ' + k
+if len(missing) == 8:  # nothing was appended
+    missing = missing + ' none'
+print(missing)
 
 os.system("PAUSE")
 
