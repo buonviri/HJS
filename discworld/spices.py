@@ -32,21 +32,21 @@ required = {
 }
 
 clip = clip.replace('You count', '')
-print(clip)
+# print(clip)
 clip = clip.replace('with a total of', ',')
-print(clip)
+# print(clip)
 clip = clip.replace('wardrobe and about', 'wardrobe , about')
-print(clip)
+# print(clip)
 clip = clip.replace('handful ', '***HANDFUL*** ')
-print(clip)
+# print(clip)
 clip = clip.replace('pinch', '***PINCH***')
-print(clip)
+# print(clip)
 clip = clip.replace('item.', 'item,')
-print(clip)
+# print(clip)
 clip = clip.replace('items.', 'items,')
-print(clip)
+# print(clip)
 clip = clip.replace('\n', ',')
-print(clip)
+# print(clip)
 
 handfuls = clip.split(',')
 for line in handfuls:
@@ -81,6 +81,7 @@ for k in required:
 if len(missing) == 8:  # nothing was appended
     missing = missing + ' none'
 print(missing)
+print()
 
 os.system("PAUSE")
 
