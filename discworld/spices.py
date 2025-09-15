@@ -5,9 +5,11 @@ filtered = []
 discard = []
 clip = pyperclip.paste()
 required = {
-    # 'sorrel': True,
     'catnip': True,
+    # 'sorrel': True,
     # 'marjoram': True,
+    # 'nutmeg': True,
+    # 'rosemary': True,
     'curry powder': True,
     'oregano': True,
     'thyme': True,
