@@ -23,7 +23,7 @@ keywords = (
     'ek-ra4m3',  # Renesas
     's2lp_jtag', 's2m2_tag',  # cable
     'ftdi_configuration',  # FTDI
-    'usb-?',  # USB
+    'usb-c_cables',  # USB
     'assembly.pdf',  # mech doc: S2LP, J220, etc
     '.ce', '.cfg',  # config
     '.x2', '.pt', '.b3', '.d3', '.d3b', '.h8',  # prodtest
@@ -61,6 +61,7 @@ underscore = (
     ['ftdi configuration', 'ftdi_configuration'],
     ['s2lp jtag', 's2lp_jtag'],
     ['s2m2 tag', 's2m2_tag'],
+    ['usb-c cables', 'usb-c_cables'],
     )
 for u in underscore:
     clip = clip.replace(u[0], u[1])  # replace space with underscore or kill
