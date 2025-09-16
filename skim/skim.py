@@ -7,8 +7,9 @@ clip = raw_clip.lower()
 
 # define all keywords to be highlighted
 headers = (
-    'windows', 'linux',  # OS
+    'windows',  # OS
     'mechanical_assembly',  # mech
+    'linux',  # OS
     )
 
 keywords = (
