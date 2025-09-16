@@ -23,6 +23,7 @@ keywords = (
     'ek-ra4m3',  # Renesas
     's2lp_jtag', 's2m2_tag',  # cable
     'ftdi_configuration',  # FTDI
+    'usb-?',  # USB
     'assembly.pdf',  # mech doc: S2LP, J220, etc
     '.ce', '.cfg',  # config
     '.x2', '.pt', '.b3', '.d3', '.d3b', '.h8',  # prodtest

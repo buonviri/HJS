@@ -2,6 +2,7 @@
 -- requirements --
    ek-ra4m3
    s2m2_tag
+   usb-?
 -- windows --
    plug_the_S2M2
    power_on
