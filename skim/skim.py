@@ -14,9 +14,10 @@ headers = (
 
 keywords = (
     'power_on', 'power_off', 'cycle_power',  # change power state
-    'plug_the_S2LP', 'unplug_the_S2LP',  # add/remove
+    'plug_the_S2LP', 'unplug_the_S2LP',  # add/remove AIC
+    'plug_the_S2M2', 'unplug_the_S2M2',  # add/remove AIC
     'barcode.bat',  # prog doc
-    'assembly.pdf',  # mech doc
+    'assembly.pdf',  # mech doc: S2LP, J220, etc
     '.ce', '.cfg',  # config
     '.x2', '.pt', '.b3', '.d3', '.d3b', '.h8',  # prodtest
     )
@@ -46,6 +47,8 @@ underscore = (
     ['from the windows pc', '{from the equipment}'],
     ['plug the s2lp', 'plug_the_S2LP'],
     ['unplug the s2lp', 'unplug_the_S2LP'],
+    ['plug the s2m2', 'plug_the_S2M2'],
+    ['unplug the s2m2', 'unplug_the_S2M2'],
     )
 for u in underscore:
     clip = clip.replace(u[0], u[1])  # replace space with underscore or kill
@@ -70,6 +73,14 @@ for word in words:
             out = out + '\n   ' + word  # add leading newline and spaces
             last = 'long'
 print(out)
+
+# write files if applicable
+if 'S2LP' in out:
+    with open('S2LP.log', 'w') as f:
+        f.write(out + '\n')
+if 'S2M2' in out:
+    with open('S2M2.log', 'w') as f:
+        f.write(out + '\n')
 
 # done in batch file:
 # os.system('timeout /t 60')
