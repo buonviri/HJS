@@ -20,6 +20,7 @@ keywords = (
     'chassis_fan', 'fansink_cable',  # cooling
     'barcode.bat',  # prog doc
     'on-screen',  # batch file
+    'ek-ra4m3',  # programmer
     'assembly.pdf',  # mech doc: S2LP, J220, etc
     '.ce', '.cfg',  # config
     '.x2', '.pt', '.b3', '.d3', '.d3b', '.h8',  # prodtest

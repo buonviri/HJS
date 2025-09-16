@@ -1,8 +1,10 @@
 
 -- requirements --
+   ek-ra4m3
 -- windows --
    plug_the_S2M2
    power_on
+   ek-ra4m3
    barcode.bat
    version 201
    on-screen
