@@ -16,6 +16,7 @@ keywords = (
     'power_on', 'power_off', 'cycle_power',  # change power state
     'plug_the_S2LP', 'unplug_the_S2LP',  # add/remove AIC
     'plug_the_S2M2', 'unplug_the_S2M2',  # add/remove AIC
+    'chassis_fan', 'fansink_cable',  # cooling
     'barcode.bat',  # prog doc
     'on-screen',  # batch file
     'assembly.pdf',  # mech doc: S2LP, J220, etc
@@ -50,6 +51,8 @@ underscore = (
     ['unplug the s2lp', 'unplug_the_S2LP'],
     ['plug the s2m2', 'plug_the_S2M2'],
     ['unplug the s2m2', 'unplug_the_S2M2'],
+    ['chassis fan', 'chassis_fan'],
+    ['fansink cable', 'fansink_cable'],
     )
 for u in underscore:
     clip = clip.replace(u[0], u[1])  # replace space with underscore or kill

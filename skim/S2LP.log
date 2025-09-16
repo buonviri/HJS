@@ -10,6 +10,7 @@
    assembly.pdf
    plug_the_S2LP
 -- linux --
+   chassis_fan
    power_on
    .ce .cfg
    cycle_power

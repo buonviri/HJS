@@ -10,6 +10,7 @@
    assembly.pdf
    plug_the_S2M2
 -- linux --
+   fansink_cable
    power_on
    .ce .cfg
    cycle_power
