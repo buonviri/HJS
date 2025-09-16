@@ -9,7 +9,6 @@ clip = raw_clip.lower()
 headers = (
     'windows', 'linux',  # OS
     'mechanical_assembly',  # mech
-    # 'final_test',  # test header removed because it also contains 'linux'
     )
 
 keywords = (
@@ -22,21 +21,15 @@ keywords = (
     )
 
 # remove all double quotes
-double_quotes = '"“”' 
-for c in double_quotes:
-    clip = clip.replace(c, '')  # delete completely
+brackets = '"“”{}[]()\'' 
+for c in brackets:
+    clip = clip.replace(c, ' ')  # replace with space
 
-# separate keywords from delimiters
-add_space = "{}[]()'"  # this string is double-quoted since those are aleady gone
-for a in add_space:
-    clip = clip.replace(a, ' ' + a + ' ')  # replace each char with that same char plus leading/trailing spce
-
-# add underscores or kill completely using squiggly brackets
+# add underscores/dots, replace strings, or kill completely using squiggly brackets
 underscore = (
     ['cycle power', 'cycle_power'],  # listed first to avoid converting 'cycle power on x' incorrectly
     ['power on', 'power_on'],
     ['power off', 'power_off'],
-    ['final test', 'final_test'],
     ['type ce',  '.ce'],
     ['type cfg', '.cfg'],
     ['type x2',  '.x2'],
@@ -58,12 +51,24 @@ for u in underscore:
 
 # generate output
 words = clip.split()  # lowercase, split on whitespace
-print(' '.join(words) + '\nEND OF CLIPBOARD\n')  # debug can also do pprint.pprint
+print(' '.join(words) + '\nEND OF CLIPBOARD')  # debug can also do pprint.pprint
+out = ''  # output string
+last = 'long'  # default to last word being long
 for word in words:
     if word in headers:
-        print('** ' + word + ' **')
+        out = out + '\n** ' + word + ' **'
+        last = 'long'
     elif word in keywords:
-        print(' ' + word)
+        if len(word) < 5:
+            if last == 'short':
+                out = out + ' ' + word  # add leading space
+            else:
+                out = out + '\n ' + word  # add leading newline and space
+            last = 'short'
+        else:
+            out = out + '\n ' + word
+            last = 'long'
+print(out)
 
 # done in batch file:
 # os.system('timeout /t 60')
