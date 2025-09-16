@@ -24,7 +24,7 @@ keywords = (
     '.x2', '.pt', '.b3', '.d3', '.d3b', '.h8',  # prodtest
     )
 
-# remove all double quotes
+# replace all double quotes, brackets, parentheses, and single quotes
 brackets = '"“”{}[]()\'' 
 for c in brackets:
     clip = clip.replace(c, ' ')  # replace with space
