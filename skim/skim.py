@@ -21,6 +21,7 @@ keywords = (
     'barcode.bat',  # prog doc
     'on-screen',  # batch file
     'ek-ra4m3',  # Renesas
+    's2lp_jtag', 's2m2_tag',  # cable
     'ftdi_configuration',  # FTDI
     'assembly.pdf',  # mech doc: S2LP, J220, etc
     '.ce', '.cfg',  # config
@@ -57,6 +58,8 @@ underscore = (
     ['chassis fan', 'chassis_fan'],
     ['fansink cable', 'fansink_cable'],
     ['ftdi configuration', 'ftdi_configuration'],
+    ['s2lp jtag', 's2lp_jtag'],
+    ['s2m2 tag', 's2m2_tag'],
     )
 for u in underscore:
     clip = clip.replace(u[0], u[1])  # replace space with underscore or kill

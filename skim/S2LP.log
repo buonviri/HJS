@@ -1,6 +1,7 @@
 
 -- requirements --
    ek-ra4m3
+   s2lp_jtag
 -- windows --
    plug_the_S2LP
    power_on
