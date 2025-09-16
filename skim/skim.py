@@ -57,17 +57,17 @@ out = ''  # output string
 last = 'long'  # default to last word being long
 for word in words:
     if word in headers:
-        out = out + '\n** ' + word + ' **'
+        out = out + '\n-- ' + word + ' --'
         last = 'long'
     elif word in keywords:
         if len(word) < 5:
             if last == 'short':
-                out = out + ' ' + word  # add leading space
+                out = out + ' ' + word  # add one leading space
             else:
-                out = out + '\n ' + word  # add leading newline and space
+                out = out + '\n   ' + word  # add leading newline and spaces
             last = 'short'
         else:
-            out = out + '\n ' + word
+            out = out + '\n   ' + word  # add leading newline and spaces
             last = 'long'
 print(out)
 
