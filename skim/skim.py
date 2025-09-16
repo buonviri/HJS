@@ -76,6 +76,9 @@ for word in words:
         else:
             out = out + '\n   ' + word  # add leading newline and spaces
             last = 'long'
+    elif word.startswith('bmc-ftdi-'):  # version string
+        out = out + '\n   version ' + word[-3:]  # add version
+        last = 'long'
 print(out)
 
 # write files if applicable
