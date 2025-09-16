@@ -23,6 +23,6 @@
    cycle_power
    .pt .x2
    cycle_power
-   .pt .b3 .d3 .d3b .h8 .pt
+   .pt .b3 .d3 .h8 .pt
    power_off
    unplug_the_S2M2
