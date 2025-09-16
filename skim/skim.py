@@ -17,6 +17,7 @@ keywords = (
     'plug_the_S2LP', 'unplug_the_S2LP',  # add/remove AIC
     'plug_the_S2M2', 'unplug_the_S2M2',  # add/remove AIC
     'barcode.bat',  # prog doc
+    'on-screen',  # batch file
     'assembly.pdf',  # mech doc: S2LP, J220, etc
     '.ce', '.cfg',  # config
     '.x2', '.pt', '.b3', '.d3', '.d3b', '.h8',  # prodtest

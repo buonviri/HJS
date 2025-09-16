@@ -3,6 +3,7 @@
    plug_the_S2LP
    power_on
    barcode.bat
+   on-screen
    power_off
 -- mechanical_assembly --
    unplug_the_S2LP
