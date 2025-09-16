@@ -67,7 +67,7 @@ for u in underscore:
 
 # generate output
 words = clip.split()  # lowercase, split on whitespace
-print(' '.join(words) + '\nEND OF CLIPBOARD')  # debug can also do pprint.pprint
+print(' '.join(words) + '\nEND OF CLIPBOARD')  # debug, can also do pprint.pprint
 out = ''  # output string
 last = 'long'  # default to last word being long
 for word in words:
