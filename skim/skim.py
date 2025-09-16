@@ -20,14 +20,15 @@ keywords = (
     'chassis_fan', 'fansink_cable',  # cooling
     'barcode.bat',  # prog doc
     'on-screen',  # batch file
-    'ek-ra4m3',  # programmer
+    'ek-ra4m3',  # Renesas
+    'ftdi_configuration',  # FTDI
     'assembly.pdf',  # mech doc: S2LP, J220, etc
     '.ce', '.cfg',  # config
     '.x2', '.pt', '.b3', '.d3', '.d3b', '.h8',  # prodtest
     )
 
-# replace all double quotes, brackets, parentheses, and single quotes
-brackets = '"“”{}[]()\'' 
+# replace all double quotes, brackets, parentheses, single quotes, colons
+brackets = '"“”{}[]()\':' 
 for c in brackets:
     clip = clip.replace(c, ' ')  # replace with space
 
@@ -55,6 +56,7 @@ underscore = (
     ['unplug the s2m2', 'unplug_the_S2M2'],
     ['chassis fan', 'chassis_fan'],
     ['fansink cable', 'fansink_cable'],
+    ['ftdi configuration', 'ftdi_configuration'],
     )
 for u in underscore:
     clip = clip.replace(u[0], u[1])  # replace space with underscore or kill
