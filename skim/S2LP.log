@@ -5,8 +5,8 @@
    usb-c_cables
 -- windows --
    plug_the_S2LP
-   power_on
    ek-ra4m3
+   power_on
    ftdi_configuration
    barcode.bat
    version 201
@@ -17,8 +17,8 @@
    assembly.pdf
 -- linux --
    plug_the_S2LP
-   power_on
    chassis_fan
+   power_on
    .ce .cfg
    cycle_power
    .pt .x2

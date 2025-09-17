@@ -2,21 +2,21 @@
 -- requirements --
    ek-ra4m3
    s2m2_tag
-   usb-?
+   usb-c_cables
 -- windows --
    plug_the_S2M2
-   power_on
    ek-ra4m3
+   power_on
    ftdi_configuration
    barcode.bat
    version 201
    on-screen
    power_off
--- mechanical_assembly --
    unplug_the_S2M2
+-- mechanical_assembly --
    assembly.pdf
-   plug_the_S2M2
 -- linux --
+   plug_the_S2M2
    fansink_cable
    power_on
    .ce .cfg
