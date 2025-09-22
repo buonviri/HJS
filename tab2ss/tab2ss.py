@@ -1,6 +1,7 @@
-import pyperclip
-import pprint
+import re
 import sys
+import pprint
+import pyperclip
 
 # check args and enable list/dict
 for arg in sys.argv:
@@ -26,18 +27,22 @@ goodCols = {}  # record indices of non-blank columns
 
 # record entire clipboard as a list of lists, including all blank cells
 rowIndex = 0  # track row index
+chinese = r'[\u4e00-\u9fff]+'  # regex covering typical chinese char range
 for r in rows:  # iterate over all rows
     colIndex = 0  # track column index, resets each time through loop
     row = []  # blank row to store new cells
     cols = r.split('\t')  # split on tab
     for cell in cols:  # iterate over columns
-        value = cell.strip()  # remove any whitespace
+        value_raw = cell.strip()  # remove any whitespace
+        value_deg = re.sub(r'\u2103', 'C', value_raw)  # replace degree C chars with C
+        value = re.sub(chinese , '+', value_deg)  # replace chinese chars with +
         row.append(value)  # add to row
         if value != '':  # non-blank
             goodRows[rowIndex] = True
             goodCols[colIndex] = True
         colIndex = colIndex + 1  # increment col counter
     ss.append(row)  # add row to spreadsheet
+    # print(row)
     rowIndex = rowIndex + 1  # incremenet row counter
 
 # debug
