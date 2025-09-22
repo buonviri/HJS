@@ -17,7 +17,9 @@ def AetinaRefDesMerge(row):  # entire row info is passed, new row is returned
 # End of function
 
 # main()
-for filename in ['a.list', 'b.list']:
+filenames = ['a.list', 'b.list']
+info = {filenames[0]: {}, filenames[1]: {},}  # blank dicts
+for filename in filenames:
     refdescount = 0
     dnpcount = 0
     with open(filename, 'r') as f:
@@ -41,10 +43,15 @@ for filename in ['a.list', 'b.list']:
         if id == 'Aetina':
             row = AetinaRefDesMerge(row)  # need to merge some cells for Aetina
         refdeslist = row[refdescol[id]].split(',')
-        for refdes in refdeslist:
-            if len(refdes.strip()) > 0:  # non-blank entries ONLY
+        for rawrefdes in refdeslist:
+            refdes = rawrefdes.strip()
+            if len(refdes) > 0:  # non-blank entries ONLY
+                if refdes in info[filename]:  # already exists
+                    print('Duplicate RefDes: ' + refdes)
                 refdescount = refdescount + 1
+                info[filename][refdes] = 1  # temp
     print('RefDes Count: ' + str(refdescount))
-    print('   DNP Count: ' + str(dnpcount))
+    print('  Info Count: ' + str(len(info[filename])))
+    # print('   DNP Count: ' + str(dnpcount))
 
 # EOF
