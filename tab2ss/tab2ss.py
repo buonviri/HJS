@@ -33,10 +33,15 @@ for r in rows:  # iterate over all rows
     row = []  # blank row to store new cells
     cols = r.split('\t')  # split on tab
     for cell in cols:  # iterate over columns
-        value_raw = cell.strip()  # remove any whitespace
-        value_nbs = re.sub(r'\xa0', ' ', value_raw)  # replace NBS with space
-        value_deg = re.sub(r'\u2103', 'C', value_nbs)  # replace degree C chars with C
-        value = re.sub(chinese , '+', value_deg)  # replace chinese chars with +
+        value = cell.strip()  # remove any whitespace
+        value = re.sub(r'\xa0', ' ', value)  # replace NBS with space
+        value = re.sub(r'\xb0', 'deg', value)  # replace degree symbol with deg
+        value = re.sub(r'\xb1', '+/-', value)  # replace plus/minus symbol with +/-
+        value = re.sub(r'\u2103', 'C', value)  # replace degree C chars with C
+        value = re.sub(chinese , '+', value)  # replace chinese chars with +
+        for char in value:
+            if ord(char) > 127:
+                print('Non-ASCII: ' + char + ' (' + str(ord(char)) + ')')
         row.append(value)  # add to row
         if value != '':  # non-blank
             goodRows[rowIndex] = True
