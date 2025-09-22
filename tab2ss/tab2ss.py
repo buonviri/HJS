@@ -34,7 +34,8 @@ for r in rows:  # iterate over all rows
     cols = r.split('\t')  # split on tab
     for cell in cols:  # iterate over columns
         value_raw = cell.strip()  # remove any whitespace
-        value_deg = re.sub(r'\u2103', 'C', value_raw)  # replace degree C chars with C
+        value_nbs = re.sub(r'\xa0', ' ', value_raw)  # replace NBS with space
+        value_deg = re.sub(r'\u2103', 'C', value_nbs)  # replace degree C chars with C
         value = re.sub(chinese , '+', value_deg)  # replace chinese chars with +
         row.append(value)  # add to row
         if value != '':  # non-blank
