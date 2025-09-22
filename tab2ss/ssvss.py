@@ -1,4 +1,6 @@
 # compare ss files named a.list and b.list
+# use tab2ss.py --list to create each file and rename it appropriately
+# 'a' is old and 'b' is new, although the order shouldn't matter
 
 import ast
 
@@ -38,7 +40,7 @@ for filename in filenames:
         if id == 'EdgeCortix':
             if row[refdescol['EdgeCortix']].endswith('(DNP)'):
                 # print('Removed: ' + row[refdescol['EdgeCortix']])
-                row = ['','','','','','','','','','','']  # blank out info
+                row = ['',] * (refdescol[id] + 1)  # blank out info up to refdescol
                 dnpcount = dnpcount + 1
         if id == 'Aetina':
             row = AetinaRefDesMerge(row)  # need to merge some cells for Aetina
@@ -52,6 +54,6 @@ for filename in filenames:
                 info[filename][refdes] = 1  # temp
     print('RefDes Count: ' + str(refdescount))
     print('  Info Count: ' + str(len(info[filename])))
-    # print('   DNP Count: ' + str(dnpcount))
+    print('   DNP Count: ' + str(dnpcount))
 
 # EOF
