@@ -1,6 +1,6 @@
 # compare ss files named a.list and b.list
 # use tab2ss.py --list to create each file and rename it appropriately
-# 'a' is old and 'b' is new, although the order shouldn't matter
+# 'a' is old and 'b' is new
 
 import ast
 
@@ -10,7 +10,7 @@ mfg = 3  # EC only
 mpn = 4  # EC only
 item = 2  # Aetina only
 log = {
-    'xx': 'xx - missing.txt',
+    '99': '99 - missing.txt',
     '00': '00 - no aetina info.txt',
     '01': '01 - bad aetina info.txt',
     '06': '06 - incorrect spacing.txt',
@@ -36,7 +36,7 @@ def mfg_fix(s):  # fix mfg names to match Aetina
         # ours: theirs (caps irrelevant)
         'Lite-On Inc.': 'Lite-On',
         'Murata Electronics': 'Murata',
-        'NEXPERIA USA INC.': 'NEXPERIA',
+        'Nexperia USA Inc.': 'NEXPERIA',
         'Samsung Electro-Mechanics': 'Samsung',
         'Texas Instruments': 'TI',
         'Vishay Dale': 'Vishay',
@@ -141,7 +141,7 @@ for refdes in info[filenames[0]]:
     except:
         new = ''
     if refdes not in info[filenames[1]]:  # key missing from dict
-        i = 'xx'
+        i = '99'
     elif len(new) < 1:  # their info is blank
         i = '00'
     elif new == old:  # their info matches our info exactly (after filtering)
