@@ -174,7 +174,7 @@ for refdes in info[filenames[0]]:
         note = 'extra space'
     elif old == new.replace(' : ', ':'):  # workaround if they have a space before AND after the colon
         i = '10'
-        note = 'extra space'
+        note = 'extra spaces'
     elif new.startswith(old):  # their info starts with our info
         i = '09'
     elif new.endswith(old):  # their info ends with our info
@@ -184,7 +184,7 @@ for refdes in info[filenames[0]]:
         note = 'extra space'
     elif old in new.replace(' : ', ':'):  # workaround if they have a space before AND after the colon
         i = '07'
-        note = 'extra space'
+        note = 'extra spaces'
     elif old in new:  # their info contains with our info
         i = '07'
     else:  # bad aetina info
