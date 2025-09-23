@@ -18,7 +18,7 @@ log = {
     '07': '07 - prefix and suffix.txt',
     '08': '08 - endswith.txt',
     '09': '09 - startswith.txt',
-    '10': '10 - perfect match.txt',
+    '10': '10 - match.txt',
     }
 
 def AetinaRefDesMerge(row):  # entire row info is passed, new row is returned
@@ -131,6 +131,7 @@ for filename in filenames:
             row = AetinaRefDesMerge(row)  # need to merge some cells for Aetina
             mfg_mpn = remove_suffix(remove_prefix(row[item]))  # Aetina format, with filtering
             mfg_mpn = mfg_mpn.replace('Diodes', 'DIODES')  # workaround for their ONE non-all-caps MPN
+            mfg_mpn = mfg_mpn.replace('SAKURA-II', 'SAKURA2_TBD_PN')  # workaround for our disgrace
         refdeslist = row[refdescol[id]].split(',')
         for rawrefdes in refdeslist:
             refdes = rawrefdes.strip()
