@@ -2,6 +2,7 @@
 # use tab2ss.py --list to create each file and rename it appropriately
 # 'a' is old and 'b' is new
 
+import os
 import ast
 
 # constants
@@ -24,7 +25,7 @@ def AetinaRefDesMerge(row):  # entire row info is passed, new row is returned
     new_cell = ''
     start_col = refdescol['Aetina']
     for cell in row[start_col:]:  # everything from refdescol to the end
-        new_cell = new_cell + cell + ','  # always append a comma, need to deal with it later
+        new_cell = new_cell + cell  # assumes it's one continuous string split across cells
     new_cell = new_cell.strip(',')  # remove trailing comma(s) for compare
     if row[start_col] != new_cell:  # something changed
         pass  # print(row[0:start_col] + [new_cell,])  # debug
@@ -34,10 +35,16 @@ def AetinaRefDesMerge(row):  # entire row info is passed, new row is returned
 def mfg_fix(s):  # fix mfg names to match Aetina
     fix = {  # dictionary of mfg name fixes
         # ours: theirs (caps irrelevant)
+        'Analog Devices/Maxim': 'ANALOG DEVICES',
+        'Diodes Incorporated': 'DIODES',  # Aetina didn't do all caps!
+        'ECS Inc.': 'ECS',
         'Lite-On Inc.': 'Lite-On',
+        'Littelfuse Inc.': 'LITTELFUSE',
         'Murata Electronics': 'Murata',
         'Nexperia USA Inc.': 'NEXPERIA',
         'Samsung Electro-Mechanics': 'Samsung',
+        'Samtec Inc.': 'Samtec',
+        'Skyworks Solutions Inc.': 'SKYWORKS',
         'Texas Instruments': 'TI',
         'Vishay Dale': 'Vishay',
         }
@@ -54,6 +61,9 @@ def remove_prefix(s):  # filter Aetina strings
         'BUCK CONVERTER',
         'CHIP INDUCTOR',
         'CHOKE',
+        'CLOCK BUFFER',
+        'CRYSTAL',
+        'HEAER',  # LOL
         'LED',
         'LEVEL SHIFTING',
         'LOGIC IC',
@@ -62,12 +72,18 @@ def remove_prefix(s):  # filter Aetina strings
         'MLCC',
         'MONITOR',
         'OSCILLATOR',
+        'PIN HEADER',
         'POWER SWITCH',
+        'PTC FUSE',
         'REGULATOR',
         'RESISTOR CURRENT',
         'RESISTOR',
         'SENSOR',
+        'SOC',
+        'SWITCH IC',
+        'TVS ESD',
         'USB BRIDGE CONTROLLER',
+        'USB C-TYPE CONNECTOR',
         'ZENER DIODE',
         ]
     for x in prefix:
@@ -103,7 +119,8 @@ for filename in filenames:
     print('\n' + id + ': ' + str(ss[0]))
     for row in ss[1:]:  # skip header row
         if id == 'EdgeCortix':
-            if row[refdescol['EdgeCortix']].endswith('(DNP)'):
+            r = row[refdescol['EdgeCortix']]
+            if r.endswith('(DNP)') or r.endswith('(SGL_SAKURA)') or r.endswith('(DUAL_SAKURA)') or r.endswith('(DUAL_SAKURA (w/ subs))'):  # possible suffixes from JMBJ
                 # print('Removed: ' + row[refdescol['EdgeCortix']])
                 row = ['',] * (refdescol[id] + 1)  # blank out info up to refdescol
                 mfg_mpn = ''  # blank
@@ -113,6 +130,7 @@ for filename in filenames:
         if id == 'Aetina':
             row = AetinaRefDesMerge(row)  # need to merge some cells for Aetina
             mfg_mpn = remove_suffix(remove_prefix(row[item]))  # Aetina format, with filtering
+            mfg_mpn = mfg_mpn.replace('Diodes', 'DIODES')  # workaround for their ONE non-all-caps MPN
         refdeslist = row[refdescol[id]].split(',')
         for rawrefdes in refdeslist:
             refdes = rawrefdes.strip()
@@ -127,11 +145,12 @@ for filename in filenames:
     print('    Info Count: ' + str(len(info[filename])))
     print('     DNP Count: ' + str(dnpcount))
 
-for i in log:
-    with open(log[i], 'w') as f:
-        f.write(log[i] + '\n')  # overwrite file with filename for now
-
 print('\nComparing...')
+for i in log:  # clear old logs
+    try:
+        os.remove(log[i])
+    except:
+        pass  # file did not exist, or couldn't be deleted
 lines = 0
 for refdes in info[filenames[0]]:
     old = info[filenames[0]][refdes]
@@ -146,18 +165,27 @@ for refdes in info[filenames[0]]:
         i = '00'
     elif new == old:  # their info matches our info exactly (after filtering)
         i = '10'
+    elif old == new.replace(': ', ':'):  # workaround if they have a space after the colon
+        i = '10'
+        note = 'extra space'
+    elif old == new.replace(' :', ':'):  # workaround if they have a space before the colon
+        i = '10'
+        note = 'extra space'
+    elif old == new.replace(' : ', ':'):  # workaround if they have a space before AND after the colon
+        i = '10'
+        note = 'extra space'
     elif new.startswith(old):  # their info starts with our info
         i = '09'
     elif new.endswith(old):  # their info ends with our info
         i = '08'
-    elif old in new:  # their info contains with our info
-        i = '07'
     elif old in new.replace(': ', ':'):  # workaround if they have a space after the colon
         i = '07'
         note = 'extra space'
     elif old in new.replace(' : ', ':'):  # workaround if they have a space before AND after the colon
         i = '07'
         note = 'extra space'
+    elif old in new:  # their info contains with our info
+        i = '07'
     else:  # bad aetina info
         i = '01'
     with open(log[i], 'a') as f:
