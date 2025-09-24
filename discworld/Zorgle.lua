@@ -55,6 +55,7 @@ short =
    ["a tinsel charm bracelet"]             = "HAT",
 
    ["a black velvet bag"]                  = "BAG",
+   ["a black sailcloth shoulder bag"]      = "BAG",
    ["a turnip sack"]                       = "BAG",
    ["a black bear fur-lined hat"]          = "OLD",
    ["a midnight black latex catsuit"]      = "CAT",
