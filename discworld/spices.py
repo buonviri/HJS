@@ -1,3 +1,5 @@
+# copy results of 'csw' alias to clipboard, then run this script
+
 import os
 import pyperclip
 
