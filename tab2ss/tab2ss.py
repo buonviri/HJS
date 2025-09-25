@@ -3,7 +3,10 @@ import sys
 import pprint
 import pyperclip
 
-# check args and enable list/dict
+# check args and disable list/dict
+filename = 'tab2ss'
+writelist = True
+writedict = True
 for arg in sys.argv:
     if arg in ['-l', '--list']:
         writelist = True
@@ -12,9 +15,11 @@ for arg in sys.argv:
         writelist = False
         writedict = True
     else:
-        writelist = True
-        writedict = True
-        
+        if arg.endswith('.py'):
+            pass  # likely the script name, skip regardless
+        else:
+            filename = arg  # overwrite default filename
+
 ss = []  # whole spreadsheet
 sslist = []
 ssdict = {}
@@ -69,11 +74,11 @@ for r in range(len(ss)):
         ssdict[r] = row  # set row index (key) equal to row list (value)
 
 if writelist:
-    with open('tab2ss.list', 'w') as f:
+    with open(filename + '.list', 'w') as f:
         f.write(pprint.pformat(sslist) + '\n')
 
 if writedict:
-    with open('tab2ss.dict', 'w') as f:
+    with open(filename + '.dict', 'w') as f:
         f.write(pprint.pformat(ssdict) + '\n')
 
 # EOF
