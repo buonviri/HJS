@@ -12,6 +12,7 @@ required = {
     # 'marjoram': True,
     # 'nutmeg': True,
     # 'rosemary': True,
+    # 'aniseed': True,
     'curry powder': True,
     'oregano': True,
     'thyme': True,
