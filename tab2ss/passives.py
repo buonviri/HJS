@@ -68,7 +68,7 @@ for filename in filenames:
         desc = desc.replace('2200PF', '2.2NF')  # replace PF value
         desc = desc.replace('3300PF', '3.3NF')  # replace PF value
         desc = desc.replace('10000PF', '0.01UF')  # replace PF value
-        ecpn = ''
+        ecpn = 'xx-xxxxx'
         ecpn_info = ''
         if id == 'EdgeCortix':
             try:
@@ -76,7 +76,7 @@ for filename in filenames:
                 ecpn = row[ecpn_col]
             except:
                 ecpn_info = 'Need to add ' + row[ecpn_col]
-                ecpn = ''
+                ecpn = 'xx-xxxxx'
         else:
             ecpn_info = ''
         if refdes.startswith('C') and not refdes.endswith(')'):  # skip DNP
