@@ -9,25 +9,37 @@ ecpn_col = 0  # a.list column with ECPN
 refdescol = {'EdgeCortix': 2, 'Aetina': 6,}
 desc_col = {'EdgeCortix': 5, 'Aetina': 3,}
 ecpl = {
-    'EC-0002C': ['0.1UF',   '16V',    'X7R',     '0201', 'CAP', 'CER'],
-    'EC-0004C': ['22UF',    '6.3V',   'X5R',     '0603', 'CAP', 'CER'],
-    'EC-0005C': ['10UF',    '6.3V',   'X5R',     '0402', 'CAP', 'CER'],
-    'EC-0007C': ['47UF',    '2.5V',   'X6S',     '0603', 'CAP', 'CER'],
-    'EC-0008C': ['0.22UF',  '6.3V',   'X6S',     '0201', 'CAP', 'CER'],
-    'EC-0010C': ['47PF',    '50V',    'C0G/NP0', '0201', 'CAP', 'CER'],
-    'EC-0011C': ['10000PF', '10V',    'X7R',     '0201', 'CAP', 'CER'],
-    'EC-0014C': ['2.2UF',   '6.3V',   'X5R',     '0201', 'CAP', 'CER'],
-    'EC-0020C': ['2200PF',  '10V',    'X7R',     '0201', 'CAP', 'CER'],
-    'EC-0021C': ['10PF',    '25V',    'C0G/NP0', '0201', 'CAP', 'CER'],
-    'EC-0023C': ['120PF',   '50V',    'C0G/NP0', '0201', 'CAP', 'CER'],
-    'EC-0025C': ['3300PF',  '10V',    'X7R',     '0201', 'CAP', 'CER'],
-    'EC-0026C': ['6800PF',  '10V',    'X7R',     '0201', 'CAP', 'CER'],
-    'EC-0027C': ['47UF',    '6.3V',   'X5R',     '0805', 'CAP', 'CER'],
+    'EC-0002C': ['0.1UF',  '16V',  'X7R',     '0201',],
+    'EC-0004C': ['22UF',   '6.3V', 'X5R',     '0603',],
+    'EC-0005C': ['10UF',   '6.3V', 'X5R',     '0402',],
+    'EC-0007C': ['47UF',   '2.5V', 'X6S',     '0603',],
+    'EC-0008C': ['0.22UF', '6.3V', 'X6S',     '0201',],
+    'EC-0010C': ['47PF',   '50V',  'C0G/NP0', '0201',],
+    'EC-0011C': ['0.01UF', '10V',  'X7R',     '0201',],  # value gets replaced
+    'EC-0014C': ['2.2UF',  '6.3V', 'X5R',     '0201',],
+    'EC-0020C': ['2.2NF',  '10V',  'X7R',     '0201',],  # value gets replaced
+    'EC-0021C': ['10PF',   '25V',  'C0G/NP0', '0201',],
+    'EC-0023C': ['120PF',  '50V',  'C0G/NP0', '0201',],
+    'EC-0025C': ['3.3NF',  '10V',  'X7R',     '0201',],  # value gets replaced
+    'EC-0026C': ['6800PF', '10V',  'X7R',     '0201',],
+    'EC-0027C': ['47UF',   '6.3V', 'X5R',     '0805',],
     }
 
-def check(list, string):
+def check_ec(list, string):
     for i in list:
         if i not in string:
+            return 'E'
+    return '-'
+# End
+
+def check_ae(list, string):
+    allcaps = string.upper()
+    for i in list:
+        if i == '10V' and '16V' in allcaps:
+            pass  # higher voltage OK
+            # print(list)
+            # print(string)
+        elif i not in allcaps and i not in ['CAP', 'CER',]:  # ignore meaningless tokens
             return 'E'
     return '-'
 # End
@@ -48,16 +60,23 @@ for filename in filenames:
     for row in ss[1:]:  # skip header row
         refdes = row[refdescol[id]]
         desc = row[desc_col[id]]
+        desc = desc.replace('NPO', 'C0G/NP0')  # fix NPO typo
+        desc = desc.replace('2200PF', '2.2NF')  # replace PF value
+        desc = desc.replace('3300PF', '3.3NF')  # replace PF value
+        desc = desc.replace('10000PF', '0.01UF')  # replace PF value
         ecpn = ''
+        ecpn_info = ''
         if id == 'EdgeCortix':
             try:
-                ecpn = ecpl[row[ecpn_col]]
+                ecpn_info = ecpl[row[ecpn_col]]
+                ecpn = row[ecpn_col]
             except:
-                ecpn = 'Need to add ' + row[ecpn_col]
+                ecpn_info = 'Need to add ' + row[ecpn_col]
+                ecpn = ''
         else:
-            ecpn = 'n/a'
-        if refdes.startswith('C'):
-            info[filename][refdes.split(',')[0]] = [row[ecpn_col], desc, ecpn]
+            ecpn_info = ''
+        if refdes.startswith('C') and not refdes.endswith(')'):  # skip DNP
+            info[filename][refdes.split(',')[0]] = [ecpn, desc, ecpn_info]
 
 # print(info)
 # print(info[filenames[0]]['C1'])
@@ -67,7 +86,8 @@ with open('temp.log', 'w') as f:
     f.write('\n')
 for refdes in info[filenames[0]]:
     this_info = info[filenames[0]][refdes]
-    log = this_info[0] + ' ' + refdes.ljust(12) + this_info[1].ljust(40) + ' | ' + check(this_info[2], this_info[1]) + ' | ' + str(this_info[2])
+    that_info = info[filenames[1]][refdes]
+    log = this_info[0] + ' ' + refdes.ljust(12) + this_info[1].ljust(35) + ' | ' + check_ec(this_info[2], this_info[1]) + ' | ' + check_ae(this_info[2], that_info[1]) + ' | ' + str(info[filenames[1]][refdes])
     print(log)
     with open('temp.log', 'a') as f:
         f.write(log + '\n')
