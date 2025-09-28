@@ -127,7 +127,7 @@ for key, value in pairs(t) do
    tail = string.sub(value,string.len(value)-8)  -- last nine characters to look for currency
    if short[value] ~= nil then  -- string is in list of short names
       if tail == "ght hand)" then
-         formatted_list = formatted_list .. value
+         formatted_list = formatted_list .. value .. "\n"
       end
       value = short[value]
       short_list = short_list .. " " .. value
