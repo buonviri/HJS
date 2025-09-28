@@ -51,6 +51,8 @@ short =
    ["a purple baton"]                      = "HAT",
    ["a ribboned baton"]                    = "HAT",
    ["a set of prayer beads"]               = "HAT",
+   ["a set of prayer beads (right hand)"]  = "HAT",
+   ["a set of prayer beads (left hand)"]   = "HAT",
    ["a ribbon charm bracelet"]             = "HAT",
    ["a tinsel charm bracelet"]             = "HAT",
 
@@ -122,11 +124,14 @@ for key, value in pairs(t) do
    ending = "\n"
    itemcount = itemcount + 1
    value = value:match "^%s*(.-)%s*$"
+   tail = string.sub(value,string.len(value)-8)  -- last nine characters to look for currency
    if short[value] ~= nil then  -- string is in list of short names
+      if tail == "ght hand)" then
+         formatted_list = formatted_list .. value
+      end
       value = short[value]
       short_list = short_list .. " " .. value
    else -- string not in list, try checking tail
-      tail = string.sub(value,string.len(value)-8)  -- last nine characters to look for currency
       if coins[tail] ~= nil then
          value = "" -- suppress string
          ending = "" -- don't add CRLF
