@@ -38,6 +38,8 @@ short =
    ["an ironwood buckler"]                 = "TPA-",
    ["a jagged coral dirk"]                 = "WEP",
    ["a rasher of extra-crispy bacon"]      = "WEP",
+   ["a rasher of extra-crispy bacon (right hand)"] = "WEP",
+   ["a rasher of extra-crispy bacon (left hand)"]  = "WEP",
    ["two jagged coral dirks"]              = "WEP WEP",
    ["two rashers of extra-crispy bacon"]   = "WEP WEP",
    ["a gold-and-mahogany ring"]            = "NNa",
@@ -127,6 +129,8 @@ for key, value in pairs(t) do
    tail = string.sub(value,string.len(value)-8)  -- last nine characters to look for currency
    if short[value] ~= nil then  -- string is in list of short names
       if tail == "ght hand)" then
+         formatted_list = formatted_list .. value .. "\n"
+      elseif tail == "eft hand)" then
          formatted_list = formatted_list .. value .. "\n"
       end
       value = short[value]
