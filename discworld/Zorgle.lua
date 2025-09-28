@@ -161,7 +161,7 @@ end
 
 -- add money if any was found
 if money > 0 then
-   formatted_list = formatted_list .. "\n(money: " .. money .. ")"
+   formatted_list = formatted_list .. "(money: " .. money .. ")\n"
 end
 
 -- add short list if it's not still just "\n"
