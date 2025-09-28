@@ -25,7 +25,7 @@ end
 
 -- initialize
 itemcount = 0
-short_list = "\n->"  -- added intro char on 2025-09-28
+short_list = "->"  -- added intro char on 2025-09-28, removed leading newline
 formatted_list = "\n"
 money = 0
 
