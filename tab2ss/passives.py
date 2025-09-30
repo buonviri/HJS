@@ -17,14 +17,14 @@ ecpl = {
     'EC-0008C': ['0.22UF', '6.3V', 'X6S',     '0201',],
     'EC-0009C': ['10UF',   '25V',  'X5R',     '0603',],
     'EC-0010C': ['47PF',   '50V',  'C0G/NP0', '0201',],
-    'EC-0011C': ['0.01UF', '10V',  'X7R',     '0201',],  # value gets replaced
+    'EC-0011C': ['10000PF','10V',  'X7R',     '0201',],  # value might be called 0.01uF
     'EC-0013C': ['1UF',    '6.3V', 'X5R',     '0201',],
     'EC-0014C': ['2.2UF',  '6.3V', 'X5R',     '0201',],
     'EC-0019C': ['100UF',   '4V',  'X6S',     '1206',],
-    'EC-0020C': ['2.2NF',  '10V',  'X7R',     '0201',],  # value gets replaced
+    'EC-0020C': ['2200PF',  '10V',  'X7R',     '0201',],  # value might be called 2.2nF
     'EC-0021C': ['10PF',   '25V',  'C0G/NP0', '0201',],
     'EC-0023C': ['120PF',  '50V',  'C0G/NP0', '0201',],
-    'EC-0025C': ['3.3NF',  '10V',  'X7R',     '0201',],  # value gets replaced
+    'EC-0025C': ['3300PF',  '10V',  'X7R',     '0201',],  # value might be called 3.3nF
     'EC-0026C': ['6800PF', '10V',  'X7R',     '0201',],
     'EC-0027C': ['47UF',   '6.3V', 'X5R',     '0805',],
     }
@@ -38,14 +38,29 @@ def check_ec(list, string):
 
 def check_ae(list, string):
     allcaps = string.upper()
+    letter = '-'  # default indicator
     for i in list:
         if i == '10V' and '16V' in allcaps:
             pass  # higher voltage OK
             # print(list)
             # print(string)
+            letter = '+'
         elif i not in allcaps and i not in ['CAP', 'CER',]:  # ignore meaningless tokens
-            return 'E'
-    return '-'
+            letter = 'E'
+    return letter
+# End
+
+def fix_ae(s):
+    replacements = [  # list of old, new strings
+        ('0.01uF', '10000PF'),
+        ('2.2nF/2200pF', '2200PF'),
+        ('3.3nF/3300pF', '3300PF'),
+        ('3.3nF', '3300PF'),
+        ('NPO', 'C0G/NP0'),  # fix NPO typo
+    ]
+    for r in replacements:
+        s = s.replace(r[0], r[1])  # replace old with new
+    return s
 # End
 
 # main()
@@ -64,10 +79,7 @@ for filename in filenames:
     for row in ss[1:]:  # skip header row
         refdes = row[refdescol[id]]
         desc = row[desc_col[id]]
-        desc = desc.replace('NPO', 'C0G/NP0')  # fix NPO typo
-        desc = desc.replace('2200PF', '2.2NF')  # replace PF value
-        desc = desc.replace('3300PF', '3.3NF')  # replace PF value
-        desc = desc.replace('10000PF', '0.01UF')  # replace PF value
+        desc = fix_ae(desc)
         ecpn = 'xx-xxxxx'
         ecpn_info = ''
         if id == 'EdgeCortix':

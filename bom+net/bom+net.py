@@ -246,7 +246,12 @@ def WriteFile(project, config, dni_list, sub_list, add_list, all, sorted_refdes)
                         print('  ' + '|'.join(condensed[ecpn][0:3]))  # MFG, MPN, DESC
             print('Found option strings:')
             for c in option_count:
-                print('  ' + c + ': ' + str(option_count[c]))
+                option_count_suffix = ' (VERIFY)'
+                if c in dni_list:
+                    option_count_suffix = ' (OK)'
+                elif c in ['ALL',]:
+                    option_count_suffix = ' (--)'
+                print('  ' + c.rjust(12) + ': ' + str(option_count[c]).rjust(3) + option_count_suffix)
             print('Count ' + str(count) + ' (DNI Count ' + str(dnicount) + ', Total ' + str(count+dnicount) + ')')
     # print(condensed)  # debug
     WriteCondensed(filename, condensed)
