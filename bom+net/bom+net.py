@@ -171,7 +171,7 @@ def WriteCondensed(filename, condensed):
         with open(dni_input, 'r') as fin:
             dni_lines = fin.read()
         f.write(dni_lines)  # add DNI lines to condensed
-    print('Wrote ' + str(refdescount) + ' RefDes to condensed BOM')
+    print('Wrote ' + str(refdescount) + ' RefDes to condensed BOM (includes added items)')
 # End
 
 
