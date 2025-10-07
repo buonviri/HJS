@@ -144,7 +144,7 @@ def convert(lines):
     print('  ADD_TRE discarded: ' + str(att_tre_count))
     print('  ADD_COM count: ' + str(addcomcount))
     print('  BOM_IGNORE count: ' + str(bomignorecount))
-    print('  BOM should have ' + str(addcomcount-bomignorecount) + ' entries')
+    print('  BOM should have ' + str(addcomcount-bomignorecount) + ' entries (ABC check)')
     return info
 # end of convert()
 

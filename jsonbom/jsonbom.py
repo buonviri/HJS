@@ -65,7 +65,7 @@ def convert(filename):
         count = count + 1
     formatted = pprint.pformat(out, indent=2, width=200)
     # print(formatted)
-    print('  Found ' + str(refdescount) + ' reference designators')
+    print('  Found ' + str(refdescount) + ' reference designators  (ABC check)')
     with open(filename + ' converted to.dict', 'w') as f:
         f.write(formatted + '\n')
     with open('z.tsv', 'w') as f:  # if multiple csv are processed, only the last tsv will survive
