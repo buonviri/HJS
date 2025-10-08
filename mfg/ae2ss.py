@@ -2,26 +2,36 @@
 
 import os
 
+ver = '0.1'
 info = {}  # good info
 
 def summarize(lines, dirname, filename):
-    f = ''  # blank file
-    startdict = {  # keys are start string of line, values are lists of the remainder of the line
-        'FTDI: ': [],  # serial number
-        # 'PCIe: ': [],  # PCIe info
-        'iSerial 3 ': [],  # serial number
-        # 'MAX,': [],  # stats
+    s = ''  # blank file
+    serial_lines = {  # keys are start string of line, values are lists of the remainder of the line
+        'FTDI: ': [],
+        'iSerial 3 ': [],
         }
-    f = f + filename + ': '  # add raw filename
-    f = f + '[' + filename[0:8] + ']'  # add SN, should be first eight chars of filename
+    sn_file = filename[0:8]
+    s = s + filename + '\n'  # add raw filename
+    s = s + sn_file  # add SN, should be first eight chars of filename
     for line in lines:
         line = line.strip()
-        for start in startdict:
-            if line.startswith(start):
-                startdict[start].append(line[len(start):])
-    for start in startdict:
-        f = f + ' ' + ' '.join(startdict[start])  # add all SN instances
-    print(f)
+        for serial in serial_lines:
+            if line.startswith(serial):
+                sn_line = line[len(serial):]  # get SN from line
+                if sn_line == sn_file:
+                    serial_lines[serial].append('+')
+                else:
+                    serial_lines[serial].append(sn_line)  # add to lines
+    for serial in serial_lines:
+        s = s + ' ' + ' '.join(serial_lines[serial])  # add all SN instances
+    print(s)
+    with open('summary.txt', 'a') as f:
+        f.write(s + '\n')
+
+# clear summary in case it already exists
+with open('summary.txt', 'w') as f:
+    f.write(os.path.abspath(os.getcwd()) + ' [' + ver + ']\n\n')  # path and version number
 
 # read all files
 filecount = 0
