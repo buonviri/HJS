@@ -11,21 +11,24 @@ def summarize(lines, dirname, filename):
         'FTDI: ': [],
         'iSerial 3 ': [],
         }
-    sn_file = filename[0:8]
+    sn_file = filename[0:8]  # decimal SN
+    sn_ec = filename[0:5] + '-EC-' + filename[5:8]  # full string SN
     s = s + filename + '\n'  # add raw filename
-    s = s + sn_file  # add SN, should be first eight chars of filename
+    s = s + sn_file + ' '  # add SN (should be first eight chars of filename) and trailing space
     for line in lines:
         line = line.strip()
         for serial in serial_lines:
             if line.startswith(serial):
                 sn_line = line[len(serial):]  # get SN from line
                 if sn_line == sn_file:
-                    serial_lines[serial].append('+')
+                    serial_lines[serial].append('-')
                 else:
                     serial_lines[serial].append(sn_line)  # add to lines
+        if line.startswith('Board: ') and sn_ec in line:  # BMC info
+            serial_lines[serial].append('+')
     for serial in serial_lines:
-        s = s + ' ' + ' '.join(serial_lines[serial])  # add all SN instances
-    print(s)
+        s = s + ''.join(serial_lines[serial])  # add all SN instances without spaces
+    print(s)  # debug
     with open('summary.txt', 'a') as f:
         f.write(s + '\n')
 
