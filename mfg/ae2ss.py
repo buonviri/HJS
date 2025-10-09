@@ -8,11 +8,9 @@ info = {}  # good info
 def summarize(lines, dirname, filename):
     s = ''  # blank file
     bmc = ''
-    serial_lines = {  # keys are start string of line, values are lists of the remainder of the line
-        'FTDI: ': [],
-        'iSerial 3 ': [],
-        }
+    serial_lines = ''
     bmc_info = {  # keys are prodtest string, values are summary entries
+        'Secondary image, Revision 1.1.5': '[S115]',
         'Secondary image, Revision 2.0.3': '[S203]',
         }
     sn_file = filename[0:8]  # decimal SN
@@ -21,20 +19,16 @@ def summarize(lines, dirname, filename):
     s = s + sn_file + ' '  # add SN (should be first eight chars of filename) and trailing space
     for line in lines:
         line = line.strip()
-        for serial in serial_lines:
-            if line.startswith(serial):
-                sn_line = line[len(serial):]  # get SN from line
-                if sn_line == sn_file:
-                    serial_lines[serial].append('-')  # correct eight-digit serial was found
-                else:
-                    serial_lines[serial].append(sn_line)  # add to lines
+        if line.startswith('FTDI: ') and sn_file in line:  # FTDI, correct XXXXXYYY was found
+            serial_lines = serial_lines + 'F'
+        if line.startswith('iSerial 3 ') and sn_file in line:  # iSerial 3, correct XXXXXYYY was found
+            serial_lines = serial_lines + 'i'
         if line.startswith('Board: ') and sn_ec in line:  # BMC info, correct XXXXX-EC-YYY was found
-            serial_lines[serial].append('+')
+            serial_lines = serial_lines + 'B'
         for bmc_key in bmc_info:
             if bmc_key in line:
                 bmc = bmc_info[bmc_key]
-    for serial in serial_lines:
-        s = s + ''.join(serial_lines[serial])  # add all SN instances without spaces
+    s = s + serial_lines  # add all SN chars
     s = s + bmc  # add BMC string
     print(s)  # debug
     with open('summary.txt', 'a') as f:
@@ -57,8 +51,7 @@ print('\nFile count: ' + str(filecount))  # print file count
 
 # EOF
 
-""" batch file:
-@echo off
-python.exe C:\EdgeCortix\HJS\mfg\ae2ss.py
-pause
-"""
+# batch file:
+# @echo off
+# python.exe C:\EdgeCortix\HJS\mfg\ae2ss.py
+# pause
