@@ -75,8 +75,10 @@ for line in handfuls:
 
 tee('')  # blank line to separate warnings and/or pause
 for f in filtered:
-    if ('-one handfuls' in f or '-two handfuls' in f or '-three handfuls' in f or '-four handfuls' in f or 
-        '-five handfuls' in f or '-six handfuls' in f or '-seven handfuls' in f or '-eight handfuls' in f or 
+    if ('hundred' in f):
+        tee('Warning, excess: ' + f[6:-26])  # remove leading 'about' and trailing 'wardrobe'
+    elif ('-one handfuls' in f or '-two handfuls' in f or '-three handfuls' in f or '-four handfuls' in f or
+        '-five handfuls' in f or '-six handfuls' in f or '-seven handfuls' in f or '-eight handfuls' in f or
         '-nine handfuls' in f):
         pass  # prevent next line from triggering if QTY is 20+
     elif ('one handful' in f or 'two handfuls' in f or 'three handfuls' in f or 'four handfuls' in f or
