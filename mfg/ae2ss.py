@@ -2,11 +2,15 @@
 
 import os
 
-ver = '0.31'  # allow for filenames to contain -EC-
+ver = '0.40'  # add min/max
 
 info = {}  # good info
+sn_min = 99999999
+sn_max = 0
 
 def summarize(lines, dirname, filename):
+    global sn_min
+    global sn_max
     s = ''  # blank file
     bmc = ''
     serial_lines = ''
@@ -20,8 +24,13 @@ def summarize(lines, dirname, filename):
     else:  # filename does not have a separator
         sn_file = filename[0:8]  # decimal SN
         sn_ec = filename[0:5] + '-EC-' + filename[5:8]  # full string SN
+    sn_int = int(sn_file)  # get integer version for min/max
+    if sn_int < sn_min:
+        sn_min = sn_int
+    if sn_int > sn_max:
+        sn_max = sn_int
     s = s + filename + '\n'  # add raw filename
-    s = s + sn_file + ' '  # add SN (should be first eight chars of filename) and trailing space
+    s = s + sn_file + ' '  # add SN (should be first eight or twelve chars of filename) and trailing space
     for line in lines:
         line = line.strip()
         if line.startswith('FTDI: ') and sn_file in line:  # FTDI, correct XXXXXYYY was found
@@ -41,7 +50,8 @@ def summarize(lines, dirname, filename):
 
 # clear summary in case it already exists
 with open('summary.txt', 'w') as f:
-    f.write(os.path.abspath(os.getcwd()) + ' [' + ver + ']\n\n')  # path and version number
+    f.write(os.path.abspath(os.getcwd()) + '\n')  # path
+    f.write('ae2ss version ' + ver + '\n\n')  # version number
 
 # read all files
 filecount = 0
@@ -52,6 +62,9 @@ for dirname, dirnames, filenames in os.walk('.'):  # get info from current folde
             with open(os.path.join(dirname,filename), 'r', encoding='utf-8') as f:
                 summarize(f.readlines(), dirname, filename)
 
+# summarize counts
+with open('summary.txt', 'a') as f:
+    f.write('\nSN ' + str(sn_min) + ' to ' + str(sn_max) + ' (' + str(sn_max-sn_min+1) + ')\n')  # sn range and expected count
 print('\nFile count: ' + str(filecount))  # print file count
 
 # EOF
