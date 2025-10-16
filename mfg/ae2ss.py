@@ -19,7 +19,7 @@ def summarize(lines, dirname, filename):
         sn_ec = filename[0:12]  # full string SN
     else:  # filename does not have a separator
         sn_file = filename[0:8]  # decimal SN
-        sn_ec = filename[0:5] + '-EC-' + filename[5:9]  # full string SN
+        sn_ec = filename[0:5] + '-EC-' + filename[5:8]  # full string SN
     s = s + filename + '\n'  # add raw filename
     s = s + sn_file + ' '  # add SN (should be first eight chars of filename) and trailing space
     for line in lines:
