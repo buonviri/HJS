@@ -2,7 +2,8 @@
 
 import os
 
-ver = '0.20'
+ver = '0.30'  # allow for filenames to contain -EC-
+
 info = {}  # good info
 
 def summarize(lines, dirname, filename):
@@ -13,8 +14,12 @@ def summarize(lines, dirname, filename):
         'Secondary image, Revision 1.1.5': '[S115]',
         'Secondary image, Revision 2.0.3': '[S203]',
         }
-    sn_file = filename[0:8]  # decimal SN
-    sn_ec = filename[0:5] + '-EC-' + filename[5:8]  # full string SN
+    if filename[5:9] in ['-EC-',]:  # check if filename has a separator
+        sn_file = filename[0:5] + filename[9:12]  # decimal SN
+        sn_ec = filename[0:12]  # full string SN
+    else:  # filename does not have a separator
+        sn_file = filename[0:8]  # decimal SN
+        sn_ec = filename[0:5] + '-EC-' + filename[5:9]  # full string SN
     s = s + filename + '\n'  # add raw filename
     s = s + sn_file + ' '  # add SN (should be first eight chars of filename) and trailing space
     for line in lines:
