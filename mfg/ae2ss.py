@@ -2,7 +2,7 @@
 
 import os
 
-ver = '0.30'  # allow for filenames to contain -EC-
+ver = '0.31'  # allow for filenames to contain -EC-
 
 info = {}  # good info
 
