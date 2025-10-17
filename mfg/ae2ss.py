@@ -3,7 +3,7 @@
 import os
 import pyperclip
 
-ver = '0.60'  # MAX temp
+ver = '0.70'  # homer
 
 info = {}  # good info
 sn_min = 99999999
@@ -18,6 +18,7 @@ def summarize(lines, dirname, filename):
     serial_lines = ''
     dry_lines = ''
     dry_lines_dupe = ''
+    homer_elapsed = ''
     max_pcb_temp = -1
     max_sak_temp = -1
     bmc_info = {  # keys are prodtest string, values are summary entries
@@ -65,13 +66,16 @@ def summarize(lines, dirname, filename):
         elif 'Total latency: ' in line and line.endswith(' us'):  # DRY latency
             dry_latency = line.split()[-2]  # store second to last string
             dry_lines = dry_lines + '\t' + '%.0f' % float(dry_latency)
+        elif line.startswith('t = ') and line.endswith(' s'):  # Homer chatbot elapsed
+            homer_elapsed = line.split()[-2]  # elapsed time in seconds, overwrites existing value
         for bmc_key in bmc_info:
             if bmc_key in line:
                 bmc = bmc_info[bmc_key]
-    s = s + dry_lines  # add all DRY chars
+    s = s + dry_lines  # add all DRY info
     s = s + '\t' + str(max_pcb_temp) + '\t' + str(max_sak_temp)
+    s = s + '\t' + homer_elapsed  # add all homer info
     s = s + '\t' + bmc  # add BMC string
-    s = s + '\t' + serial_lines  # add all SN chars
+    s = s + '\t' + serial_lines  # add all SN info
     s = s + dry_lines_dupe  # add duplicate(s)
     print(s)  # debug
     return s
