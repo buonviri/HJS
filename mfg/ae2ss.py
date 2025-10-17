@@ -3,7 +3,7 @@
 import os
 import pyperclip
 
-ver = '0.50'  # DRY, tabs, remove file extension
+ver = '0.60'  # MAX temp
 
 info = {}  # good info
 sn_min = 99999999
@@ -18,6 +18,8 @@ def summarize(lines, dirname, filename):
     serial_lines = ''
     dry_lines = ''
     dry_lines_dupe = ''
+    max_pcb_temp = -1
+    max_sak_temp = -1
     bmc_info = {  # keys are prodtest string, values are summary entries
         'Secondary image, Revision 1.1.5': '[S115]',
         'Secondary image, Revision 2.0.3': '[S203]',
@@ -43,6 +45,14 @@ def summarize(lines, dirname, filename):
             serial_lines = serial_lines + 'i'
         elif line.startswith('Board: ') and sn_ec in line:  # BMC info, correct XXXXX-EC-YYY was found
             serial_lines = serial_lines + 'B'
+        elif line.startswith('MAX, '):  # telem info
+            telem = line.split(',')  # telem lines are csv format
+            tpcb = float(telem[3])
+            tsak = float(telem[4])
+            if tpcb > max_pcb_temp:
+                max_pcb_temp = tpcb
+            if tsak > max_sak_temp:
+                max_sak_temp = tsak
         elif '[DETR]' in line:  # DRY section
             if len(dry_lines) > 0:  # match was already found
                 dry_lines_dupe = dry_lines_dupe + dry_lines
@@ -59,6 +69,7 @@ def summarize(lines, dirname, filename):
             if bmc_key in line:
                 bmc = bmc_info[bmc_key]
     s = s + dry_lines  # add all DRY chars
+    s = s + '\t' + str(max_pcb_temp) + '\t' + str(max_sak_temp)
     s = s + '\t' + bmc  # add BMC string
     s = s + '\t' + serial_lines  # add all SN chars
     s = s + dry_lines_dupe  # add duplicate(s)
