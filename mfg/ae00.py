@@ -12,7 +12,9 @@ def validate(raw, filtered):
     status = True
     patterns = [
         'FTDI: [0-9]{8}',
-        'BIST 0: sakura',  # test case for wrapped saku\nra instance
+        'iSerial 3 [0-9]{8}',
+        'Board: EdgeCortix.+?[0-9]{5}-EC-[0-9]{3}, rev [0-9]+.[0-9]+'  # should allow double digit rev
+        # 'BIST 0: sakura',  # test case for wrapped saku\nra instance
         ]
     for pattern in patterns:
         a = re.findall(pattern, raw)
