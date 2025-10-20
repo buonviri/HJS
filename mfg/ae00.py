@@ -3,27 +3,34 @@
 import os
 import re
 
-ver = '0.01'  # TBD
+ver = '0.02'  # TBD
 
 def debug(s):
     print(s.strip())
 
 def validate(raw, filtered):
     status = True
-    patterns = [
-        'FTDI: [0-9]{8}',
-        'iSerial 3 [0-9]{8}',
-        'Board: EdgeCortix.+?[0-9]{5}-EC-[0-9]{3}, rev [0-9]+.[0-9]+'  # should allow double digit rev
-        # 'BIST 0: sakura',  # test case for wrapped saku\nra instance
+    count = 'Count:'
+    num = r'\s*?[0-9]+?.[0-9]+?'  # space(s) followed by ab.cd
+    patterns = [  # python does a lot of -E stuff by default, and does NOT require escaping the dot char
+        r'FTDI: [0-9]{8}',
+        r'iSerial 3 [0-9]{8}',
+        r'Board: EdgeCortix.+?[0-9]{5}-EC-[0-9]{3}, rev [0-9]+.[0-9]+',  # should allow double digit rev
+        r'MAX,' + num + ',' + num + ',' + num + ',' + num + ',' + num,
+        r'BIST 0: sakura',  # test case for wrapped saku\nra instance
         ]
     for pattern in patterns:
         a = re.findall(pattern, raw)
         b = re.findall(pattern, filtered)
         if a == b:
             print('Match: ' + str(a))
+            count = count + ' ' + pattern[0] + str(len(a))
         else:
             print('Error: ' + str(a) + ' | ' + str(b))
+            count = count + ' ' + pattern[0] + str(len(a)) + '|' + str(len(b))
             status = False
+    print()
+    print(count)
     return status
 # End function
 
@@ -36,9 +43,9 @@ for dirname, dirnames, filenames in os.walk('.'):  # get info from current folde
                 filteredlines = rawlines.replace('\n','')  # remove ALL newlines
                 lines = rawlines.split('\n')  # split into list of lines
                 if validate(rawlines, filteredlines):
-                    print('\nData is valid')
+                    print('Data is valid')
                 else:
-                    print('\nData is corrupted')
+                    print('Data is corrupted')
                 print()
                 with open(filename + ' rawlines.txt', 'w', encoding='utf-8') as f:
                     f.write(rawlines)
