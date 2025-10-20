@@ -3,7 +3,7 @@
 import os
 import re
 
-ver = '0.02'  # TBD
+ver = '0.03'  # TBD
 
 def debug(s):
     print(s.strip())
@@ -17,7 +17,11 @@ def validate(raw, filtered):
         r'iSerial 3 [0-9]{8}',
         r'Board: EdgeCortix.+?[0-9]{5}-EC-[0-9]{3}, rev [0-9]+.[0-9]+',  # should allow double digit rev
         r'MAX,' + num + ',' + num + ',' + num + ',' + num + ',' + num,
-        r'BIST 0: sakura',  # test case for wrapped saku\nra instance
+        r'DETR\]',  # omit leading bracket for abbreviation
+        r'ResNet50\]',  # omit leading bracket for abbreviation
+        r'YoloV8\]',  # omit leading bracket for abbreviation
+        r'Total latency:' + num + ' us',
+        # r'BIST 0: sakura',  # test case for wrapped saku\nra instance
         ]
     for pattern in patterns:
         a = re.findall(pattern, raw)
