@@ -16,11 +16,13 @@ def validate(raw, filtered):
         r'FTDI: [0-9]{8}',
         r'iSerial 3 [0-9]{8}',
         r'Board: EdgeCortix.+?[0-9]{5}-EC-[0-9]{3}, rev [0-9]+.[0-9]+',  # should allow double digit rev
+        r'Secondary image, Revision .+?,',
         r'MAX,' + num + ',' + num + ',' + num + ',' + num + ',' + num,
         r'DETR\]',  # omit leading bracket for abbreviation
         r'ResNet50\]',  # omit leading bracket for abbreviation
         r'YoloV8\]',  # omit leading bracket for abbreviation
         r'Total latency:' + num + ' us',
+        r't =' + num + ' s',  # elapsed time, may include non-homer entries
         # r'BIST 0: sakura',  # test case for wrapped saku\nra instance
         ]
     for pattern in patterns:
