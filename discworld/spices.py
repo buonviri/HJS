@@ -62,7 +62,7 @@ handfuls = clip.split(',')
 for line in handfuls:
     if line.endswith('items') or line.endswith('item'):
         discard.append(line.strip())
-        tee('END: ' + line)
+        tee('  END: ' + line)
     elif len(line) < 2:
         pass  # blank line
     elif line.startswith('Queued'):
