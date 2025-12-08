@@ -24,9 +24,9 @@ required = {
     'rpbaton': 0,
     'dhdrum': 0,  # buckler
     'apexkey': 0,
-    'otherkey': 0,  # what is this???
+    'otherkey': 0,  # note sure what this is, deposited in OC vault
     'mycompact': 0,
-    'nonexistent kept thing': 0,
+    # nonexistent kept thing': 0,  # debug
 }
 
 print('\nFound:')
