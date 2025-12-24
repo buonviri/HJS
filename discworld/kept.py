@@ -26,6 +26,7 @@ required = {
     'apexkey': 0,
     'otherkey': 0,  # note sure what this is, deposited in OC vault
     'mycompact': 0,
+    'blackveil': 0,
     # nonexistent kept thing': 0,  # debug
 }
 
