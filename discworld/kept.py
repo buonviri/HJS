@@ -8,6 +8,9 @@ kept = clip.split('.')
 required = {
     'wepone': 0,  # bacon
     'weptwo': 0,  # bacon
+    'wepthree': 0,  # cbd
+    'wepfour': 0,  # cbd
+    'wepfive': 0,  # avec
     'thiefcoat':0,  # sailing coat
     'badgelicense': 0,
     'ribbon charm bracelet': 0,
