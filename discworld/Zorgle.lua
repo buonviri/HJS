@@ -161,7 +161,7 @@ for key, value in pairs(t) do
 --          formatted_list = formatted_list .. " - " .. value .. ending -- add indent for five/six/seven/some/pint (removed 2025-05-19)
          if string.sub(value,0,12) == "a smuggler's" or string.sub(value,0,12) == "some smuggle" or string.sub(value,0,12) == "a pair of sm" then  -- removed old permalight... or string.sub(value,0,12) == "a gold neckl"
             formatted_list = formatted_list .. "+" .. value .. ending -- smuggler's set and permalight, indent one
-         elseif string.sub(value,0,12) == "a black veil" then  -- veil
+         elseif string.sub(value,0,12) == "a black veil" or string.sub(value,0,12) == "a delicate h" then  -- veil
             formatted_list = formatted_list .. "+" .. value .. ending -- indent
          else
             formatted_list = formatted_list .. value .. ending -- no indent
