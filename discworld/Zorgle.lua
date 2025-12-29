@@ -38,6 +38,7 @@ short =
    ["an ironwood buckler"]                 = "TPA-",
    ["a jagged coral dirk"]                 = "WEP",
    ["a rasher of extra-crispy bacon"]      = "WEP",
+   ["a traditional avec knife"]            = "WEP",
    ["a rasher of extra-crispy bacon (right hand)"] = "WEP",
    ["a rasher of extra-crispy bacon (left hand)"]  = "WEP",
    ["two jagged coral dirks"]              = "WEP WEP",
@@ -162,6 +163,10 @@ for key, value in pairs(t) do
          if string.sub(value,0,12) == "a smuggler's" or string.sub(value,0,12) == "some smuggle" or string.sub(value,0,12) == "a pair of sm" then  -- removed old permalight... or string.sub(value,0,12) == "a gold neckl"
             formatted_list = formatted_list .. "+" .. value .. ending -- smuggler's set and permalight, indent one
          elseif string.sub(value,0,12) == "a black veil" or string.sub(value,0,12) == "a delicate h" then  -- veil
+            formatted_list = formatted_list .. "+" .. value .. ending -- indent
+         elseif string.sub(value,0,12) == "a rustic bac" then  -- sarnie with bacons
+            formatted_list = formatted_list .. "+" .. value .. " + bacons" .. ending -- indent
+         elseif string.sub(value,0,12) == "a rustic tea" then  -- teacake
             formatted_list = formatted_list .. "+" .. value .. ending -- indent
          else
             formatted_list = formatted_list .. value .. ending -- no indent
