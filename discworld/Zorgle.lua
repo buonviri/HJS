@@ -34,6 +34,7 @@ short =
    {
    ["some fine grey ash"]                  = "TPA+",
    ["some fine white ash"]                 = "TPA+",
+   ["some fine black ash"]                 = "TPA+",
    ["a small leather shield"]              = "TPA-",
    ["an ironwood buckler"]                 = "TPA-",
    ["a jagged coral dirk"]                 = "WEP",
