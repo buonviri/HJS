@@ -31,6 +31,7 @@ required = {
     'mycompact': 0,
     'blackveil': 0,
     'hyaline': 0,
+    'sandwich': 0,
     # nonexistent kept thing': 0,  # debug
 }
 
