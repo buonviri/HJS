@@ -1,3 +1,4 @@
+# instructions:
 # copy results of alias kept = 'locate kept things except charms' to clipboard, then run this script
 
 import os
@@ -29,9 +30,9 @@ required = {
     'apexkey': 0,
     'otherkey': 0,  # note sure what this is, deposited in OC vault
     'mycompact': 0,
-    'blackveil': 0,
-    'hyaline': 0,
-    'sandwich': 0,
+    'blackveil': 0,  # hide from watchmen
+    'hyaline': 0,  # not sure what this does
+    'sandwich': 0,  # bacon sheath
     # nonexistent kept thing': 0,  # debug
 }
 
