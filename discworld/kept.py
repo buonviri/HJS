@@ -9,9 +9,9 @@ kept = clip.split('.')
 required = {
     'wepone': 0,  # bacon
     'weptwo': 0,  # bacon
-    'wepthree': 0,  # cbd
-    'wepfour': 0,  # cbd
-    'wepfive': 0,  # avec
+    # 'wepthree': 0,  # cbd
+    # 'wepfour': 0,  # cbd
+    # 'wepfive': 0,  # avec
     'thiefcoat':0,  # sailing coat
     'badgelicense': 0,
     'ribbon charm bracelet': 0,
@@ -31,7 +31,7 @@ required = {
     'otherkey': 0,  # note sure what this is, deposited in OC vault
     'mycompact': 0,
     'blackveil': 0,  # hide from watchmen
-    'hyaline': 0,  # not sure what this does
+    # 'hyaline': 0,  # not sure what this does
     'sandwich': 0,  # bacon sheath
     # nonexistent kept thing': 0,  # debug
 }
