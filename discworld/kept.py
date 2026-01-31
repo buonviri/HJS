@@ -31,6 +31,7 @@ required = {
     'otherkey': 0,  # note sure what this is, deposited in OC vault
     'mycompact': 0,
     'blackveil': 0,  # hide from watchmen
+    'myturban': 0,  # untie and tie using ut alias
     # 'hyaline': 0,  # not sure what this does
     'sandwich': 0,  # bacon sheath
     # nonexistent kept thing': 0,  # debug
