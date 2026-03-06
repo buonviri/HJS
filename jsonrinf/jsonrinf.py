@@ -115,6 +115,9 @@ def convert(lines):
                 netname = words[2].strip(double_quotes)
                 # note that words[3] *might* exist, as a comment
                 info['nets'][netname] = [(device,pin),]  # create new list with one tuple
+                first_word = netname.split('_')[0]  # get chars before underscore
+                if len(first_word) > 1 and first_word[0] in 'N' and first_word[1:].isdigit():  # check for pattern N123456_whatever, can add chars to N as needed
+                    print('  *** WARNING: POSSIBLE UNNAMED NET: ' + netname + ' ***')
                 # print(device.ljust(10) + ' ' + pin.ljust(5) + ' ' + netname)
             elif line.startswith('.TER'):
                 words = GetTokens(line[4:].strip())
