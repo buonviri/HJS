@@ -1,0 +1,2191 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE muclient>
+
+<!-- Vault Tracker created by Umiven -->
+<muclient>
+<plugin
+   name="UmivenVault"
+   author="Umiven"
+   id="556d6976656e000000000002"
+   language="Lua"
+   purpose="Vault Tracker"
+   date_written="2022-05-27"
+   date_modified="2024-06-30"
+   save_state="y"
+   requires="5.06"
+   version="1.3"
+   >
+<description trim="y">
+<![CDATA[
+********************************************************************
+*****                      Vault Tracker                       *****
+*****                      For Discworld                       *****
+*****                                                          *****
+*****  Keeps track of the all items in your vaults and         *****
+*****  deluded containers. To use this plugin, go to each      *****
+*****  vault and look at the items in that vault, look in      *****
+*****  each deluded container, and in the Apex room wardrobe.  *****
+*****  The items will then be stored per vault/container/apex. *****
+*****  By default, it will store all data in the "default"     *****
+*****  user.                                                   *****
+*****  "vault" or "vaults": This will give you an overview of  *****
+*****  the current selected character's vaults/containers      *****
+*****  with the option to show its contents (if there is any   *****
+*****  stored). If you also have quow's minimap plugin         *****
+*****  activated, it will have a button to speedwalk to        *****
+*****  vaults.                                                 *****
+*****  "vault <item>" or "vaults <item>" returns all           *****
+*****  vaults/containers/apex that contains the specified      *****
+*****  item.                                                   *****
+*****  "vaultall" or "vaultsall" gives you a complete list of  *****
+*****  all items stored across all of your current selected    *****
+*****  character's vaults, containers and apex room.           *****
+*****  "vaultuser" or "vaultusers" gives a list of all known   *****
+*****  users and allows you to change between them, delete     *****
+*****  them, and copy/paste data between them.                 *****
+*****  "vaultuser <username>" will add a new character whose   *****
+*****  vault can be recorded.                                  *****
+*****  Note: you need to look at the contents of at least      *****
+*****  one vault/container before the new character and its    *****
+*****  information will be saved.                              *****
+********************************************************************
+]]>
+</description>
+</plugin>
+
+<script>
+<![CDATA[
+local json = require "json"
+
+--#region Global Values
+local configColour = {
+	["error"] = "red",
+	["blue"] = "#478be9",
+	["red"] = "#e978a6",
+	["green"] = "#92c402",
+	["cyan"] = "#90e4e0",
+	["yellow"] = "#fed093",
+}
+
+local quowMinimapPluginId = "bfe35205f026786ea1d56e3b"
+local bankPluginId = "556d6976656e000000000001"
+
+local colourAmount = configColour["yellow"]
+local colourCityName = configColour["red"]
+local colourCurrentUser = configColour["cyan"]
+local colourFullStart = configColour["cyan"]
+local colourFullEnd = configColour["red"]
+local colourHyperlink = configColour["yellow"]
+local colourItem = configColour["cyan"]
+local colourUser = configColour["red"]
+local colourVaultName = configColour["green"]
+local colourVaultCost = configColour["blue"]
+--#endregion
+
+--#region Database
+local stringToBoolean = {
+	["true"] = true,
+	["false"] = false
+}
+local vaultsInfo = {
+	["Nella's vault"] = {
+		order = 1,
+		city = "Ankh-Morpork",
+		location = "Barbican Plaza",
+		room = "inside the vault",
+		roomDescription = "This is a large iron-lined room.  There are wooden drawers of different sizes in all of the walls.  One of the drawers is open.  The door to the vault is in the south wall.",
+		npc = "Nella",
+		cost = "30p",
+		container = "large wooden drawer",
+		containerDescription = "This is a large drawer made of dark brown wood.  It has a rectangular frame.  The wood looks old and used, but the handles that operate the drawer's double doors are polished - or well used."
+	},
+	["opulent office"] = {
+		order = 2,
+		city = "Ankh-Morpork",
+		location = "The Ridings",
+		room = "inside the vault",
+		roomDescription = "The stone walls of this room are set with many small metal doors.  The doors have locks and all are closed, except one, giving you access to the cubby hole behind it.",
+		npc = "Jonas",
+		cost = "30p",
+		container = "cubby hole",
+		containerDescription = "The cubby hole is just a cube of empty space in the stone of the wall behind one of the doors."
+	},
+	["small garden"] = {
+		order = 3,
+		city = "Bes Pelargic",
+		location = "Way of the Dragon",
+		room = "inside the shed",
+		roomDescription = "This is the inside of a rickety, old shed.  Rows of chicken nests cover all the walls.  The wooden walls don't appear to make the whole safe keeping concept very solid.  Then again who would ever believe one would store valuables in a chicken's place of residence.  Free Sitting Birds has trained his poultry to guard their nests so only a specific person has access to the goods within.  A remarkable step forward in the relationship between man and bird.",
+		npc = "Free Sitting Birds",
+		cost = "50s",
+		container = "clean nest",
+		containerDescription = "The nests appear to be deep enough to store things in."
+	},
+	["Thella's vault"] = {
+		order = 4,
+		city = "Djelibeybi",
+		location = "Scarab Walk",
+		room = "inside the vault",
+		roomDescription = "The walls of this room are lined with iron, making it secure against both intrusions from without and extrusions from within.  In between the iron there are many sturdy wooden drawers, packed neatly together like the cells in a beehive, all but one of them firmly locked.  The solid octiron door to the south looks no less formidable than the rest of the room, and could be impossible to open if it were locked from the other side.",
+		npc = "Thella",
+		cost = "DjToon 0.50",
+		container = "drawer",
+		containerDescription = "The single open drawer is sticking straight out of the wall like...  well, like a drawer sticking straight out of the wall.  It is in excellent condition."
+	},
+	["cool, dry basement"] = {
+		order = 5,
+		city = "Ephebe",
+		location = "Logical Lane",
+		room = "octiron-lined strongroom",
+		roomDescription = "This room is the bank's strongroom.  Lined with octiron panels, the interior seems to almost drink light.  In the very centre of the room is a dais, raised slightly above the level of the floor.  Floating above it is a strange cuboid that could be used to store things safely.",
+		npc = "Nostos",
+		cost = "50de",
+		container = "octiron tesseract",
+		containerDescription = "This floating, four-dimensional cuboid appears to have been fixed in place in the very centre of the room.  It would be able to keep a large number of objects safe for their owner, although exactly where they are stored is uncertain.  Maybe that's the point."
+	},
+	["safety deposit waiting room"] = {
+		order = 6,
+		city = "Genua",
+		location = "Royal Avenue",
+		room = "vault",
+		roomDescription = "A square, stone-lined chamber, with steel-lined lockers set into three of the four walls.  The air in here is colder than that in the waiting room to the south, and the only light comes from an oil lamp housed in a steel cage.  The only door is a heavy affair, constructed from octiron reinforced steel.  It must be exquisitely balanced to allow any movement whatsoever.",
+		npc = "Philip LeGrande",
+		cost = "66Gc",
+		container = "steel locker",
+		containerDescription = "A steel-lined hollow in the stone wall, with a sturdy door."
+	},
+	["office in Ohulan-Cutash"] = {
+		order = 7,
+		city = "Ohulan Cutash",
+		location = "Dock Street",
+		room = "inside the vault",
+		roomDescription = "The stone walls of this room are set with many small metal doors.  The doors have locks and all are closed, except one, giving you access to the cubby hole behind it.",
+		npc = "Will",
+		cost = "Lp 10",
+		container = "cubby hole",
+		containerDescription = "The cubby hole is just a cube of empty space in the stone of the wall behind one of the doors."
+	},
+}
+local vaultFullStates = {
+	["contains"] = {
+		percentage = "5",
+		hexColour = "#00FFFF",
+	},
+	["almost empty except for"] = {
+		percentage = "10",
+		hexColour = "#00bfff",
+	},
+	["about one-quarter full with"] = {
+		percentage = "25",
+		hexColour = "#007fff",
+	},
+	["over a quarter full with"] = {
+		percentage = "30",
+		hexColour = "#007fff",
+	},
+	["about half full with"] = {
+		percentage = "50",
+		hexColour = "#0040ff",
+	},
+	["over half full with"] = {
+		percentage = "55",
+		hexColour = "#0040ff",
+	},
+	["about three-quarters full with"] = {
+		percentage = "75",
+		hexColour = "#0000ff",
+	},
+	["almost full with"] = {
+		percentage = "90",
+		hexColour = "#4000ff",
+	},
+	["almost completely full with"] = {
+		percentage = "95",
+		hexColour = "#7f00ff",
+	},
+	["completely full with"] = {
+		percentage = "100",
+		hexColour = "#bf00ff",
+	},
+	["over-full with"] = {
+		percentage = "110",
+		hexColour = "#ff00ff",
+	},
+}
+local itemsEndingInES = {
+	"breezes",
+	"cloves",
+	"daisies",
+	"dentures",
+	"edges",
+	"eyes",
+	"leaves",
+	"mcnoodles",
+	"noodles",
+	"misshapes",
+	"nightshades",
+	"peonies",
+	"rushes",
+	"sauternes",
+	"spangles",
+	"speckles",
+	"squares",
+	"supplies",
+}
+local itemsEndingInS = {
+	"abacus",
+	"accents",
+	"adventurers",
+	"aegis",
+	"albatross",
+	"almonds",
+	"ambergris",
+	"arms",
+	"atlas",
+	"aulos",
+	"balloons",
+	"balls",
+	"bass",
+	"beads",
+	"beans",
+	"bears",
+	"beets",
+	"beginners",
+	"bells",
+	"bits",
+	"blocks",
+	"bolognas",
+	"bolts",
+	"breasts",
+	"burnous",
+	"buttons",
+	"cactus",
+	"candyfloss",
+	"cards",
+	"carrots",
+	"cereus",
+	"chains",
+	"chestnuts",
+	"chews",
+	"chickpeas",
+	"chips",
+	"chlamys",
+	"cigars",
+	"clams",
+	"claws",
+	"clematis",
+	"cocktails",
+	"compass",
+	"couscous",
+	"crackers",
+	"crayons",
+	"crisps",
+	"cross",
+	"croutons",
+	"cuirass",
+	"cupboards",
+	"cushions",
+	"cutlass",
+	"cypress",
+	"daffodils",
+	"drawers",
+	"dress",
+	"droppings",
+	"ducks",
+	"dumplings",
+	"earflaps",
+	"ears",
+	"eggs",
+	"entrails",
+	"escargots",
+	"exomis",
+	"famous",
+	"feathers",
+	"fields",
+	"filings",
+	"fingers",
+	"flanchards",
+	"floris",
+	"floss",
+	"flowers",
+	"forests",
+	"fours",
+	"freesias",
+	"fruits",
+	"gibus",
+	"gladiolus",
+	"gladius",
+	"glass",
+	"goddess",
+	"grass",
+	"guinness",
+	"haggis",
+	"haikus",
+	"handcuffs",
+	"hands",
+	"harness",
+	"headdress",
+	"hourglass",
+	"iris",
+	"jewels",
+	"kalasiris",
+	"kopis",
+	"labels",
+	"legs",
+	"lens",
+	"lentils",
+	"lights",
+	"liqueurs",
+	"llamedos",
+	"lotus",
+	"lumps",
+	"madness",
+	"mantis",
+	"mass",
+	"mess",
+	"minidress",
+	"moons",
+	"moss",
+	"mushrooms",
+	"mussels",
+	"nails",
+	"neckirons",
+	"nightdress",
+	"nuts",
+	"oats",
+	"obolus",
+	"octopus",
+	"orchids",
+	"overalls",
+	"oysters",
+	"pants",
+	"papers",
+	"papyrus",
+	"pass",
+	"peanuts",
+	"pecans",
+	"peplos",
+	"petticoats",
+	"plains",
+	"poems",
+	"quilters",
+	"rags",
+	"ramtops",
+	"ravens",
+	"realms",
+	"ribbons",
+	"ribs",
+	"rinds",
+	"rocks",
+	"roots",
+	"sagaris",
+	"sarcophagus",
+	"schnapps",
+	"scraps",
+	"scratchings",
+	"sequins",
+	"sheets",
+	"shells",
+	"shepherdess",
+	"shoots",
+	"shotglass",
+	"shreddings",
+	"spirits",
+	"starflowers",
+	"sticks",
+	"streamers",
+	"stylus",
+	"sundress",
+	"sunflowers",
+	"swampgas",
+	"tacticus",
+	"tails",
+	"tears",
+	"tickets",
+	"tongs",
+	"tools",
+	"twigs",
+	"underdress",
+	"veils",
+	"violets",
+	"waders",
+	"walnuts",
+	"washers",
+	"weeds",
+	"whelks",
+	"whiskers",
+	"wings",
+	"worms",
+	"wristlets",
+	"xiphos",
+}
+local itemsEndingInE = {
+	"abalone",
+	"absinthe",
+	"adhesive",
+	"akome",
+	"ale",
+	"ankhstone",
+	"apple",
+	"applique",
+	"armoire",
+	"artichoke",
+	"attire",
+	"aubergine",
+	"axe",
+	"axle",
+	"badge",
+	"bagpipe",
+	"balance",
+	"bangle",
+	"bathrobe",
+	"bauble",
+	"beagle",
+	"beanie",
+	"beetle",
+	"bite",
+	"blade",
+	"bloodstone",
+	"blouse",
+	"blowpipe",
+	"blue",
+	"bodice",
+	"bolognese",
+	"bone",
+	"bookcase",
+	"bootlace",
+	"borage",
+	"bottle",
+	"bouteille",
+	"boutonniere",
+	"brassiere",
+	"breastplate",
+	"breeze",
+	"brie",
+	"briefcase",
+	"brochure",
+	"brulee",
+	"bubble",
+	"buckle",
+	"buttonhole",
+	"cabbage",
+	"cage",
+	"cake",
+	"camisole",
+	"candle",
+	"cane",
+	"cape",
+	"capsule",
+	"carapace",
+	"case",
+	"castle",
+	"catalogue",
+	"cervilliere",
+	"champagne",
+	"cheese",
+	"cheesecake",
+	"cheesewire",
+	"chime",
+	"chocolate",
+	"choice",
+	"cigarette",
+	"claymore",
+	"cobble",
+	"cockle",
+	"coffee",
+	"colichemarde",
+	"collie",
+	"cone",
+	"cookie",
+	"cookstove",
+	"corniche",
+	"corpse",
+	"corsage",
+	"costume",
+	"crane",
+	"crate",
+	"crepe",
+	"crinoline",
+	"crocodile",
+	"crumble",
+	"cube",
+	"cupcake",
+	"cure",
+	"custome",
+	"date",
+	"device",
+	"dice",
+	"die",
+	"drawknife",
+	"drynke",
+	"duckie",
+	"dune",
+	"dye",
+	"engine",
+	"ensemble",
+	"envelope",
+	"epee",
+	"ephebe",
+	"escritoire",
+	"eztope",
+	"face",
+	"femme",
+	"figure",
+	"figurine",
+	"file",
+	"finale",
+	"fire",
+	"fireplace",
+	"fleece",
+	"flute",
+	"folle",
+	"foxglove",
+	"frame",
+	"frankincense",
+	"frisbee",
+	"frittole",
+	"fromage",
+	"fudge",
+	"fumee",
+	"fuse",
+	"game",
+	"garbage",
+	"gargoyle",
+	"gauche",
+	"girdle",
+	"glaive",
+	"globe",
+	"glove",
+	"glue",
+	"gnameplate",
+	"gnome",
+	"goose",
+	"gote",
+	"grape",
+	"grenouille",
+	"guide",
+	"handle",
+	"headpiece",
+	"hellebore",
+	"hinge",
+	"hive",
+	"hoe",
+	"horse",
+	"horseshoe",
+	"hose",
+	"impie",
+	"incense",
+	"indulgence",
+	"ire",
+	"jasmine",
+	"juice",
+	"kamikaze",
+	"kelpie",
+	"kettle",
+	"kite",
+	"knife",
+	"kosode",
+	"kote",
+	"kourambiethe",
+	"lace",
+	"ladle",
+	"landscape",
+	"lasagne",
+	"lecture",
+	"lemonade",
+	"lettuce",
+	"licence",
+	"lime",
+	"line",
+	"lingerie",
+	"linzerauge",
+	"longue",
+	"lozenge",
+	"luggage",
+	"lure",
+	"lute",
+	"lyre",
+	"mace",
+	"machine",
+	"magazine",
+	"mantelpiece",
+	"maple",
+	"marble",
+	"marionette",
+	"mcrice",
+	"me",
+	"measure",
+	"megaphone",
+	"meringue",
+	"milkshake",
+	"mistletoe",
+	"mitre",
+	"mixture",
+	"mole",
+	"monocle",
+	"moonshine",
+	"moose",
+	"mouse",
+	"mousse",
+	"moustache",
+	"mussie",
+	"muzzle",
+	"necklace",
+	"nectarine",
+	"needle",
+	"negligee",
+	"newbie",
+	"nightie",
+	"nose",
+	"note",
+	"numberplate",
+	"office",
+	"oilstone",
+	"oinochoe",
+	"olive",
+	"olpe",
+	"orange",
+	"ore",
+	"package",
+	"palette",
+	"pancake",
+	"panpipe",
+	"pebble",
+	"penible",
+	"perfume",
+	"periwinkle",
+	"pestle",
+	"philtre",
+	"pickaxe",
+	"pickle",
+	"picture",
+	"pie",
+	"piece",
+	"pinafore",
+	"pine",
+	"pineapple",
+	"pipe",
+	"pipette",
+	"pishe",
+	"plaque",
+	"plate",
+	"ploughshare",
+	"plume",
+	"pole",
+	"pomegranate",
+	"pomperiposse",
+	"poodle",
+	"porridge",
+	"porthole",
+	"praline",
+	"preserve",
+	"protective",
+	"purse",
+	"rake",
+	"range",
+	"ratatouille",
+	"reticule",
+	"rice",
+	"ricecake",
+	"robe",
+	"rope",
+	"rose",
+	"rosette",
+	"royale",
+	"sabre",
+	"saddle",
+	"safe",
+	"sage",
+	"sake",
+	"sandstone",
+	"sandwhitche",
+	"sauce",
+	"sausage",
+	"saxophone",
+	"scale",
+	"scene",
+	"sceptre",
+	"sconce",
+	"scone",
+	"sculpture",
+	"scumble",
+	"scuttle",
+	"scythe",
+	"seahorse",
+	"settee",
+	"shake",
+	"shingle",
+	"shortcake",
+	"sickle",
+	"sidetable",
+	"significance",
+	"slate",
+	"slice",
+	"slide",
+	"sludge",
+	"slumpie",
+	"snake",
+	"snausage",
+	"snowflake",
+	"snowflare",
+	"snowglobe",
+	"sode",
+	"solitaire",
+	"sphere",
+	"spike",
+	"sponge",
+	"square",
+	"stake",
+	"statue",
+	"statuette",
+	"stile",
+	"stole",
+	"stone",
+	"stove",
+	"suitcase",
+	"sundae",
+	"suneate",
+	"sunrise",
+	"sunshine",
+	"surplice",
+	"surprise",
+	"swede",
+	"swine",
+	"switchblade",
+	"sycamore",
+	"table",
+	"tambourine",
+	"tangerine",
+	"tape",
+	"tease",
+	"tee",
+	"tempscire",
+	"tentacle",
+	"terre",
+	"thimble",
+	"thingie",
+	"thobe",
+	"thyme",
+	"tickle",
+	"tie",
+	"tile",
+	"timepiece",
+	"tipple",
+	"tissue",
+	"toffee",
+	"toie",
+	"toothpaste",
+	"tortoise",
+	"toupee",
+	"tree",
+	"triangle",
+	"trireme",
+	"trombone",
+	"truffle",
+	"tube",
+	"turpentine",
+	"turtle",
+	"ukulele",
+	"vampire",
+	"vase",
+	"ve",
+	"verge",
+	"waffle",
+	"wallpiece",
+	"wardrobe",
+	"wedge",
+	"whale",
+	"whalebone",
+	"wheelhouse",
+	"whine",
+	"whipple",
+	"whistle",
+	"white",
+	"wildride",
+	"wine",
+	"winkle",
+	"wire",
+	"withe",
+	"wizzie",
+	"womble",
+	"wossname",
+}
+local itemsWithComma = {
+	"battered, black tricorn",
+	"Bes Pelargic Blue tobacco, special import",
+	"Buffalo tobacco, the people's choice",
+	"cigar baklava, perfect for a late night sugar crash",
+	"delicious kebab, fast and cheap",
+	"Grims tobacco, for the hardened smoker",
+	"hard, pink mass",
+	"large, wide-brimmed black hat",
+	"long, sharp hatpin",
+	"Long, Slow Fish Against A Wall",
+	"long, thin needle",
+	"old, worn-out broomstick",
+	"open, empty briefcase",
+	"pair of filmy, clinging, billowing harem trousers",
+	"pair of sheer, red silk stockings",
+	"paper cup of stewed, cold tea",
+	"plain, grey suit jacket",
+	"Quirm Red, last year's",
+	"Quirm Red, this year's",
+	"small, salt-encrusted peanut",
+	"sparkling, bejewelled anklet",
+	"Two-Hump tobacco, that special taste of Klatch",
+}
+local numberWords = {
+	["zero"] = 0,
+	["half"] = 0.5,
+	["one"] = 1,
+	["two"] = 2,
+	["three"] = 3,
+	["four"] = 4,
+	["five"] = 5,
+	["six"] = 6,
+	["seven"] = 7,
+	["eight"] = 8,
+	["nine"] = 9,
+	["ten"] = 10,
+	["eleven"] = 11,
+	["twelve"] = 12,
+	["thirteen"] = 13,
+	["fourteen"] = 14,
+	["fifteen"] = 15,
+	["sixteen"] = 16,
+	["seventeen"] = 17,
+	["eighteen"] = 18,
+	["nineteen"] = 19,
+	["twenty"] = 20,
+	["twenty-one"] = 21,
+	["twenty-two"] = 22,
+	["twenty-three"] = 23,
+	["twenty-four"] = 24,
+	["twenty-five"] = 25,
+	["twenty-six"] = 26,
+	["twenty-seven"] = 27,
+	["twenty-eight"] = 28,
+	["twenty-nine"] = 29,
+	["thirty"] = 30,
+	["thirty-one"] = 31,
+	["thirty-two"] = 32,
+	["thirty-three"] = 33,
+	["thirty-four"] = 34,
+	["thirty-five"] = 35,
+	["thirty-six"] = 36,
+	["thirty-seven"] = 37,
+	["thirty-eight"] = 38,
+	["thirty-nine"] = 39,
+	["forty"] = 40,
+	["forty-one"] = 41,
+	["forty-two"] = 42,
+	["forty-three"] = 43,
+	["forty-four"] = 44,
+	["forty-five"] = 45,
+	["forty-six"] = 46,
+	["forty-seven"] = 47,
+	["forty-eight"] = 48,
+	["forty-nine"] = 49,
+	["fifty"] = 50,
+	["fifty-one"] = 51,
+	["fifty-two"] = 52,
+	["fifty-three"] = 53,
+	["fifty-four"] = 54,
+	["fifty-five"] = 55,
+	["fifty-six"] = 56,
+	["fifty-seven"] = 57,
+	["fifty-eight"] = 58,
+	["fifty-nine"] = 59,
+	["sixty"] = 60,
+	["sixty-one"] = 61,
+	["sixty-two"] = 62,
+	["sixty-three"] = 63,
+	["sixty-four"] = 64,
+	["sixty-five"] = 65,
+	["sixty-six"] = 66,
+	["sixty-seven"] = 67,
+	["sixty-eight"] = 68,
+	["sixty-nine"] = 69,
+	["seventy"] = 70,
+	["seventy-one"] = 71,
+	["seventy-two"] = 72,
+	["seventy-three"] = 73,
+	["seventy-four"] = 74,
+	["seventy-five"] = 75,
+	["seventy-six"] = 76,
+	["seventy-seven"] = 77,
+	["seventy-eight"] = 78,
+	["seventy-nine"] = 79,
+	["eighty"] = 80,
+	["eighty-one"] = 81,
+	["eighty-two"] = 82,
+	["eighty-three"] = 83,
+	["eighty-four"] = 84,
+	["eighty-five"] = 85,
+	["eighty-six"] = 86,
+	["eighty-seven"] = 87,
+	["eighty-eight"] = 88,
+	["eighty-nine"] = 89,
+	["ninety"] = 90,
+	["ninety-one"] = 91,
+	["ninety-two"] = 92,
+	["ninety-three"] = 93,
+	["ninety-four"] = 94,
+	["ninety-five"] = 95,
+	["ninety-six"] = 96,
+	["ninety-seven"] = 97,
+	["ninety-eight"] = 98,
+	["ninety-nine"] = 99,
+	["one hundred"] = 100,
+	["two hundred"] = 200,
+	["three hundred"] = 300,
+	["four hundred"] = 400,
+	["five hundred"] = 500,
+	["six hundred"] = 600,
+	["seven hundred"] = 700,
+	["eight hundred"] = 800,
+	["nine hundred"] = 900,
+	["one thousand"] = 1000,
+	["two thousand"] = 2000,
+	["three thousand"] = 3000,
+	["four thousand"] = 4000,
+	["five thousand"] = 5000,
+	["six thousand"] = 6000,
+	["seven thousand"] = 7000,
+	["eight thousand"] = 8000,
+	["nine thousand"] = 9000,
+	["many"] = 20,
+}
+--#endregion
+
+--#region General
+function DecToHex(decimal)
+	if type(decimal) == "number" then
+		return string.format("%x", decimal)
+	end
+	return "0"
+end
+
+function HexToDec(hex)
+	return tonumber(hex, 16)
+end
+
+function HexToRGB(hex)
+	if IsHexColor(hex) then
+		hex = string.gsub(hex, "%#", "")
+		local r = tonumber(string.sub(hex, 1, 2), 16)
+		local g = tonumber(string.sub(hex, 3, 4), 16)
+		local b = tonumber(string.sub(hex, 5, 6), 16)
+		return {r = r, g = g, b = b}
+	end
+	return {r = 255, g = 255, b = 255}
+end
+
+function IsHexColor(str)
+	return string.match(str, "^#?[%da-fA-F][%da-fA-F][%da-fA-F][%da-fA-F][%da-fA-F][%da-fA-F]$") ~= nil
+end
+
+function keyExistsInArray(key, array)
+    for k, _ in pairs(array) do
+        if k == key then
+            return true
+        end
+    end
+    return false
+end
+
+function math.round(num)
+	local decimal = num - math.floor(num)
+	if decimal >= 0.5 then
+		return math.ceil(num)
+	else
+		return math.floor(num)
+	end
+end
+
+function string.fill(str, max, fill, trailing)
+	if type(str) ~= "string" or type(max) ~= "number" or type(fill) ~= "string" then
+		Note("One of the entered variables is of the incorrect type")
+	else
+		local amountToAdd = max - #str
+		if trailing then
+			return str .. string.rep(fill, amountToAdd)
+		else
+			return string.rep(fill, amountToAdd) .. str
+		end
+	end
+end
+
+function string.isEmpty(s)
+	local success, msg = pcall(function() assert(type(s) == "string") end)
+	if not success then
+		Note(msg)
+	end
+	return s == nil or #s == 0
+end
+
+function string.replaceLast(originalString, matchString, replaceString)
+	if type(originalString) == "string" and type(matchString) == "string" and type(replaceString) then
+		local searchString = string.reverse(matchString)
+		local stringReversed = string.reverse(originalString)
+		local stringIndex = string.find(stringReversed, searchString)
+		local editedReveresString = string.sub(stringReversed, 0, stringIndex) .. replaceString .. string.sub(stringReversed, stringIndex + string.len(searchString))
+		return string.reverse(editedReveresString)
+	else
+		ColourNote(configColour["error"], "", "string.replaceLast error: one or more of the inputs were not of type string.")
+		return originalString
+	end
+end
+
+function string.toTable(s, delimiter)
+	local result = {}
+	if type(s) == "string" and type(delimiter) == "string" then
+		for match in (s..delimiter):gmatch("(.-)"..delimiter) do
+			table.insert(result, match)
+		end
+	else
+		ColourNote(configColour["error"], "", "string.toTable error: one or more of the inputs were not of type string.")
+	end
+	return result
+end
+
+function string.trim(s)
+	if type(s) == "string" then
+		return string.gsub(s, "^%s*(.-)%s*$", "%1")
+	else
+		ColourNote(configColour["error"], "", "string.trim error: input was not of type string.")
+	end
+	return s
+end
+
+function table.contains(t, match)
+	for i = 1, #t, 1 do
+		if t[i] == match then
+			return true
+		end
+	end
+	return false
+end
+
+function table.containsKey(t, key)
+	for k, _ in pairs(t) do
+        if k == key then
+            return true
+        end
+    end
+    return false
+end
+
+function table.filter(table,prop,val)
+	local returnTable = {}
+	for key, value in pairs(table) do
+		if value[prop] then
+			if string.lower(value[prop]) == string.lower(val) then
+				returnTable[key] = value
+			end
+		end
+	end
+	return returnTable
+end
+
+function table.isEmpty(t)
+	if type(t) == "table" then
+		if not next(t) then
+			return true
+		end
+	end
+	return false
+end
+
+function table.keyToIndexTable(t)
+	local result
+	if type(t) == "table" then
+		result = {}
+		for k, v in pairs(t) do
+			local insertTable = {}
+			insertTable["key"] = k
+			if type(v) == "table" then
+				for key, value in pairs(v) do
+					insertTable[key] = value
+				end
+			end
+			table.insert(result, insertTable)
+		end
+	elseif type(t) == "string" then
+		result = t
+	end
+	return result
+end
+
+function table.length(t)
+	local total = 0
+	for x in pairs(t) do
+		total = total + 1
+	end
+	return total
+end
+
+function table.print(t, a)
+	if type(t) == "table" then
+		local indentAmount = a or 0
+		for k,v in pairs(t) do
+			local vType = type(v)
+			for i = 1, indentAmount, 1 do
+				Tell("  ")
+			end
+			if vType == "table" then
+				Note(k)
+				table.print(v, indentAmount + 1)
+			else
+				ColourTell("#0080FF", "", k .. ": ")
+				ColourTell("#7DE800", "", v)
+				Note("")
+			end
+		end
+	else
+		ColourNote(configColour["error"], "", "table.print error: input is not of type table.")
+	end
+end
+
+function table.valueList(t, val)
+	local returnTable = {}
+	if string.lower(val) == "key" then
+		for k, v in pairs(t) do
+			table.insert(returnTable, k)
+		end
+	else
+		for k, v in pairs(t) do
+			table.insert(returnTable, v[val])
+		end
+	end
+	return returnTable
+end
+
+function table.valueMaxStringLength(t)
+	local maxStringLength =  0
+	for key, value in pairs(t) do
+		if string.len(value) > maxStringLength then
+			maxStringLength = string.len(value)
+		end
+	end
+	return maxStringLength
+end
+--#endregion
+
+--#region Plugin
+function CheckCompanionPluginEnabled(pluginId)
+	return GetPluginInfo(pluginId, 17)
+end
+
+function OnPluginListChanged()
+	VaultClearBadVariables()
+end
+
+function OnPluginConnect()
+	VaultClearBadVariables()
+end
+
+function OnPluginInstall()
+	VaultClearBadVariables()
+end
+
+function OnPluginEnable()
+	VaultClearBadVariables()
+end
+--#endregion
+
+--#region Vault
+function VaultConvertItemNamePluralToSingle(s)
+	if type(s) == "string" and s ~= "" then
+		local result = s or ""
+
+		result = result:gsub("pairs of", "pair of")
+		result = result:gsub("chunks", "chunk")
+		result = result:gsub("sides", "side")
+		result = result:gsub("knives", "knife")
+		result = result:gsub("lumps", "lump")
+		result = result:gsub("pieces of", "piece of")
+		result = result:gsub("ribbons'", "ribbon")
+		result = result:gsub("sticks", "stick")
+		result = result:gsub("cards", "card")
+
+		if not string.find(result, "pair of") then
+			local lastWord = result
+			if string.find(result, " ") then
+				local fooTable = string.toTable(result, " ")
+				lastWord = fooTable[#fooTable]
+			end
+			local isSingularWord = false
+			local singularWordEndsInE = false
+			local removeES = false
+			local removeS = false
+
+			-- plural word (ending in s or es) is actually a singular word
+			if (string.sub(lastWord, string.len(lastWord)-1) == "es") and (isSingularWord == false) then
+				for i = 1, #itemsEndingInES, 1 do
+					if itemsEndingInES[i] == lastWord then
+						isSingularWord = true
+						i = #itemsEndingInES
+					end
+				end
+			end
+			if (string.sub(lastWord, string.len(lastWord)) == "s") and (isSingularWord == false) then
+				for i = 1, #itemsEndingInS, 1 do
+					if itemsEndingInS[i] == lastWord then
+						isSingularWord = true
+						i = #itemsEndingInS
+					end
+				end
+			end
+
+			-- Is singular word ending with e?
+			if (string.sub(lastWord, string.len(lastWord)-1) == "es") and (isSingularWord == false) then
+				local lastWordEndingInE = string.sub(lastWord, 0, string.len(lastWord)-1)
+				for i = 1, #itemsEndingInE, 1 do
+					if itemsEndingInE[i] == lastWordEndingInE then
+						singularWordEndsInE = true
+						i = #itemsEndingInE
+					end
+				end
+			end
+
+			if (string.sub(lastWord, string.len(lastWord)-1) == "es") and (isSingularWord == false) and (singularWordEndsInE == false) then
+				removeES = true
+			end
+
+			if (string.sub(lastWord, string.len(lastWord)) == "s") and (isSingularWord == false) and (singularWordEndsInE == false) and (removeES == false) then
+				removeS = true
+			end
+
+			if isSingularWord then
+				result = result
+			elseif singularWordEndsInE then
+				result = string.sub(result, 0, string.len(result)-1)
+			elseif removeES then
+				result = string.sub(result, 0, string.len(result)-2)
+			elseif removeS then
+				result = string.sub(result, 0, string.len(result)-1)
+			end
+		end
+		return result
+	end
+	return s
+end
+
+function VaultConvertContentStringToArray(s)
+	if type(s) == "string" and s ~= "" then
+		s = ", " .. s
+		if string.match(s, " and ") then
+			s = string.replaceLast(s, " and ", ", ")
+		end
+
+		-- Find unique Items with capital letters and quantify them
+		while s.find(s, ", %u") do
+			local matchIndex = string.find(s, ", %u")
+			s = string.sub(s, 1, matchIndex) .. " a" .. string.sub(s, matchIndex+1, string.len(s))
+		end
+
+		-- quantify non-numeric quantifiers
+		s = string.gsub(s, ", some ", ";, 1*")
+		s = string.gsub(s, ", the ", ";, 1*")
+		s = string.gsub(s, ", an ", ";, 1*")
+		s = string.gsub(s, ", a ", ";, 1*")
+		s = string.gsub(s, ", many ", ";, 20*")
+		s = string.gsub(s, ", various ", ";, 1*")
+
+		-- prepare string to be split
+		for key, value in pairs(numberWords) do
+			s = string.gsub(s, ", " .. key .. " ", ";, " .. value .. "*")
+		end
+
+		-- unprepare items with a comma
+		for _, value in ipairs(itemsWithComma) do
+			local seatchString = string.gsub(value, ", ", ";, ")
+			s = string.gsub(s, seatchString, value)
+		end
+
+		s = string.gsub(s, "^;, ", "", 1)
+		local contentTable = string.toTable(s, ";,")
+		local contentArray = {}
+
+		for i = 1, #contentTable, 1 do
+			contentTable[i] = string.trim(contentTable[i])
+			local fooTable = string.toTable(contentTable[i],"*")
+			local singleItem = VaultConvertItemNamePluralToSingle(fooTable[2])
+			contentArray[singleItem] = fooTable[1]
+		end
+		return contentArray
+	else
+		ColourNote(configColour["error"], "", "VaultConvertContentStringToArray error: input was not of type string")
+		return {}
+	end
+end
+
+function VaultCaptureLastContentString()
+	local currentVaultNameString = VaultGetCurrentVault()
+	local vaultContentsArray = VaultGetCurrentUserVaultContents()
+	local vaultInfo = vaultsInfo[currentVaultNameString]
+
+	local recentLinesTable = string.toTable(GetRecentLines(100), "\n")
+
+	local vaultFullStateString = ""
+	local vaultContentsString = ""
+	local matchIndex = -1
+
+	for i = 1, #recentLinesTable do
+		if string.find(recentLinesTable[i], vaultInfo.container) then
+			matchIndex = i
+		end
+	end
+	if matchIndex > -1 then
+		vaultFullStateString = ""
+		vaultContentsString = ""
+
+		for index = 0, 5, 1 do
+			local nextLine = recentLinesTable[matchIndex+index]
+			if type(nextLine) == "string" then
+				if string.find(nextLine, vaultInfo.container) then
+					nextLine = string.gsub(nextLine, "%.$", "", 1)
+					for key, value in pairs(vaultsInfo) do
+						nextLine = string.gsub(nextLine, "^The " .. value.container .. " ", "", 1)
+						nextLine = string.gsub(nextLine, "^is ", "", 1)
+					end
+					for key, value in pairs(vaultFullStates) do
+						local matchString = string.gsub(key, "%-", "%%-")
+						nextLine = string.gsub(nextLine, matchString .. " ", key .. ";;;", 1)
+					end
+					if string.find(nextLine, ";;;") then
+						local fooTable = string.toTable(nextLine, ";;;")
+						vaultFullStateString = string.trim(fooTable[1])
+						vaultContentsString = string.trim(fooTable[2])
+						break
+					end
+				end
+			end
+		end
+	end
+
+	-- Set vault contents and vault full
+	if type(vaultContentsString) == "string" and vaultContentsString ~= "" then
+		vaultContentsArray[currentVaultNameString].contents = VaultConvertContentStringToArray(vaultContentsString)
+	else
+		vaultContentsArray[currentVaultNameString].contents = {}
+	end
+
+	if type(vaultFullStateString) == "string" and vaultFullStateString ~= "" then
+		vaultContentsArray[currentVaultNameString].full = vaultFullStateString
+	else
+		vaultContentsArray[currentVaultNameString].full = ""
+	end
+	VaultSetCurrentUserVaultContents(vaultContentsArray)
+end
+
+function VaultCheckVaultArrayStructure(t)
+	-- check if table is not nil and has at least one user key
+	if t == nil or next(t) == nil then
+		return false
+	end
+
+	-- iterate through user keys
+	for _, userValue in pairs(t) do
+		-- check if userValue is a table
+		if type(userValue) ~= "table" then
+			return false
+		end
+
+		-- iterate through vault keys
+		for _, vaultValue in pairs(userValue) do
+			-- check if vaultValue is a table
+			if type(vaultValue) ~= "table" then
+				return false
+			end
+
+			-- check if vaultValue has keys "full" and "contents"
+			if vaultValue["type"] == nil or vaultValue["full"] == nil or vaultValue["contents"] == nil then
+				return false
+			end
+
+			-- check if "contents" is a table
+			if type(vaultValue["contents"]) ~= "table" then
+				return false
+			end
+		end
+	end
+	-- if all checks passed, return true
+	return true
+end
+
+function VaultClearBadVariables()
+	if not VaultCheckVaultArrayStructure(VaultGetVaultContainerContents()) then
+		DeleteVariable("VaultContainerContents")
+		ColourNote(configColour["error"], "", "The structure of the VaultContainerContents variable was incorrect and has been deleted. Please visit vaults again to store their contents in the VaultContainerContents variable.")
+	end
+end
+
+function VaultGetHexColourByFill(fill)
+	-- convert string key table into index table
+	local vaultFullStatesIndex = table.keyToIndexTable(vaultFullStates)
+	table.sort(vaultFullStatesIndex, function (k1,k2) return tonumber(k1.percentage) < tonumber(k2.percentage) end)
+
+	local lookIndex = 0
+	for index, value in ipairs(vaultFullStatesIndex) do
+		if value["key"] == fill then
+			lookIndex = index
+			break
+		end
+	end
+
+	local rgbHex
+	if lookIndex > 0 then
+		local rgbStart = HexToRGB(colourFullStart)
+		local rgbEnd = HexToRGB(colourFullEnd)
+
+		local rgb = {r = 0, g = 0, b = 0}
+
+		for key, _ in pairs(rgbStart) do
+			local perStage = (rgbEnd[key] - rgbStart[key]) / #vaultFullStatesIndex
+			rgb[key] = rgbStart[key] + math.round(lookIndex * perStage)
+		end
+
+		rgbHex = "#" .. DecToHex(rgb["r"]) .. DecToHex(rgb["g"]) .. DecToHex(rgb["b"])
+	else
+		rgbHex = "#ffffff"
+	end
+	return rgbHex
+end
+
+function VaultShowUsers()
+	ColourNote(colourVaultName, "", "Vault users:")
+	for _, value in pairs(VaultGetKnownUsers()) do
+		if value == VaultGetCopyUser() then
+			NoteStyle(4)
+		end
+		if value == VaultGetUser() then
+			ColourTell(colourCurrentUser, "", value)
+		else
+			ColourTell(colourUser, "", value)
+		end
+		NoteStyle(0)
+		Tell(" ")
+		Tell("[")
+		if value == VaultGetUser() then
+			ColourTell(colourAmount, "", "Change")
+		else
+			Tell(Hyperlink("VaultUser " .. value, "Change", "Change to vault data of " .. value, colourHyperlink, "black", 0))
+		end
+		Tell(" | ")
+		Tell(Hyperlink("VaultDeleteUser " .. value, "Delete", "Delete vault data of " .. value, colourHyperlink, "black", 0))
+		Tell(" | ")
+		Tell(Hyperlink("VaultCopy " .. value, "Copy", "Copy vault data of " .. value, colourHyperlink, "black", 0))
+		if value == VaultGetCopyUser() or string.isEmpty(VaultGetCopyUser()) then
+		else
+			Tell(" | ")
+			Tell(Hyperlink("VaultPaste " .. value, "Paste", "Paste vault data to " .. value, colourHyperlink, "black", 0))	
+		end
+		Tell("]")
+		Note()
+	end
+end
+
+-- TRIGGER
+function VaultTriggerContainerContents(name, output, wildcards)
+	local vaultFullState = wildcards[3]
+	local vaultContentsString = wildcards[5]
+	VaultContainerContents(vaultContentsString, vaultFullState)
+end
+
+function VaultTriggerSetInsideVault(name, output, wildcards)
+	local locationName = wildcards[1]
+	VaultSetInsideVault(locationName)
+end
+
+-- ALIAS
+function VaultAliasChangeUser(name, output, wildcards)
+	if CheckCompanionPluginEnabled(bankPluginId) then
+		local errorCode, bankKnownUsersJson = CallPlugin(bankPluginId, "BankGetKnownUsers", "json")
+		local bankKnownUsersTable = json.decode(bankKnownUsersJson)
+		local vaultKnownUsersTable = VaultGetKnownUsers()
+		table.sort(vaultKnownUsersTable, function (k1,k2) return string.lower(k1) < string.lower(k2) end)
+
+		for _, value in ipairs(vaultKnownUsersTable) do
+			if table.contains(bankKnownUsersTable, value) then
+				ColourTell(colourVaultName, "", value)
+				Tell(" ")
+				Tell("[")
+				Tell(Hyperlink("changeuser " .. value, "Change", "Change to bank and vault data to " .. value, colourAmount, "black", 0))
+				Tell("]")
+				Note()
+			end
+		end
+	end
+end
+
+function VaultAliasVaultCheckAll(name, output, wildcards)
+	VaultPrintConsolidatedVaultContents()
+end
+
+function VaultAliasVaultCheckAllVaults(name, output, wildcards)
+	VaultPrintAllVaults()
+end
+
+function VaultAliasVaultCheckAnyHasItem(name, output, wildcards)
+	local item = wildcards[1]
+	VaultPrintAnyHasItem(item)
+end
+
+function VaultAliasVaultContent(name, output, wildcards)
+	local vaultName = wildcards[1]
+	VaultPrintVaultContents(vaultName)
+end
+
+function VaultAliasVaultContentDelete(name, output, wildcards)
+	local vaultName = wildcards[1]
+
+	local user = VaultGetUser()
+	local vaultContentsString = GetVariable("VaultContainerContents") or ""
+	local data = json.decode(vaultContentsString) or {}
+	if keyExistsInArray(vaultName, vaultsInfo) then
+		data[user][vaultName] = {type = "vault", full = "", contents = {}}
+	else
+		data[user][vaultName] = nil
+	end
+
+	VaultSetVaultContents(data)
+	Note()
+	VaultPrintAllVaults()
+end
+
+function VaultAliasVaultCopy(name, output, wildcards)
+	local fromUser = wildcards[1]
+	VaultSetCopyUser(fromUser)
+
+	Tell("Copied the vaults from ")
+	if (VaultGetUser() == string.lower(fromUser)) then
+		ColourTell(colourCurrentUser, "", fromUser)
+	else
+		ColourTell(colourCityName, "", fromUser)
+	end
+	Tell(".")
+	Note()
+
+	VaultShowUsers()
+end
+
+function VaultAliasVaultDeleteUser(name, output, wildcards)
+	local user = string.lower(wildcards[1])
+	local currentUser = VaultGetUser()
+	VaultDeleteUser(user)
+	Tell("Deleted vault data for ")
+	ColourTell(colourUser, "", user)
+	Tell(".")
+	if currentUser == user then
+		SetVariable("vaultUser", "default")
+		Tell(" Reverted back to ")
+		ColourTell(colourCurrentUser, "", "default")
+		Tell(" user.")
+	end
+	Note()
+end
+
+function VaultAliasVaultPaste(name, output, wildcards)
+	local toUser = string.lower(wildcards[1])
+	local fromUser = VaultGetCopyUser()
+	VaultCopyContentsToUser(toUser, fromUser)
+
+	Tell("Placed vault data from ")
+	if (VaultGetUser() == string.lower(fromUser)) then
+		ColourTell(colourCurrentUser, "", fromUser)
+	else
+		ColourTell(colourCityName, "", fromUser)
+	end
+	Tell(" into ")
+	if (VaultGetUser() == string.lower(toUser)) then
+		ColourTell(colourCurrentUser, "", toUser)
+	else
+		ColourTell(colourCityName, "", toUser)
+	end
+	Tell(".")
+	Note()
+end
+
+function VaultAliasVaultShowUsers(name, output, wildcards)
+	VaultShowUsers()
+end
+
+function VaultAliasVaultSetUser(name, output, wildcards)
+	local user = string.lower(wildcards[1])
+	VaultSetCurrentUser(user)
+	Tell("Changed to the vault data of ")
+	ColourTell(colourCurrentUser, "", user)
+	Tell(".")
+	Note()
+end
+
+-- VARIABLE
+-- delete
+function VaultDeleteUser(user)
+	user = string.lower(user)
+	local vaultArray = VaultGetVaultContainerContents()
+	if vaultArray[user] then
+		vaultArray[user] = nil
+		VaultSetVaultContents(vaultArray)
+	end
+end
+
+-- get
+function VaultGetAllVaultContentItemsArray()
+	local vaultContentsArray = VaultGetCurrentUserVaultContents()
+	local returnArray = {}
+
+	for _, vaultValue in pairs(vaultContentsArray) do
+		for contentKey, contentValue in pairs(vaultValue.contents) do
+			if returnArray[contentKey] then
+				returnArray[contentKey] = returnArray[contentKey] + contentValue
+			else
+				returnArray[contentKey] = contentValue
+			end
+		end
+	end
+	return returnArray
+end
+
+function VaultGetCopyUser()
+	return GetVariable("vaultCopyUser") or ""
+end
+
+function VaultGetKnownUsers()
+	local vaultArray = VaultGetVaultContainerContents()
+	local userList = table.valueList(vaultArray, "key")
+	table.sort(userList, function (k1,k2) return string.lower(k1) < string.lower(k2) end)
+	return userList
+end
+
+function VaultGetUser()
+	return GetVariable("vaultUser") or "default"
+end
+
+function VaultGetVaultContainerContents()
+	local user = VaultGetUser()
+	local vaultContentsString = GetVariable("VaultContainerContents") or ""
+	local data = json.decode(vaultContentsString) or {}
+
+	data[user] = data[user] or {}
+	for vaultsInfoKey, _ in pairs(vaultsInfo) do
+		data[user][vaultsInfoKey] = data[user][vaultsInfoKey] or {type = "vault", full = "", contents = {}}
+	end
+
+	if type(GetVariable("VaultContainerContents")) == "nil" then
+		VaultSetVaultContents(data)
+	end
+
+	return data
+end
+
+function VaultGetCurrentUserVaultContents()
+	local user = VaultGetUser()
+	return VaultGetVaultContainerContents()[user]
+end
+
+function VaultGetVaultsContainingItem(item)
+	local contentsArray = VaultGetCurrentUserVaultContents()
+	local matchVaults = {}
+	for contentsArrayKey, contentsArrayValue in pairs(contentsArray) do
+		for contentKey, contentValue in pairs(contentsArrayValue.contents) do
+			if string.find(string.lower(contentKey), string.lower(item)) then
+				table.insert(matchVaults, contentsArrayKey)
+				break
+			end
+		end
+	end
+
+	return matchVaults
+end
+
+-- set
+function VaultCopyContentsToUser(toUser, fromUser)
+	local VaultContainerContents = VaultGetVaultContainerContents() or {}
+	VaultContainerContents[toUser] = VaultContainerContents[fromUser]
+	VaultSetVaultContents(VaultContainerContents)
+	VaultSetCopyUser("")
+end
+
+function VaultSetCopyUser(user)
+	SetVariable("vaultCopyUser", string.lower(user))
+end
+
+function VaultSetCurrentUser(user)
+	SetVariable("vaultUser", string.lower(user))
+end
+
+function VaultSetCurrentUserVaultContents(currentUserVaultContents)
+	local user = VaultGetUser()
+	local VaultContainerContents = VaultGetVaultContainerContents()
+	VaultContainerContents[user] = currentUserVaultContents
+	VaultSetVaultContents(VaultContainerContents)
+end
+
+function VaultSetVaultContents(vaultContentsArray)
+	if type(vaultContentsArray) == 'table' then
+		SetVariable("VaultContainerContents", json.encode(vaultContentsArray))
+	else
+		ColourNote(configColour["error"], "", "VaultSetVaultContents error: input is not of type table")
+	end
+end
+
+-- GENERAL
+function VaultContainerContents(vaultContentsString, vaultFullState)
+	local recentLinesTable = string.toTable(GetRecentLines(5), "\n")
+	local currentVault = "Nella's vault"
+
+	for i, v in ipairs(recentLinesTable) do
+		for key, value in pairs(vaultsInfo) do
+			if v == value.containerDescription then
+				currentVault = key
+			end
+		end
+	end
+
+	if currentVault == "office in Ohulan-Cutash" or currentVault == "opulent office" then
+		-- AM hole has extra "It is in excellent condition." line
+		currentVault = "office in Ohulan-Cutash"
+		for i, v in ipairs(recentLinesTable) do
+			if v == "It is in excellent condition." then
+				currentVault = "opulent office"
+				break
+			end
+		end
+	end
+
+	if currentVault ~= "" then
+		local vaultContentsArray = VaultGetCurrentUserVaultContents()
+		local contentsArray = VaultConvertContentStringToArray(vaultContentsString)
+		vaultFullState = string.trim(vaultFullState)
+		vaultContentsArray[currentVault].contents = contentsArray
+		vaultContentsArray[currentVault].full = vaultFullState
+		VaultSetCurrentUserVaultContents(vaultContentsArray)
+	end
+end
+--#endregion
+
+--#region Container
+
+-- TRIGGER
+
+function ContainerTriggerContainerContents(name, output, wildcards)
+	local containerName = wildcards[1]
+	local containerFullState = wildcards[2]
+	local containerContentsString = wildcards[6]
+	ContainerContainerContents(containerName, containerFullState, containerContentsString)
+end
+
+-- GENERAL
+function ContainerContainerContents(containerName, containerFullState, containerContentsString)
+	local recentLinesTable = string.toTable(GetRecentLines(10), "\n")
+	local pattern = "(.-)%s+is%s+a%s+"
+	local isDeluded = false
+	
+	for i, v in ipairs(recentLinesTable) do
+		local containerNameFound = string.match(v, pattern)
+		if containerNameFound then
+			containerName = containerNameFound
+			isDeluded = true
+		end
+	end
+
+	local containerNameTable = string.toTable(containerName, " ")
+	if table.contains(containerNameTable, "It") or table.contains(containerNameTable, "This") then
+	else
+		if isDeluded then
+			local vaultContentsArray = VaultGetCurrentUserVaultContents()
+			local contentsArray = VaultConvertContentStringToArray(containerContentsString)
+			containerFullState = string.trim(containerFullState)
+			if vaultContentsArray[containerName] == nil then
+				vaultContentsArray[containerName] = {}
+			end
+			vaultContentsArray[containerName].type = "container"
+			vaultContentsArray[containerName].full = containerFullState
+			vaultContentsArray[containerName].contents = contentsArray
+			VaultSetCurrentUserVaultContents(vaultContentsArray)
+		end
+	end
+end
+
+--#endregion
+
+--#region Apex
+
+-- TRIGGER
+function ApexTriggerContainerContents(name, output, wildcards)
+	local apexFullState = wildcards[2]
+	local apexContentsString = wildcards[4]
+	ApexContainerContents(apexFullState, apexContentsString)
+end
+
+
+-- GENERAL
+function ApexContainerContents(apexFullState, apexContentsString)
+	local recentLinesTable = string.toTable(GetRecentLines(10), "\n")
+	local pattern = "This large wardrobe is made from chestnut and varnished to bring out the glow.  If you plan to be out of the room for a while, you should put anything you want to store here in the wardrobe, so that the cleaning ladies don't accidentally throw it away."
+	local containerName = "Rented Apex Room Wardrobe"
+	local isApex = false
+	
+	for i, v in ipairs(recentLinesTable) do
+		if v == pattern then
+			isApex = true
+		end
+	end
+
+	if isApex then
+		local vaultContentsArray = VaultGetCurrentUserVaultContents()
+		local contentsArray = VaultConvertContentStringToArray(apexContentsString)
+		local fullState = string.trim(apexFullState)
+		if vaultContentsArray[containerName] == nil then
+			vaultContentsArray[containerName] = {}
+		end
+		vaultContentsArray[containerName].type = "apex"
+		vaultContentsArray[containerName].full = fullState
+		vaultContentsArray[containerName].contents = contentsArray
+		VaultSetCurrentUserVaultContents(vaultContentsArray)
+	end
+end
+
+--#endregion
+
+--#region Print
+function VaultPrintAllVaults()
+	Note()
+	Note("VAULTS")
+	local vaultContentsArray = VaultGetCurrentUserVaultContents()
+
+	-- Get max string lengths
+	-- Full
+	local fullTable = {}
+	for key, value in pairs(vaultContentsArray) do
+		if not string.isEmpty(value.full) then
+			local fullState = vaultFullStates[value.full] or {}
+			local fullStatePercentage = fullState.percentage or 0
+			table.insert(fullTable, fullStatePercentage)
+		end
+	end
+	local fullTableMax = table.valueMaxStringLength(fullTable) or 0
+	-- City
+	local cityTable = {}
+	for key, value in pairs(vaultsInfo) do
+		table.insert(cityTable, value.city)
+	end
+	local cityTableMax = table.valueMaxStringLength(cityTable)
+
+	local cityTableMax = 0
+	for _, value in pairs(vaultsInfo) do
+		local cityLength = #value.city
+		if cityLength > cityTableMax then
+			cityTableMax = cityLength
+		end
+	end
+	-- Menu
+	local menuMax = 0
+	if not table.isEmpty(VaultGetAllVaultContentItemsArray()) then
+		menuMax = string.len("[Show | Delete] ")
+	end
+
+	-- SHOW INFO
+	-- Vaults
+	local totalAmount = table.length(vaultsInfo)
+	for i = 1, totalAmount, 1 do
+		for vaultKey, vaultValue in pairs(vaultsInfo) do
+			if vaultValue["order"] == i then
+				local vault = vaultsInfo[vaultKey]
+
+				-- Show if has contents in vault
+				local vaultFull = vaultContentsArray[vaultKey].full
+
+				if vaultFull ~= "" then
+					-- Show hyperlink to get content details
+					Tell("[")
+					Tell(Hyperlink("vaultcontent " .. vaultKey, "Show", "Show contents of " .. vaultKey, colourHyperlink, "black", 0))
+					Tell(" | ")
+					Tell(Hyperlink("vaultcontentdelete " .. vaultKey, "Delete", "Delete the contents of " .. vaultKey, colourHyperlink, "black", 0))
+					Tell("]")
+					Tell(" ")
+				else
+					Tell(string.fill("", menuMax, " "))
+				end
+
+				if vaultFull ~= "" then
+					-- Get hexcolour from vaultFullStates and use that.
+					Tell("(")
+					ColourTell(VaultGetHexColourByFill(vaultFull), "", string.fill(vaultFullStates[vaultFull].percentage .. "%", fullTableMax, " "))
+					Tell(")")
+					Tell(" ")
+				else
+					if fullTableMax ~= 0 then
+						Tell(string.fill("", fullTableMax + 4, " "))
+					end
+				end
+
+				ColourTell(colourCityName, "", vault.city)
+				Tell(string.fill("", cityTableMax - string.len(vault.city) + 1, " ", true))
+
+				if CheckCompanionPluginEnabled(quowMinimapPluginId) then
+					Tell(Hyperlink("minimap " .. vaultKey, vaultKey, "Automove to " .. vaultKey, colourHyperlink, "black", 0))
+				else
+					ColourTell(colourHyperlink, "black", vaultKey)
+				end
+
+				Tell(" (costs ")
+				ColourTell(colourVaultCost, "", vault.cost)
+				Tell(")")
+				Note("")
+			end
+		end
+	end
+
+	-- Apex
+	local apexTable = table.filter(vaultContentsArray, "type", "apex")
+	if table.length(apexTable) > 0 then
+		Note("APEX ROOM")
+		for containerKey, containerValue in pairs(apexTable) do
+			local containerFull = vaultContentsArray[containerKey].full
+
+			if containerFull ~= "" then
+				-- Show hyperlink to get content details
+				Tell("[")
+				Tell(Hyperlink("vaultcontent " .. containerKey, "Show", "Show contents of Apex room", colourHyperlink, "black", 0))
+				Tell(" | ")
+				Tell(Hyperlink("vaultcontentdelete " .. containerKey, "Delete", "Delete the contents of Apex room", colourHyperlink, "black", 0))
+				Tell("]")
+				Tell(" ")
+			else
+				Tell(string.fill("", menuMax, " "))
+			end
+			
+			if containerFull ~= "" then
+				-- Get hexcolour from vaultFullStates and use that.
+				Tell("(")
+				ColourTell(VaultGetHexColourByFill(containerFull), "", string.fill(vaultFullStates[containerFull].percentage .. "%", fullTableMax, " "))
+				Tell(")")
+				Tell(" ")
+			else
+				if fullTableMax ~= 0 then
+					Tell(string.fill("", fullTableMax + 4, " "))
+				end
+			end
+
+			ColourTell(colourCityName, "", "Ankh-Morpork")
+			Tell(string.fill("", cityTableMax - string.len("Ankh-Morpork") + 1, " ", true))
+
+			Note(containerKey)
+		end
+	end
+
+	-- Containers
+	local containerTable = table.filter(vaultContentsArray, "type", "container")
+	if table.length(containerTable) > 0 then
+		Note("CONTAINERS")
+		for containerKey, containerValue in pairs(containerTable) do
+			local containerFull = vaultContentsArray[containerKey].full
+
+			if containerFull ~= "" then
+				-- Show hyperlink to get content details
+				Tell("[")
+				Tell(Hyperlink("vaultcontent " .. containerKey, "Show", "Show contents of " .. containerKey, colourHyperlink, "black", 0))
+				Tell(" | ")
+				Tell(Hyperlink("vaultcontentdelete " .. containerKey, "Delete", "Delete the contents of " .. containerKey, colourHyperlink, "black", 0))
+				Tell("]")
+				Tell(" ")
+			else
+				Tell(string.fill("", menuMax, " "))
+			end
+			
+			if containerFull ~= "" then
+				-- Get hexcolour from vaultFullStates and use that.
+				Tell("(")
+				ColourTell(VaultGetHexColourByFill(containerFull), "", string.fill(vaultFullStates[containerFull].percentage .. "%", fullTableMax, " "))
+				Tell(")")
+				Tell(" ")
+			else
+				if fullTableMax ~= 0 then
+					Tell(string.fill("", fullTableMax + 4, " "))
+				end
+			end
+
+			Tell(string.fill("", cityTableMax + 1, " ", true))
+
+			Note(containerKey)
+		end
+	end
+end
+
+function VaultPrintAnyHasItem(item)
+	if type(item) ~= "string" then
+		Note("item is not a string")
+	elseif string.len(item) < 3 then
+		Note("Enter at least 3 letters to get more accurate results.")
+	else
+		local vaultContentsArray = VaultGetCurrentUserVaultContents()
+		local matchVaultTable = VaultGetVaultsContainingItem(item)
+
+		local fullTable = {}
+		for key, value in pairs(vaultContentsArray) do
+			table.insert(fullTable, value.full)
+		end
+		local fullTableMax = table.valueMaxStringLength(fullTable)
+
+		local cityTable = {}
+		for key, value in pairs(vaultsInfo) do
+			table.insert(cityTable, value.city)
+		end
+		local cityTableMax = table.valueMaxStringLength(cityTable)
+
+		local showContentsMax = 0
+		if not table.isEmpty(VaultGetAllVaultContentItemsArray()) then
+			showContentsMax = string.len("[Show contents] ")
+		end
+
+		if(#matchVaultTable == 0) then
+			ColourTell(colourVaultName, "", "No vault contains ")
+			ColourTell(colourItem, "", item)
+			ColourTell(colourVaultName, "", ".")
+			Note()
+		else
+			Note()
+			for i = 1, #matchVaultTable, 1 do
+				local vaultKey = matchVaultTable[i]
+				local vault = vaultsInfo[vaultKey]
+
+				-- Show if has contents in vault
+				local vaultFull = vaultContentsArray[vaultKey].full
+
+				if vaultFull ~= "" then
+					-- Show hyperlink to get content details
+					Tell("[")
+					Tell(Hyperlink("vaultcontent " .. vaultKey, "Show", "Show contents of " .. vaultKey, colourHyperlink, "black", 0))
+					Tell("]")
+					Tell(" ")
+				else
+					Tell(string.fill("", showContentsMax, " "))
+				end
+
+				if vaultFull ~= "" then
+					-- Get hexcolour from vaultFullStates and use that.
+					Tell("(")
+					ColourTell(VaultGetHexColourByFill(vaultFull), "", string.fill(vaultFullStates[vaultFull].percentage .. "%", 4, " "))
+					Tell(")")
+					Tell(" ")
+				else
+					Tell(string.fill("", 7, " "))
+				end
+
+				if vault then
+					ColourTell(colourCityName, "", vault.city)
+					Tell(string.fill("", cityTableMax - string.len(vault.city) + 1, " ", true))
+					Tell(Hyperlink("minimap " .. vaultKey, vaultKey, "Automove to " .. vaultKey, colourHyperlink, "black", 0))
+					Tell(" (costs ")
+					ColourTell(colourVaultCost, "", vault.cost)
+					Tell(")")
+				else
+					Tell(vaultKey)
+					Tell(string.fill("", cityTableMax - #vaultKey + 1, " ", true))
+				end
+
+				Note()
+
+				local VaultContainerContents = vaultContentsArray[matchVaultTable[i]].contents
+				for key, value in pairs(VaultContainerContents) do
+					if string.match(string.lower(key), string.lower(item)) then
+						Tell("- ")
+						ColourTell(colourItem, "", key)
+						Tell(": ")
+						ColourTell(colourAmount, "", value)
+						Tell(" [")
+						if vault then
+							ColourTell(Hyperlink("\nwait\ntake 1 " .. key .. " from " .. vault.container .. "\nlook " .. vault.container, "take one", "take one " .. key .. " from " .. vault.container, colourHyperlink, "black", 0))
+						else
+							ColourTell(Hyperlink("\ntake 1 " .. key .. " from " .. vaultKey .. "\nlook " .. vaultKey, "take one", "take one " .. key .. " from " .. vaultKey, colourHyperlink, "black", 0))
+						end
+						Tell("] ")
+						Note()
+					end
+				end
+			end
+		end
+	end
+end
+
+function VaultPrintConsolidatedVaultContents()
+	local allVaultContentItemsArray = VaultGetAllVaultContentItemsArray()
+	if not table.isEmpty(allVaultContentItemsArray) then
+		local title = "All vaults' contents"
+		ColourNote(colourVaultName, "", string.upper(title))
+		VaultPrintContentsArray(VaultGetAllVaultContentItemsArray(), true)
+	else
+		ColourNote(colourVaultName, "", "No vault contains any item.")
+	end
+end
+
+function VaultPrintVaultContents(vaultName)
+	if type(vaultName) == "string" and vaultName ~= "" then
+		local vaultContentsArray = VaultGetCurrentUserVaultContents()
+		ColourNote(colourVaultName, "", string.upper(vaultName))
+		VaultPrintContentsArray(vaultContentsArray[vaultName].contents, true)
+	else
+		ColourNote(configColour["error"], "", "VaultPrintVaultContents error: input is empty or not of type string")
+	end
+end
+
+function VaultPrintContentsArray(array, toSort)
+	if type(array) == "table" then
+		local sortArray = false
+		if toSort then
+			sortArray = toSort
+		end
+		local contentsTable = {}
+		for key, value in pairs(array) do
+			table.insert(contentsTable, {name = key, amount = value})
+		end
+		if sortArray then
+			table.sort(contentsTable, function (k1,k2) return string.lower(k1.name) < string.lower(k2.name) end)
+		end
+		for _, value in ipairs(contentsTable) do
+			ColourTell(colourItem, "", value.name)
+			Tell(": ")
+			ColourTell(colourAmount, "", value.amount)
+			Note("")
+		end
+	else
+		ColourNote(configColour["error"], "", "VaultPrintContentsArray error: input array is not of type table")
+	end
+end
+--#endregion
+]]>
+</script>
+
+<!--  Triggers  -->
+<triggers>
+	<trigger enabled="y" regexp="y" match="The large wardrobe (is )?(contains|almost empty except for|about (.+) full with|almost full with|almost completely full with|completely full with|over-full with) (.+)\." script="ApexTriggerContainerContents" sequence="80"></trigger>
+	<trigger enabled="y" regexp="y" match="The (drawer|large wooden drawer|steel locker|cubby hole|octiron tesseract|clean nest) (is )?(contains|almost empty except for|about (.+) full with|almost full with|almost completely full with|completely full with|over-full with) (.+)\." script="VaultTriggerContainerContents" sequence="90"></trigger>
+	<trigger enabled="y" regexp="y" match="(.+) is (contains|almost empty except for|(about|over) (.+) full with|almost full with|almost completely full with|completely full with|over-full with)(:)? (.+)\." script="ContainerTriggerContainerContents" sequence="100"></trigger>
+</triggers>
+
+<!--  Aliases  -->
+<aliases>
+	<alias enabled="y" regexp="y" ignore_case="y" group="VaultAlias" match="^vaults?$" script="VaultAliasVaultCheckAllVaults" sequence="100"></alias>
+	<alias enabled="y" regexp="y" ignore_case="y" group="VaultAlias" match="^vaults? (.*)$" script="VaultAliasVaultCheckAnyHasItem" sequence="100"></alias>
+	<alias enabled="y" regexp="y" ignore_case="y" group="VaultAlias" match="^vaults?all$" script="VaultAliasVaultCheckAll" sequence="100"></alias>
+	<alias enabled="y" regexp="y" ignore_case="y" group="VaultAlias" match="^vaults?content (.+)$" script="VaultAliasVaultContent" sequence="100"></alias>
+	<alias enabled="y" regexp="y" ignore_case="y" group="VaultAlias" match="^vaults?contents?delete (.+)$" script="VaultAliasVaultContentDelete" sequence="100"></alias>
+
+	<alias enabled="y" ignore_case="y" regexp="y" keep_evaluating="y" match="^VaultUsers?$" group="VaultAlias" script="VaultAliasVaultShowUsers" sequence="100"></alias>
+	<alias enabled="y" ignore_case="y" regexp="y" keep_evaluating="y" match="^VaultUsers? (\w+).*$" group="VaultAlias" script="VaultAliasVaultSetUser" sequence="100"></alias>
+	<alias enabled="y" ignore_case="y" regexp="y" keep_evaluating="y" match="^VaultDeleteUser (\w+).*$" group="VaultAlias" script="VaultAliasVaultDeleteUser" sequence="100"></alias>
+	<alias enabled="y" ignore_case="y" regexp="y" keep_evaluating="y" match="^VaultCopy (\w+)" group="VaultAlias" script="VaultAliasVaultCopy" sequence="100"></alias>
+	<alias enabled="y" ignore_case="y" regexp="y" keep_evaluating="y" match="^VaultPaste (\w+)$" group="VaultAlias" script="VaultAliasVaultPaste" sequence="100"></alias>
+	<alias enabled="y" ignore_case="y" regexp="y" keep_evaluating="y" match="^ChangeUsers?$" group="VaultAlias" script="VaultAliasChangeUser" sequence="100"></alias>
+	<alias enabled="y" ignore_case="y" regexp="y" keep_evaluating="y" match="^ChangeUsers? (\w+)$" group="VaultAlias" script="VaultAliasVaultSetUser" sequence="100"></alias>
+</aliases>
+
+<!--  Timers  -->
+<timers>
+</timers>
+
+</muclient>
