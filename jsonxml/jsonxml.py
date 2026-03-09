@@ -1,6 +1,7 @@
 import os
 import re
 import pprint
+import xml.etree.ElementTree as ET
 
 # generates JSON file and clipboard:
 #   header included
@@ -16,6 +17,24 @@ if os.name == 'nt':  # clipboard generally only works in windows
         clipboard = False
 
 
+def display_all_levels(element, level=0):
+    """Recursively display an element and its children with indentation."""
+    # Print the element tag with appropriate indentation to show its level
+    print(' ' * level + element.tag.split('}')[-1], end='')
+    
+    # Optionally, print attributes and text
+    if element.attrib:
+        print(f" (attributes: {element.attrib})", end='')
+    if element.text and element.text.strip():
+        print(f" (text: {element.text.strip()})", end='')
+    print()
+
+    # Recurse through all child elements
+    for child in element:
+        display_all_levels(child, level + 1)
+# end
+
+
 def convert(lines):
     info = {'comps': {}, 'nets': {}}  # blank dict for storing all netlist info
     return info
@@ -29,8 +48,10 @@ for filename in os.listdir():  # only look in current folder
     if n.endswith('.xml'):
         name = filename + ' converted to.dict'
         print('Writing: ' + name)
-        with open(filename, 'r') as f:
-            info = convert(f.readlines())  # read entire file and pass as a list
+        tree = ET.parse(filename)
+        root = tree.getroot()
+        display_all_levels(root)
+        info = {'comps': {}, 'nets': {}}
         with open(name, 'w') as f:
             formatted = pprint.pformat(info, indent=2, width=200)
             f.write(formatted + '\n')  # write using pformat
