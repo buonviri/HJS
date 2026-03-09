@@ -17,34 +17,27 @@ if os.name == 'nt':  # clipboard generally only works in windows
         clipboard = False
 
 
-def display_all_levels(element, level=0):
-
-    printme = 0
-    if element.text and "R111" in element.text:
-        printme = 1
-    if element.attrib:
-        for a in element.attrib:
-            if "R111" in a:
-                printme = 1
-    if printme:
-        # Print the element tag with appropriate indentation to show its level
-        print(' ' * level + element.tag.split('}')[-1], end='')
-    
-        # Optionally, print attributes and text
-        if element.attrib:
-            print(f" (attributes: {element.attrib})", end='')
-        if element.text and element.text.strip():
-            print(f" (text: {element.text.strip()})", end='')
-        print()
-
-    # Recurse through all child elements
-    for child in element:
-        display_all_levels(child, level + 1)
-# end
-
-
 def convert(lines):
     info = {'comps': {}, 'nets': {}}  # blank dict for storing all netlist info
+    for line in lines:
+        if 'CommonCorePart' in line and 'Reference' in line:  # both words should appear on BOM lines
+            # '<CommonCorePart OccId="28169" PartNumber="" Reference="R111"/>'
+            tokens = line.split('=')  # split on equality sign
+            next = 'nothing'
+            for token in tokens:
+                if next == 'Reference':
+                    next = 'nothing'
+                    refdes = token.split('"')[1]
+                    try:  # append
+                        info['comps'][refdes].append(line.strip())
+                    except:  # doesn't exist
+                        info['comps'][refdes] = [line.strip(),]  # new list
+                if token.endswith('OccId'):
+                    next = 'OccId'
+                if token.endswith('PartNumber'):
+                    next = 'PartNumber'
+                if token.endswith('Reference'):
+                    next = 'Reference'
     return info
 # end of convert()
 
@@ -56,13 +49,12 @@ for filename in os.listdir():  # only look in current folder
     if n.endswith('.xml'):
         name = filename + ' converted to.dict'
         print('Writing: ' + name)
-        tree = ET.parse(filename)
-        root = tree.getroot()
-        display_all_levels(root)
-        info = {'comps': {}, 'nets': {}}
+        with open(filename, 'r') as f:
+            info = convert(f.readlines())  # read entire file and pass as a list
         with open(name, 'w') as f:
             formatted = pprint.pformat(info, indent=2, width=200)
             f.write(formatted + '\n')  # write using pformat
+        print('  BOM Count: ' + str(len(info['comps'])) + ' (ABC Check)')
         print('  Done\n')
 # end of main loop
 
