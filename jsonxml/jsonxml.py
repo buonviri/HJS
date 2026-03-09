@@ -18,16 +18,24 @@ if os.name == 'nt':  # clipboard generally only works in windows
 
 
 def display_all_levels(element, level=0):
-    """Recursively display an element and its children with indentation."""
-    # Print the element tag with appropriate indentation to show its level
-    print(' ' * level + element.tag.split('}')[-1], end='')
-    
-    # Optionally, print attributes and text
+
+    printme = 0
+    if element.text and "R111" in element.text:
+        printme = 1
     if element.attrib:
-        print(f" (attributes: {element.attrib})", end='')
-    if element.text and element.text.strip():
-        print(f" (text: {element.text.strip()})", end='')
-    print()
+        for a in element.attrib:
+            if "R111" in a:
+                printme = 1
+    if printme:
+        # Print the element tag with appropriate indentation to show its level
+        print(' ' * level + element.tag.split('}')[-1], end='')
+    
+        # Optionally, print attributes and text
+        if element.attrib:
+            print(f" (attributes: {element.attrib})", end='')
+        if element.text and element.text.strip():
+            print(f" (text: {element.text.strip()})", end='')
+        print()
 
     # Recurse through all child elements
     for child in element:
