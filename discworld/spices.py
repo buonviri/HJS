@@ -94,7 +94,10 @@ for k in required:
     missing = missing + ' ' + k
 if len(missing) == 8:  # nothing was appended
     missing = missing + ' none'
+
 tee(missing)
+tee('')
+tee('Reminder: grind stolen coriander packets')
 tee('')
 
 os.system("PAUSE")
