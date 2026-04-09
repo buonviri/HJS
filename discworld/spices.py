@@ -83,7 +83,7 @@ for f in filtered:
         pass  # prevent next line from triggering if QTY is 20+
     elif ('one handful' in f or 'two handfuls' in f or 'three handfuls' in f or 'four handfuls' in f or
           'five handfuls' in f or 'six handfuls' in f or 'seven handfuls' in f or 'eight handfuls' in f or
-          'nine handfuls' in f):
+          'nine handfuls' in f or 'ten handfuls' in f or 'eleven handfuls' in f or 'twelve handfuls' in f):
         tee('Warning: ' + f[6:-26])  # remove leading 'about' and trailing 'wardrobe'
     for k in required:
         if k in f:
