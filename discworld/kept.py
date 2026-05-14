@@ -14,6 +14,7 @@ required = {
     # 'wepfive': 0,  # avec
     'thiefcoat':0,  # sailing coat
     'badgelicense': 0,
+    'roguesbadge': 0,
     'ribbon charm bracelet': 0,
     'mybeads': 0,
     'medicine bag': 0,
@@ -24,6 +25,7 @@ required = {
     'ssc': 0,
     'permalight': 0,
     'thiefthong': 0,  # sailing lingerie
+    'thiefmirror': 0,  # boxing ring safe-cracking item
     'dhbaton': 0,
     'rpbaton': 0,
     'dhdrum': 0,  # buckler
