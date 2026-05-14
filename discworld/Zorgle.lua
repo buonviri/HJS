@@ -159,6 +159,11 @@ for key, value in pairs(t) do
          value = "" -- suppress string
          ending = "" -- don't add CRLF
          short_list = short_list .. " BAN[" .. numeral[n] .. "]"
+      elseif tail == "red cloth" then -- special case, strips
+         n = value:match("^(%S+)") -- get first word
+         value = "" -- suppress string
+         ending = "" -- don't add CRLF
+         short_list = short_list .. " BAN[" .. numeral[n] .. "]"
       end
       if itemcount < maxcount then -- set max lines
 --       if string.sub(value,0,4) == "five" or string.sub(value,0,3) == "six" or string.sub(value,0,4) == "some" or string.sub(value,0,5) == "seven" or string.sub(value,0,8) == "one pint" or string.sub(value,0,9) == "two pints" then
