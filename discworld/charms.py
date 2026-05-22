@@ -28,8 +28,10 @@ required = {
     'dhfiligree': 0,       # Filigree
     'dhzzz': 0,            # Zzz
     'dhleg': 0,            # inside leg?
-     # unused:
-    'gold swamp dragon charm (keeping) is in': 0,
+    'dh000': 0,            # holy wood shop
+    'dhbptwo': 0,          # BP store
+    # unused:
+    # 'gold swamp dragon charm (keeping) is in': 0,
     'gold raven charm (keeping) is in': 0,
     'gold yeti charm (keeping) is in': 0,
     'gold jackal charm (keeping) is in': 0,
@@ -40,7 +42,7 @@ required = {
     'gold scorpion charm (keeping) is in': 0,
     'gold fishing rod charm (keeping) is in': 0,
     'gold new moon charm (keeping) is in': 0,
-    'gold scarf charm (keeping) is in': 0,
+    # 'gold scarf charm (keeping) is in': 0,
     'fake charm': 0,       # THE END
 }
 
