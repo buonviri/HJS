@@ -30,11 +30,12 @@ required = {
     'dhleg': 0,            # inside leg?
     'dh000': 0,            # holy wood shop
     'dhbptwo': 0,          # BP store
+    'dhbarb': 0,           # barbarian camp for push-up breastplate (dhu)
     # unused:
     # 'gold swamp dragon charm (keeping) is in': 0,
     'gold raven charm (keeping) is in': 0,
     'gold yeti charm (keeping) is in': 0,
-    'gold jackal charm (keeping) is in': 0,
+    # 'gold jackal charm (keeping) is in': 0,
     'gold lamb charm (keeping) is in': 0,
     'gold needle charm (keeping) is in': 0,
     'gold black widow spider charm (keeping) is in': 0,
@@ -52,7 +53,10 @@ for raw in kept:
     line = raw.strip()
     for k in required:
         if k in line:
-            print('  ' + k)  # indent
+            if len(k) < 8:  # concatenate shorter ones
+                print('  ' + k, end="")  # indent
+            else:
+                print('  ' + k)  # indent and newline
             mismatch = False
             del required[k]
             break
