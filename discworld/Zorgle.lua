@@ -203,6 +203,26 @@ print(formatted_list)
 
 end
 
+function printmyroute(a)
+
+-- This function gets called for minimap route
+
+-- needed for Quow interface
+require "json"
+
+-- print info directly to game window
+print("   " .. a)
+
+-- generate fake chat message
+sForQuow = "Route: "..a
+
+routeStyles = {[1] = {["textcolour"] = 16744448, ["backcolour"] = 0, ["text"] = sForQuow, ["length"] = string.len(sForQuow)}}
+
+-- send to comms plugin
+CallPlugin ("bfe35205f026786ea1d56e3b", "HandleExternalComms", json.encode({"Tells_In", sForQuow, routeStyles}))
+
+end
+
 function printmyjob(a,b,c)
 
 -- This function gets called for jobs such as:
@@ -220,7 +240,7 @@ print("   " .. c)
 -- generate fake chat message
 sForQuow = "Deliver \""..a.."\" to "..b.." ("..c..")"
 
- -- ColourNameToRGB("cornflowerblue") and royal weren't quite right, used Custom Color 5 from mushclient, click on Lua button to code decimal value
+-- ColourNameToRGB("cornflowerblue") and royal weren't quite right, used Custom Color 5 from mushclient, click on Lua button to code decimal value
 jobStyles = {[1] = {["textcolour"] = 16744448, ["backcolour"] = 0, ["text"] = sForQuow, ["length"] = string.len(sForQuow)}}
 
 -- send to comms plugin
