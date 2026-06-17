@@ -31,15 +31,17 @@ required = {
     'dh000': 0,            # holy wood shop
     'dhbptwo': 0,          # BP store
     'dhbarb': 0,           # barbarian camp for push-up breastplate (dhu)
+    'dhshimmer': 0,        # shimmering bodysuit
+    'dhbadge': 0,          # small badge
     # unused:
     # 'gold swamp dragon charm (keeping) is in': 0,
-    'gold raven charm (keeping) is in': 0,
+    # 'gold raven charm (keeping) is in': 0,
     'gold yeti charm (keeping) is in': 0,
     # 'gold jackal charm (keeping) is in': 0,
     'gold lamb charm (keeping) is in': 0,
     'gold needle charm (keeping) is in': 0,
     'gold black widow spider charm (keeping) is in': 0,
-    'gold sailor charm (keeping) is in': 0,
+    # 'gold sailor charm (keeping) is in': 0,
     'gold scorpion charm (keeping) is in': 0,
     'gold fishing rod charm (keeping) is in': 0,
     'gold new moon charm (keeping) is in': 0,
