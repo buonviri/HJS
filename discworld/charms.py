@@ -33,10 +33,11 @@ required = {
     'dhbarb': 0,           # barbarian camp for push-up breastplate (dhu)
     'dhshimmer': 0,        # shimmering bodysuit
     'dhbadge': 0,          # small badge
+    'treecharm': 0,        # sto lat, event tree
     # unused:
     # 'gold swamp dragon charm (keeping) is in': 0,
     # 'gold raven charm (keeping) is in': 0,
-    'gold yeti charm (keeping) is in': 0,
+    # 'gold yeti charm (keeping) is in': 0,
     # 'gold jackal charm (keeping) is in': 0,
     'gold lamb charm (keeping) is in': 0,
     'gold needle charm (keeping) is in': 0,
