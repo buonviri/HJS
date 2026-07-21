@@ -66,6 +66,7 @@ short =
    ["a black sailcloth shoulder bag"]      = "BAG",
    ["a turnip sack"]                       = "BAG",
    ["a black bear fur-lined hat"]          = "OLD",
+   ["a Bes Pelargic arms permit"]          = "BPA",
    ["a midnight black latex catsuit"]      = "CAT",
    ["a Thieves' Guild Licence"]            = "LIC",
    ["a deerskin Thieves' Guild licence"]   = "LIC",
